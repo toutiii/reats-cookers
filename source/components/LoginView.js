@@ -72,6 +72,7 @@ export default class LoginView extends Component {
                     }
                     placeholder='Your password'
                     placeholderTextColor='white'
+                    secureTextEntry={true}
                     onChangeText={pwd => this.setState({pwd})}
                     onFocus={ this.onFocusPwdChange }
                     onBlur={ this.onBlurPwdChange }
