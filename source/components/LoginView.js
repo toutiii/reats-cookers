@@ -15,7 +15,7 @@ export default class LoginView extends Component {
             isEmailFocused: false,
             isPwdFocused: false,
             appearance: Appearance.getColorScheme(),
-            textInputBorderColor: ''
+            textInputBorderColor: '#ffd700'
         }
         this.colors = ['red', 'yellow', 'green']
         this.colors = this.colors.sort(() => 0.5 - Math.random())
@@ -23,14 +23,12 @@ export default class LoginView extends Component {
     }
     onFocusEmailChange = () => {
         this.setState({ isEmailFocused: true });
-        this.setState({ textInputBorderColor: this.appearance === 'dark' ? 'green': 'yellow' });
     }
     onFocusPwdChange = () => {
         this.setState({ isPwdFocused: true });
     }
     onBlurEmailChange = () => {
         this.setState({ isEmailFocused: false });
-        this.setState({ textInputBorderColor: this.appearance === 'dark' ? 'green': 'yellow' });
     }
     onBlurPwdChange = () => {
         this.setState({isPwdFocused: false});
