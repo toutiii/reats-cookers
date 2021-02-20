@@ -34,8 +34,6 @@ export default class LoginView extends Component {
         this.setState({isPwdFocused: false});
     }
     render() {
-        console.log(this.state.appearance)
-        console.log(this.state.textInputBorderColor)
         const first_image = this.images_keys[0]
         return (
             <LinearGradient
