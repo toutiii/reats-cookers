@@ -1,89 +1,125 @@
-import React, { Component } from 'react';
-import { Alert, Image, Text, TextInput, TouchableOpacity } from 'react-native';
-import { Appearance } from 'react-native-appearance'
+import React, {Component} from 'react';
+import {Alert, Image, Switch, Text, View} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import all_constants from '../constants'
-import styles from '../styles/styles-login-view.js'
+import styles from '../styles/styles.js'
+import Input from '../components/Input.js'
+import CustomButton from '../button/CustomButton.js'
 
 
 export default class LoginView extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.state = {
             email: '',
-            pwd: '',
+            password: '',
             isEmailFocused: false,
-            isPwdFocused: false,
-            appearance: Appearance.getColorScheme(),
-            textInputBorderColor: '#ffd700'
+            isPasswordFocused: false,
+            showPassword: true,
         }
-        this.colors = ['red', 'yellow', 'green']
-        this.colors = this.colors.sort(() => 0.5 - Math.random())
+        this.colors = all_constants.colors.login_background_color
         this.images_keys = Object.keys(all_constants.stars_images).sort(() => 0.5 - Math.random())
+        this.first_image = this.images_keys[0]
+        this.random_colors = this.colors.sort(() => 0.5 - Math.random())
+        this.is_yellow_second = (this.random_colors[1] === 'yellow')  // When the second color is yellow, some text are barely visible.
     }
-    onFocusEmailChange = () => {
-        this.setState({ isEmailFocused: true });
+    onFocusEmail = () => {
+        this.setState({isEmailFocused: true})
     }
-    onFocusPwdChange = () => {
-        this.setState({ isPwdFocused: true });
+    onBlurEmail = () => {
+        this.setState({isEmailFocused: false})
     }
-    onBlurEmailChange = () => {
-        this.setState({ isEmailFocused: false });
+    onFocusPassword = () => {
+        this.setState({isPasswordFocused: true})
     }
-    onBlurPwdChange = () => {
-        this.setState({isPwdFocused: false});
+    onBlurPassword = () => {
+        this.setState({isPasswordFocused: false})
     }
-    render() {
-        const first_image = this.images_keys[0]
+    toggleSwitch = () => {
+        this.setState({ showPassword: ! this.state.showPassword });
+    }
+    onSubmitForgotPassword = () => {
+        Alert.alert('Error', 'Forgot password !')
+    }
+    onSubmit = () => {
+        if (this.state.email === '') {
+            Alert.alert(
+                all_constants.messages.errors.title,
+                all_constants.messages.errors.empty_email)
+        }
+        else if (this.state.email !== '' & ! all_constants.email.regex.test(this.state.email)) {
+            Alert.alert(
+                all_constants.messages.errors.title,
+                all_constants.messages.errors.wrong_email_format)
+        }
+        else if (this.state.password === '') {
+            Alert.alert(
+                all_constants.messages.errors.title,
+                all_constants.messages.errors.empty_password)
+        }
+        else {
+            console.log(this.state)
+        }
+    }
+    render () {
         return (
             <LinearGradient
-                colors={this.colors}
-                style={styles.background}
+                colors={this.random_colors}
+                style={[styles.background]}
             >
                 <Image
                     style={styles.star}
-                    source={all_constants.stars_images[first_image]}
+                    source={all_constants.stars_images[this.first_image]}
                 />
                 <Text style={styles.welcome_text}>
                     Welcome on Afro Eats !
                 </Text>
-                <TextInput
-                    style={
-                        [
-                            styles.text_input, styles.text_input_email_top,
-                            { fontStyle: this.state.email ? 'normal' : 'italic'},
-                            { borderColor: this.state.isEmailFocused ? this.state.textInputBorderColor : 'white'},
-                        ]
-                    }
-                    placeholder='Your Email'
+                <Input
+                    placeholder="Email"
                     placeholderTextColor='white'
+                    icon_uri='https://pics.freeicons.io/uploads/icons/png/20576625201554892219-512.png'
+                    onFocus={this.onFocusEmail}
+                    onBlur={this.onBlurEmail}
                     onChangeText={email => this.setState({email})}
-                    onFocus={ this.onFocusEmailChange }
-                    onBlur={ this.onBlurEmailChange }
+                    focus={this.state.isEmailFocused}
                     value={this.state.email}
                 />
-                <TextInput
-                    style={
-                        [
-                            styles.text_input, styles.text_input_pwd_top,
-                            { fontStyle: this.state.pwd ? 'normal' : 'italic'},
-                            { borderColor: this.state.isPwdFocused ? this.state.textInputBorderColor : 'white'},
-                        ]
-                    }
-                    placeholder='Your password'
+                <Input
+                    placeholder="Password"
                     placeholderTextColor='white'
-                    secureTextEntry={true}
-                    onChangeText={pwd => this.setState({pwd})}
-                    onFocus={ this.onFocusPwdChange }
-                    onBlur={ this.onBlurPwdChange }
-                    value={this.state.pwd}
+                    icon_uri='https://pics.freeicons.io/uploads/icons/png/3195670751578982974-512.png'
+                    onFocus={this.onFocusPassword}
+                    onBlur={this.onBlurPassword}
+                    onChangeText={password => this.setState({password})}
+                    focus={this.state.isPasswordFocused}
+                    secureTextEntry={this.state.showPassword}
+                    value={this.state.password}
                 />
-                <TouchableOpacity
-                    style={styles.login_button}
-                    onPress={() => Alert.alert('ZA WARUUDO !')}
-                >
-                    <Text style={{ fontSize: 17 }}> CONNEXION </Text>
-                </TouchableOpacity>
+                <Switch
+                    style={{top: -177, left: all_constants.screen.width-235}}
+                    onValueChange={this.toggleSwitch}
+                    value={!this.state.showPassword}
+                />
+                <CustomButton
+                    label={all_constants.messages.login}
+                    height={50}
+                    top={-110}
+                    border_width={3}
+                    border_radius={30}
+                    font_size={17}
+                    label_color={this.is_yellow_second ? 'black' : 'white'}
+                    onPress={this.onSubmit}
+                />
+                <CustomButton
+                    label={all_constants.messages.errors.forgot_password}
+                    height={35}
+                    top={-70}
+                    border_width={3}
+                    border_radius={30}
+                    font_size={14}
+                    label_color={this.is_yellow_second ? 'black' : 'white'}
+                    onPress={this.onSubmitForgotPassword}
+                />
             </LinearGradient>
         )
     }
