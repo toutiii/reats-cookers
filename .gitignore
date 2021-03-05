@@ -4,3 +4,4 @@ source/babel.config.js
 source/node_modules/*
 source/.expo/
 source/.idea/
+source/images/*_test.*
