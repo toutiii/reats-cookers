@@ -2,21 +2,14 @@ import { StyleSheet } from "react-native";
 import all_constants from "../constants";
 
 
-export default StyleSheet.create({
-    text_input_email_top: {
-        top: 250,
-    },
-    text_input_pwd_top: {
-        top: 310,
-    },
+let styles;
+export default styles = StyleSheet.create({
     text_input: {
+        top: -130,
         height: 50,
-        marginHorizontal: 10,
-        marginVertical: 5,
         width: all_constants.screen.width - 30,
         textAlign: 'center',
         borderWidth: 1,
-        position: 'absolute',
         fontSize: 15,
         color: 'white',
         borderRadius: 20
@@ -31,7 +24,7 @@ export default StyleSheet.create({
     },
     star: {
         position: 'absolute',
-        top: 60,
+        top: 40,
         width: 150,
         height: 150,
     },
@@ -39,17 +32,23 @@ export default StyleSheet.create({
         position: 'absolute',
         color: 'white',
         fontSize: 20,
-        top: 210
-
+        top: 180
     },
     login_button: {
         width:all_constants.screen.width - 30,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 3,
-        height: 50,
-        position: 'absolute',
-        top: 400,
-        borderRadius: 20,
-    }
+    },
+    forgot_password_button: {
+        width:all_constants.screen.width - 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    image_style: {
+        top: -85,
+        left: 15,
+        padding: 10,
+        height: 23,
+        width: 23,
+    },
 });
