@@ -48,7 +48,10 @@ export const all_constants = {
             online_alert: 'You are online now and you can receive orders.',
             offline_alert: 'You are offline so users will not be able to send you orders.'
         },
-    }
+    },
+    uri: {
+        rating_star: 'https://starpng.com/public/uploads/preview/yellow-star-transparent-background-png-101577029288c5hv8odvjm.png',
+    },
 }
 
 export default all_constants
