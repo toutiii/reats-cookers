@@ -3,6 +3,7 @@ import {Image, Text, TouchableHighlight, View} from "react-native";
 import styles_dish from '../styles/styles-dish'
 import all_constants from "../constants";
 import {useColorScheme} from 'react-native-appearance';
+import HorizontalLine from "./HorizontalLine";
 
 
 export default function Dish({...props}) {
@@ -41,12 +42,7 @@ export default function Dish({...props}) {
                     </View>
                 </View>
             </TouchableHighlight>
-            <View
-                style={{
-                    borderBottomColor: 'black',
-                    borderBottomWidth: 1,
-                }}
-            />
+           <HorizontalLine/>
         </View>
 
     )
