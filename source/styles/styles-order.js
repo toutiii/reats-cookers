@@ -1,0 +1,27 @@
+import {StyleSheet} from "react-native";
+import React from "react";
+
+let styles_order;
+
+export default styles_order = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop: '25%',
+        marginBottom: '20%',
+        justifyContent: 'center',
+    },
+    order_container: {
+        flex: 1,
+        margin: '2%',
+        borderWidth: 2,
+    },
+    order_number: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    order_element: {
+        flex: 1,
+        paddingLeft: '1%',
+    },
+})
