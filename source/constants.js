@@ -52,6 +52,23 @@ export const all_constants = {
     uri: {
         rating_star: 'https://starpng.com/public/uploads/preview/yellow-star-transparent-background-png-101577029288c5hv8odvjm.png',
     },
+    order:{
+        infos: {
+            number: 'Commande N°',
+            status: 'Statut:',
+            owner: 'Passée par',
+            amount: 'Cette commande vous rapporte',
+            number_of_items: 'Nombre de plats:',
+            ordered_label: 'le',
+            canceled_label: 'Commande annulée le',
+            delivered_label: 'Commande livrée le',
+        },
+        status:{
+            canceled: 'Annulée',
+            delivered: 'Livrée',
+
+        }
+    }
 }
 
 export default all_constants
