@@ -2,7 +2,7 @@ import {Image, StyleSheet} from "react-native";
 import React from "react";
 
 let styles_dish;
-export default styles_dish=StyleSheet.create({
+export default styles_dish = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: '25%',
