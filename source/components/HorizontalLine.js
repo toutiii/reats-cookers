@@ -1,16 +1,11 @@
-import React, {Component} from "react";
+import React from "react";
 import {View} from "react-native";
 
 
-export default class HorizontalLine extends Component {
-    render () {
-        return (
-            <View
-                style={{
-                    borderBottomColor: 'black',
-                    borderBottomWidth: 1,
-                }}
-            />
-        )
-    }
+export default function HorizontalLine({...props}){
+    return (
+        <View
+            style={{borderBottomWidth: props.line_width ? props.line_width : 1}}
+        />
+    )
 }
