@@ -1,55 +1,48 @@
-import React from "react";
-import {Text, TouchableHighlight, View} from "react-native";
-import styles_order from '../styles/styles-order.js'
+import {Text, View} from "react-native";
+import styles_order from "../styles/styles-order";
 import all_constants from "../constants";
+import React from "react";
+import HorizontalLine from "./HorizontalLine";
 
 
 export default function Order({...props}) {
-    return (
-        <View style={
-            [
-                styles_order.order_container,
-                {borderColor: props.order_status === all_constants.order.status.canceled ? 'red': 'green'}
-            ]}>
-            <TouchableHighlight
-                onPress={props.onPress}
-                style={{flex: 1}}
-                underlayColor={all_constants.colors.inputBorderColor}
-            >
-                <View style={{flex: 1,}}>
-                    <View style={styles_order.order_number}>
-                        <Text style={{fontSize: 22,}}>{all_constants.order.infos.number} {props.order_number} </Text>
-                    </View>
+    return(
+        <View style={{flex: 1,}}>
+            <View style={styles_order.order_number}>
+                <Text style={{fontSize: 26,}}>{all_constants.order.infos.number} {props.order_number} </Text>
+            </View>
+            <View style={{flex: 1}}>
+                <HorizontalLine
+                    line_width={3}
+                />
+            </View>
+            <View style={styles_order.order_element}>
+                <Text style={{fontSize: 16,}}>{all_constants.order.infos.owner} {props.order_owner} {all_constants.order.infos.ordered_label} {props.order_date} </Text>
+            </View>
+            {
+                props.order_status === all_constants.order.status.delivered ?
                     <View style={styles_order.order_element}>
-                        <Text style={{fontSize: 16,}}>{all_constants.order.infos.owner} {props.order_owner} {all_constants.order.infos.ordered_label} {props.order_date} </Text>
+                        <Text style={{fontSize: 16,}}>{all_constants.order.infos.delivered_label} {props.order_delivery_date} </Text>
                     </View>
-                    {
-                        props.order_status === all_constants.order.status.delivered ?
-                            <View style={styles_order.order_element}>
-                                <Text style={{fontSize: 16,}}>{all_constants.order.infos.delivered_label} {props.order_delivery_date} </Text>
-                            </View>
-                            :
-                            <View style={styles_order.order_element}>
-                                <Text style={{fontSize: 16,}}>{all_constants.order.infos.status} {props.order_status} </Text>
-                            </View>
-                    }
-                    {
-                        props.order_status === all_constants.order.status.canceled ?
-                            <View style={styles_order.order_element}>
-                                <Text style={{fontSize: 16, color: 'red'}}>{all_constants.order.infos.canceled_label} {props.order_cancel_date} </Text>
-                            </View>
-                            :
-                            <View></View>
-                    }
+                    :
                     <View style={styles_order.order_element}>
-                        <Text style={{fontSize: 16,}}>{all_constants.order.infos.amount} {props.order_amount} </Text>
+                        <Text style={{fontSize: 16,}}>{all_constants.order.infos.status} {props.order_status} </Text>
                     </View>
+            }
+            {
+                props.order_status === all_constants.order.status.canceled ?
                     <View style={styles_order.order_element}>
-                        <Text style={{fontSize: 16,}}>{all_constants.order.infos.number_of_items} {props.order_number_of_items} </Text>
+                        <Text style={{fontSize: 16, color: 'red'}}>{all_constants.order.infos.canceled_label} {props.order_cancel_date} </Text>
                     </View>
-                </View>
-            </TouchableHighlight>
+                    :
+                    <View></View>
+            }
+            <View style={styles_order.order_element}>
+                <Text style={{fontSize: 16,}}>{all_constants.order.infos.amount} {props.order_amount} </Text>
+            </View>
+            <View style={styles_order.order_element}>
+                <Text style={{fontSize: 16,}}>{all_constants.order.infos.number_of_items} {props.order_number_of_items} </Text>
+            </View>
         </View>
-
     )
 }
