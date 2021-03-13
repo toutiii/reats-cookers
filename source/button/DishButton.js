@@ -2,12 +2,9 @@ import React from "react";
 import {TouchableHighlight, View} from "react-native";
 import styles_dish from '../styles/styles-dish'
 import all_constants from "../constants";
-import {useColorScheme} from 'react-native-appearance';
-import HorizontalLine from "./HorizontalLine";
 
 
-export default function Dish({...props}) {
-    const colorScheme = useColorScheme();
+export default function DishButton({...props}) {
     return (
         <View style={styles_dish.dish_container}>
             <TouchableHighlight
