@@ -6,7 +6,7 @@ import all_constants from "../constants";
 
 export default function DishButton({...props}) {
     return (
-        <View style={styles_dish.dish_container}>
+        <View style={styles_dish.dish_button_container}>
             <TouchableHighlight
                 onPress={props.onPress}
                 style={{flex: 1}}
