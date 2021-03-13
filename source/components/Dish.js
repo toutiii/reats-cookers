@@ -31,9 +31,6 @@ export default function Dish ({...props}) {
                     </View>
                 </View>
             </View>
-            <View style={{flex: 1}}>
-                <HorizontalLine/>
-            </View>
         </View>
     )
 }

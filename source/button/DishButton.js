@@ -2,6 +2,7 @@ import React from "react";
 import {TouchableHighlight, View} from "react-native";
 import styles_dish from '../styles/styles-dish'
 import all_constants from "../constants";
+import HorizontalLine from "../components/HorizontalLine";
 
 
 export default function DishButton({...props}) {
@@ -22,7 +23,7 @@ export default function DishButton({...props}) {
                     onPress={this.onPress}
                 />
             </TouchableHighlight>
-           <HorizontalLine/>
+            <HorizontalLine/>
         </View>
 
     )
