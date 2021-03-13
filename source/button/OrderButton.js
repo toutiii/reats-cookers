@@ -7,11 +7,7 @@ import Order from "../components/Order"
 
 export default function OrderButton({...props}) {
     return (
-        <View style={
-            [
-                styles_order.order_container,
-                {borderColor: props.order_status === all_constants.order.status.canceled ? 'red': 'green'}
-            ]}>
+        <View style={styles_order.order_container}>
             <TouchableHighlight
                 onPress={props.onPress}
                 style={{flex: 1}}
