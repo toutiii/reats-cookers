@@ -3,6 +3,7 @@ import {TouchableHighlight, View} from "react-native";
 import styles_dish from '../styles/styles-dish'
 import all_constants from "../constants";
 import HorizontalLine from "../components/HorizontalLine";
+import Dish from "../components/Dish";
 
 
 export default function DishButton({...props}) {
@@ -14,13 +15,13 @@ export default function DishButton({...props}) {
                 underlayColor={all_constants.colors.inputBorderColor}
             >
                 <Dish
-                    dish_photo={this.getDishPhoto()}
-                    dish_name={this.getDishName()}
-                    dish_category={this.getDishCategory()}
-                    dish_rating={this.getDishRating()}
-                    dish_price={this.getDishPrice()}
-                    dish_description={this.getDishDescription()}
-                    onPress={this.onPress}
+                    dish_photo={props.dish_photo}
+                    dish_name={props.dish_name}
+                    dish_category={props.dish_category}
+                    dish_rating={props.dish_rating}
+                    dish_price={props.dish_price}
+                    dish_description={props.dish_description}
+                    onPress={props.onPress}
                 />
             </TouchableHighlight>
             <HorizontalLine/>
