@@ -7,14 +7,16 @@ export default styles_dish = StyleSheet.create({
         flex: 1,
         marginTop: '25%',
         marginBottom: '20%',
-        justifyContent: 'center',
+        alignItems: 'center',
+
     },
     dish_button_container: {
         flex: 1,
-        margin: '2%',
+        aspectRatio: 16/9,
+        marginBottom: '3%',
     },
     images: {
-        aspectRatio: 9/3,
+        flex: 1,
     },
     dish_infos:{
         flex: 1,
@@ -27,7 +29,7 @@ export default styles_dish = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-        marginTop: '3%',
+        marginTop: '5%',
     },
     dish_name:{
         flex: 1,
