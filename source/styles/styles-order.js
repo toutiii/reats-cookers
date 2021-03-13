@@ -10,7 +10,7 @@ export default styles_order = StyleSheet.create({
         marginBottom: '20%',
         justifyContent: 'center',
     },
-    order_container: {
+    order_button_container: {
         flex: 1,
         margin: '2%',
         borderWidth: 2,

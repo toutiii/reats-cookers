@@ -7,7 +7,7 @@ import Order from "../components/Order"
 
 export default function OrderButton({...props}) {
     return (
-        <View style={styles_order.order_container}>
+        <View style={styles_order.order_button_container}>
             <TouchableHighlight
                 onPress={props.onPress}
                 style={{flex: 1}}
