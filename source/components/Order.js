@@ -12,10 +12,10 @@ export default function Order({...props}) {
                 <Text style={{fontSize: 26,}}>{all_constants.order.infos.number} {props.order_number} </Text>
             </View>
             {
-                props.use_horizontal_line ?
+                props.use_horizontal_line && props.line_width ?
                     <View style={{flex: 1}}>
                         <HorizontalLine
-                            line_width={3}
+                            line_width={props.line_width}
                         />
                     </View>
                     :
