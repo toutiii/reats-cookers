@@ -13,7 +13,6 @@ export default styles_order = StyleSheet.create({
     order_button_container: {
         flex: 1,
         margin: '2%',
-        borderWidth: 2,
     },
     order_number: {
         flex: 1,
