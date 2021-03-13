@@ -22,6 +22,7 @@ export default function OrderButton({...props}) {
                     order_date={props.order_date}
                     order_cancel_date={props.order_cancel_date}
                     order_delivery_date={props.order_delivery_date}
+                    use_horizontal_line={false}
                 />
             </TouchableHighlight>
         </View>

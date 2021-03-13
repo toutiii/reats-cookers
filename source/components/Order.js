@@ -11,11 +11,16 @@ export default function Order({...props}) {
             <View style={styles_order.order_number}>
                 <Text style={{fontSize: 26,}}>{all_constants.order.infos.number} {props.order_number} </Text>
             </View>
-            <View style={{flex: 1}}>
-                <HorizontalLine
-                    line_width={3}
-                />
-            </View>
+            {
+                props.use_horizontal_line ?
+                    <View style={{flex: 1}}>
+                        <HorizontalLine
+                            line_width={3}
+                        />
+                    </View>
+                    :
+                    <View style={{flex: 1}}></View>
+            }
             <View style={styles_order.order_element}>
                 <Text style={{fontSize: 16,}}>{all_constants.order.infos.owner} {props.order_owner} {all_constants.order.infos.ordered_label} {props.order_date} </Text>
             </View>
