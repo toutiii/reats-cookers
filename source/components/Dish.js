@@ -2,19 +2,18 @@ import {Image, Text, View} from "react-native";
 import styles_dish from "../styles/styles-dish";
 import all_constants from "../constants";
 import React from "react";
-import HorizontalLine from "./HorizontalLine";
 
 
 export default function Dish ({...props}) {
     return(
-        <View style={{flex: 1,}}>
+        <View style={{flex: 1}}>
+            <View style={{flex: 2,}}>
+                <Image
+                    source={{uri: props.dish_photo}}
+                    style={styles_dish.images}
+                />
+            </View>
             <View style={{flex: 1,}}>
-                <View style={{flex: 2,}}>
-                    <Image
-                        source={{uri: props.dish_photo}}
-                        style={styles_dish.images}
-                    />
-                </View>
                 <View style={{flex: 1}}>
                     <View style={styles_dish.dish_price}>
                         <Text style={{fontSize: 20}}> {props.dish_price} </Text>
