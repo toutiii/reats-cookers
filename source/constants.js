@@ -56,6 +56,9 @@ export const all_constants = {
     uri: {
         rating_star: 'https://starpng.com/public/uploads/preview/yellow-star-transparent-background-png-101577029288c5hv8odvjm.png',
     },
+    dishes: {
+        no_dishes_found: 'No dishes found.'
+    },
     order:{
         infos: {
             number: 'Commande N°',
@@ -73,7 +76,8 @@ export const all_constants = {
             canceled: 'Annulée',
             delivered: 'Livrée',
 
-        }
+        },
+        no_order_found: 'No orders found.',
     },
     modal:{
         dish_modal :{
