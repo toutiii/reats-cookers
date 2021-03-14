@@ -1,5 +1,5 @@
 import React from "react";
-import {FlatList, TouchableHighlight, View} from "react-native";
+import {FlatList, Text, TouchableHighlight, View} from "react-native";
 import styles_dish from '../styles/styles-dish'
 import all_constants from "../constants";
 import HorizontalLine from "../components/HorizontalLine";
@@ -10,7 +10,9 @@ export default function DishButton({...props}) {
     return (
         <View>
             <FlatList
-                data={props.dish_list_data}
+                ListEmptyComponent={
+                    <View><Text style={{fontSize: 20}}>{all_constants.dishes.no_dishes_found}</Text></View>
+                }
                 renderItem={({item}) => (
                     <View style={styles_dish.dish_button_container}>
                         <TouchableHighlight

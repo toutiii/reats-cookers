@@ -1,5 +1,5 @@
 import React from "react";
-import {FlatList, TouchableHighlight, View} from "react-native";
+import {FlatList, Text, TouchableHighlight, View} from "react-native";
 import styles_order from '../styles/styles-order.js'
 import all_constants from "../constants";
 import Order from "../components/Order"
@@ -9,7 +9,9 @@ export default function OrderButton({...props}) {
     return (
         <View>
             <FlatList
-                data={props.order_list_data}
+                ListEmptyComponent={
+                    <View><Text style={{fontSize: 20}}>{all_constants.order.no_order_found}</Text></View>
+                }
                 renderItem={({item}) => (
                     <View style={styles_order.order_button_container}>
                         <TouchableHighlight
