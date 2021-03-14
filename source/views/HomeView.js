@@ -67,7 +67,10 @@ export default class HomeView extends Component {
                            style={{fontSize: 30, textAlign: 'left'}}>
                            {this.lastname + ' ' + this.firstname}
                        </Text>
-                        <Text style={{ fontSize: 17,color: 'grey', textAlign: 'left'}}>
+                        <Text
+                            numberOfLines={1}
+                            adjustsFontSizeToFit
+                            style={{ fontSize: 17,color: 'grey', textAlign: 'left'}}>
                             {this.email}
                         </Text>
                     </View>
