@@ -109,7 +109,7 @@ export default class HomeView extends Component {
                         </Text>
                     </View>
                     <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'center', fontSize: 20}}>
+                        <Text style={{textAlign: 'center', fontSize: 20, color: 'green'}}>
                             {this.paid_orders_count + '/' + this.max_paid_orders}
                         </Text>
                     </View>
@@ -127,7 +127,7 @@ export default class HomeView extends Component {
                         </Text>
                     </View>
                     <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'center', fontSize: 20}}>
+                        <Text style={{textAlign: 'center', fontSize: 20, color: 'red'}}>
                             {this.cancelled_orders_count}
                         </Text>
                     </View>
@@ -145,7 +145,7 @@ export default class HomeView extends Component {
                         </Text>
                     </View>
                     <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'center', fontSize: 20}}>
+                        <Text style={{textAlign: 'center', fontSize: 20, color: 'blue'}}>
                             {this.total_orders_count}
                         </Text>
                     </View>
