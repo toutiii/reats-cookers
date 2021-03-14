@@ -9,7 +9,7 @@ export default styles_home_view = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 50,
+        marginTop: '10%',
         marginBottom: 100
     },
     sub_container: {
