@@ -41,7 +41,7 @@ export default styles_home_view = StyleSheet.create({
     profile_pic: {
         flex: 1,
         aspectRatio: 1,
-        borderRadius: 50,
+        borderRadius: 100,
     },
    home_button: {
        flex: 1,
