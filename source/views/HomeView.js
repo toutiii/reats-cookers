@@ -53,7 +53,7 @@ export default class HomeView extends Component {
                         onPress={this.onTempSubmit}
                     />
                 </View>
-                <View style={[styles_home_view.sub_container, {flexDirection: 'row'}]}>
+                <View style={styles_home_view.sub_container}>
                     <View style={{justifyContent: 'space-between'}}>
                         <Image
                             source={require('../images/mum_test.jpg')}

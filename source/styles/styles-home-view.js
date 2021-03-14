@@ -19,6 +19,7 @@ export default styles_home_view = StyleSheet.create({
         marginTop: 3,
         width: '95%',
         borderRadius: 20,
+        flexDirection: 'row'
     },
     text:{
         fontSize: 20,
