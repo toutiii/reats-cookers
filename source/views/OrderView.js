@@ -6,7 +6,6 @@ import all_constants from "../constants";
 import Order from "../components/Order";
 import CustomButton from "../button/CustomButton";
 import DishModal from "../modals/DishModal";
-import DishForModal from "../components/DishForModal";
 
 export default class OrderView extends Component {
     constructor(props) {

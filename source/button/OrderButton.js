@@ -3,7 +3,6 @@ import {FlatList, TouchableHighlight, View} from "react-native";
 import styles_order from '../styles/styles-order.js'
 import all_constants from "../constants";
 import Order from "../components/Order"
-import HorizontalLine from "../components/HorizontalLine";
 
 
 export default function OrderButton({...props}) {
