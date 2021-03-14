@@ -10,7 +10,6 @@ export default styles_home_view = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: '10%',
-        marginBottom: 100
     },
     sub_container: {
         flex: 1,
