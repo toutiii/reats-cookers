@@ -10,6 +10,7 @@ export default function DishButton({...props}) {
     return (
         <View>
             <FlatList
+                data={props.dish_list_data}
                 ListEmptyComponent={
                     <View><Text style={{fontSize: 20}}>{all_constants.dishes.no_dishes_found}</Text></View>
                 }
