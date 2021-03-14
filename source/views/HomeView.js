@@ -54,7 +54,7 @@ export default class HomeView extends Component {
                     />
                 </View>
                 <View style={styles_home_view.sub_container}>
-                    <View style={{justifyContent: 'space-between'}}>
+                    <View style={{flex: 1}}>
                         <Image
                             source={require('../images/mum_test.jpg')}
                             style={styles_home_view.profile_pic}
