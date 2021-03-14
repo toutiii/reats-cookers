@@ -1,12 +1,55 @@
+import 'react-native-gesture-handler';
 import React, { Component } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance'
-import LoginView from "./components/LoginView";
+import DishListView from "./views/DishListView.js";
+import HomeView from "./views/HomeView";
+import OrderListView from "./views/OrderListView";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import BalanceView from "./views/BalanceView";
+import SettingsView from "./views/SettingsView";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+const Tab = createBottomTabNavigator();
 
 export default class App extends Component {
     render () {
         return (
             <AppearanceProvider>
-                <LoginView/>
+                <NavigationContainer>
+                    <Tab.Navigator
+                        initialRouteName="Home"
+                        screenOptions={({ route }) => ({
+                            tabBarIcon: ({ focused, color, size }) => {
+                                let iconName;
+
+                                if (route.name === 'Home') {
+                                    iconName = 'home-outline'
+                                } else if (route.name === 'Orders') {
+                                    iconName = 'basket-outline';
+                                } else if (route.name === 'Dishes') {
+                                    iconName = 'fast-food-outline';
+                                }else if (route.name === 'Balance') {
+                                    iconName = 'cash-outline';
+                                }else if (route.name === 'Settings') {
+                                    iconName = 'settings-outline';
+                                }
+                                // You can return any component that you like here!
+                                return <Ionicons name={iconName} size={size} color={color} />;
+                            },
+                        })}
+                        tabBarOptions={{
+                            activeTintColor: 'tomato',
+                            inactiveTintColor: 'gray',
+                        }}
+                    >
+                        <Tab.Screen name="Home" component={HomeView} />
+                        <Tab.Screen name="Orders" component={OrderListView} options={{ tabBarBadge: 3 }} />
+                        <Tab.Screen name="Dishes" component={DishListView} />
+                        <Tab.Screen name="Balance" component={BalanceView} />
+                        <Tab.Screen name="Settings" component={SettingsView} />
+                    </Tab.Navigator>
+                </NavigationContainer>
             </AppearanceProvider>
         )
     }
