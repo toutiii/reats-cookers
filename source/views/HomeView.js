@@ -53,7 +53,7 @@ export default class HomeView extends Component {
                         onPress={this.onTempSubmit}
                     />
                 </View>
-                <View style={styles_home_view.sub_container}>
+                <View style={[styles_home_view.sub_container, { marginTop: '15%'}]}>
                     <View style={{flex: 1, aspectRatio: 1}}>
                         <Image
                             source={require('../images/mum_test.jpg')}
@@ -72,7 +72,7 @@ export default class HomeView extends Component {
                         </Text>
                     </View>
                 </View>
-                <View style={styles_home_view.order_view_style}>
+                <View style={[styles_home_view.order_view_style, {marginTop: '10%'}]}>
                     <View style={{flex: 1}}>
                         <Image
                             source={{uri: this.state.is_online ? this.offline_icon_uri : this.online_icon_uri}}
