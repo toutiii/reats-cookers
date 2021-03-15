@@ -2,7 +2,6 @@ import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance'
-import DishListView from "./views/DishListView.js";
 import HomeView from "./views/HomeView";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import BalanceView from "./views/BalanceView";
