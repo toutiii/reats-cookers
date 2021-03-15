@@ -10,6 +10,8 @@ export default function OrderButton({...props}) {
         <View>
             <FlatList
                 data={props.order_list_data}
+                ListFooterComponent={<View></View>}
+                ListFooterComponentStyle={{borderWidth: 5, borderColor: 'red', borderRadius: 50}}
                 ListEmptyComponent={
                     <View><Text style={{fontSize: 20}}>{all_constants.order.no_order_found}</Text></View>
                 }
