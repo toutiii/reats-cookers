@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import PaidOrdersView from "../views/PaidOrdersView";
 import CanceledOrdersView from "../views/CanceledOrdersView";
 import HistoryOrdersView from "../views/HistoryOrdersView";
-import OrderListView from "../views/OrderListView";
+import OrderListView from "../listviews/OrderListView";
 
 const Tab = createMaterialTopTabNavigator();
 
