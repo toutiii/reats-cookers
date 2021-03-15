@@ -9,6 +9,7 @@ import BalanceView from "./views/BalanceView";
 import SettingsView from "./views/SettingsView";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import OrdersTab from "./tab/OrdersTab";
+import DishTab from "./tab/DishTab";
 
 const Tab = createBottomTabNavigator();
 
@@ -45,7 +46,7 @@ export default class App extends Component {
                     >
                         <Tab.Screen name="Home" component={HomeView} />
                         <Tab.Screen name="Orders" component={OrdersTab} options={{ tabBarBadge: 3 }} />
-                        <Tab.Screen name="Dishes" component={DishListView} />
+                        <Tab.Screen name="Dishes" component={DishTab} />
                         <Tab.Screen name="Balance" component={BalanceView} />
                         <Tab.Screen name="Settings" component={SettingsView} />
                     </Tab.Navigator>
