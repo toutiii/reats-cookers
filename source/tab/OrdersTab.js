@@ -18,7 +18,7 @@ export default function OrdersTab () {
                     fontSize: 12,
                 },
                 style: {
-                    marginTop: '10%'
+                    marginTop: '5%'
                 },
             }}
         >
