@@ -6,7 +6,6 @@ let styles_order;
 export default styles_order = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: '25%',
         alignItems: 'center',
     },
     order_button_container: {
