@@ -7,7 +7,7 @@ import OrderListView from "../views/OrderListView";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function OrderStack () {
+export default function OrdersTab () {
     return(
         <Tab.Navigator
             initialRouteName='Orders'
