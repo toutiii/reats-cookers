@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Alert, View} from "react-native";
 import OrderButton from "../button/OrderButton"
 import styles_order from "../styles/styles-order"
-import Order from "../components/Order";
 
 
 export default class OrderListView extends Component {
