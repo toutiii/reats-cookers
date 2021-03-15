@@ -6,7 +6,6 @@ export default styles_dish = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: '25%',
-        marginBottom: '20%',
         alignItems: 'center',
     },
     dish_button_container: {
