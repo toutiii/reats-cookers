@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Alert, View} from "react-native";
 import OrderButton from "../button/OrderButton"
 import styles_order from "../styles/styles-order"
+import all_constants from "../constants";
 
 
 export default class OrderListView extends Component {
@@ -98,6 +99,21 @@ export default class OrderListView extends Component {
             },
         ]
     }
+
+    getData = () => {
+        if (this.props.route.params.tag === all_constants.tag.orders.all) {
+            return this.order_list_data
+        }
+        else if (this.props.route.params.tag === all_constants.tag.orders.paid) {
+            return this.order_list_data
+        }
+        else if (this.props.route.params.tag === all_constants.tag.orders.canceled) {
+            return this.order_list_data
+        }
+        else if (this.props.route.params.tag === all_constants.tag.orders.history) {
+            return this.order_list_data
+        }
+    }
     onPress = () => {
         Alert.alert('ZA WARUDO')
     }
@@ -105,7 +121,7 @@ export default class OrderListView extends Component {
         return(
             <View style={styles_order.container}>
                 <OrderButton
-                    order_list_data={this.order_list_data}
+                    order_list_data={this.getData()}
                     onPress={this.onPress}
                 />
             </View>
