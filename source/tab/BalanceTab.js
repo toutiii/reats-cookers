@@ -1,12 +1,14 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import BalanceListView from "../listviews/BalanceListView";
+import all_constants from "../constants";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function BalanceTab () {
     return(
         <Tab.Navigator
-            initialRouteName='Incoming'
+            initialRouteName='PendingBalance'
             tabBarOptions={{
                 activeTintColor: 'tomato',
                 inactiveTintColor: 'grey',
@@ -18,8 +20,18 @@ export default function BalanceTab () {
                 },
             }}
         >
-            <Tab.Screen name="IncomingCash" component={IncomingCashListView} options={{ title: 'EN ATTENTE' }}/>
-            <Tab.Screen name="CashHistory" component={CashHistoryListView} options={{ title: 'HISTORIQUE' }} />
+            <Tab.Screen
+                name="PendingBalance"
+                component={BalanceListView}
+                options={{ title: 'EN ATTENTE' }}
+                initialParams={{tag: all_constants.tag.balance.pending}}
+            />
+            <Tab.Screen
+                name="HistoryBalance"
+                component={BalanceListView}
+                options={{ title: 'HISTORIQUE' }}
+                initialParams={{tag: all_constants.tag.balance.history}}
+            />
         </Tab.Navigator>
     )
 }
