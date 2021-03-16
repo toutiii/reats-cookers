@@ -57,7 +57,7 @@ export const all_constants = {
         rating_star: 'https://starpng.com/public/uploads/preview/yellow-star-transparent-background-png-101577029288c5hv8odvjm.png',
     },
     dishes: {
-        no_dishes_found: 'No dishes found.'
+        no_dishes_found: 'Aucun item trouvé.'
     },
     order:{
         infos: {
