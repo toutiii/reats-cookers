@@ -91,7 +91,13 @@ export const all_constants = {
             dish: 'dish',
             dessert: 'dessert',
             drink: 'drink'
-        }
+        },
+        orders: {
+            all: 'all',
+            paid: 'paid',
+            canceled: 'canceled',
+            history: 'history',
+        },
     }
 }
 
