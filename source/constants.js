@@ -98,6 +98,11 @@ export const all_constants = {
             canceled: 'canceled',
             history: 'history',
         },
+        balance: {
+            pending: 'pending',
+            history: 'history',
+        }
+    },
     }
 }
 
