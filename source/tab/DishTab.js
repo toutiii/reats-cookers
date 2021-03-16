@@ -1,9 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import DishListView from "../listviews/DishListView";
-import DessertsListView from "../listviews/DessertsListView";
-import StartersListView from "../listviews/StartersListView";
-import DrinksListView from "../listviews/DrinksListView";
+
 
 const Tab = createMaterialTopTabNavigator();
 
