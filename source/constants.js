@@ -103,6 +103,8 @@ export const all_constants = {
             history: 'history',
         }
     },
+    balance:{
+        no_balance_found: 'Aucun item trouvé.'
     }
 }
 
