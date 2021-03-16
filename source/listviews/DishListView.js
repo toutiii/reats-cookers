@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Alert, View} from "react-native";
 import DishButton from "../button/DishButton";
 import styles_dish from '../styles/styles-dish'
+import all_constants from "../constants";
 
 
 export default class DishListView extends Component {
@@ -65,6 +66,21 @@ export default class DishListView extends Component {
         ]
     }
 
+    getData = () => {
+        if (this.props.route.params.tag === all_constants.tag.dishes.starter) {
+            return this.dish_list_data
+        }
+        else if (this.props.route.params.tag === all_constants.tag.dishes.dish) {
+            return this.dish_list_data
+        }
+        else if (this.props.route.params.tag === all_constants.tag.dishes.dessert) {
+            return this.dish_list_data
+        }
+        else if (this.props.route.params.tag === all_constants.tag.dishes.drink) {
+            return this.dish_list_data
+        }
+    }
+
     onPress = () => {
         Alert.alert('ZA WARUDO')
     }
@@ -73,7 +89,7 @@ export default class DishListView extends Component {
         return (
             <View style={styles_dish.container}>
                 <DishButton
-                    dish_list_data={this.dish_list_data}
+                    dish_list_data={this.getData()}
                     onPress={this.onPress}
                 />
             </View>
