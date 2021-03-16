@@ -85,6 +85,14 @@ export const all_constants = {
             hide: 'FERMER',
         },
     },
+    tag:{
+        dishes: {
+            starter: 'starter',
+            dish: 'dish',
+            dessert: 'dessert',
+            drink: 'drink'
+        }
+    }
 }
 
 export default all_constants
