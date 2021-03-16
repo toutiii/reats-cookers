@@ -22,10 +22,30 @@ export default function OrdersTab () {
                 },
             }}
         >
-            <Tab.Screen name="Orders" component={OrderListView} options={{ title: 'TOUTES' }}/>
-            <Tab.Screen name="PaidOrders" component={PaidOrdersView} options={{ title: 'PAYÉES' }} />
-            <Tab.Screen name="CanceledOrders" component={CanceledOrdersView} options={{ title: 'ANNULÉES' }} />
-            <Tab.Screen name="HistoryOrders" component={HistoryOrdersView} options={{ title: 'HISTORIQUE' }} />
+            <Tab.Screen
+                name="AllOrders"
+                component={OrderListView}
+                options={{ title: 'TOUTES' }}
+                initialParams={{tag: 'all'}}
+            />
+            <Tab.Screen
+                name="PaidOrders"
+                component={OrderListView}
+                options={{ title: 'PAYÉES' }}
+                initialParams={{tag: 'paid'}}
+            />
+            <Tab.Screen
+                name="CanceledOrders"
+                component={OrderListView}
+                options={{ title: 'ANNULÉES' }}
+                initialParams={{tag: 'canceled'}}
+            />
+            <Tab.Screen
+                name="HistoryOrders"
+                component={OrderListView}
+                options={{ title: 'HISTORIQUE' }}
+                initialParams={{tag: 'history'}}
+            />
         </Tab.Navigator>
     )
 }
