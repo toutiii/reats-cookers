@@ -22,10 +22,30 @@ export default function DishTab () {
                 },
             }}
         >
-            <Tab.Screen name="Starters" component={StartersListView} options={{ title: 'ENTRÉES' }}/>
-            <Tab.Screen name="Dishes" component={DishListView} options={{ title: 'PLATS' }} />
-            <Tab.Screen name="Desserts" component={DessertsListView} options={{ title: 'DÉSSERTS' }} />
-            <Tab.Screen name="Drinks" component={DrinksListView} options={{ title: 'BOISSONS' }} />
+            <Tab.Screen
+                name="Starters"
+                component={DishListView}
+                options={{ title: 'ENTRÉES'}}
+                initialParams={{ tag: 'starter' }}
+            />
+            <Tab.Screen
+                name="Dishes"
+                component={DishListView}
+                options={{ title: 'PLATS'}}
+                initialParams={{ tag: 'dish' }}
+            />
+            <Tab.Screen
+                name="Desserts"
+                component={DishListView}
+                options={{ title: 'DÉSSERTS'}}
+                initialParams={{ tag: 'dessert' }}
+            />
+            <Tab.Screen
+                name="Drinks"
+                component={DishListView}
+                options={{ title: 'BOISSONS'}}
+                initialParams={{ tag: 'drink' }}
+            />
         </Tab.Navigator>
     )
 }
