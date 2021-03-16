@@ -1,7 +1,5 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import IncomingCashListView from "../listviews/IncomingCashListView";
-import CashHistoryListView from "../listviews/CashHistoryListView";
 
 const Tab = createMaterialTopTabNavigator();
 
