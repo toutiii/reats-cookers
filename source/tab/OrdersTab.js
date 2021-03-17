@@ -8,7 +8,7 @@ const Tab = createMaterialTopTabNavigator();
 export default function OrdersTab () {
     return(
         <Tab.Navigator
-            initialRouteName='Orders'
+            initialRouteName='AllOrders'
             tabBarOptions={{
                 activeTintColor: 'tomato',
                 inactiveTintColor: 'grey',
