@@ -16,7 +16,7 @@ export default function BalanceTab () {
                     fontSize: 12,
                 },
                 style: {
-                    marginTop: '5%'
+                    marginTop: '7%'
                 },
             }}
         >

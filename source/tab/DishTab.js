@@ -17,7 +17,7 @@ export default function DishTab () {
                     fontSize: 12,
                 },
                 style: {
-                    marginTop: '5%'
+                    marginTop: '7%'
                 },
             }}
         >
