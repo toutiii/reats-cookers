@@ -1,6 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import DishListView from "../listviews/DishListView";
+import MenuListView from "../listviews/MenuListView";
 import all_constants from "../constants";
 
 
@@ -44,6 +45,11 @@ export default function DishTab () {
                 component={DishListView}
                 options={{ title: 'BOISSONS'}}
                 initialParams={{ tag: all_constants.tag.dishes.drink}}
+            />
+            <Tab.Screen
+                name="Menus"
+                component={MenuListView}
+                options={{ title: 'MENUS'}}
             />
         </Tab.Navigator>
     )
