@@ -20,6 +20,7 @@ export default function DishTab () {
                 style: {
                     marginTop: '7%'
                 },
+                scrollEnabled: true
             }}
         >
             <Tab.Screen
