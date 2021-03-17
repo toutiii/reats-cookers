@@ -109,6 +109,7 @@ export const all_constants = {
     menu: {
         no_menu_found: "Vous n'avez créé aucun menu.",
         label: {
+            menu_name: 'MENU',
             starter: 'ENTRÉE',
             dish: 'PLAT',
             dessert: 'DESSERT',
