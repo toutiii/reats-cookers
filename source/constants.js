@@ -107,7 +107,13 @@ export const all_constants = {
         no_balance_found: 'Aucun item trouvé.'
     },
     menu: {
-        no_menu_found: "Vous n'avez créé aucun menu."
+        no_menu_found: "Vous n'avez créé aucun menu.",
+        label: {
+            starter: 'ENTRÉE',
+            dish: 'PLAT',
+            dessert: 'DESSERT',
+            drink: 'BOISSON',
+        },
     }
 }
 
