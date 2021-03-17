@@ -105,6 +105,9 @@ export const all_constants = {
     },
     balance:{
         no_balance_found: 'Aucun item trouvé.'
+    },
+    menu: {
+        no_menu_found: "Vous n'avez créé aucun menu."
     }
 }
 
