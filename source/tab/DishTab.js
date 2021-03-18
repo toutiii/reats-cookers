@@ -2,6 +2,7 @@ import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import DishListView from "../listviews/DishListView";
 import MenuListView from "../listviews/MenuListView";
+import DishAddView from "../views/DishAddView"
 import all_constants from "../constants";
 
 
@@ -51,6 +52,11 @@ export default function DishTab () {
                 name="Menus"
                 component={MenuListView}
                 options={{ title: 'MENUS'}}
+            />
+            <Tab.Screen
+                name="Add"
+                component={DishAddView}
+                options={{ title: 'AJOUTER'}}
             />
         </Tab.Navigator>
     )
