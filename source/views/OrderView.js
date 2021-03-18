@@ -123,14 +123,14 @@ export default class OrderView extends Component {
             <View style={styles_order_view.container}>
                 <View style={{flex: 2, width: '95%'}}>
                     <Order
-                        order_number={this.order_data.order_number}
-                        order_status={this.order_data.order_status}
-                        order_owner={this.order_data.order_owner}
-                        order_amount={this.order_data.order_amount}
-                        order_number_of_items={this.order_data.order_number_of_items}
-                        order_date={this.order_data.order_date}
-                        order_cancel_date={this.order_data.order_cancel_date}
-                        order_delivery_date={this.order_data.order_delivery_date}
+                        order_number={this.props.route.params.item.order_number}
+                        order_status={this.props.route.params.item.order_status}
+                        order_owner={this.props.route.params.item.order_owner}
+                        order_amount={this.props.route.params.item.order_amount}
+                        order_number_of_items={this.props.route.params.item.order_number_of_items}
+                        order_date={this.props.route.params.item.order_date}
+                        order_cancel_date={this.props.route.params.item.order_cancel_date}
+                        order_delivery_date={this.props.route.params.item.order_delivery_date}
                     />
                     <HorizontalLine
                         line_width={3}
