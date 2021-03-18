@@ -7,7 +7,7 @@ import BalanceTab from "../tab/BalanceTab";
 const Stack = createStackNavigator();
 
 
-export default class HomeNavigator extends Component{
+export default class HomeStack extends Component{
     constructor(props) {
         super(props);
     }
