@@ -27,6 +27,9 @@ export default class HomeView extends Component {
     onTempSubmit = () => {
         Alert.alert('JOJO', 'DIO !')
     }
+    onPressNavigateToTab= (tab_name, screen_name) => {
+        this.props.navigation.navigate(tab_name, { screen: screen_name });
+    }
     toggleSwitch = () => {
         this.setState({is_online: !this.state.is_online})
         if (this.state.is_online) {
@@ -118,7 +121,7 @@ export default class HomeView extends Component {
                     </View>
                     <View style={{flex: 1,}}>
                         <CustomImageButton
-                            onPress={this.onTempSubmit}
+                            onPress={() => this.onPressNavigateToTab('OrdersTab', 'PaidOrders')}
                             uri={this.arrow_uri}
                         />
                     </View>
@@ -136,7 +139,7 @@ export default class HomeView extends Component {
                     </View>
                     <View style={{flex: 1,}}>
                         <CustomImageButton
-                            onPress={this.onTempSubmit}
+                            onPress={() => this.onPressNavigateToTab('OrdersTab', 'CanceledOrders')}
                             uri={this.arrow_uri}
                         />
                     </View>
@@ -154,7 +157,7 @@ export default class HomeView extends Component {
                     </View>
                     <View style={{flex: 1,}}>
                         <CustomImageButton
-                            onPress={this.onTempSubmit}
+                            onPress={() => this.onPressNavigateToTab('OrdersTab', 'AllOrders')}
                             uri={this.arrow_uri}
                         />
                     </View>
@@ -177,7 +180,7 @@ export default class HomeView extends Component {
                     </View>
                     <View style={{flex: 1,}}>
                         <CustomImageButton
-                            onPress={this.onTempSubmit}
+                            onPress={() => this.onPressNavigateToTab('BalanceTab', 'PendingBalance')}
                             uri={this.arrow_uri}
                         />
                     </View>
