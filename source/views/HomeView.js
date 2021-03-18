@@ -146,12 +146,12 @@ export default class HomeView extends Component {
                 </View>
                 <View style={styles_home_view.order_view_style}>
                     <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'left', fontSize: 18, color: 'blue'}}>
+                        <Text style={{textAlign: 'left', fontSize: 18}}>
                             {all_constants.label.home.total}
                         </Text>
                     </View>
                     <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'center', fontSize: 20, color: 'blue'}}>
+                        <Text style={{textAlign: 'center', fontSize: 20}}>
                             {this.total_orders_count}
                         </Text>
                     </View>
