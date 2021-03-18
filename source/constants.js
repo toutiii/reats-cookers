@@ -46,7 +46,13 @@ export const all_constants = {
                 offline: 'Offline',
             },
             online_alert: 'You are online now and you can receive orders.',
-            offline_alert: 'You are offline so users will not be able to send you orders.'
+            offline_alert: 'You are offline so users will not be able to send you orders.',
+            current_week_orders: 'CURRENT WEEK ORDERS',
+            paid: 'PAID',
+            canceled: 'CANCELED',
+            total: 'TOTAL',
+            balance: 'BALANCE',
+            pending: 'PENDING',
         },
         order: {
             accept: 'ACCEPTER LA COMMANDE',
@@ -92,7 +98,6 @@ export const all_constants = {
         status:{
             canceled: 'Annulée',
             delivered: 'Livrée',
-
         },
         no_order_found: 'No orders found.',
     },
