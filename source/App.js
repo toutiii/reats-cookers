@@ -8,6 +8,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import OrdersTab from "./tab/OrdersTab";
 import DishTab from "./tab/DishTab";
 import BalanceTab from "./tab/BalanceTab";
+import HomeStack from "./stack/HomeStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +43,7 @@ export default class App extends Component {
                             inactiveTintColor: 'gray',
                         }}
                     >
-                        <Tab.Screen name="Home" component={HomeView} />
+                        <Tab.Screen name="Home" component={HomeStack} />
                         <Tab.Screen name="Orders" component={OrdersTab} options={{ tabBarBadge: 3 }} />
                         <Tab.Screen name="Dishes" component={DishTab} />
                         <Tab.Screen name="Balance" component={BalanceTab} />
