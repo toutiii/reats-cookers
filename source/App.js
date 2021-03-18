@@ -32,7 +32,7 @@ export default class App extends Component {
                                 }else if (route.name === 'Balance') {
                                     iconName = 'cash-outline';
                                 }else if (route.name === 'Settings') {
-                                    iconName = 'settings-outline';
+                                    iconName = 'person-outline';
                                 }
                                 // You can return any component that you like here!
                                 return <Ionicons name={iconName} size={size} color={color} />;
