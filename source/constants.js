@@ -58,6 +58,17 @@ export const all_constants = {
             add_menu: 'AJOUTER UN MENU',
             remove_menu: 'SUPPRIMER CE MENU',
         },
+        settings: {
+            my_account: 'Mon compte',
+            firstname: 'Prénom',
+            lastname: 'Nom',
+            phone: 'Téléphone',
+            address: 'Adresse',
+            postal_code: 'Code postal',
+            town: 'Ville',
+            change_password: 'MODIFIER LE MOT DE PASSE',
+            siret: 'SIRET',
+        },
     },
     uri: {
         rating_star: 'https://starpng.com/public/uploads/preview/yellow-star-transparent-background-png-101577029288c5hv8odvjm.png',
