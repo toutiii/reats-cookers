@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance'
-import HomeView from "./views/HomeView";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import SettingsView from "./views/SettingsView";
 import Ionicons from "react-native-vector-icons/Ionicons";
