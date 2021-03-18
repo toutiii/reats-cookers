@@ -30,13 +30,13 @@ export default function OrdersTab () {
                 name="PaidOrders"
                 component={OrderListView}
                 options={{ title: 'PAYÉES' }}
-                initialParams={{tag: all_constants.tag.orders.paid}}
+                initialParams={{tag: all_constants.tag.orders.paid, order_number_color: 'green'}}
             />
             <Tab.Screen
                 name="CanceledOrders"
                 component={OrderListView}
                 options={{ title: 'ANNULÉES' }}
-                initialParams={{tag: all_constants.tag.orders.canceled}}
+                initialParams={{tag: all_constants.tag.orders.canceled, order_number_color: 'red'}}
             />
             <Tab.Screen
                 name="HistoryOrders"

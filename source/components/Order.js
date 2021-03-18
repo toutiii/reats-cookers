@@ -9,7 +9,9 @@ export default function Order({...props}) {
     return(
         <View style={{flex: 1,}}>
             <View style={styles_order.order_number}>
-                <Text style={{fontSize: 26,}}>{all_constants.order.infos.number} {props.order_number} </Text>
+                <Text
+                    style={{fontSize: 26, color: props.order_number_color}}>{all_constants.order.infos.number} {props.order_number}
+                </Text>
             </View>
             {
                 props.use_horizontal_line && props.line_width ?
