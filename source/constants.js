@@ -52,6 +52,12 @@ export const all_constants = {
             accept: 'ACCEPTER LA COMMANDE',
             reject: 'REJETER LA COMMANDE',
         },
+        dishes: {
+            add_dish: 'AJOUTER UN PLAT',
+            remove_dish: 'SUPPRIMER CE PLAT',
+            add_menu: 'AJOUTER UN MENU',
+            remove_menu: 'SUPPRIMER CE MENU',
+        },
     },
     uri: {
         rating_star: 'https://starpng.com/public/uploads/preview/yellow-star-transparent-background-png-101577029288c5hv8odvjm.png',
