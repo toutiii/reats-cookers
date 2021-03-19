@@ -25,7 +25,7 @@ export default function OrdersTab () {
             }}
         >
             <Tab.Screen
-                name="AllOrder"
+                name="AllOrders"
                 component={AllOrderStack}
                 options={{ title: 'TOUTES' }}
             />
