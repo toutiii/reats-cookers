@@ -18,7 +18,7 @@ export default function OrderButton({...props}) {
                 renderItem={({item}) => (
                     <View style={styles_order.order_button_container}>
                         <TouchableHighlight
-                            onPress={() => { props.allProps.navigation.navigate('OrderView', { item })}}
+                            onPress={() => { props.allProps.navigation.navigate('OrderView', { item, props })}}
                             style={{flex: 1}}
                             underlayColor={all_constants.colors.inputBorderColor}
                         >
