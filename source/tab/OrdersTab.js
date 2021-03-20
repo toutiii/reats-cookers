@@ -4,6 +4,8 @@ import OrderPaidStack from "../stack/OrderPaidStack";
 import AllOrderStack from "../stack/AllOrderStack";
 import OrderCancelledStack from "../stack/OrderCancelledStack";
 import OrderHistoryStack from "../stack/OrderHistoryStack";
+import OrderListView from "../listviews/OrderListView";
+import all_constants from "../constants";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -24,23 +26,36 @@ export default function OrdersTab () {
         >
             <Tab.Screen
                 name="AllOrders"
-                component={AllOrderStack}
+                component={OrderListView}
                 options={{ title: 'TOUTES' }}
+                initialParams={{tag: all_constants.tag.orders.all,}}
             />
             <Tab.Screen
-                name="PaidOrder"
-                component={OrderPaidStack}
+                name="PaidOrders"
+                component={OrderListView}
                 options={{ title: 'PAYÉES' }}
+                initialParams={{
+                    tag: all_constants.tag.orders.paid,
+                    order_number_color: 'green',
+                }}
             />
             <Tab.Screen
-                name="CancelledOrder"
-                component={OrderCancelledStack}
+                name="CancelledOrders"
+                component={OrderListView}
                 options={{ title: 'ANNULÉES' }}
+                initialParams={{
+                    tag: all_constants.tag.orders.canceled,
+                    order_number_color: 'red',
+                }}
             />
             <Tab.Screen
-                name="HistoryOrder"
-                component={OrderHistoryStack}
-                options={{ title: 'HISTORIQUE' }}
+                name="HistoryOrders"
+                component={OrderListView}
+                options={{ title: 'ARCHIVÉES' }}
+                initialParams={{
+                    tag: all_constants.tag.orders.archived,
+                    order_number_color: 'grey',
+                }}
             />
         </Tab.Navigator>
     )
