@@ -90,26 +90,27 @@ export default class OrderListView extends Component {
         ]
     }
     getData = () => {
-        if (this.props.route.params.tag === all_constants.tag.orders.all) {
-            return this.order_list_data
+        let data = []
+        for (let key in this.order_list_data) {
+            if (this.order_list_data[key]['order_tag'] === this.props.route.params.tag) {
+                data.push(this.order_list_data[key])
+            }
         }
-        else if (this.props.route.params.tag === all_constants.tag.orders.paid) {
-            return this.order_list_data
+        if (data.length > 0){
+            return data
         }
-        else if (this.props.route.params.tag === all_constants.tag.orders.canceled) {
-            return this.order_list_data
+        else {
+            if (this.props.route.params.tag !== all_constants.tag.orders.archived){
+                return this.order_list_data
+            }
         }
-        else if (this.props.route.params.tag === all_constants.tag.orders.history) {
-            return this.order_list_data
-        }
-    }
 
+    }
     render() {
         return(
             <View style={styles_order.container}>
                 <OrderButton
                     order_list_data={this.getData()}
-                    order_number_color={this.props.route.params.order_number_color}
                     allProps={this.props}
                 />
             </View>
