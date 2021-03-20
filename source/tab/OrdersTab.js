@@ -1,9 +1,5 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import OrderPaidStack from "../stack/OrderPaidStack";
-import AllOrderStack from "../stack/AllOrderStack";
-import OrderCancelledStack from "../stack/OrderCancelledStack";
-import OrderHistoryStack from "../stack/OrderHistoryStack";
 import OrderListView from "../listviews/OrderListView";
 import all_constants from "../constants";
 
