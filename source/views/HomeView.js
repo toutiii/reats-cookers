@@ -139,7 +139,7 @@ export default class HomeView extends Component {
                     </View>
                     <View style={{flex: 1,}}>
                         <CustomImageButton
-                            onPress={() => this.onPressNavigateToTab('OrdersTab', 'CanceledOrders')}
+                            onPress={() => this.onPressNavigateToTab('OrdersTab', 'CancelledOrders')}
                             uri={this.arrow_uri}
                         />
                     </View>
