@@ -19,7 +19,6 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_number_color: 'green',
                 order_tag: 'paid'
             },
             {
@@ -32,7 +31,6 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_number_color: 'green',
                 order_tag: 'paid'
             },
             {
@@ -45,7 +43,6 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_number_color: 'green',
                 order_tag: 'paid'
             },
             {
@@ -58,7 +55,6 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_number_color: 'red',
                 order_tag: 'cancelled'
             },
             {
@@ -71,7 +67,6 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_number_color: 'red',
                 order_tag: 'cancelled'
             },
             {
@@ -84,7 +79,6 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_number_color: 'red',
                 order_tag: 'cancelled'
             },
         ]
@@ -112,6 +106,7 @@ export default class OrderListView extends Component {
                 <OrderButton
                     order_list_data={this.getData()}
                     allProps={this.props}
+                    order_number_color={this.props.route.params.order_number_color}
                 />
             </View>
         )
