@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Alert, View} from "react-native";
+import {View} from "react-native";
 import OrderButton from "../button/OrderButton"
 import styles_order from "../styles/styles-order"
 import all_constants from "../constants";
