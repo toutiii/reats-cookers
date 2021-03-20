@@ -49,7 +49,7 @@ export const all_constants = {
             offline_alert: 'You are offline so users will not be able to send you orders.',
             current_week_orders: 'CURRENT WEEK ORDERS',
             paid: 'PAID',
-            canceled: 'CANCELED',
+            canceled: 'CANCELLED',
             total: 'TOTAL',
             balance: 'BALANCE',
             pending: 'PENDING',
@@ -117,8 +117,10 @@ export const all_constants = {
         orders: {
             all: 'all',
             paid: 'paid',
-            canceled: 'canceled',
+            canceled: 'cancelled',
             history: 'history',
+            delivered: 'delivered',
+            archived: 'archived'
         },
         balance: {
             pending: 'pending',
