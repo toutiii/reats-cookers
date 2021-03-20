@@ -8,6 +8,7 @@ import OrdersTab from "./tab/OrdersTab";
 import DishTab from "./tab/DishTab";
 import BalanceTab from "./tab/BalanceTab";
 import HomeStack from "./stack/HomeStack";
+import OrderView from "./views/OrderView";
 
 const Tab = createBottomTabNavigator();
 
@@ -36,6 +37,13 @@ export default class App extends Component {
                                 // You can return any component that you like here!
                                 return <Ionicons name={iconName} size={size} color={color} />;
                             },
+                            tabBarButton: [
+                                "OrderView",
+                            ].includes(route.name)
+                                ? () => {
+                                    return null;
+                                }
+                                : undefined,
                         })}
                         tabBarOptions={{
                             activeTintColor: 'tomato',
@@ -47,6 +55,7 @@ export default class App extends Component {
                         <Tab.Screen name="Dishes" component={DishTab} />
                         <Tab.Screen name="Balance" component={BalanceTab} />
                         <Tab.Screen name="Settings" component={SettingsView} />
+                        <Tab.Screen name="OrderView" component={OrderView}/>
                     </Tab.Navigator>
                 </NavigationContainer>
             </AppearanceProvider>
