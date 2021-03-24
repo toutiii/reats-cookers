@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Alert, Modal, Text, TouchableHighlight, View} from "react-native";
+import {Alert, Text, View} from "react-native";
 import styles_order_view from "../styles/styles-order-view"
 import HorizontalLine from "../components/HorizontalLine";
 import all_constants from "../constants";
