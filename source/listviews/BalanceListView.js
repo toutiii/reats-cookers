@@ -60,15 +60,12 @@ export default class BalanceListView extends Component {
             return this.balance_list_data
         }
     }
-    onPress = () => {
-        Alert.alert('ZA WARUDO')
-    }
+
     render() {
         return(
             <View style={styles_balance.container}>
                 <BalanceButton
                     balance_list_data={this.getData()}
-                    onPress={this.onPress}
                 />
             </View>
         )
