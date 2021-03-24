@@ -6,6 +6,11 @@ import Balance from "../components/Balance"
 import HorizontalLine from "../components/HorizontalLine";
 
 
+function getOrderFromNumber(item) {
+    //COMING SOON
+    return item
+}
+
 export default function BalanceButton({...props}) {
     return (
         <View>
@@ -19,7 +24,14 @@ export default function BalanceButton({...props}) {
                 renderItem={({item}) => (
                     <View style={styles_balance.balance_button_container}>
                         <TouchableHighlight
-                            onPress={console.log(item.order_number)}
+                            onPress={() => {
+                                props.allProps.navigation.navigate(
+                                    'OrderView',
+                                    {
+                                        item: getOrderFromNumber(item),
+                                        props
+                                    })
+                            }}
                             style={{flex: 1}}
                             underlayColor={all_constants.colors.inputBorderColor}
                         >
