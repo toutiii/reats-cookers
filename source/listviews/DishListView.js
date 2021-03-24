@@ -86,6 +86,7 @@ export default class DishListView extends Component {
             <View style={styles_dish.container}>
                 <DishButton
                     dish_list_data={this.getData()}
+                    allProps={this.props}
                 />
             </View>
 
