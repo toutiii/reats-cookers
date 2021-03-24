@@ -16,12 +16,7 @@ export default class OrderView extends Component {
             modalVisible: false
         }
     }
-    setModalVisible = () => {
-        this.setState({modalVisible: ! this.state.modalVisible})
-    }
-    getOrderStatus = () => {
-        return 'En préparation'
-    }
+
     onPressValid = () => {
         Alert.alert('Commande', "Vous avez accepté la commande.")
         this.setState({is_order_approved: ! this.state.is_order_approved})
