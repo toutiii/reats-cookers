@@ -19,7 +19,7 @@ export default function DishButton({...props}) {
                 renderItem={({item}) => (
                     <View style={styles_dish.dish_button_container}>
                         <TouchableHighlight
-                            onPress={props.onPress}
+                            onPress={() => { props.allProps.navigation.navigate('DishView', { item, props })}}
                             style={{flex: 1}}
                             underlayColor={all_constants.colors.inputBorderColor}
                         >
