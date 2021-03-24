@@ -112,7 +112,7 @@ export default class OrderView extends Component {
                 <DishModal
                     state={this.state.modalVisible}
                     onPressCloseModal={this.onPressCloseModal}
-                    modal_data={this.order_dish_data}
+                    modal_data={this.props.route.params.item.dishes}
                 />
             </View>
         )
