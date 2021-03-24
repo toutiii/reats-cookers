@@ -81,16 +81,11 @@ export default class DishListView extends Component {
         }
     }
 
-    onPress = () => {
-        Alert.alert('ZA WARUDO')
-    }
-
     render() {
         return (
             <View style={styles_dish.container}>
                 <DishButton
                     dish_list_data={this.getData()}
-                    onPress={this.onPress}
                 />
             </View>
 
