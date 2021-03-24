@@ -19,7 +19,31 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_tag: 'paid'
+                order_tag: 'paid',
+                dishes:[
+                    {
+                        id: '1',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                    {
+                        id: '2',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                ]
             },
             {
                 id :'2',
@@ -31,7 +55,31 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_tag: 'paid'
+                order_tag: 'paid',
+                dishes:[
+                    {
+                        id: '1',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                    {
+                        id: '2',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                ]
             },
             {
                 id :'3',
@@ -43,7 +91,31 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_tag: 'paid'
+                order_tag: 'paid',
+                dishes:[
+                    {
+                        id: '1',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                    {
+                        id: '2',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                ]
             },
             {
                 id :'4',
@@ -55,7 +127,31 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_tag: 'cancelled'
+                order_tag: 'cancelled',
+                dishes:[
+                    {
+                        id: '1',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                    {
+                        id: '2',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                ]
             },
             {
                 id :'5',
@@ -67,7 +163,31 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_tag: 'cancelled'
+                order_tag: 'cancelled',
+                dishes:[
+                    {
+                        id: '1',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                    {
+                        id: '2',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                ]
             },
             {
                 id :'6',
@@ -79,7 +199,31 @@ export default class OrderListView extends Component {
                 order_date: '9 Mars 2021',
                 order_cancel_date: '11 Mars 2021',
                 order_delivery_date: '13 Mars 2021',
-                order_tag: 'cancelled'
+                order_tag: 'cancelled',
+                dishes:[
+                    {
+                        id: '1',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                    {
+                        id: '2',
+                        dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
+                        dish_name: 'Poulet Yassa',
+                        dish_rating:'4.8/5',
+                        dish_unit_price:'10 €',
+                        dish_style:'styles_dish.dish_price',
+                        dish_quantity: '5',
+                        dish_order_date:'9 Mars 2021',
+                        dish_order_status: 'En préparation'
+                    },
+                ]
             },
         ]
     }
