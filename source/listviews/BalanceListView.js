@@ -66,6 +66,7 @@ export default class BalanceListView extends Component {
             <View style={styles_balance.container}>
                 <BalanceButton
                     balance_list_data={this.getData()}
+                    allProps={this.props}
                 />
             </View>
         )

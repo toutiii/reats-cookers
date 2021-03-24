@@ -19,7 +19,7 @@ export default function BalanceButton({...props}) {
                 renderItem={({item}) => (
                     <View style={styles_balance.balance_button_container}>
                         <TouchableHighlight
-                            onPress={props.onPress}
+                            onPress={console.log(item.order_number)}
                             style={{flex: 1}}
                             underlayColor={all_constants.colors.inputBorderColor}
                         >
