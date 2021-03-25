@@ -9,7 +9,7 @@ import DishTab from "./tab/DishTab";
 import BalanceTab from "./tab/BalanceTab";
 import HomeStack from "./stack/HomeStack";
 import OrderView from "./views/OrderView";
-import DishView from "./views/DishView";
+import DishFormView from "./forms/DishFormView";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +40,7 @@ export default class App extends Component {
                             },
                             tabBarButton: [
                                 "OrderView",
-                                "DishView"
+                                "DishFormView"
                             ].includes(route.name)
                                 ? () => {
                                     return null;
@@ -58,7 +58,7 @@ export default class App extends Component {
                         <Tab.Screen name="Balance" component={BalanceTab} />
                         <Tab.Screen name="Settings" component={SettingsView} />
                         <Tab.Screen name="OrderView" component={OrderView}/>
-                        <Tab.Screen name="DishView" component={DishView}/>
+                        <Tab.Screen name="DishFormView" component={DishFormView}/>
                     </Tab.Navigator>
                 </NavigationContainer>
             </AppearanceProvider>
