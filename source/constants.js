@@ -22,15 +22,19 @@ export const all_constants = {
         login: 'LOG IN',
         logout: 'LOG OUT',
         send: 'SEND',
+        submit: 'VALIDER',
+        cancel: 'ANNULER',
+        take_picture: 'Prendre une photo',
+        upload_picture: 'Ouvrir la galerie',
         errors: {
-            title: 'Error',
+            title: 'Erreur',
             empty_email: 'Pleaser enter your email.',
             wrong_email_format: 'Please enter a valid email.',
             empty_password: 'Please enter your password.',
             forgot_password: 'Forgot password ?'
         },
         success: {
-            title: 'Success',
+            title: 'Succès',
             email_sent: 'An email has well been sent to '
         },
         warning: {
@@ -74,6 +78,15 @@ export const all_constants = {
             town: 'Ville',
             change_password: 'MODIFIER LE MOT DE PASSE',
             siret: 'SIRET',
+        },
+        form: {
+            dishes: {
+              name: 'Nom du plat',
+              price: 'Prix',
+              image: 'Photo du plat',
+              category: 'Catégorie',
+              description: 'Description',
+            },
         },
     },
     uri: {
@@ -139,6 +152,25 @@ export const all_constants = {
             dessert: 'DESSERT',
             drink: 'BOISSON',
         },
+    },
+    validators:{
+        max_text_length: 30,
+        max_description_length: 200,
+    },
+    field_type: {
+        textinput: 'textinput',
+        image: 'image',
+        textarea: 'textarea',
+        select: 'select',
+    },
+    placeholders: {
+        dish_category: 'Sélectionner la catégorie de votre plat'
+    },
+    remaining_char: 'Caractères restants: ',
+    permissions: {
+        camera: 'Pour prendre une photo, veuillez autoriser la caméra.',
+        gallery: "Pour charger une photo, veuillez accepter l'autorisation.",
+        error: 'Erreur de permission'
     }
 }
 
