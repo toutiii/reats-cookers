@@ -8,3 +8,4 @@ source/images/*_test.*
 source/views/*TestView.*
 *2.js
 yarn*
+.idea*
