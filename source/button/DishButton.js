@@ -24,7 +24,7 @@ export default function DishButton({...props}) {
                             underlayColor={all_constants.colors.inputBorderColor}
                         >
                             <Dish
-                                key={item.key}
+                                key={item.id}
                                 dish_photo={item.dish_photo}
                                 dish_name={item.dish_name}
                                 dish_category={item.dish_category}
