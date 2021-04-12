@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Alert, View} from "react-native";
+import {View} from "react-native";
 import DishButton from "../button/DishButton";
 import styles_dish from '../styles/styles-dish'
 import all_constants from "../constants";
