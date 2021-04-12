@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Alert, View} from "react-native";
+import {View} from "react-native";
 import MenuButton from "../button/MenuButton"
 import styles_menu from "../styles/styles-balance"
 import {getMenus} from "../helpers/menu_helpers";
