@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Alert, View} from "react-native";
 import MenuButton from "../button/MenuButton"
 import styles_menu from "../styles/styles-balance"
-import all_constants from "../constants";
 
 
 export default class BalanceListView extends Component {
