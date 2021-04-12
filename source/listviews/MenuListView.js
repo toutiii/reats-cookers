@@ -15,6 +15,7 @@ export default class BalanceListView extends Component {
             <View style={styles_menu.container}>
                 <MenuButton
                     menu_list_data={getMenus()}
+                    allProps={this.props}
                 />
             </View>
         )
