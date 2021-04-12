@@ -17,7 +17,6 @@ export default function CustomButton ({label, ...props}) {
                     styles.login_button,
                     {height: props.height},
                     {top: props.top},
-                    {borderWidth: props.border_width},
                     {borderRadius: props.border_radius},
                     {backgroundColor: props.backgroundColor? props.backgroundColor : 'transparent'},
                 ]
