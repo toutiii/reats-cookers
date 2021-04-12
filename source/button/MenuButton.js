@@ -19,7 +19,7 @@ export default function OrderButton({...props}) {
                 renderItem={({item}) => (
                     <View style={styles_menu.menu_button_container}>
                         <TouchableHighlight
-                            onPress={props.onPress}
+                            onPress={() => {props.allProps.navigation.navigate('MenuFormView', { item: item });}}
                             style={{flex: 1}}
                             underlayColor={all_constants.colors.inputBorderColor}
                         >
