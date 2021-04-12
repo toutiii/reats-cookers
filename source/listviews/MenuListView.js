@@ -10,15 +10,11 @@ export default class BalanceListView extends Component {
         super(props);
     }
 
-    onPress = () => {
-        Alert.alert('ZA WARUDO')
-    }
     render() {
         return(
             <View style={styles_menu.container}>
                 <MenuButton
                     menu_list_data={getMenus()}
-                    onPress={this.onPress}
                 />
             </View>
         )
