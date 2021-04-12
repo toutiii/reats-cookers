@@ -1,0 +1,190 @@
+import React, { useState, useEffect } from 'react';
+import { Image, Platform, Text, TextInput, View } from 'react-native';
+import styles_field from "../styles/styles-field"
+import all_constants from "../constants";
+import RNPickerSelect from 'react-native-picker-select';
+import {getDishCategories} from "../helpers/dish_helpers"
+import AwesomeAlert from 'react-native-awesome-alerts';
+import CustomImageButton from "../button/CustomImageButton";
+import * as ImagePicker from "expo-image-picker"
+
+
+export default function DishField({...props}) {
+    const [showAlert, setStateShowAlert] = useState(false)
+    const [picUri, setPicUri] = useState(null)
+    useEffect(() => {
+            setPicUri(props.itemObject.dish_photo)
+    }, [props.itemObject])
+    const options = {
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 1,
+        base64: false
+    };
+
+    const launchGallery =  async () => {
+        if (Platform.OS !== 'web') {
+            const statusObject = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (statusObject.status !== 'granted') {
+                setStateShowAlert(true)
+            }
+            else{
+                let result = await ImagePicker.launchImageLibraryAsync({options});
+                if (!result.cancelled) {
+                    setPicUri(result.uri)
+                }
+            }
+        }
+    }
+
+    const launchCamera = async () => {
+        if (Platform.OS !== 'web') {
+            const statusObject = await ImagePicker.requestCameraPermissionsAsync();
+            if (statusObject.status !== 'granted') {
+                setStateShowAlert(true)
+            }
+            else{
+                let result = await ImagePicker.launchCameraAsync({options});
+                if (!result.cancelled) {
+                    setPicUri(result.uri)
+                }
+            }
+        }
+    }
+
+    return (
+        <View style={styles_field.container}>
+            <View style={styles_field.label}>
+                <Text style={{fontSize: 20}}>{props.field.label}</Text>
+            </View>
+            {
+                props.field.type === all_constants.field_type.textinput ?
+                    <View style={styles_field.textinput_container}>
+                        <TextInput
+                            style={styles_field.textinput}
+                            value={props.value}
+                            onChangeText={(text) => props.onChangeText(props.fieldName, text)}
+                            maxLength={props.field.maxLength}
+                            keyboardType={props.fieldName === 'dish_price' ? "decimal-pad" : 'default'}
+                        />
+                        <Text style={{fontSize: 14}}>
+                            {all_constants.remaining_char}
+                            {props.field.maxLength - props.value.length}/{props.field.maxLength}
+                        </Text>
+                        {
+                            props.error ?
+                                <AwesomeAlert
+                                    show={props.showAlert}
+                                    title={all_constants.messages.errors.title}
+                                    message={props.error}
+                                    closeOnTouchOutside={false}
+                                    closeOnHardwareBackPress={false}
+                                    showConfirmButton={true}
+                                    confirmText="OK"
+                                    confirmButtonColor="#DD6B55"
+                                    onConfirmPressed={props.onConfirmPressed}
+                                />
+                            :
+                                <View></View>
+                        }
+                    </View>
+                    :
+                    <View></View>
+            }
+            {
+                props.field.type === all_constants.field_type.select ?
+                    <View style={styles_field.picker_container}>
+                        <RNPickerSelect
+                            useNativeAndroidPickerStyle={false}
+                            placeholder={{ label: all_constants.placeholders.dish_category, value: null }}
+                            value={props.value}
+                            onValueChange={(value) => props.onChangeText(props.fieldName, value)}
+                            items={getDishCategories()}
+                            textInputProps={{fontSize: 18, color:'black'}}
+                        />
+                    </View>
+                    :
+                    <View></View>
+            }
+            {
+                props.field.type === all_constants.field_type.image ?
+                    <View style={styles_field.button_container}>
+                        <View style={{flex: 2}}>
+                            <Image
+                                source={{uri: picUri}}
+                                style={{width: 200, height: 150}}
+                            />
+                        </View>
+                        <View style={{flex: 1}}>
+                            <View style={styles_field.button}>
+                                <CustomImageButton
+                                    onPress={launchCamera}
+                                    uri={'https://pics.freeicons.io/uploads/icons/png/20607508171555590649-512.png'}
+                                />
+                            </View>
+                            <View style={styles_field.button}>
+                                <CustomImageButton
+                                    onPress={launchGallery}
+                                    uri={'https://pics.freeicons.io/uploads/icons/png/6433396501558096324-512.png'}
+                                />
+                            </View>
+                        </View>
+
+                    </View>
+                    :
+                    <View></View>
+            }
+            {
+                showAlert ?
+                    <AwesomeAlert
+                        show={showAlert}
+                        title={all_constants.permissions.error}
+                        message={all_constants.permissions.gallery}
+                        closeOnTouchOutside={false}
+                        closeOnHardwareBackPress={false}
+                        showConfirmButton={true}
+                        confirmText="OK"
+                        confirmButtonColor="red"
+                        onConfirmPressed={() => {setStateShowAlert(false)}}
+                    />
+                    :
+                    <View></View>
+            }
+            {
+                props.field.type === all_constants.field_type.textarea ?
+                    <View style={[styles_field.textinput_container, {height: 140}]}>
+                        <TextInput
+                            style={styles_field.textinput}
+                            value={props.value}
+                            onChangeText={(text) => props.onChangeText(props.fieldName, text)}
+                            maxLength={props.field.maxLength}
+                            multiline={true}
+                            numberOfLines={4}
+                            placeholder={'Une courte description de votre plat'}
+                        />
+                        <Text style={{fontSize: 14}}>
+                            {all_constants.remaining_char}
+                            {props.field.maxLength - props.value.length}/{props.field.maxLength}
+                        </Text>
+                    </View>
+                    :
+                    <View></View>
+            }
+            {
+                props.error ?
+                    <AwesomeAlert
+                        show={props.showAlert}
+                        title={all_constants.messages.errors.title}
+                        message={props.error}
+                        closeOnTouchOutside={false}
+                        closeOnHardwareBackPress={false}
+                        showConfirmButton={true}
+                        confirmText="OK"
+                        confirmButtonColor="red"
+                        onConfirmPressed={props.onConfirmPressed}
+                    />
+                    :
+                    <View></View>
+            }
+        </View>
+    )}
