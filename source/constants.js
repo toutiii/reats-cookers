@@ -81,12 +81,12 @@ export const all_constants = {
         },
         form: {
             dishes: {
-              name: 'Nom du plat',
-              price: 'Prix',
-              image: 'Photo du plat',
-              category: 'Catégorie',
-              description: 'Description',
-            },
+                name: 'Nom du plat',
+                price: 'Prix',
+                image: 'Photo du plat',
+                category: 'Catégorie',
+                description: 'Description',
+                },
             menu: {
                 name: 'Nom du menu',
                 starter: 'Entrée',
