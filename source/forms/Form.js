@@ -4,7 +4,7 @@ import CustomButton from "../button/CustomButton";
 import all_constants from "../constants";
 import {validateFields} from "../validators/validate_dishformview"
 import FormField from "../components/FormField";
-import styles_form from "../styles/styles-dish-form"
+import styles_form from "../styles/styles-form"
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 
