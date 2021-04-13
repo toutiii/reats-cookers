@@ -67,10 +67,18 @@ export default function FormField({...props}) {
                             maxLength={props.field.maxLength}
                             keyboardType={props.fieldName.includes('price') ? "decimal-pad" : 'default'}
                         />
-                        <Text style={{fontSize: 14}}>
-                            {all_constants.remaining_char}
-                            {props.field.maxLength - props.value.length}/{props.field.maxLength}
-                        </Text>
+                        {
+                            props.value ?
+                                <Text style={{fontSize: 14}}>
+                                    {all_constants.remaining_char}
+                                    {props.field.maxLength - props.value.length}/{props.field.maxLength}
+                                </Text>
+                            :
+                                <Text style={{fontSize: 14}}>
+                                    {all_constants.remaining_char}
+                                    {props.field.maxLength}/{props.field.maxLength}
+                                </Text>
+                        }
                         {
                             props.error ?
                                 <AwesomeAlert
