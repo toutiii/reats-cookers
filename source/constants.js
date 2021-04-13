@@ -172,7 +172,8 @@ export const all_constants = {
         select: 'select',
     },
     placeholders: {
-        dish_category: 'Sélectionner la catégorie de votre plat'
+        dish_category: 'Sélectionner la catégorie de votre plat',
+        menu: 'Sélectionnez un item.'
     },
     remaining_char: 'Caractères restants: ',
     permissions: {
