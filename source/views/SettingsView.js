@@ -27,7 +27,7 @@ export default class SettingsView extends Component {
                             height={50}
                             font_size={20}
                             use_second_label={true}
-                            second_label={this.user_infos.siret}
+                            second_label={this.userInfosObject.siret}
                             borderBottomWidth={1}
                         />
                     </View>
@@ -37,7 +37,7 @@ export default class SettingsView extends Component {
                             height={50}
                             font_size={20}
                             use_second_label={true}
-                            second_label={this.user_infos.firstname}
+                            second_label={this.userInfosObject.firstname}
                             onPress={this.onSubmit}
                             borderBottomWidth={1}
                         />
@@ -48,7 +48,7 @@ export default class SettingsView extends Component {
                             height={50}
                             font_size={20}
                             use_second_label={true}
-                            second_label={this.user_infos.lastname}
+                            second_label={this.userInfosObject.lastname}
                             onPress={this.onSubmit}
                             borderBottomWidth={1}
                         />
@@ -59,7 +59,7 @@ export default class SettingsView extends Component {
                             height={50}
                             font_size={20}
                             use_second_label={true}
-                            second_label={this.user_infos.address}
+                            second_label={this.userInfosObject.address}
                             onPress={this.onSubmit}
                             borderBottomWidth={1}
                         />
@@ -70,7 +70,7 @@ export default class SettingsView extends Component {
                             height={50}
                             font_size={20}
                             use_second_label={true}
-                            second_label={this.user_infos.postal_code}
+                            second_label={this.userInfosObject.postal_code}
                             onPress={this.onSubmit}
                             borderBottomWidth={1}
                         />
@@ -81,7 +81,7 @@ export default class SettingsView extends Component {
                             height={50}
                             font_size={20}
                             use_second_label={true}
-                            second_label={this.user_infos.town}
+                            second_label={this.userInfosObject.town}
                             onPress={this.onSubmit}
                             borderBottomWidth={1}
                         />
@@ -92,7 +92,7 @@ export default class SettingsView extends Component {
                             height={50}
                             font_size={20}
                             use_second_label={true}
-                            second_label={this.user_infos.phone}
+                            second_label={this.userInfosObject.phone}
                             onPress={this.onSubmit}
                             borderBottomWidth={1}
                         />
