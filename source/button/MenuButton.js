@@ -27,7 +27,7 @@ export default function OrderButton({...props}) {
                                 key={item.key}
                                 menu_name={item.menu_name}
                                 menu_starter={item.menu_starter}
-                                menu_dish={item.menu_dish}
+                                menu_dish={item.menu_main_dish}
                                 menu_dessert={item.menu_dessert}
                                 menu_drink={item.menu_drink}
                                 menu_price={item.menu_price + all_constants.currency_symbol}
