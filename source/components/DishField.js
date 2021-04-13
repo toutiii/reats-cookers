@@ -65,7 +65,7 @@ export default function DishField({...props}) {
                             value={props.value}
                             onChangeText={(text) => props.onChangeText(props.fieldName, text)}
                             maxLength={props.field.maxLength}
-                            keyboardType={props.fieldName === 'dish_price' ? "decimal-pad" : 'default'}
+                            keyboardType={props.fieldName.includes('price') ? "decimal-pad" : 'default'}
                         />
                         <Text style={{fontSize: 14}}>
                             {all_constants.remaining_char}
