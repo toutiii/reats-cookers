@@ -29,7 +29,7 @@ export default function DishButton({...props}) {
                                 dish_name={item.dish_name}
                                 dish_category={item.dish_category}
                                 dish_rating={item.dish_rating}
-                                dish_price={item.dish_price}
+                                dish_price={item.dish_price + all_constants.currency_symbol}
                                 dish_description={item.dish_description}
                                 onPress={item.onPress}
                             />
