@@ -87,6 +87,14 @@ export const all_constants = {
               category: 'Catégorie',
               description: 'Description',
             },
+            menu: {
+                name: 'Nom du menu',
+                starter: 'Entrée',
+                main_dish: 'Résistance',
+                dessert: 'Dessert',
+                drink: 'Boisson',
+                price: 'Prix',
+            },
         },
     },
     uri: {
