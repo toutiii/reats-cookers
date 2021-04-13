@@ -3,7 +3,7 @@ import { Image, Platform, Text, TextInput, View } from 'react-native';
 import styles_field from "../styles/styles-field"
 import all_constants from "../constants";
 import RNPickerSelect from 'react-native-picker-select';
-import {getDishCategories} from "../helpers/dish_helpers"
+import {getCategories} from "../helpers/global_helpers"
 import AwesomeAlert from 'react-native-awesome-alerts';
 import CustomImageButton from "../button/CustomImageButton";
 import * as ImagePicker from "expo-image-picker"
@@ -99,7 +99,7 @@ export default function DishField({...props}) {
                             placeholder={{ label: all_constants.placeholders.dish_category, value: null }}
                             value={props.value}
                             onValueChange={(value) => props.onChangeText(props.fieldName, value)}
-                            items={getDishCategories()}
+                            items={getCategories('Dish')}
                             textInputProps={{fontSize: 18, color:'black'}}
                         />
                     </View>
