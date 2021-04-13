@@ -179,7 +179,8 @@ export const all_constants = {
         camera: 'Pour prendre une photo, veuillez autoriser la caméra.',
         gallery: "Pour charger une photo, veuillez accepter l'autorisation.",
         error: 'Erreur de permission'
-    }
+    },
+    currency_symbol: '€',
 }
 
 export default all_constants
