@@ -3,20 +3,13 @@ import {Alert, Text, View} from "react-native";
 import all_constants from "../constants";
 import styles_settings from "../styles/styles-settings"
 import CustomButton from "../button/CustomButton";
+import {getUserSettings} from "../helpers/settings_helpers";
 
 
 export default class SettingsView extends Component {
     constructor(props) {
         super(props);
-        this.user_infos={
-            'siret': 'FJGUT2-FRF-55',
-            'firstname': 'Irène',
-            'lastname': 'JANTEN',
-            'phone': '0649510110',
-            'address': "1 rue René Cassin",
-            'postal_code': '91100',
-            'town': "Corbeil-Essonnes",
-        }
+        this.userInfosObject = getUserSettings()
     }
     onSubmit = () => {
         Alert.alert('DIO !')
