@@ -1,14 +1,3 @@
-export function getDishCategories() {
-    const dish_categories = [
-        { label: 'Entrée', value: 'starter'},
-        { label: 'Plat principal', value: 'main_dish' },
-        { label: 'Boisson', value: 'drink' },
-        { label: 'Dessert', value: 'dessert' },
-    ]
-    return dish_categories
-}
-
-
 export function getDishes() {
     const dish_list_data = [
         {
