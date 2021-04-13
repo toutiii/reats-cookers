@@ -90,7 +90,7 @@ export const all_constants = {
             menu: {
                 name: 'Nom du menu',
                 starter: 'Entrée',
-                main_dish: 'Résistance',
+                main_dish: 'Plat',
                 dessert: 'Dessert',
                 drink: 'Boisson',
                 price: 'Prix',
