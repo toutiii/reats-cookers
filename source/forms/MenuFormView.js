@@ -1,0 +1,67 @@
+import React from "react";
+import Form from "./Form";
+import all_constants from "../constants";
+import {View} from "react-native";
+import update_menu_infos from "../api/update_menu_infos";
+
+
+export default function MenuFormView ({...props}){
+    const handleResult = async (result) => {
+        if (result.ok) {
+            props.navigation.goBack(null);
+        } else {
+            throw new Error('Failed to update the dish.');
+        }
+    };
+
+    return(
+        <View style={{flex: 1}}>
+            <View style={{flex: 2, marginTop: '10%'}}>
+                <Form
+                    action={update_menu_infos}
+                    navigation={props.navigation}
+                    afterSubmit={handleResult}
+                    item={props.route.params.item}
+                    fields={{
+                        menu_name: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.menu.name,
+                            validators: [],
+                            maxLength: 30,
+                        },
+                        menu_starter: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.menu.starter,
+                            validators: [],
+                            maxLength: 30,
+                        },
+                        menu_main_dish: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.menu.main_dish,
+                            validators: [],
+                            maxLength: 30,
+                        },
+                        menu_dessert: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.menu.dessert,
+                            validators: [],
+                            maxLength: 30,
+                        },
+                        menu_drink: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.menu.drink,
+                            validators: [],
+                            maxLength: 30,
+                        },
+                        menu_price: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.menu.price,
+                            validators: [],
+                            maxLength: 5,
+                        },
+                    }}
+                />
+            </View>
+        </View>
+    )
+}
