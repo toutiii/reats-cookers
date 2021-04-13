@@ -9,7 +9,7 @@ import CustomImageButton from "../button/CustomImageButton";
 import * as ImagePicker from "expo-image-picker"
 
 
-export default function DishField({...props}) {
+export default function FormField({...props}) {
     const [showAlert, setStateShowAlert] = useState(false)
     const [picUri, setPicUri] = useState(null)
     useEffect(() => {

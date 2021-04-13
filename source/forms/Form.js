@@ -3,7 +3,7 @@ import {ActivityIndicator, Animated, KeyboardAvoidingView, ScrollView, Text, Tex
 import CustomButton from "../button/CustomButton";
 import all_constants from "../constants";
 import {validateFields} from "../validators/validate_dishformview"
-import DishField from "../components/DishField"
+import FormField from "../components/FormField";
 import styles_form from "../styles/styles-dish-form"
 import AwesomeAlert from 'react-native-awesome-alerts';
 
@@ -119,7 +119,7 @@ export default function Form({ ...props }) {
                         {
                             fieldKeys.map((key) => {
                             return(
-                                <DishField
+                                <FormField
                                     key={key}
                                     itemObject={props.item}
                                     fieldName={key}
