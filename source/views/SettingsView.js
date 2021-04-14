@@ -5,6 +5,7 @@ import styles_settings from "../styles/styles-settings"
 import CustomButton from "../button/CustomButton";
 import {getUserSettings} from "../helpers/settings_helpers";
 import Setting from "../components/Setting"
+import styles_form from "../styles/styles-form"
 
 
 export default class SettingsView extends Component {
@@ -63,39 +64,31 @@ export default class SettingsView extends Component {
                         value={this.userInfosObject.max_order_number}
                     />
                 </View>
-                        <CustomButton
-                            label={all_constants.label.settings.town}
-                            height={50}
-                            font_size={20}
-                            use_second_label={true}
-                            second_label={this.userInfosObject.town}
-                            onPress={this.onSubmit}
-                            borderBottomWidth={1}
-                        />
-                    </View>
-                    <View style={{flex: 1, justifyContent: 'center'}}>
-                        <CustomButton
-                            icon_name='call'
-                            height={50}
-                            font_size={20}
-                            use_second_label={true}
-                            second_label={this.userInfosObject.phone}
-                            onPress={this.onSubmit}
-                            borderBottomWidth={1}
-                        />
-                    </View>
-                </View>
                 <View style={{flex: 2}}>
-                    <CustomButton
-                        label={all_constants.label.settings.change_password}
-                        height={50}
-                        border_width={3}
-                        border_radius={30}
-                        font_size={17}
-                        backgroundColor={'tomato'}
-                        label_color='white'
-                        onPress={this.onSubmit}
-                    />
+                    <View style={styles_form.submit_button}>
+                        <CustomButton
+                            label={all_constants.label.settings.change_settings}
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            backgroundColor={'tomato'}
+                            label_color='white'
+                            onPress={this.onSubmit}
+                        />
+                    </View>
+                    <View style={styles_form.cancel_button}>
+                        <CustomButton
+                            label={all_constants.label.settings.change_password}
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            backgroundColor={'tomato'}
+                            label_color='white'
+                            onPress={this.onSubmit}
+                        />
+                    </View>
                 </View>
             </View>
         )
