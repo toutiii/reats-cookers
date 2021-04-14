@@ -76,7 +76,7 @@ export const all_constants = {
             address: 'Adresse',
             postal_code: 'Code postal',
             town: 'Ville',
-            change_password: 'MODIFIER LE MOT DE PASSE',
+            change_password: 'MODIFIER MON MOT DE PASSE',
             siret: 'SIRET',
         },
         form: {
