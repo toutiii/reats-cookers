@@ -87,7 +87,10 @@ export const all_constants = {
             siret: 'SIRET',
             order_days: 'Prise commande',
             delivery_days: 'Jours de livraison',
-            max_order_number: 'Nombre max de commandes'
+            max_order_number: 'Nombre max de commandes',
+            email: 'Email',
+            street_number: 'Numéro de rue',
+            street_name: 'Nom de la rue'
         },
         form: {
             dishes: {
