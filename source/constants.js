@@ -70,6 +70,12 @@ export const all_constants = {
         },
         settings: {
             my_account: 'Mon compte',
+            section_title: {
+                credential_infos: 'Mes informations de connexion',
+                personal_infos: 'Mes informations personnelles',
+                address: 'Mon adresse',
+                order_infos: 'Mes informations de commande',
+            },
             firstname: 'Prénom',
             lastname: 'Nom',
             phone: 'Téléphone',
