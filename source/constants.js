@@ -83,7 +83,7 @@ export const all_constants = {
             postal_code: 'Code postal',
             town: 'Ville',
             change_password: 'MODIFIER MON MOT DE PASSE',
-            change_settings: 'MODIFIER MES INFORMATIONS',
+            change_settings: 'MODIFIER',
             siret: 'SIRET',
             order_days: 'Jours de commande',
             delivery_days: 'Jours de livraison',
