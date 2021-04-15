@@ -85,7 +85,7 @@ export const all_constants = {
             change_password: 'MODIFIER MON MOT DE PASSE',
             change_settings: 'MODIFIER',
             siret: 'SIRET',
-            order_days: 'Jours de commande',
+            order_days: 'Prise commande',
             delivery_days: 'Jours de livraison',
             max_order_number: 'Nombre max de commandes'
         },
