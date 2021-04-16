@@ -46,7 +46,11 @@ export default class App extends Component {
                             tabBarButton: [
                                 "OrderView",
                                 "DishFormView",
-                                "MenuFormView"
+                                "MenuFormView",
+                                "SettingsCredentialsForm",
+                                "SettingsPersonalInformationForm",
+                                "SettingsAddressForm",
+                                "SettingsOrderInformationForm"
                             ].includes(route.name)
                                 ? () => {
                                     return null;
