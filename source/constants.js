@@ -91,6 +91,7 @@ export const all_constants = {
             email: 'Email',
             street_number: 'Numéro de rue',
             street_name: 'Nom de la rue',
+            address_complement: "Complément",
             password: 'Mot de passe',
         },
         form: {
