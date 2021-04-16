@@ -4,6 +4,7 @@ export function getUserSettings() {
             title: 'credential_infos',
             data: {
                 email: 'toulevi@yahoo.fr',
+                password: '********'
             },
         },
         personal_infos_section:{
