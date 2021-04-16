@@ -59,23 +59,6 @@ export default class SettingsView extends Component {
                                                     onPress={this.onSubmit}
                                                 />
                                             </View>
-                                            {
-                                                key.includes('credential') ?
-                                                    <View style={styles_form.cancel_button}>
-                                                        <CustomButton
-                                                            label={all_constants.label.settings.change_password}
-                                                            height={40}
-                                                            border_width={3}
-                                                            border_radius={30}
-                                                            font_size={17}
-                                                            backgroundColor={'tomato'}
-                                                            label_color='white'
-                                                            onPress={this.onSubmit}
-                                                        />
-                                                    </View>
-                                                :
-                                                    <View></View>
-                                            }
                                         </View>
                                     </View>
                                 )
