@@ -11,3 +11,37 @@ export function getCategories(itemType) {
     return categoriesObject
 
 }
+
+export function getDaysOfWeek() {
+    const daysOfWeek = [
+        {
+            itemKey:1,
+            itemDescription:'Lundi'
+        },
+        {
+            itemKey:2,
+            itemDescription:'Mardi'
+        },
+        {
+            itemKey:3,
+            itemDescription:'Mercredi'
+        },
+        {
+            itemKey:4,
+            itemDescription:'Jeudi'
+        },
+        {
+            itemKey:5,
+            itemDescription:'Vendredi'
+        },
+        {
+            itemKey:6,
+            itemDescription:'Samedi'
+        },
+        {
+            itemKey:7,
+            itemDescription:'Dimanche'
+        }
+    ];
+    return daysOfWeek;
+}
