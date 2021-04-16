@@ -11,6 +11,10 @@ import HomeStack from "./stack/HomeStack";
 import OrderView from "./views/OrderView";
 import DishFormView from "./forms/DishFormView";
 import MenuFormView from "./forms/MenuFormView";
+import SettingsCredentialsForm from "./forms/SettingsCredentialsForm";
+import SettingsPersonalInformationForm from "./forms/SettingsPersonalInformationForm";
+import SettingsAddressForm from "./forms/SettingsAddressForm";
+import SettingsOrderInformationForm from "./forms/SettingsOrderInformationForm";
 
 const Tab = createBottomTabNavigator();
 
@@ -62,6 +66,10 @@ export default class App extends Component {
                         <Tab.Screen name="OrderView" component={OrderView}/>
                         <Tab.Screen name="DishFormView" component={DishFormView}/>
                         <Tab.Screen name="MenuFormView" component={MenuFormView}/>
+                        <Tab.Screen name="SettingsCredentialsForm" component={SettingsCredentialsForm}/>
+                        <Tab.Screen name="SettingsPersonalInformationForm" component={SettingsPersonalInformationForm}/>
+                        <Tab.Screen name="SettingsAddressForm" component={SettingsAddressForm}/>
+                        <Tab.Screen name="SettingsOrderInformationForm" component={SettingsOrderInformationForm}/>
                     </Tab.Navigator>
                 </NavigationContainer>
             </AppearanceProvider>
