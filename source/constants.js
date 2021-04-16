@@ -121,7 +121,10 @@ export const all_constants = {
                 street_number: 'Numéro',
                 street_name: 'Rue',
                 postal_code: 'Code postal',
-                town: 'Ville'
+                town: 'Ville',
+                order_days: 'Vous acceptez les commandes le',
+                delivery_days: 'Vous expédiez les commandes le',
+                max_order_number: 'Votre nombre max de plats'
             }
         },
     },
