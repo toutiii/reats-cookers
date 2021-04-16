@@ -24,13 +24,13 @@ export default function SettingsOrderInformationForm ({...props}){
                     item={props.route.params.item}
                     fields={{
                         user_settings_order_days: {
-                            type: all_constants.field_type.textinput,
+                            type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.order_days,
                             validators: [],
                             maxLength: 10,
                         },
                         user_settings_delivery_days: {
-                            type: all_constants.field_type.textinput,
+                            type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.delivery_days,
                             validators: [],
                             maxLength: 50,
