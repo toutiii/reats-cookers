@@ -113,7 +113,11 @@ export const all_constants = {
                 email: 'Email',
                 current_password: 'Mot de passe actuel',
                 new_password: 'Nouveau mot de passe',
-                new_password_confirmation: 'Confirmez le nouveau mot de passe'
+                new_password_confirmation: 'Confirmez le nouveau mot de passe',
+                siret: 'Numéro SIRET',
+                firstname: 'Prénom',
+                lastname: 'Nom',
+                phone: 'Numéro de téléphone'
             }
         },
     },
