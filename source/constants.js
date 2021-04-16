@@ -121,6 +121,7 @@ export const all_constants = {
                 phone: 'Numéro de téléphone',
                 street_number: 'Numéro',
                 street_name: 'Rue',
+                address_complement: "Complément d'adresse",
                 postal_code: 'Code postal',
                 town: 'Ville',
                 order_days: 'Vous acceptez les commandes le',
