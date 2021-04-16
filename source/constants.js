@@ -203,6 +203,7 @@ export const all_constants = {
         image: 'image',
         textarea: 'textarea',
         select: 'select',
+        select_picker: 'select_picker',
     },
     placeholders: {
         dish_category: 'Sélectionner la catégorie de votre plat',
