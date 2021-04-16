@@ -21,6 +21,7 @@ export function getUserSettings() {
             data: {
                 street_number: '1',
                 street_name: 'rue René Cassin',
+                address_complement: 'Résidence Neptune',
                 postal_code: '91100',
                 town: "Corbeil-Essonnes",
             },
