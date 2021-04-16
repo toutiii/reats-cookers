@@ -91,6 +91,7 @@ export const all_constants = {
             email: 'Email',
             street_number: 'Numéro de rue',
             street_name: 'Nom de la rue',
+            password: 'Mot de passe',
         },
         form: {
             dishes: {
