@@ -7,6 +7,8 @@ import {getCategories} from "../helpers/global_helpers"
 import AwesomeAlert from 'react-native-awesome-alerts';
 import CustomImageButton from "../button/CustomImageButton";
 import * as ImagePicker from "expo-image-picker"
+import PickerCheckBox from 'react-native-picker-checkbox';
+import {getDaysOfWeek} from "../helpers/global_helpers";
 
 
 export default function FormField({...props}) {
@@ -110,6 +112,25 @@ export default function FormField({...props}) {
                             onValueChange={(value) => props.onChangeText(props.fieldName, value)}
                             items={getCategories('Dish')}
                             textInputProps={{fontSize: 18, color:'black'}}
+                        />
+                    </View>
+                    :
+                    <View></View>
+            }
+            {
+                props.field.type === all_constants.field_type.select_picker ?
+                    <View style={styles_field.picker_container}>
+                        <PickerCheckBox
+                            data={getDaysOfWeek()}
+                            headerComponent={<Text style={{fontSize:18}} >{all_constants.label.settings.select_days_of_week}</Text>}
+                            OnConfirm={(value) => props.onChangeText(props.fieldName, value)}
+                            ConfirmButtonTitle='OK'
+                            DescriptionField='itemDescription'
+                            KeyField='itemKey'
+                            placeholder={all_constants.label.settings.select_days_of_week}
+                            arrowSize={0}
+                            placeholderSelectedItems ='$count selected item(s)'
+                            dividerVisible={true}
                         />
                     </View>
                     :
