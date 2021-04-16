@@ -108,6 +108,12 @@ export const all_constants = {
                 drink: 'Boisson',
                 price: 'Prix',
             },
+            settings: {
+                email: 'Email',
+                current_password: 'Mot de passe actuel',
+                new_password: 'Nouveau mot de passe',
+                new_password_confirmation: 'Confirmez le nouveau mot de passe'
+            }
         },
     },
     uri: {
