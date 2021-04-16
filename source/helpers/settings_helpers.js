@@ -31,7 +31,7 @@ export function getUserSettings() {
             data: {
                 order_days: 'Lundi, Mercredi, Vendredi',
                 delivery_days: 'Mardi, Jeudi, Samedi',
-                max_order_number: 30,
+                max_order_number: '30',
             },
         },
     }
