@@ -23,31 +23,31 @@ export default function SettingsAddressForm ({...props}){
                     afterSubmit={handleResult}
                     item={props.route.params.item}
                     fields={{
-                        user_settings_street_number: {
+                        street_number: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.street_number,
                             validators: [],
                             maxLength: 10,
                         },
-                        user_settings_street_name: {
+                        street_name: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.street_name,
                             validators: [],
                             maxLength: 50,
                         },
-                        user_settings_address_complement: {
+                        address_complement: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.address_complement,
                             validators: [],
                             maxLength: 50,
                         },
-                        user_settings_postal_code: {
+                        postal_code: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.postal_code,
                             validators: [],
                             maxLength: 50,
                         },
-                        user_settings_town: {
+                        town: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.town,
                             validators: [],

@@ -23,19 +23,19 @@ export default function SettingsOrderInformationForm ({...props}){
                     afterSubmit={handleResult}
                     item={props.route.params.item}
                     fields={{
-                        user_settings_order_days: {
+                        order_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.order_days,
                             validators: [],
                             maxLength: 10,
                         },
-                        user_settings_delivery_days: {
+                        delivery_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.delivery_days,
                             validators: [],
                             maxLength: 50,
                         },
-                        user_settings_max_order_number: {
+                        max_order_number: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.max_order_number,
                             validators: [],

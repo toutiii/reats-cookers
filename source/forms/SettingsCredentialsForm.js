@@ -23,7 +23,7 @@ export default function SettingsCredentialsForm ({...props}){
                     afterSubmit={handleResult}
                     item={props.route.params.item}
                     fields={{
-                        user_settings_email: {
+                        email: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.email,
                             validators: [],

@@ -23,25 +23,25 @@ export default function SettingsPersonalInformationForm ({...props}){
                     afterSubmit={handleResult}
                     item={props.route.params.item}
                     fields={{
-                        user_settings_siret: {
+                        siret: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.siret,
                             validators: [],
                             maxLength: 10,
                         },
-                        user_settings_firstname: {
+                        firstname: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.firstname,
                             validators: [],
                             maxLength: 50,
                         },
-                        user_settings_lastname: {
+                        lastname: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.lastname,
                             validators: [],
                             maxLength: 50,
                         },
-                        user_settings_phone: {
+                        phone: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.phone,
                             validators: [],
