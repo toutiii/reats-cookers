@@ -126,7 +126,7 @@ export const all_constants = {
                 town: 'Ville',
                 order_days: 'Vous acceptez les commandes le',
                 delivery_days: 'Vous expédiez les commandes le',
-                max_order_number: 'Votre nombre max de plats'
+                max_order_number: 'Votre nombre max de plats',
             }
         },
     },
