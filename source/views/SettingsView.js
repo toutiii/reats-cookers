@@ -15,10 +15,6 @@ export default class SettingsView extends Component {
         this.userInfosObject = getUserSettings()
     }
 
-    onSubmit = () => {
-        Alert.alert('DIO !')
-    }
-
     render() {
         return (
             <View style={styles_settings.container}>
@@ -56,7 +52,32 @@ export default class SettingsView extends Component {
                                                     font_size={17}
                                                     backgroundColor={'tomato'}
                                                     label_color='white'
-                                                    onPress={this.onSubmit}
+                                                    onPress={() => {
+                                                        if (key.includes('credential')){
+                                                            this.props.navigation.navigate(
+                                                                'SettingsCredentialsForm',
+                                                                {item: this.userInfosObject[key]['data']}
+                                                            )
+                                                        }
+                                                        else if (key.includes('personal')){
+                                                            this.props.navigation.navigate(
+                                                                'SettingsPersonalInformationForm',
+                                                                {item: this.userInfosObject[key]['data']}
+                                                            )
+                                                        }
+                                                        else if (key.includes('address')) {
+                                                            this.props.navigation.navigate(
+                                                                'SettingsAddressForm',
+                                                                {item: this.userInfosObject[key]['data']}
+                                                            )
+                                                        }
+                                                        else {
+                                                            this.props.navigation.navigate(
+                                                                'SettingsOrderInformationForm',
+                                                                {item: this.userInfosObject[key]['data']}
+                                                            )
+                                                        }
+                                                    }}
                                                 />
                                             </View>
                                         </View>
