@@ -117,7 +117,11 @@ export const all_constants = {
                 siret: 'Numéro SIRET',
                 firstname: 'Prénom',
                 lastname: 'Nom',
-                phone: 'Numéro de téléphone'
+                phone: 'Numéro de téléphone',
+                street_number: 'Numéro',
+                street_name: 'Rue',
+                postal_code: 'Code postal',
+                town: 'Ville'
             }
         },
     },
