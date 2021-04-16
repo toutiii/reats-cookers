@@ -35,6 +35,12 @@ export default function SettingsAddressForm ({...props}){
                             validators: [],
                             maxLength: 50,
                         },
+                        user_settings_address_complement: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.settings.address_complement,
+                            validators: [],
+                            maxLength: 50,
+                        },
                         user_settings_postal_code: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.postal_code,
