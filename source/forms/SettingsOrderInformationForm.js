@@ -57,6 +57,32 @@ export default function SettingsOrderInformationForm ({...props}){
                             validators: [],
                             maxLength: 50,
                         },
+                        noon_delivery_hours: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.settings.noon_delivery_hours,
+                            validators: [],
+                            maxLength: 10,
+                        },
+                        noon_delivery_days: {
+                            type: all_constants.field_type.select_picker,
+                            label: all_constants.label.form.settings.noon_delivery_days,
+                            validators: [],
+                            checkedItems: getIndexofDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
+                            maxLength: 50,
+                        },
+                        evening_delivery_hours: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.settings.evening_delivery_hours,
+                            validators: [],
+                            maxLength: 50,
+                        },
+                        evening_delivery_days: {
+                            type: all_constants.field_type.select_picker,
+                            label: all_constants.label.form.settings.evening_delivery_days,
+                            checkedItems: getIndexofDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
+                            validators: [],
+                            maxLength: 50,
+                        },
                     }}
                 />
             </View>
