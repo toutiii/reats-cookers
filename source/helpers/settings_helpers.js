@@ -7,6 +7,14 @@ export function getUserSettings() {
                 password: '********'
             },
         },
+        order_infos_section:{
+            title: 'order_infos',
+            data: {
+                order_days: 'Lundi, Mercredi, Vendredi',
+                delivery_days: 'Mardi, Jeudi, Samedi',
+                max_order_number: '30',
+            },
+        },
         personal_infos_section:{
             title: 'personal_infos',
             data: {
@@ -24,14 +32,6 @@ export function getUserSettings() {
                 address_complement: 'Résidence Neptune',
                 postal_code: '91100',
                 town: "Corbeil-Essonnes",
-            },
-        },
-        order_infos_section:{
-            title: 'order_infos',
-            data: {
-                order_days: 'Lundi, Mercredi, Vendredi',
-                delivery_days: 'Mardi, Jeudi, Samedi',
-                max_order_number: '30',
             },
         },
     }
