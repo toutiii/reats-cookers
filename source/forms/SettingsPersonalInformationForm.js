@@ -23,6 +23,12 @@ export default function SettingsPersonalInformationForm ({...props}){
                     afterSubmit={handleResult}
                     item={props.route.params.item}
                     fields={{
+                        siren: {
+                            type: all_constants.field_type.textinput,
+                            label: all_constants.label.form.settings.siren,
+                            validators: [],
+                            maxLength: 10,
+                        },
                         siret: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.siret,
