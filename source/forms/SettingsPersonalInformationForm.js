@@ -33,7 +33,7 @@ export default function SettingsPersonalInformationForm ({...props}){
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.siret,
                             validators: [],
-                            maxLength: 10,
+                            maxLength: 20,
                         },
                         firstname: {
                             type: all_constants.field_type.textinput,
