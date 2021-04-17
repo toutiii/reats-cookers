@@ -21,10 +21,12 @@ export default function SettingsOrderInformationForm ({...props}){
         daysObject.forEach((keyObject) => {
             days.push(keyObject.itemDescription);
         })
-        const daysFromBackend = props.route.params.item[fieldName].split(', ')
-        daysFromBackend.forEach((day) => {
-            IndexofDays.push(days.indexOf(day) + 1)
-        })
+        if (props.route.params.item[fieldName] && props.route.params.item[fieldName].length !== 0) {
+            const daysFromBackend = props.route.params.item[fieldName].split(', ')
+            daysFromBackend.forEach((day) => {
+                IndexofDays.push(days.indexOf(day) + 1)
+            })
+        }
         return IndexofDays
     };
 
