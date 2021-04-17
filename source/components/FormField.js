@@ -129,7 +129,9 @@ export default function FormField({...props}) {
                                     value.forEach((key) => {valueArray.push(key.itemDescription)})
                                     props.onChangeText(props.fieldName, valueArray.join(', '))
                                     }
-                                }
+                                else {
+                                    props.onChangeText(props.fieldName, value)
+                                }}
                             }
                             ConfirmButtonTitle='OK'
                             DescriptionField='itemDescription'
