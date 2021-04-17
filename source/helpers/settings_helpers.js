@@ -13,6 +13,10 @@ export function getUserSettings() {
                 order_days: 'Lundi, Mercredi, Vendredi',
                 delivery_days: 'Mardi, Jeudi, Samedi',
                 max_order_number: '30',
+                noon_delivery_hours: '11-13',
+                noon_delivery_days: 'Samedi',
+                evening_delivery_hours: '18-20',
+                evening_delivery_days: 'Mardi, Jeudi, Samedi'
             },
         },
         personal_infos_section:{
