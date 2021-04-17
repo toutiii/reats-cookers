@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Alert, ScrollView, Text, View} from "react-native";
+import {ScrollView, Text, View} from "react-native";
 import all_constants from "../constants";
 import styles_settings from "../styles/styles-settings"
 import CustomButton from "../button/CustomButton";
