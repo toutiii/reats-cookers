@@ -123,13 +123,25 @@ export default function FormField({...props}) {
                         <PickerCheckBox
                             data={getDaysOfWeek()}
                             headerComponent={<Text style={{fontSize:18}} >{all_constants.label.settings.select_days_of_week}</Text>}
-                            OnConfirm={(value) => props.onChangeText(props.fieldName, value)}
+                            OnConfirm={(value) => {
+                                if (value.length !== 0) {
+                                    let valueArray = []
+                                    value.forEach((key) => {valueArray.push(key.itemDescription)})
+                                    props.onChangeText(props.fieldName, valueArray.join(', '))
+                                    }
+                                }
+                            }
                             ConfirmButtonTitle='OK'
                             DescriptionField='itemDescription'
                             KeyField='itemKey'
-                            placeholder={all_constants.label.settings.select_days_of_week}
+                            placeholder={
+                                props.value?
+                                    <Text style={{color: 'white'}}>{props.value}</Text>
+                                :
+                                    <Text>{all_constants.label.settings.select_days_of_week}</Text>
+                            }
                             arrowSize={0}
-                            placeholderSelectedItems ='$count selected item(s)'
+                            placeholderSelectedItems={'' + props.value}
                             dividerVisible={true}
                         />
                     </View>
