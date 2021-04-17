@@ -67,7 +67,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.noon_delivery_days,
                             validators: [],
-                            checkedItems: getIndexofDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
+                            checkedItems: getIndexofDays('noon_delivery_days'),  // Will be used by PickerCheckBox in FormField
                             maxLength: 50,
                         },
                         evening_delivery_hours: {
@@ -79,7 +79,7 @@ export default function SettingsOrderInformationForm ({...props}){
                         evening_delivery_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.evening_delivery_days,
-                            checkedItems: getIndexofDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
+                            checkedItems: getIndexofDays('evening_delivery_days'),  // Will be used by PickerCheckBox in FormField
                             validators: [],
                             maxLength: 50,
                         },
