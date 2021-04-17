@@ -22,7 +22,8 @@ export function getUserSettings() {
         personal_infos_section:{
             title: 'personal_infos',
             data: {
-                siret: 'FJGUT2-FRF-55',
+                siren: '362 521 879',
+                siret: '362 521 879 00034',
                 firstname: 'Irène',
                 lastname: 'JANTEN',
                 phone: '0649510110',
