@@ -132,6 +132,10 @@ export const all_constants = {
                 order_days: 'Vous acceptez les commandes le',
                 delivery_days: 'Vous expédiez les commandes le',
                 max_order_number: 'Votre nombre max de plats',
+                noon_delivery_hours: 'Votre créneau du midi',
+                noon_delivery_days: 'Les plats seront livrés à midi le',
+                evening_delivery_hours: 'Votre créneau du soir',
+                evening_delivery_days: 'Les plats seront livrés à midi le'
             }
         },
     },
