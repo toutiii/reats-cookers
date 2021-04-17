@@ -138,7 +138,7 @@ export default function FormField({...props}) {
                                 props.value?
                                     <Text style={{color: 'black'}}>{props.value}</Text>
                                 :
-                                    <Text>{all_constants.label.settings.select_days_of_week}</Text>
+                                    <Text style={{color: 'darkgrey'}}>{all_constants.label.settings.select_days_of_week}</Text>
                             }
                             arrowSize={0}
                             placeholderSelectedItems={'' + props.value}
