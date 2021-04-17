@@ -135,7 +135,7 @@ export const all_constants = {
                 noon_delivery_hours: 'Votre créneau du midi',
                 noon_delivery_days: 'Les plats seront livrés à midi le',
                 evening_delivery_hours: 'Votre créneau du soir',
-                evening_delivery_days: 'Les plats seront livrés à midi le'
+                evening_delivery_days: 'Les plats seront livrés le soir le'
             }
         },
     },
