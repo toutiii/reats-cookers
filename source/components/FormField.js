@@ -143,6 +143,7 @@ export default function FormField({...props}) {
                             arrowSize={0}
                             placeholderSelectedItems={'' + props.value}
                             dividerVisible={true}
+                            checkedItems={props.field.checkedItems}
                         />
                     </View>
                     :

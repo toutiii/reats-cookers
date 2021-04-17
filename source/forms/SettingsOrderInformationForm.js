@@ -3,7 +3,7 @@ import Form from "./Form";
 import all_constants from "../constants";
 import {View} from "react-native";
 import update_user_settings from "../api/update_settings";
-
+import {getDaysOfWeek} from "../helpers/global_helpers";
 
 export default function SettingsOrderInformationForm ({...props}){
     const handleResult = async (result) => {
@@ -12,6 +12,20 @@ export default function SettingsOrderInformationForm ({...props}){
         } else {
             throw new Error('Failed.');
         }
+    };
+
+    function getIndexofDays(fieldName){
+        const daysObject = getDaysOfWeek();
+        let days = [];
+        let IndexofDays = []
+        daysObject.forEach((keyObject) => {
+            days.push(keyObject.itemDescription);
+        })
+        const daysFromBackend = props.route.params.item[fieldName].split(', ')
+        daysFromBackend.forEach((day) => {
+            IndexofDays.push(days.indexOf(day) + 1)
+        })
+        return IndexofDays
     };
 
     return(
@@ -27,12 +41,14 @@ export default function SettingsOrderInformationForm ({...props}){
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.order_days,
                             validators: [],
+                            checkedItems: getIndexofDays('order_days'),  // Will be used by PickerCheckBox in FormField
                             maxLength: 10,
                         },
                         delivery_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.delivery_days,
                             validators: [],
+                            checkedItems: getIndexofDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
                             maxLength: 50,
                         },
                         max_order_number: {
