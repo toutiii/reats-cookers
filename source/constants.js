@@ -93,7 +93,11 @@ export const all_constants = {
             street_name: 'Nom de la rue',
             address_complement: "Complément",
             password: 'Mot de passe',
-            select_days_of_week: 'Sélectionnez les jours de la semaine'
+            select_days_of_week: 'Sélectionnez les jours de la semaine',
+            noon_delivery_hours: 'Créneau du midi',
+            noon_delivery_days: 'Livraison à midi le',
+            evening_delivery_hours: 'Créneau du soir',
+            evening_delivery_days: 'Livraison le soir le'
         },
         form: {
             dishes: {
