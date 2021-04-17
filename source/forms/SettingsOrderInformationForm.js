@@ -14,20 +14,20 @@ export default function SettingsOrderInformationForm ({...props}){
         }
     };
 
-    function getIndexofDays(fieldName){
+    function getIndexOfDays(fieldName){
         const daysObject = getDaysOfWeek();
         let days = [];
-        let IndexofDays = []
+        let indexOfDays = []
         daysObject.forEach((keyObject) => {
             days.push(keyObject.itemDescription);
         })
         if (props.route.params.item[fieldName] && props.route.params.item[fieldName].length !== 0) {
             const daysFromBackend = props.route.params.item[fieldName].split(', ')
             daysFromBackend.forEach((day) => {
-                IndexofDays.push(days.indexOf(day) + 1)
+                indexOfDays.push(days.indexOf(day) + 1)
             })
         }
-        return IndexofDays
+        return indexOfDays
     };
 
     return(
@@ -43,14 +43,14 @@ export default function SettingsOrderInformationForm ({...props}){
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.order_days,
                             validators: [],
-                            checkedItems: getIndexofDays('order_days'),  // Will be used by PickerCheckBox in FormField
+                            checkedItems: getIndexOfDays('order_days'),  // Will be used by PickerCheckBox in FormField
                             maxLength: 10,
                         },
                         delivery_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.delivery_days,
                             validators: [],
-                            checkedItems: getIndexofDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
+                            checkedItems: getIndexOfDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
                             maxLength: 50,
                         },
                         max_order_number: {
@@ -69,7 +69,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.noon_delivery_days,
                             validators: [],
-                            checkedItems: getIndexofDays('noon_delivery_days'),  // Will be used by PickerCheckBox in FormField
+                            checkedItems: getIndexOfDays('noon_delivery_days'),  // Will be used by PickerCheckBox in FormField
                             maxLength: 50,
                         },
                         evening_delivery_hours: {
@@ -81,7 +81,7 @@ export default function SettingsOrderInformationForm ({...props}){
                         evening_delivery_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.evening_delivery_days,
-                            checkedItems: getIndexofDays('evening_delivery_days'),  // Will be used by PickerCheckBox in FormField
+                            checkedItems: getIndexOfDays('evening_delivery_days'),  // Will be used by PickerCheckBox in FormField
                             validators: [],
                             maxLength: 50,
                         },
