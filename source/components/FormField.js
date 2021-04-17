@@ -136,7 +136,7 @@ export default function FormField({...props}) {
                             KeyField='itemKey'
                             placeholder={
                                 props.value?
-                                    <Text style={{color: 'white'}}>{props.value}</Text>
+                                    <Text style={{color: 'black'}}>{props.value}</Text>
                                 :
                                     <Text>{all_constants.label.settings.select_days_of_week}</Text>
                             }
