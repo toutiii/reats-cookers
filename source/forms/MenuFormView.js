@@ -22,6 +22,8 @@ export default function MenuFormView ({...props}){
                     navigation={props.navigation}
                     afterSubmit={handleResult}
                     item={props.route.params.item}
+                    third_button_label={all_constants.label.dishes.disable_dish}
+                    fourth_button_label={all_constants.label.dishes.remove_dish}
                     fields={{
                         menu_name: {
                             type: all_constants.field_type.textinput,
