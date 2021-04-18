@@ -8,6 +8,7 @@ export function getDishes() {
             dish_rating: '4.8/5',
             dish_price: '200',
             dish_description: 'Un succulent poulet Yassa',
+            dish_country: 'Sénégal',
         },
         {
             id: '2',
@@ -17,6 +18,7 @@ export function getDishes() {
             dish_rating: '4.8/5',
             dish_price: '11.5',
             dish_description: 'Un succulent poulet Yassa 11',
+            dish_country: 'Sénégal',
         },
         {
             id: '3',
@@ -26,6 +28,7 @@ export function getDishes() {
             dish_rating: '4.8/5',
             dish_price: '9.5',
             dish_description: 'Un succulent poulet Yassa 111',
+            dish_country: 'Sénégal',
         },
         {
             id: '4',
@@ -35,6 +38,7 @@ export function getDishes() {
             dish_rating: '4.8/5',
             dish_price: '12',
             dish_description: 'Un succulent poulet Yassa 1111',
+            dish_country: 'Sénégal',
         },
         {
             id: '5',
@@ -44,6 +48,7 @@ export function getDishes() {
             dish_rating: '4.8/5',
             dish_price: '8',
             dish_description: 'Un succulent poulet Yassa 11111',
+            dish_country: 'Sénégal',
         },
         {
             id: '6',
@@ -53,6 +58,7 @@ export function getDishes() {
             dish_rating: '4.8/5',
             dish_price: '7',
             dish_description: 'Un succulent poulet Yassa 111111',
+            dish_country: 'Sénégal',
         },
     ]
     return dish_list_data
