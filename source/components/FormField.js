@@ -216,10 +216,18 @@ export default function FormField({...props}) {
                             numberOfLines={4}
                             placeholder={'Une courte description de votre plat'}
                         />
-                        <Text style={{fontSize: 14}}>
-                            {all_constants.remaining_char}
-                            {props.field.maxLength - props.value.length}/{props.field.maxLength}
-                        </Text>
+                        {
+                            props.value ?
+                                <Text style={{fontSize: 14}}>
+                                    {all_constants.remaining_char}
+                                    {props.field.maxLength - props.value.length}/{props.field.maxLength}
+                                </Text>
+                                :
+                                <Text style={{fontSize: 14}}>
+                                    {all_constants.remaining_char}
+                                    {props.field.maxLength}/{props.field.maxLength}
+                                </Text>
+                        }
                     </View>
                     :
                     <View></View>
