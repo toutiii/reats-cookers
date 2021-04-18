@@ -156,10 +156,18 @@ export default function FormField({...props}) {
                 props.field.type === all_constants.field_type.image ?
                     <View style={styles_field.button_container}>
                         <View style={{flex: 2}}>
-                            <Image
-                                source={{uri: picUri}}
-                                style={{width: 200, height: 150}}
-                            />
+                            {
+                                picUri ?
+                                    <Image
+                                        source={{uri: picUri}}
+                                        style={{width: 200, height: 150}}
+                                    />
+                                :
+                                    <View style={styles_field.no_image}>
+                                        <Text>PHOTO</Text>
+                                    </View>
+                            }
+
                         </View>
                         <View style={{flex: 1}}>
                             <View style={styles_field.button}>

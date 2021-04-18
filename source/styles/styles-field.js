@@ -61,4 +61,12 @@ export default styles_field=StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: 'tomato',
     },
+    no_image: {
+        width: 200,
+        height: 150,
+        borderWidth:1,
+        borderColor: 'tomato',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 })
