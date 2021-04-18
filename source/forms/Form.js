@@ -182,7 +182,7 @@ export default function Form({ ...props }) {
                                         height={50}
                                         border_radius={30}
                                         font_size={18}
-                                        backgroundColor={'brown'}
+                                        backgroundColor={'darkgrey'}
                                         label_color='white'
                                         onPress={cancel}
                                     />
