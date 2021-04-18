@@ -159,6 +159,22 @@ export default function Form({ ...props }) {
                             />
                         </View>
                         {
+                            props.third_button_label ?
+                                <View style={styles_form.cancel_button}>
+                                    <CustomButton
+                                        label={props.third_button_label}
+                                        height={50}
+                                        border_radius={30}
+                                        font_size={18}
+                                        backgroundColor={'tomato'}
+                                        label_color='white'
+                                        onPress={cancel}
+                                    />
+                                </View>
+                                :
+                                <View></View>
+                        }
+                        {
                             props.fourth_button_label ?
                                 <View style={styles_form.cancel_button}>
                                     <CustomButton
