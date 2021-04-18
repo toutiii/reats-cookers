@@ -8,8 +8,8 @@ export default class  DishAddView extends Component {
     constructor(props) {
         super(props);
     }
-    onSubmit = () => {
-        Alert.alert('DIO !')
+    onSubmitDish = () => {
+        this.props.navigation.navigate('DishFormView', {item: {}})
     }
     render() {
         return(
@@ -23,7 +23,7 @@ export default class  DishAddView extends Component {
                         font_size={17}
                         backgroundColor={'tomato'}
                         label_color={'white'}
-                        onPress={this.onSubmit}
+                        onPress={this.onSubmitDish}
                     />
                 </View>
                 <View style={{flex: 1, alignItems: 'center', paddingBottom: '65%'}}>
