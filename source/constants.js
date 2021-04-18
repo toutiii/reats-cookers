@@ -65,6 +65,7 @@ export const all_constants = {
         dishes: {
             add_dish: 'AJOUTER UN PLAT',
             remove_dish: 'SUPPRIMER',
+            disable_dish: 'DÉSACTIVER',
             add_menu: 'AJOUTER UN MENU',
             remove_menu: 'SUPPRIMER CE MENU',
         },
