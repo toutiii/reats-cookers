@@ -107,6 +107,7 @@ export const all_constants = {
                 image: 'Photo du plat',
                 category: 'Catégorie',
                 description: 'Description',
+                country: 'Origine du plat'
                 },
             menu: {
                 name: 'Nom du menu',
