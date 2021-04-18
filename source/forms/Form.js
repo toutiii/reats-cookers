@@ -158,6 +158,22 @@ export default function Form({ ...props }) {
                                 onPress={cancel}
                             />
                         </View>
+                        {
+                            props.fourth_button_label ?
+                                <View style={styles_form.cancel_button}>
+                                    <CustomButton
+                                        label={props.fourth_button_label}
+                                        height={50}
+                                        border_radius={30}
+                                        font_size={18}
+                                        backgroundColor={'brown'}
+                                        label_color='white'
+                                        onPress={cancel}
+                                    />
+                                </View>
+                            :
+                                <View></View>
+                        }
                     </View>
                 </View>
             </ScrollView>
