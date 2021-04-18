@@ -50,6 +50,12 @@ export default function DishFormView ({...props}){
                             label: all_constants.label.form.dishes.description,
                             validators: [validateDescriptionLength]
                         },
+                        dish_country: {
+                            type: all_constants.field_type.textinput,
+                            maxLength: 200,
+                            label: all_constants.label.form.dishes.country,
+                            validators: [validateDescriptionLength]
+                        },
                     }}
                 />
             </View>
