@@ -11,6 +11,9 @@ export default class  DishAddView extends Component {
     onSubmitDish = () => {
         this.props.navigation.navigate('DishFormView', {item: {}})
     }
+    onSubmitMenu = () => {
+        this.props.navigation.navigate('MenuFormView', {item: {}})
+    }
     render() {
         return(
             <View style={{flex: 1}}>
@@ -35,7 +38,7 @@ export default class  DishAddView extends Component {
                         font_size={17}
                         backgroundColor={'tomato'}
                         label_color={'white'}
-                        onPress={this.onSubmit}
+                        onPress={this.onSubmitMenu}
                     />
                 </View>
             </View>
