@@ -159,7 +159,7 @@ export default function Form({ ...props }) {
                             />
                         </View>
                         {
-                            props.third_button_label ?
+                            Object.keys(props.item).length !== 0 && props.third_button_label ?
                                 <View style={styles_form.cancel_button}>
                                     <CustomButton
                                         label={props.third_button_label}
@@ -175,7 +175,7 @@ export default function Form({ ...props }) {
                                 <View></View>
                         }
                         {
-                            props.fourth_button_label ?
+                            Object.keys(props.item).length !== 0 && props.fourth_button_label ?
                                 <View style={styles_form.cancel_button}>
                                     <CustomButton
                                         label={props.fourth_button_label}
