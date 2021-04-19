@@ -229,6 +229,13 @@ export const all_constants = {
         error: 'Erreur de permission'
     },
     currency_symbol: '€',
+    tab:{
+        state_tab:{
+            title:{
+                enabled_items: 'ACTIFS',
+                disabled_items: 'INACTIFS'
+            }
+        },
 }
 
 export default all_constants
