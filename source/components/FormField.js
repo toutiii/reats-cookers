@@ -14,6 +14,7 @@ import {getDaysOfWeek} from "../helpers/global_helpers";
 export default function FormField({...props}) {
     const [showAlert, setStateShowAlert] = useState(false)
     const [picUri, setPicUri] = useState(null)
+    const [category, setCategory] = useState(null)
     useEffect(() => {
             setPicUri(props.itemObject.dish_photo)
     }, [props.itemObject])
@@ -108,7 +109,8 @@ export default function FormField({...props}) {
                         <RNPickerSelect
                             useNativeAndroidPickerStyle={false}
                             placeholder={{ label: all_constants.placeholders.dish_category, value: null }}
-                            value={props.value}
+                            // Because a picUri is null only when there is no image and there is no image only when we create a Dish.
+                            value={picUri ? props.value : category}
                             onValueChange={(value) => props.onChangeText(props.fieldName, value)}
                             items={getCategories('Dish')}
                             textInputProps={{fontSize: 18, color:'black'}}
