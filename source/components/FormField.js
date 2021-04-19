@@ -113,7 +113,7 @@ export default function FormField({...props}) {
                             value={picUri ? props.value : category}
                             onValueChange={(value) => props.onChangeText(props.fieldName, value)}
                             items={getCategories('Dish')}
-                            textInputProps={{fontSize: 18, color:'black'}}
+                            textInputProps={{fontSize: props.value ? 18 : 16, color: props.value ? 'black' : 'gray'}}
                         />
                     </View>
                     :
