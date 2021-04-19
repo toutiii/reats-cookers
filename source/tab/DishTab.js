@@ -4,6 +4,7 @@ import DishListView from "../listviews/DishListView";
 import MenuListView from "../listviews/MenuListView";
 import DishAddView from "../views/DishAddView"
 import all_constants from "../constants";
+import StateTab from "./StateTab";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -26,32 +27,45 @@ export default function DishTab () {
         >
             <Tab.Screen
                 name="Starters"
-                component={DishListView}
+                component={StateTab}
                 options={{ title: 'ENTRÉES'}}
-                initialParams={{ tag: all_constants.tag.dishes.starter }}
+                initialParams={{
+                    tag: all_constants.tag.dishes.starter,
+                    child_component: DishListView
+                }}
             />
             <Tab.Screen
                 name="Dishes"
-                component={DishListView}
+                component={StateTab}
                 options={{ title: 'PLATS'}}
-                initialParams={{ tag: all_constants.tag.dishes.dish }}
+                initialParams={{
+                    tag: all_constants.tag.dishes.dish,
+                    child_component: DishListView
+                }}
             />
             <Tab.Screen
                 name="Desserts"
-                component={DishListView}
+                component={StateTab}
                 options={{ title: 'DÉSSERTS'}}
-                initialParams={{ tag: all_constants.tag.dishes.dessert }}
+                initialParams={{
+                    tag: all_constants.tag.dishes.dessert,
+                    child_component: DishListView
+                }}
             />
             <Tab.Screen
                 name="Drinks"
-                component={DishListView}
+                component={StateTab}
                 options={{ title: 'BOISSONS'}}
-                initialParams={{ tag: all_constants.tag.dishes.drink}}
+                initialParams={{
+                    tag: all_constants.tag.dishes.drink,
+                    child_component: DishListView
+                }}
             />
             <Tab.Screen
                 name="Menus"
-                component={MenuListView}
+                component={StateTab}
                 options={{ title: 'MENUS'}}
+                initialParams={{child_component: MenuListView}}
             />
             <Tab.Screen
                 name="Add"
