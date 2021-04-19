@@ -236,6 +236,17 @@ export const all_constants = {
                 disabled_items: 'INACTIFS'
             }
         },
+        dish_tab:{
+            title:{
+                starter: 'ENTRÉES',
+                main_dish: 'PLATS',
+                dessert: 'DÉSSERTS',
+                drinks: 'BOISSONS',
+                menu: 'MENUS',
+                add_item: 'AJOUTER',
+            }
+        }
+    }
 }
 
 export default all_constants
