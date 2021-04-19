@@ -219,7 +219,7 @@ export const all_constants = {
         select_picker: 'select_picker',
     },
     placeholders: {
-        dish_category: 'Sélectionner la catégorie de votre plat',
+        dish_category: 'Sélectionnez la catégorie de votre plat',
         menu: 'Sélectionnez un item.'
     },
     remaining_char: 'Caractères restants: ',
