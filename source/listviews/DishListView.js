@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {View} from "react-native";
 import DishButton from "../button/DishButton";
 import styles_dish from '../styles/styles-dish'
-import all_constants from "../constants";
 import { getDishes } from "../helpers/dish_helpers"
 
 
