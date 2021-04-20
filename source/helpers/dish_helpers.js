@@ -1,6 +1,6 @@
 export function getDishes() {
-    const dish_list_data = [
-        {
+    const dish_list_data = {
+        1: {
             id: '1',
             dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
             dish_name: 'Poulet Yassa DU FUTUR',
@@ -11,7 +11,7 @@ export function getDishes() {
             dish_country: 'Sénégal',
             isEnabled: true,
         },
-        {
+        2: {
             id: '2',
             dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
             dish_name: 'Poulet Yassa 11',
@@ -22,7 +22,7 @@ export function getDishes() {
             dish_country: 'Sénégal',
             isEnabled: true,
         },
-        {
+        3: {
             id: '3',
             dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
             dish_name: 'Poulet Yassa 111',
@@ -33,7 +33,7 @@ export function getDishes() {
             dish_country: 'Sénégal',
             isEnabled: true,
         },
-        {
+        4: {
             id: '4',
             dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
             dish_name: 'Poulet Yassa 1111',
@@ -44,7 +44,7 @@ export function getDishes() {
             dish_country: 'Sénégal',
             isEnabled: false,
         },
-        {
+        5: {
             id: '5',
             dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
             dish_name: 'Poulet Yassa 11111',
@@ -55,7 +55,7 @@ export function getDishes() {
             dish_country: 'Sénégal',
             isEnabled: false,
         },
-        {
+        6:{
             id: '6',
             dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
             dish_name: 'Poulet Yassa 111111',
@@ -66,6 +66,7 @@ export function getDishes() {
             dish_country: 'Sénégal',
             isEnabled: false,
         },
-    ]
+    }
+
     return dish_list_data
 }
