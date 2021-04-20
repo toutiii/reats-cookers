@@ -177,7 +177,7 @@ export const all_constants = {
     tag:{
         dishes: {
             starter: 'starter',
-            dish: 'dish',
+            dish: 'main_dish',
             dessert: 'dessert',
             drink: 'drink'
         },
