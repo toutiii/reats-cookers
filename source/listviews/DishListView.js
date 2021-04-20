@@ -12,18 +12,20 @@ export default class DishListView extends Component {
     }
 
     getData = () => {
-        if (this.props.route.params.tag === all_constants.tag.dishes.starter) {
-            return getDishes()
+        const allDishes = getDishes()
+        let dishData = []
+        const indexes = Object.keys(allDishes)
+        for (let i = 1; i <= indexes.length; i++) {
+            const dishObject = allDishes[i]
+            if (
+                dishObject['dish_category'] === this.props.route.params.tag
+                &&
+                dishObject['isEnabled'] === this.props.route.params.isEnabled
+            ){
+                dishData.push(dishObject)
+            }
         }
-        else if (this.props.route.params.tag === all_constants.tag.dishes.dish) {
-            return getDishes()
-        }
-        else if (this.props.route.params.tag === all_constants.tag.dishes.dessert) {
-            return getDishes()
-        }
-        else if (this.props.route.params.tag === all_constants.tag.dishes.drink) {
-            return getDishes()
-        }
+        return dishData
     }
 
     render() {
