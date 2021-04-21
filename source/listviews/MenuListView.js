@@ -3,6 +3,7 @@ import {View} from "react-native";
 import MenuButton from "../button/MenuButton"
 import styles_menu from "../styles/styles-balance"
 import {getMenus} from "../helpers/menu_helpers";
+import {getData} from "../helpers/global_helpers";
 
 
 export default class MenuListView extends Component {
@@ -14,7 +15,13 @@ export default class MenuListView extends Component {
         return(
             <View style={styles_menu.container}>
                 <MenuButton
-                    menu_list_data={this.getData()}
+                    menu_list_data={
+                        getData(
+                            getMenus(),
+                            this.props.route.params.tag,
+                            this.props.route.params.isEnabled
+                        )
+                    }
                     allProps={this.props}
                 />
             </View>
