@@ -8,13 +8,6 @@ import all_constants from "../constants";
 export default class BalanceListView extends Component {
     constructor(props) {
         super(props);
-    getData = () => {
-        if (this.props.route.params.tag === all_constants.tag.balance.pending) {
-            return this.balance_list_data
-        }
-        else if (this.props.route.params.tag === all_constants.tag.balance.history) {
-            return this.balance_list_data
-        }
     }
 
     render() {
