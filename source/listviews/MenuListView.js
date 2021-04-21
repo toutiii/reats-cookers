@@ -5,7 +5,7 @@ import styles_menu from "../styles/styles-balance"
 import {getMenus} from "../helpers/menu_helpers";
 
 
-export default class BalanceListView extends Component {
+export default class MenuListView extends Component {
     constructor(props) {
         super(props);
     }
