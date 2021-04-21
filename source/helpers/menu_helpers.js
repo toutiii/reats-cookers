@@ -9,6 +9,7 @@ export function getMenus() {
             menu_price: '13',
             menu_comment: 'Menu en promotion !',
             menu_drink: null,
+            isEnabled: false,
         },
         2:{
             id :'2',
@@ -18,7 +19,8 @@ export function getMenus() {
             menu_dessert: 'Part de moelleux chocolat',
             menu_price: '13',
             menu_comment: 'Menu en promotion !',
-            menu_drink: null
+            menu_drink: null,
+            isEnabled: false,
         },
         3:{
             id :'3',
@@ -29,6 +31,7 @@ export function getMenus() {
             menu_price: '13',
             menu_comment: 'Menu en promotion !',
             menu_drink: 'Fanta',
+            isEnabled: false,
         },
         4:{
             id :'4',
@@ -39,6 +42,7 @@ export function getMenus() {
             menu_price: '13',
             menu_comment: 'Menu en promotion !',
             menu_drink: null,
+            isEnabled: true,
         },
         5:{
             id :'5',
@@ -49,6 +53,7 @@ export function getMenus() {
             menu_price: '13',
             menu_comment: 'Menu en promotion !',
             menu_drink: 'Coca',
+            isEnabled: true,
         },
     }
     return menu_list_data;
