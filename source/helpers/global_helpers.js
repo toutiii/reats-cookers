@@ -45,3 +45,19 @@ export function getDaysOfWeek() {
     ];
     return daysOfWeek;
 }
+
+export function getData(dataFromBackend, tag, isEnabled) {
+    let data = []
+    const indexes = Object.keys(dataFromBackend)
+    for (let i = 1; i <= indexes.length; i++) {
+        const itemObject = dataFromBackend[i]
+        if (
+            itemObject['dish_category'] === tag
+            &&
+            itemObject['isEnabled'] === isEnabled
+        ){
+            data.push(itemObject)
+        }
+    }
+    return data
+}
