@@ -30,28 +30,19 @@ export default function OrdersTab () {
                 name="PaidOrders"
                 component={OrderListView}
                 options={{ title: 'PAYÉES' }}
-                initialParams={{
-                    tag: all_constants.tag.orders.paid,
-                    order_number_color: 'green',
-                }}
+                initialParams={{tag: all_constants.tag.orders.paid,}}
             />
             <Tab.Screen
                 name="CancelledOrders"
                 component={OrderListView}
                 options={{ title: 'ANNULÉES' }}
-                initialParams={{
-                    tag: all_constants.tag.orders.canceled,
-                    order_number_color: 'red',
-                }}
+                initialParams={{tag: all_constants.tag.orders.canceled,}}
             />
             <Tab.Screen
                 name="HistoryOrders"
                 component={OrderListView}
                 options={{ title: 'ARCHIVÉES' }}
-                initialParams={{
-                    tag: all_constants.tag.orders.archived,
-                    order_number_color: 'grey',
-                }}
+                initialParams={{tag: all_constants.tag.orders.archived,}}
             />
         </Tab.Navigator>
     )

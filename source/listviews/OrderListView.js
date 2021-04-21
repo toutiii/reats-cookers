@@ -250,7 +250,6 @@ export default class OrderListView extends Component {
                 <OrderButton
                     order_list_data={this.getData()}
                     allProps={this.props}
-                    order_number_color={this.props.route.params.order_number_color}
                 />
             </View>
         )
