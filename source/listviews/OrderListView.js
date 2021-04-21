@@ -3,6 +3,7 @@ import {View} from "react-native";
 import OrderButton from "../button/OrderButton"
 import styles_order from "../styles/styles-order"
 import all_constants from "../constants";
+import {getOrders} from "../helpers/order_helpers";
 
 
 export default class OrderListView extends Component {
@@ -10,10 +11,13 @@ export default class OrderListView extends Component {
         super(props);
     }
     getData = () => {
+        const order_list_data = getOrders()
         let data = []
-        for (let key in this.order_list_data) {
-            if (this.order_list_data[key]['order_tag'] === this.props.route.params.tag) {
-                data.push(this.order_list_data[key])
+        const indexes = Object.keys(order_list_data)
+        for (let i = 1; i <= indexes.length; i++) {
+            let itemObject = order_list_data[i]
+            if (itemObject['order_tag'] === this.props.route.params.tag) {
+                data.push(itemObject)
             }
         }
         if (data.length > 0){
@@ -21,10 +25,13 @@ export default class OrderListView extends Component {
         }
         else {
             if (this.props.route.params.tag !== all_constants.tag.orders.archived){
-                return this.order_list_data
-            }
+                for (let i = 1; i <= indexes.length; i++) {
+                    let itemObject = order_list_data[i]
+                        data.push(itemObject)
+                    }
+                }
+            return data
         }
-
     }
     render() {
         return(
