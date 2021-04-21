@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {View} from "react-native";
 import BalanceButton from "../button/BalanceButton"
 import styles_balance from "../styles/styles-balance"
-import all_constants from "../constants";
 
 
 export default class BalanceListView extends Component {
