@@ -46,6 +46,7 @@ export function getDaysOfWeek() {
     return daysOfWeek;
 }
 
+
 export function getData(dataFromBackend, tag, isEnabled) {
     let data = []
     const indexes = Object.keys(dataFromBackend)
@@ -60,4 +61,16 @@ export function getData(dataFromBackend, tag, isEnabled) {
         }
     }
     return data
+}
+
+
+export function getDataFromID(dataFromBackend, objectNumber) {
+    const indexes = Object.keys(dataFromBackend)
+    for (let i = 1; i <= indexes.length; i++) {
+        const itemObject = dataFromBackend[i]
+        if (itemObject['order_number'] === objectNumber){
+            console.log(itemObject)
+            return itemObject
+        }
+    }
 }
