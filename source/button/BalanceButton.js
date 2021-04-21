@@ -4,12 +4,9 @@ import styles_balance from '../styles/styles-balance.js'
 import all_constants from "../constants";
 import Balance from "../components/Balance"
 import HorizontalLine from "../components/HorizontalLine";
+import {getDataFromID} from "../helpers/global_helpers";
+import {getOrders} from "../helpers/order_helpers";
 
-
-function getOrderFromNumber(item) {
-    //COMING SOON
-    return item
-}
 
 export default function BalanceButton({...props}) {
     return (
@@ -25,12 +22,7 @@ export default function BalanceButton({...props}) {
                     <View style={styles_balance.balance_button_container}>
                         <TouchableHighlight
                             onPress={() => {
-                                props.allProps.navigation.navigate(
-                                    'OrderView',
-                                    {
-                                        item: getOrderFromNumber(item),
-                                        props
-                                    })
+                                props.allProps.navigation.navigate('OrderView', {item: getDataFromID(getOrders(), item.order_number)})
                             }}
                             style={{flex: 1}}
                             underlayColor={all_constants.colors.inputBorderColor}
