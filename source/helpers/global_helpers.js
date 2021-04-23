@@ -47,17 +47,42 @@ export function getDaysOfWeek() {
 }
 
 
-export function getData(dataFromBackend, tag, isEnabled) {
+export function getData(
+    dataFromBackend,
+    tag = undefined,
+    isEnabled = undefined,
+    tagField = undefined,
+    keyField = undefined,
+    wantedFields=[]
+) {
     let data = []
     const indexes = Object.keys(dataFromBackend['data'])
-    for (let i = 0; i < indexes.length; i++) {
-        const itemObject = dataFromBackend['data'][i]
-        if (
-            itemObject['dish_category'] === tag
-            &&
-            itemObject['isEnabled'] === isEnabled
-        ){
-            data.push(itemObject)
+
+    if (tag !== undefined && tagField !== undefined && wantedFields.length === 0) {
+        for (let i = 0; i < indexes.length; i++) {
+            const itemObject = dataFromBackend['data'][i]
+            itemObject['key'] = itemObject[keyField]
+            if (isEnabled !== undefined) {
+                if (itemObject[tagField] === tag && itemObject['isEnabled'] === isEnabled) {
+                    data.push(itemObject)
+                }
+            }
+            else{
+                if (itemObject[tagField] === tag) {
+                    data.push(itemObject)
+                }
+            }
+        }
+    }
+    else if (tag === undefined && tagField === undefined && wantedFields.length > 0 && isEnabled === undefined) {
+        for (let i = 0; i < indexes.length; i++) {
+            const itemObject = dataFromBackend['data'][i]
+            let tempObject = {}
+            for (let j = 0; j < wantedFields.length; j++) {
+                tempObject['key'] = itemObject[keyField]
+                tempObject[wantedFields[j]] = itemObject[wantedFields[j]]
+            }
+            data.push(tempObject)
         }
     }
     return data
