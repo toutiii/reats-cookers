@@ -19,7 +19,9 @@ export default class DishListView extends Component {
                         getData(
                             getDishes(),
                             this.props.route.params.tag,
-                            this.props.route.params.isEnabled
+                            this.props.route.params.isEnabled,
+                            'dish_category',
+                            'id',
                         )
                     }
                     allProps={this.props}

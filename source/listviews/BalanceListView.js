@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import {View} from "react-native";
 import BalanceButton from "../button/BalanceButton"
 import styles_balance from "../styles/styles-balance"
-import {getBalanceData} from "../helpers/balance_helpers";
+import {getData} from "../helpers/global_helpers";
+import {getOrders} from "../helpers/order_helpers";
 
 
 export default class BalanceListView extends Component {
@@ -14,7 +15,14 @@ export default class BalanceListView extends Component {
         return(
             <View style={styles_balance.container}>
                 <BalanceButton
-                    balance_list_data={getBalanceData()}
+                    balance_list_data={getData(
+                        getOrders(),
+                        undefined,
+                        undefined,
+                        undefined,
+                        "order_number",
+                        [ "order_number", "order_amount"]
+                    )}
                     allProps={this.props}
                 />
             </View>
