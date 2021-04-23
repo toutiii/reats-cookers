@@ -3,7 +3,7 @@ export function getOrders() {
         "data":[
             {
                 "id" :"1",
-                "order_number": "123365",
+                "order_number": "123366",
                 "order_status": "En attente de prise en charge",
                 "order_owner": "Toutii",
                 "order_amount": "50€",
@@ -38,7 +38,7 @@ export function getOrders() {
             },
             {
                 "id" :"2",
-                "order_number": "123365",
+                "order_number": "123367",
                 "order_status": "Annulée",
                 "order_owner": "Toutii",
                 "order_amount": "50€",
@@ -73,7 +73,7 @@ export function getOrders() {
             },
             {
                 "id" :"3",
-                "order_number": "123365",
+                "order_number": "123368",
                 "order_status": "En attente de prise en charge",
                 "order_owner": "Toutii",
                 "order_amount": "50€",
@@ -108,7 +108,7 @@ export function getOrders() {
             },
             {
                 "id" :"4",
-                "order_number": "123365",
+                "order_number": "123369",
                 "order_status": "Annulée",
                 "order_owner": "Toutii",
                 "order_amount": "50€",
@@ -143,7 +143,7 @@ export function getOrders() {
             },
             {
                 "id" :"5",
-                "order_number": "123365",
+                "order_number": "123370",
                 "order_status": "En attente de prise en charge",
                 "order_owner": "Toutii",
                 "order_amount": "50€",
