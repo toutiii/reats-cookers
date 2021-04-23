@@ -90,9 +90,9 @@ export function getData(
 
 
 export function getDataFromID(dataFromBackend, objectNumber) {
-    const indexes = Object.keys(dataFromBackend)
-    for (let i = 1; i <= indexes.length; i++) {
-        const itemObject = dataFromBackend[i]
+    const indexes = Object.keys(dataFromBackend['data'])
+    for (let i = 0; i < indexes.length; i++) {
+        const itemObject = dataFromBackend['data'][i]
         if (itemObject['order_number'] === objectNumber){
             return itemObject
         }
