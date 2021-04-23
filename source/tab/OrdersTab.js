@@ -21,12 +21,6 @@ export default function OrdersTab () {
             }}
         >
             <Tab.Screen
-                name="AllOrders"
-                component={OrderListView}
-                options={{ title: 'TOUTES' }}
-                initialParams={{tag: all_constants.tag.orders.all,}}
-            />
-            <Tab.Screen
                 name="PaidOrders"
                 component={OrderListView}
                 options={{ title: 'PAYÉES' }}
