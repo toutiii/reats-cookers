@@ -49,9 +49,9 @@ export function getDaysOfWeek() {
 
 export function getData(dataFromBackend, tag, isEnabled) {
     let data = []
-    const indexes = Object.keys(dataFromBackend)
-    for (let i = 1; i <= indexes.length; i++) {
-        const itemObject = dataFromBackend[i]
+    const indexes = Object.keys(dataFromBackend['data'])
+    for (let i = 0; i < indexes.length; i++) {
+        const itemObject = dataFromBackend['data'][i]
         if (
             itemObject['dish_category'] === tag
             &&
