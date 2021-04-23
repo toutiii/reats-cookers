@@ -155,12 +155,7 @@ export default class HomeView extends Component {
                             {this.total_orders_count}
                         </Text>
                     </View>
-                    <View style={{flex: 1,}}>
-                        <CustomImageButton
-                            onPress={() => this.onPressNavigateToTab('OrdersTab', 'AllOrders')}
-                            uri={this.arrow_uri}
-                        />
-                    </View>
+                    <View style={{flex: 1,}}></View>
                 </View>
                 <View style={styles_home_view.label_view}>
                     <Text style={{fontSize: 20, }}>
