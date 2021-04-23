@@ -69,7 +69,6 @@ export function getDataFromID(dataFromBackend, objectNumber) {
     for (let i = 1; i <= indexes.length; i++) {
         const itemObject = dataFromBackend[i]
         if (itemObject['order_number'] === objectNumber){
-            console.log(itemObject)
             return itemObject
         }
     }
