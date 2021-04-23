@@ -89,7 +89,7 @@ export function getData(
 }
 
 
-export function getDataFromID(dataFromBackend, objectNumber) {
+export function getDataFromUniqueField(dataFromBackend, objectNumber) {
     const indexes = Object.keys(dataFromBackend['data'])
     for (let i = 0; i < indexes.length; i++) {
         const itemObject = dataFromBackend['data'][i]
