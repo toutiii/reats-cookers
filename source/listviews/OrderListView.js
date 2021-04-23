@@ -13,9 +13,9 @@ export default class OrderListView extends Component {
     getData = () => {
         const order_list_data = getOrders()
         let data = []
-        const indexes = Object.keys(order_list_data)
-        for (let i = 1; i <= indexes.length; i++) {
-            let itemObject = order_list_data[i]
+        const indexes = Object.keys(order_list_data['data'])
+        for (let i = 0; i < indexes.length; i++) {
+            let itemObject = order_list_data['data'][i]
             if (itemObject['order_tag'] === this.props.route.params.tag) {
                 data.push(itemObject)
             }
@@ -25,8 +25,8 @@ export default class OrderListView extends Component {
         }
         else {
             if (this.props.route.params.tag !== all_constants.tag.orders.archived){
-                for (let i = 1; i <= indexes.length; i++) {
-                    let itemObject = order_list_data[i]
+                for (let i = 0; i < indexes.length; i++) {
+                    let itemObject = order_list_data['data'][i]
                         data.push(itemObject)
                     }
                 }
