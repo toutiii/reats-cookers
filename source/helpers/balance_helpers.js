@@ -44,9 +44,9 @@ export function getBalanceData () {
         ]
     }
     let data = []
-    const indexes = Object.keys(balance_list_data)
-    for (let i = 1; i <= indexes.length; i++) {
-        const itemObject = balance_list_data[i]
+    const indexes = Object.keys(balance_list_data['data'])
+    for (let i = 0; i < indexes.length; i++) {
+        const itemObject = balance_list_data['data'][i]
         data.push(itemObject)
     }
     return data
