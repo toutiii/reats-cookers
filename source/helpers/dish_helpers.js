@@ -1,72 +1,73 @@
 export function getDishes() {
     const dish_list_data = {
-        1: {
-            id: '1',
-            dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
-            dish_name: 'Poulet Yassa DU FUTUR',
-            dish_category: 'starter',
-            dish_rating: '4.8/5',
-            dish_price: '200',
-            dish_description: 'Un succulent poulet Yassa',
-            dish_country: 'Sénégal',
-            isEnabled: true,
-        },
-        2: {
-            id: '2',
-            dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
-            dish_name: 'Poulet Yassa 11',
-            dish_category: 'dessert',
-            dish_rating: '4.8/5',
-            dish_price: '11.5',
-            dish_description: 'Un succulent poulet Yassa 11',
-            dish_country: 'Sénégal',
-            isEnabled: true,
-        },
-        3: {
-            id: '3',
-            dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
-            dish_name: 'Poulet Yassa 111',
-            dish_category: 'main_dish',
-            dish_rating: '4.8/5',
-            dish_price: '9.5',
-            dish_description: 'Un succulent poulet Yassa 111',
-            dish_country: 'Sénégal',
-            isEnabled: true,
-        },
-        4: {
-            id: '4',
-            dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
-            dish_name: 'Poulet Yassa 1111',
-            dish_category: 'main_dish',
-            dish_rating: '4.8/5',
-            dish_price: '12',
-            dish_description: 'Un succulent poulet Yassa 1111',
-            dish_country: 'Sénégal',
-            isEnabled: false,
-        },
-        5: {
-            id: '5',
-            dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
-            dish_name: 'Poulet Yassa 11111',
-            dish_category: 'main_dish',
-            dish_rating: '4.8/5',
-            dish_price: '8',
-            dish_description: 'Un succulent poulet Yassa 11111',
-            dish_country: 'Sénégal',
-            isEnabled: false,
-        },
-        6:{
-            id: '6',
-            dish_photo: 'https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg',
-            dish_name: 'Poulet Yassa 111111',
-            dish_category: 'main_dish',
-            dish_rating: '4.8/5',
-            dish_price: '7',
-            dish_description: 'Un succulent poulet Yassa 111111',
-            dish_country: 'Sénégal',
-            isEnabled: false,
-        },
+        "data":[
+            {
+                "id": "1",
+                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "dish_name": "Poulet Yassa",
+                "dish_category": "starter",
+                "dish_rating": "4.8/5",
+                "dish_price": "14",
+                "dish_description": "Un succulent poulet Yassa",
+                "dish_country": "Sénégal",
+                "isEnabled": true
+            },
+            {
+                "id": "2",
+                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "dish_name": "Poulet Yassa",
+                "dish_category": "starter",
+                "dish_rating": "4.8/5",
+                "dish_price": "14",
+                "dish_description": "Un succulent poulet Yassa",
+                "dish_country": "Sénégal",
+                "isEnabled": true
+            },
+            {
+                "id": "3",
+                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "dish_name": "Poulet Yassa",
+                "dish_category": "starter",
+                "dish_rating": "4.8/5",
+                "dish_price": "14",
+                "dish_description": "Un succulent poulet Yassa",
+                "dish_country": "Sénégal",
+                "isEnabled": true
+            },
+            {
+                "id": "4",
+                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "dish_name": "Poulet Yassa",
+                "dish_category": "starter",
+                "dish_rating": "4.8/5",
+                "dish_price": "14",
+                "dish_description": "Un succulent poulet Yassa",
+                "dish_country": "Sénégal",
+                "isEnabled": true
+            },
+            {
+                "id": "5",
+                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "dish_name": "Poulet Yassa",
+                "dish_category": "starter",
+                "dish_rating": "4.8/5",
+                "dish_price": "14",
+                "dish_description": "Un succulent poulet Yassa",
+                "dish_country": "Sénégal",
+                "isEnabled": true
+            },
+            {
+                "id": "6",
+                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "dish_name": "Poulet Yassa",
+                "dish_category": "starter",
+                "dish_rating": "4.8/5",
+                "dish_price": "14",
+                "dish_description": "Un succulent poulet Yassa",
+                "dish_country": "Sénégal",
+                "isEnabled": true
+            }
+        ]
     }
-
     return dish_list_data
 }
