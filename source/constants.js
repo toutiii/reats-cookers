@@ -227,6 +227,14 @@ export const all_constants = {
                 dish_description: 'Une courte description de votre plat',
                 dish_country: 'De quel pays vient votre plat ?',
             },
+            menu: {
+                menu_name: 'Donnez un nom à votre menu',
+                menu_starter: "Sélectionnez l'entrée",
+                menu_main_dish: 'Sélectionnez le plat de résistance',
+                menu_dessert: 'Sélectionnez le dessert',
+                menu_drink: 'Sélectionnez la boisson',
+                menu_price: 'Fixez le prix de votre menu',
+            }
         }
 
     },
