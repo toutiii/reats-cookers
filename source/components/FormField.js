@@ -9,12 +9,16 @@ import CustomImageButton from "../button/CustomImageButton";
 import * as ImagePicker from "expo-image-picker"
 import PickerCheckBox from 'react-native-picker-checkbox';
 import {getDaysOfWeek} from "../helpers/global_helpers";
+import CustomButton from "../button/CustomButton";
+import FormLabelModal from "../modals/FormLabelModal";
+import MenuListView from "../listviews/MenuListView";
 
 
 export default function FormField({...props}) {
     const [showAlert, setStateShowAlert] = useState(false)
     const [picUri, setPicUri] = useState(null)
     const [category, setCategory] = useState(null)
+    const [labelModalState, setLabelModalState] = useState(false)
     useEffect(() => {
             setPicUri(props.itemObject.dish_photo)
     }, [props.itemObject])
@@ -58,8 +62,37 @@ export default function FormField({...props}) {
     return (
         <View style={styles_field.container}>
             <View style={styles_field.label}>
-                <Text style={{fontSize: 20}}>{props.field.label}</Text>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <Text style={{fontSize: 20}}>{props.field.label}</Text>
+                </View>
+                {
+                    props.field.labelModal ?
+                        <View style={{alignItems: 'center'}}>
+                            <CustomButton
+                                label={'?'}
+                                backgroundColor='tomato'
+                                label_color='white'
+                                height={23}
+                                button_width={23}
+                                border_radius={30}
+                                font_size={12}
+                                onPress={() => {setLabelModalState(true)}}
+                            />
+                        </View>
+                    :
+                        <View></View>
+                }
             </View>
+            {
+                labelModalState ?
+                    <FormLabelModal
+                        state={true}
+                        labelModalText={props.field.labelModalText}
+                        onPressCloseModal={() => {setLabelModalState(false)}}
+                    />
+                :
+                    <View></View>
+            }
             {
                 props.field.type === all_constants.field_type.textinput || props.field.type === all_constants.field_type.textarea ?
                     <View style={
