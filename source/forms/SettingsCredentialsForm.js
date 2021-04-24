@@ -26,24 +26,28 @@ export default function SettingsCredentialsForm ({...props}){
                         email: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.email,
+                            placeholder: all_constants.placeholders.form.settings.email,
                             validators: [],
                             maxLength: 100,
                         },
                         user_settings_current_password: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.current_password,
+                            placeholder: all_constants.placeholders.form.settings.user_settings_current_password,
                             validators: [],
                             maxLength: 10,
                         },
                         user_settings_new_password: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.new_password,
+                            placeholder: all_constants.placeholders.form.settings.user_settings_new_password,
                             validators: [],
                             maxLength: 10,
                         },
                         user_settings_new_password_confirmation: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.new_password_confirmation,
+                            placeholder: all_constants.placeholders.form.settings.user_settings_new_password_confirmation,
                             validators: [],
                             maxLength: 10,
                         },
