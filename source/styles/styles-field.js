@@ -15,6 +15,7 @@ export default styles_field=StyleSheet.create({
         flex: 3,
         width: '100%',
         alignItems: 'center',
+        justifyContent: 'center',
         flexDirection: 'row',
     },
     textinput_container: {
