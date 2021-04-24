@@ -61,15 +61,22 @@ export default function FormField({...props}) {
                 <Text style={{fontSize: 20}}>{props.field.label}</Text>
             </View>
             {
-                props.field.type === all_constants.field_type.textinput ?
-                    <View style={styles_field.textinput_container}>
+                props.field.type === all_constants.field_type.textinput || props.field.type === all_constants.field_type.textarea ?
+                    <View style={
+                        [
+                            styles_field.textinput_container,
+                            {height: props.field.type === all_constants.field_type.textarea ? 140 : 70}
+                        ]
+                    }>
                         <TextInput
                             style={styles_field.textinput}
                             value={props.value}
-                            placeholder={props.value ? '' : props.field.placeholder}
                             onChangeText={(text) => props.onChangeText(props.fieldName, text)}
                             maxLength={props.field.maxLength}
-                            keyboardType={props.field.keyboardNumeric ? "decimal-pad" : 'default'}
+                            multiline={props.field.type === all_constants.field_type.textarea ? true : false}
+                            numberOfLines={props.field.type === all_constants.field_type.textarea ? 4 : 1}
+                            placeholder={props.field.placeholder}
+                            keyboardType={props.field.keyboardNumeric ? 'numeric' : 'default'}
                         />
                         {
                             props.value ?
@@ -77,27 +84,11 @@ export default function FormField({...props}) {
                                     {all_constants.remaining_char}
                                     {props.field.maxLength - props.value.length}/{props.field.maxLength}
                                 </Text>
-                            :
+                                :
                                 <Text style={{fontSize: 14}}>
                                     {all_constants.remaining_char}
                                     {props.field.maxLength}/{props.field.maxLength}
                                 </Text>
-                        }
-                        {
-                            props.error ?
-                                <AwesomeAlert
-                                    show={props.showAlert}
-                                    title={all_constants.messages.errors.title}
-                                    message={props.error}
-                                    closeOnTouchOutside={false}
-                                    closeOnHardwareBackPress={false}
-                                    showConfirmButton={true}
-                                    confirmText="OK"
-                                    confirmButtonColor="#DD6B55"
-                                    onConfirmPressed={props.onConfirmPressed}
-                                />
-                            :
-                                <View></View>
                         }
                     </View>
                     :
@@ -203,34 +194,6 @@ export default function FormField({...props}) {
                         confirmButtonColor="red"
                         onConfirmPressed={() => {setStateShowAlert(false)}}
                     />
-                    :
-                    <View></View>
-            }
-            {
-                props.field.type === all_constants.field_type.textarea ?
-                    <View style={[styles_field.textinput_container, {height: 140}]}>
-                        <TextInput
-                            style={styles_field.textinput}
-                            value={props.value}
-                            onChangeText={(text) => props.onChangeText(props.fieldName, text)}
-                            maxLength={props.field.maxLength}
-                            multiline={true}
-                            numberOfLines={4}
-                            placeholder={props.field.placeholder}
-                        />
-                        {
-                            props.value ?
-                                <Text style={{fontSize: 14}}>
-                                    {all_constants.remaining_char}
-                                    {props.field.maxLength - props.value.length}/{props.field.maxLength}
-                                </Text>
-                                :
-                                <Text style={{fontSize: 14}}>
-                                    {all_constants.remaining_char}
-                                    {props.field.maxLength}/{props.field.maxLength}
-                                </Text>
-                        }
-                    </View>
                     :
                     <View></View>
             }
