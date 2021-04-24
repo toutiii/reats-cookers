@@ -69,7 +69,7 @@ export default function FormField({...props}) {
                             placeholder={props.value ? '' : props.field.placeholder}
                             onChangeText={(text) => props.onChangeText(props.fieldName, text)}
                             maxLength={props.field.maxLength}
-                            keyboardType={props.fieldName.includes('price') ? "decimal-pad" : 'default'}
+                            keyboardType={props.field.keyboardNumeric ? "decimal-pad" : 'default'}
                         />
                         {
                             props.value ?
