@@ -42,6 +42,8 @@ export default function SettingsOrderInformationForm ({...props}){
                         order_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.order_days,
+                            labelModal: true,
+                            labelModalText: all_constants.modal.form.settings.order_days,
                             placeholder: all_constants.placeholders.form.settings.order_days,
                             validators: [],
                             checkedItems: getIndexOfDays('order_days'),  // Will be used by PickerCheckBox in FormField
@@ -50,6 +52,7 @@ export default function SettingsOrderInformationForm ({...props}){
                         delivery_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.delivery_days,
+                            labelModal: true,
                             placeholder: all_constants.placeholders.form.settings.delivery_days,
                             validators: [],
                             checkedItems: getIndexOfDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
@@ -58,6 +61,8 @@ export default function SettingsOrderInformationForm ({...props}){
                         max_order_number: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.max_order_number,
+                            labelModal: true,
+                            labelModalText: all_constants.modal.form.settings.max_order_number,
                             placeholder: all_constants.placeholders.form.settings.max_order_number,
                             validators: [],
                             maxLength: 50,
@@ -65,6 +70,8 @@ export default function SettingsOrderInformationForm ({...props}){
                         noon_delivery_hours: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.noon_delivery_hours,
+                            labelModal: true,
+                            labelModalText: all_constants.modal.form.settings.noon_delivery_hours,
                             placeholder: all_constants.placeholders.form.settings.noon_delivery_hours,
                             keyboardNumeric: true,
                             validators: [],
@@ -73,6 +80,8 @@ export default function SettingsOrderInformationForm ({...props}){
                         noon_delivery_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.noon_delivery_days,
+                            labelModal: true,
+                            labelModalText: all_constants.modal.form.settings.noon_delivery_days,
                             placeholder: all_constants.placeholders.form.settings.noon_delivery_days,
                             validators: [],
                             checkedItems: getIndexOfDays('noon_delivery_days'),  // Will be used by PickerCheckBox in FormField
@@ -81,6 +90,8 @@ export default function SettingsOrderInformationForm ({...props}){
                         evening_delivery_hours: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.evening_delivery_hours,
+                            labelModal: true,
+                            labelModalText: all_constants.modal.form.settings.evening_delivery_hours,
                             placeholder: all_constants.placeholders.form.settings.evening_delivery_hours,
                             keyboardNumeric: true,
                             validators: [],
@@ -89,6 +100,8 @@ export default function SettingsOrderInformationForm ({...props}){
                         evening_delivery_days: {
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.evening_delivery_days,
+                            labelModal: true,
+                            labelModalText: all_constants.modal.form.settings.evening_delivery_days,
                             placeholder: all_constants.placeholders.form.settings.evening_delivery_days,
                             checkedItems: getIndexOfDays('evening_delivery_days'),  // Will be used by PickerCheckBox in FormField
                             validators: [],
