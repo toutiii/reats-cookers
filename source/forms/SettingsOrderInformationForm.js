@@ -61,6 +61,7 @@ export default function SettingsOrderInformationForm ({...props}){
                         max_order_number: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.max_order_number,
+                            keyboardNumeric: true,
                             labelModal: true,
                             labelModalText: all_constants.modal.form.settings.max_order_number,
                             placeholder: all_constants.placeholders.form.settings.max_order_number,
