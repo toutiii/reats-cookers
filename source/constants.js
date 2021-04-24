@@ -173,6 +173,47 @@ export const all_constants = {
             show: 'AFFICHER LES PLATS',
             hide: 'FERMER',
         },
+        form: {
+            settings: {
+                order_days: (
+                    "Vous choisissez ici les jours où les clients peuvent vous passer des commandes. \n \n" +
+                    "Ex: Mardi,Mercredi \n \n" +
+                    "Cela signifie que vous acceptez de recevoir uniquement les commandes les mardis et mercredis. \n \n " +
+                    "En dehors de ces jours, vous ne serez pas visible des clients et vous ne recevrez donc aucune commande."
+                ),
+                max_order_number: (
+                    "Vous estimez ici le nombre maximal de plats que vous pensez pouvoir préparer sur une période. \n \n" +
+                    "Ex: 18 \n \n" +
+                    "Cela signifie que vous ne pourrez jamais avoir plus de 18 plats à préparer par vague de commandes. \n \n " +
+                    "Veillez à ne pas en mettre trop pour pouvoir être dans les temps pour la collecte des commandes par nos livreurs. \n \n" +
+                    "Attention, il ne s'agit pas forcément ici du nombre de commandes. En effet une commande peut comporter plusieurs plats."
+                ),
+                noon_delivery_hours: (
+                    "Vous choisissez ici le créneau du midi pour la collecte de vos plats par nos livreurs. \n \n" +
+                    "Ex: 11-13 \n \n" +
+                    "Cela signifie qu'entre 11h au plus tôt et 13h au plus tard, nos livreurs peuvent venir récupérer les commandes à votre adresse. \n \n " +
+                    "Attention, si vous paramétrez des horaires décalées, par exemple 14-16, les clients recevront vos commandes entre 14h30 et 16h30 !"
+                ),
+                noon_delivery_days: (
+                    "Vous choisissez les jours où nos livreurs peuvent passer récupérer les commandes en journée. \n \n" +
+                    "Ex: Vendredi,Samedi \n \n" +
+                    "Cela signifie que les vendredis et samedis, les livreurs pourront passer collecter les commandes pour les livraisons du midi. \n \n " +
+                    "Notez que 'midi' dans la phrase ci-dessus fait référence aux horaires de collecte définies dans le champ 'Votre créneau du midi' "
+                ),
+                evening_delivery_hours: (
+                    "Vous choisissez ici le créneau du soir pour la collecte de vos plats par nos livreurs. \n \n" +
+                    "Ex: 18-20 \n \n" +
+                    "Cela signifie qu'entre 18h au plus tôt et 20h au plus tard, nos livreurs peuvent venir récupérer les commandes à votre adresse. \n \n " +
+                    "Attention, si vous paramétrez des horaires décalées, par exemple 20-22, les clients recevront vos commandes entre 20h30 et 22h30 !"
+                ),
+                evening_delivery_days: (
+                    "Vous choisissez les jours où nos livreurs peuvent passer récupérer les commandes en soirée. \n \n" +
+                    "Ex: Jeudi,Vendredi \n \n" +
+                    "Cela signifie que les jeudis et vendredis, les livreurs pourront passer collecter les commandes pour les livraisons en soirée. \n \n " +
+                    "Notez que 'soirée' dans la phrase ci-dessus fait référence aux horaires de collecte définies dans le champ 'Votre créneau du soir' "
+                ),
+            }
+        }
     },
     tag:{
         dishes: {
