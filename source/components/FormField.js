@@ -66,7 +66,7 @@ export default function FormField({...props}) {
                         <TextInput
                             style={styles_field.textinput}
                             value={props.value}
-                            placeholder={props.value ? '' : all_constants.placeholders.form.dishes.menu}
+                            placeholder={props.value ? '' : props.field.placeholder}
                             onChangeText={(text) => props.onChangeText(props.fieldName, text)}
                             maxLength={props.field.maxLength}
                             keyboardType={props.fieldName.includes('price') ? "decimal-pad" : 'default'}
@@ -108,7 +108,7 @@ export default function FormField({...props}) {
                     <View style={styles_field.picker_container}>
                         <RNPickerSelect
                             useNativeAndroidPickerStyle={false}
-                            placeholder={{ label: all_constants.placeholders.form.dishes.dish_category, value: null }}
+                            placeholder={{ label: props.field.placeholder, value: null }}
                             // Because a picUri is null only when there is no image and there is no image only when we create a Dish.
                             value={picUri ? props.value : category}
                             onValueChange={(value) => props.onChangeText(props.fieldName, value)}
@@ -216,7 +216,7 @@ export default function FormField({...props}) {
                             maxLength={props.field.maxLength}
                             multiline={true}
                             numberOfLines={4}
-                            placeholder={'Une courte description de votre plat'}
+                            placeholder={props.field.placeholder}
                         />
                         {
                             props.value ?
