@@ -35,7 +35,6 @@ export default styles = StyleSheet.create({
         top: 180
     },
     login_button: {
-        width:all_constants.screen.width - 30,
         alignItems: 'center',
         justifyContent: 'center',
     },

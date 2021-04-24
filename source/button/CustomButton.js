@@ -19,6 +19,7 @@ export default function CustomButton ({label, ...props}) {
                     {top: props.top},
                     {borderRadius: props.border_radius},
                     {backgroundColor: props.backgroundColor? props.backgroundColor : 'transparent'},
+                    {width: props.button_width ? props.button_width : all_constants.screen.width - 30}
                 ]
             }
         >
