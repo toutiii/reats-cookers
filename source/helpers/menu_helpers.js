@@ -10,6 +10,7 @@ export function getMenus() {
                 "menu_price": "13",
                 "menu_comment": "Menu en promotion !",
                 "menu_drink": null,
+                "menu_tag": "menu",
                 "isEnabled": false
             },
             {
@@ -21,6 +22,7 @@ export function getMenus() {
                 "menu_price": "13",
                 "menu_comment": "Menu en promotion !",
                 "menu_drink": null,
+                "menu_tag": "menu",
                 "isEnabled": false
             },
             {
@@ -32,6 +34,7 @@ export function getMenus() {
                 "menu_price": "13",
                 "menu_comment": "Menu en promotion !",
                 "menu_drink": "Fanta",
+                "menu_tag": "menu",
                 "isEnabled": false
             },
             {
@@ -43,6 +46,7 @@ export function getMenus() {
                 "menu_price": "13",
                 "menu_comment": "Menu en promotion !",
                 "menu_drink": null,
+                "menu_tag": "menu",
                 "isEnabled": true
             },
             {
@@ -54,6 +58,7 @@ export function getMenus() {
                 "menu_price": "13",
                 "menu_comment": "Menu en promotion !",
                 "menu_drink": "Coca",
+                "menu_tag": "menu",
                 "isEnabled": true
             }
         ]
