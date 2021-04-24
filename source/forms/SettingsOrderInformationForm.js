@@ -49,15 +49,6 @@ export default function SettingsOrderInformationForm ({...props}){
                             checkedItems: getIndexOfDays('order_days'),  // Will be used by PickerCheckBox in FormField
                             maxLength: 10,
                         },
-                        delivery_days: {
-                            type: all_constants.field_type.select_picker,
-                            label: all_constants.label.form.settings.delivery_days,
-                            labelModal: true,
-                            placeholder: all_constants.placeholders.form.settings.delivery_days,
-                            validators: [],
-                            checkedItems: getIndexOfDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
-                            maxLength: 51,
-                        },
                         max_order_number: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.max_order_number,
