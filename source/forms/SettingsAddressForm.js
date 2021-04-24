@@ -48,6 +48,7 @@ export default function SettingsAddressForm ({...props}){
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.postal_code,
                             placeholder: all_constants.placeholders.form.settings.postal_code,
+                            keyboardNumeric: true,
                             validators: [],
                             maxLength: 50,
                         },

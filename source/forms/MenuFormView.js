@@ -64,6 +64,7 @@ export default function MenuFormView ({...props}){
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.menu.price,
                             placeholder: all_constants.placeholders.form.menu.menu_price,
+                            keyboardNumeric: true,
                             validators: [],
                             maxLength: 5,
                         },

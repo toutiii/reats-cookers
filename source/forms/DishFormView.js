@@ -47,6 +47,7 @@ export default function DishFormView ({...props}){
                             maxLength: 5,
                             label: all_constants.label.form.dishes.price,
                             placeholder: all_constants.placeholders.form.dishes.dish_price,
+                            keyboardNumeric: true,
                             validators: [validateNumberType]
                         },
                         dish_description: {
