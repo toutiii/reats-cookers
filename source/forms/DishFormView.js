@@ -29,11 +29,13 @@ export default function DishFormView ({...props}){
                         dish_category: {
                             type: all_constants.field_type.select,
                             label: all_constants.label.form.dishes.category,
+                            placeholder: all_constants.placeholders.form.dishes.dish_category,
                         },
                         dish_name: {
                             type: all_constants.field_type.textinput,
                             maxLength: 30,
                             label: all_constants.label.form.dishes.name,
+                            placeholder: all_constants.placeholders.form.dishes.dish_name,
                             validators: [validateTextLength]
                         },
                         dish_photo: {
@@ -44,18 +46,21 @@ export default function DishFormView ({...props}){
                             type: all_constants.field_type.textinput,
                             maxLength: 5,
                             label: all_constants.label.form.dishes.price,
+                            placeholder: all_constants.placeholders.form.dishes.dish_price,
                             validators: [validateNumberType]
                         },
                         dish_description: {
                             type: all_constants.field_type.textarea,
                             maxLength: 200,
                             label: all_constants.label.form.dishes.description,
+                            placeholder: all_constants.placeholders.form.dishes.dish_description,
                             validators: [validateDescriptionLength]
                         },
                         dish_country: {
                             type: all_constants.field_type.textinput,
                             maxLength: 200,
                             label: all_constants.label.form.dishes.country,
+                            placeholder: all_constants.placeholders.form.dishes.dish_country,
                             validators: [validateDescriptionLength]
                         },
                     }}
