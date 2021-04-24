@@ -179,7 +179,8 @@ export const all_constants = {
             starter: 'starter',
             dish: 'main_dish',
             dessert: 'dessert',
-            drink: 'drink'
+            drink: 'drink',
+            menu: 'menu',
         },
         orders: {
             all: 'all',
