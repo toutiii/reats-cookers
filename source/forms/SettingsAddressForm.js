@@ -56,7 +56,7 @@ export default function SettingsAddressForm ({...props}){
                             label: all_constants.label.form.settings.town,
                             placeholder: all_constants.placeholders.form.settings.town,
                             validators: [],
-                            maxLength: 10,
+                            maxLength: 100,
                         },
                     }}
                 />
