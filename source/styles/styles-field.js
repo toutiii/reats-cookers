@@ -29,7 +29,6 @@ export default styles_field=StyleSheet.create({
         borderBottomWidth: 1,
         backgroundColor: 'white',
         textAlign: 'center',
-        height: 50,
         marginBottom: 5,
         fontSize: 16,
         elevation: 20,
