@@ -219,8 +219,13 @@ export const all_constants = {
         select_picker: 'select_picker',
     },
     placeholders: {
-        dish_category: 'Sélectionnez la catégorie de votre plat',
-        menu: 'Sélectionnez un item.'
+        form: {
+            dishes: {
+                dish_category: 'Sélectionnez la catégorie de votre plat',
+                menu: 'Sélectionnez un item.'
+            },
+        }
+
     },
     remaining_char: 'Caractères restants: ',
     permissions: {
