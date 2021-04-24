@@ -28,21 +28,21 @@ export default function SettingsAddressForm ({...props}){
                             label: all_constants.label.form.settings.street_number,
                             placeholder: all_constants.placeholders.form.settings.street_number,
                             validators: [],
-                            maxLength: 10,
+                            maxLength: 20,
                         },
                         street_name: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.street_name,
                             placeholder: all_constants.placeholders.form.settings.street_name,
                             validators: [],
-                            maxLength: 50,
+                            maxLength: 100,
                         },
                         address_complement: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.address_complement,
                             placeholder: all_constants.placeholders.form.settings.address_complement,
                             validators: [],
-                            maxLength: 50,
+                            maxLength: 100,
                         },
                         postal_code: {
                             type: all_constants.field_type.textinput,
@@ -50,7 +50,7 @@ export default function SettingsAddressForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.postal_code,
                             keyboardNumeric: true,
                             validators: [],
-                            maxLength: 50,
+                            maxLength: 5,
                         },
                         town: {
                             type: all_constants.field_type.textinput,

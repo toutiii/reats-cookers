@@ -56,7 +56,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.delivery_days,
                             validators: [],
                             checkedItems: getIndexOfDays('delivery_days'),  // Will be used by PickerCheckBox in FormField
-                            maxLength: 50,
+                            maxLength: 51,
                         },
                         max_order_number: {
                             type: all_constants.field_type.textinput,
@@ -66,7 +66,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             labelModalText: all_constants.modal.form.settings.max_order_number,
                             placeholder: all_constants.placeholders.form.settings.max_order_number,
                             validators: [],
-                            maxLength: 50,
+                            maxLength: 2,
                         },
                         noon_delivery_hours: {
                             type: all_constants.field_type.textinput,
@@ -76,7 +76,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.noon_delivery_hours,
                             keyboardNumeric: true,
                             validators: [],
-                            maxLength: 10,
+                            maxLength: 5,
                         },
                         noon_delivery_days: {
                             type: all_constants.field_type.select_picker,
@@ -86,7 +86,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.noon_delivery_days,
                             validators: [],
                             checkedItems: getIndexOfDays('noon_delivery_days'),  // Will be used by PickerCheckBox in FormField
-                            maxLength: 50,
+                            maxLength: 51,
                         },
                         evening_delivery_hours: {
                             type: all_constants.field_type.textinput,
@@ -96,7 +96,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.evening_delivery_hours,
                             keyboardNumeric: true,
                             validators: [],
-                            maxLength: 50,
+                            maxLength: 5,
                         },
                         evening_delivery_days: {
                             type: all_constants.field_type.select_picker,
@@ -106,7 +106,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.evening_delivery_days,
                             checkedItems: getIndexOfDays('evening_delivery_days'),  // Will be used by PickerCheckBox in FormField
                             validators: [],
-                            maxLength: 50,
+                            maxLength: 51,
                         },
                     }}
                 />

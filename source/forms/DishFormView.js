@@ -33,7 +33,7 @@ export default function DishFormView ({...props}){
                         },
                         dish_name: {
                             type: all_constants.field_type.textinput,
-                            maxLength: 30,
+                            maxLength: 50,
                             label: all_constants.label.form.dishes.name,
                             placeholder: all_constants.placeholders.form.dishes.dish_name,
                             validators: [validateTextLength]
@@ -59,7 +59,7 @@ export default function DishFormView ({...props}){
                         },
                         dish_country: {
                             type: all_constants.field_type.textinput,
-                            maxLength: 200,
+                            maxLength: 50,
                             label: all_constants.label.form.dishes.country,
                             placeholder: all_constants.placeholders.form.dishes.dish_country,
                             validators: [validateDescriptionLength]

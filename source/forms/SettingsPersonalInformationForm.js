@@ -29,7 +29,7 @@ export default function SettingsPersonalInformationForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.siren,
                             keyboardNumeric: true,
                             validators: [],
-                            maxLength: 10,
+                            maxLength: 9,
                         },
                         siret: {
                             type: all_constants.field_type.textinput,
@@ -37,7 +37,7 @@ export default function SettingsPersonalInformationForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.siret,
                             keyboardNumeric: true,
                             validators: [],
-                            maxLength: 20,
+                            maxLength: 14,
                         },
                         firstname: {
                             type: all_constants.field_type.textinput,
