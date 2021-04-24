@@ -226,7 +226,6 @@ export const all_constants = {
                 dish_price: 'Fixez le prix de votre plat',
                 dish_description: 'Une courte description de votre plat',
                 dish_country: 'De quel pays vient votre plat ?',
-                menu: 'Sélectionnez un item.'
             },
         }
 
