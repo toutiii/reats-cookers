@@ -19,7 +19,8 @@ export default class MenuListView extends Component {
                         getData(
                             getMenus(),
                             this.props.route.params.tag,
-                            this.props.route.params.isEnabled
+                            this.props.route.params.isEnabled,
+                            'menu_tag'
                         )
                     }
                     allProps={this.props}
