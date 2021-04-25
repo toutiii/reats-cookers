@@ -25,9 +25,10 @@ export function validateFields(fields, values) {
     fieldNameKeys.forEach((fieldName) => {
         const fieldObject = fields[fieldName];
         const validators = fieldObject.validators;
+        const fieldLabel = fieldObject.label;
         const value = values[fieldName];
         if (validators && validators.length > 0) {
-            const error = validateField(validators, value);
+            const error = validateField(validators, value, fieldLabel);
             if (error) {
                 errors[fieldName] = error;
             }
@@ -36,11 +37,11 @@ export function validateFields(fields, values) {
     return errors;
 };
 
-export function validateField(validators, value) {
+export function validateField(validators, value, fieldLabel) {
     let error = '';
     validators.forEach((validator) => {
         if (typeof validator !== 'undefined') {
-            const validationError = validator(value);
+            const validationError = validator(value, fieldLabel);
             if (validationError) {
                 error = validationError;
             }
