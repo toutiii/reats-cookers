@@ -21,15 +21,15 @@ export function validateDescriptionLength(description) {
 
 export function validateFields(fields, values) {
     const errors = {};
-    const fieldKeys = Object.keys(fields)
-    fieldKeys.forEach((key) => {
-        const field = fields[key];
-        const validators = field.validators;
-        const value = values[key];
+    const fieldNameKeys = Object.keys(fields)
+    fieldNameKeys.forEach((fieldName) => {
+        const fieldObject = fields[fieldName];
+        const validators = fieldObject.validators;
+        const value = values[fieldName];
         if (validators && validators.length > 0) {
             const error = validateField(validators, value);
             if (error) {
-                errors[key] = error;
+                errors[fieldName] = error;
             }
         }
     });
