@@ -26,6 +26,8 @@ export default function SettingsCredentialsForm ({...props}){
                         email: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.email,
+                            labelModal: true,
+                            labelModalText: all_constants.modal.form.settings.email,
                             placeholder: all_constants.placeholders.form.settings.email,
                             validators: [],
                             maxLength: 100,
@@ -33,6 +35,8 @@ export default function SettingsCredentialsForm ({...props}){
                         user_settings_current_password: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.current_password,
+                            labelModal: true,
+                            labelModalText: all_constants.modal.form.settings.password,
                             placeholder: all_constants.placeholders.form.settings.user_settings_current_password,
                             validators: [],
                             maxLength: 12,
@@ -40,6 +44,8 @@ export default function SettingsCredentialsForm ({...props}){
                         user_settings_new_password: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.new_password,
+                            labelModal: true,
+                            labelModalText: all_constants.modal.form.settings.password,
                             placeholder: all_constants.placeholders.form.settings.user_settings_new_password,
                             validators: [],
                             maxLength: 12,
