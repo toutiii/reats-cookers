@@ -210,6 +210,8 @@ export const all_constants = {
                     "Cela signifie que les jeudis et vendredis, les livreurs pourront passer collecter les commandes pour les livraisons en soirée. \n \n " +
                     "Notez que 'soirée' dans la phrase ci-dessus fait référence aux horaires de collecte définies dans le champ 'Votre créneau du soir' "
                 ),
+                email: "Pour modifier uniquement votre email, saisissez votre nouvel email et votre mot de passe actuel.",
+                password: "Pour modifier votre mot de passe, remplissez tous les champs de ce formulaire."
             }
         }
     },
