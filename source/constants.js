@@ -102,12 +102,12 @@ export const all_constants = {
         },
         form: {
             dishes: {
-                name: 'Nom du plat',
+                name: 'Nom',
                 price: 'Prix',
-                image: 'Photo du plat',
+                image: 'Photo',
                 category: 'Catégorie',
                 description: 'Description',
-                country: 'Origine du plat'
+                country: "Pays d'origine de l'item"
                 },
             menu: {
                 name: 'Nom du menu',
@@ -263,11 +263,11 @@ export const all_constants = {
     placeholders: {
         form: {
             dishes: {
-                dish_category: 'Sélectionnez la catégorie de votre plat',
-                dish_name: 'Le nom du plat',
-                dish_price: 'Fixez le prix de votre plat',
-                dish_description: 'Une courte description de votre plat',
-                dish_country: 'De quel pays vient votre plat ?',
+                dish_category: 'Sélectionnez la catégorie de votre item',
+                dish_name: 'Le nom de votre item',
+                dish_price: "Il s'agit ici du prix TTC affiché aux clients",
+                dish_description: 'Une courte description de votre item',
+                dish_country: 'Bien que facultatif ce champ est fortement recommandé, surtout pour les plats',
             },
             menu: {
                 menu_name: 'Donnez un nom à votre menu',
