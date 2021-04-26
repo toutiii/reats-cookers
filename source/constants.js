@@ -267,7 +267,7 @@ export const all_constants = {
                 dish_name: 'Le nom de votre item',
                 dish_price: "Il s'agit ici du prix TTC affiché aux clients",
                 dish_description: 'Une courte description de votre item',
-                dish_country: 'Bien que facultatif ce champ est fortement recommandé, surtout pour les plats',
+                dish_country: 'Pas obligatoire mais très recommandé, surtout pour les plats',
             },
             menu: {
                 menu_name: 'Donnez un nom à votre menu',
