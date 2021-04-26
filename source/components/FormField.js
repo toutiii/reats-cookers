@@ -42,6 +42,7 @@ export default function FormField({...props}) {
                 let result = await ImagePicker.launchImageLibraryAsync({options});
                 if (!result.cancelled) {
                     setPicUri(result.uri)
+                    props.newItem['dish_photo'] = result.uri
                 }
             }
         }
@@ -57,6 +58,7 @@ export default function FormField({...props}) {
                 let result = await ImagePicker.launchCameraAsync({options});
                 if (!result.cancelled) {
                     setPicUri(result.uri)
+                    props.newItem['dish_photo'] = result.uri
                 }
             }
         }
