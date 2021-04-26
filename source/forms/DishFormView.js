@@ -4,6 +4,11 @@ import all_constants from "../constants";
 import {View} from "react-native";
 import update_dish_infos from "../api/update_dish_infos";
 import {validateDescriptionLength, validateNumberType, validateTextLength} from "../validators/validate_dishformview"
+import {
+    checkValueIsDefined,
+    checkValueNotContainsSpecialChar,
+    valueIsValidPrice
+} from "../validators/global_validators";
 
 
 export default function DishFormView ({...props}){
@@ -30,17 +35,22 @@ export default function DishFormView ({...props}){
                             type: all_constants.field_type.select,
                             label: all_constants.label.form.dishes.category,
                             placeholder: all_constants.placeholders.form.dishes.dish_category,
+                            validators:[checkValueIsDefined]
                         },
                         dish_name: {
                             type: all_constants.field_type.textinput,
                             maxLength: 50,
                             label: all_constants.label.form.dishes.name,
                             placeholder: all_constants.placeholders.form.dishes.dish_name,
-                            validators: [validateTextLength]
+                            validators: [
+                                checkValueIsDefined,
+                                checkValueNotContainsSpecialChar
+                            ]
                         },
                         dish_photo: {
                             type: all_constants.field_type.image,
                             label: all_constants.label.form.dishes.image,
+                            validators:[checkValueIsDefined]
                         },
                         dish_price: {
                             type: all_constants.field_type.textinput,
@@ -48,21 +58,24 @@ export default function DishFormView ({...props}){
                             label: all_constants.label.form.dishes.price,
                             placeholder: all_constants.placeholders.form.dishes.dish_price,
                             keyboardNumeric: true,
-                            validators: [validateNumberType]
+                            validators: [
+                                checkValueIsDefined,
+                                valueIsValidPrice
+                            ]
                         },
                         dish_description: {
                             type: all_constants.field_type.textarea,
                             maxLength: 200,
                             label: all_constants.label.form.dishes.description,
                             placeholder: all_constants.placeholders.form.dishes.dish_description,
-                            validators: [validateDescriptionLength]
+                            validators: [checkValueNotContainsSpecialChar]
                         },
                         dish_country: {
                             type: all_constants.field_type.textinput,
                             maxLength: 50,
                             label: all_constants.label.form.dishes.country,
                             placeholder: all_constants.placeholders.form.dishes.dish_country,
-                            validators: [validateDescriptionLength]
+                            validators: [checkValueNotContainsSpecialChar]
                         },
                     }}
                 />
