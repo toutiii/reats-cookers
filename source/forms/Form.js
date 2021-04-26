@@ -122,6 +122,7 @@ export default function Form({ ...props }) {
                                 <FormField
                                     key={key}
                                     itemObject={props.item}
+                                    newItem={newItem}
                                     fieldName={key}
                                     field={fieldsObject[key]}
                                     error={validationErrors[key]}

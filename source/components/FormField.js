@@ -22,6 +22,9 @@ export default function FormField({...props}) {
     useEffect(() => {
             setPicUri(props.itemObject.dish_photo)
     }, [props.itemObject])
+    useEffect(() => {
+        setCategory(props.newItem.dish_category)
+    }, [props.newItem])
     const options = {
         allowsEditing: true,
         aspect: [16, 9],
@@ -134,7 +137,7 @@ export default function FormField({...props}) {
                             useNativeAndroidPickerStyle={false}
                             placeholder={{ label: props.field.placeholder, value: null }}
                             // Because a picUri is null only when there is no image and there is no image only when we create a Dish.
-                            value={picUri ? props.value : category}
+                            value={category ? category : null}
                             onValueChange={(value) => props.onChangeText(props.fieldName, value)}
                             items={getCategories('Dish')}
                             textInputProps={{fontSize: props.value ? 18 : 16, color: props.value ? 'black' : 'gray'}}
