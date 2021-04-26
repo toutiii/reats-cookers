@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {ActivityIndicator, Animated, KeyboardAvoidingView, ScrollView, Text, TextInput, View} from "react-native";
 import CustomButton from "../button/CustomButton";
 import all_constants from "../constants";
-import {validateFields} from "../validators/validate_dishformview"
+import {validateFields} from "../validators/global_validators"
 import FormField from "../components/FormField";
 import styles_form from "../styles/styles-form"
 import AwesomeAlert from 'react-native-awesome-alerts';
