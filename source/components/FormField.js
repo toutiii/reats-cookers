@@ -110,7 +110,7 @@ export default function FormField({...props}) {
                             value={props.value}
                             onChangeText={(text) => props.onChangeText(props.fieldName, text)}
                             maxLength={props.field.maxLength}
-                            multiline={props.field.type === all_constants.field_type.textarea ? true : false}
+                            multiline={props.field.type === all_constants.field_type.textarea}
                             numberOfLines={props.field.type === all_constants.field_type.textarea ? 4 : 1}
                             placeholder={props.field.placeholder}
                             keyboardType={props.field.keyboardNumeric ? 'numeric' : 'default'}
