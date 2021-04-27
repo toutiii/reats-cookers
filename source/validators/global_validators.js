@@ -7,7 +7,7 @@ export function validateFields(fields, objectToValidate) {
         const fieldLabel = fieldObject.label;
         const value = objectToValidate[fieldName];
         if (validators && validators.length > 0) {
-            const error = validateField(validators, value, fieldLabel);
+            const error = validateField(validators, value, fieldLabel, objectToValidate);
             if (error) {
                 errors[fieldName] = error;
                 break;
@@ -17,11 +17,11 @@ export function validateFields(fields, objectToValidate) {
     return errors;
 };
 
-export function validateField(validators, value, fieldLabel) {
+export function validateField(validators, value, fieldLabel, objectToValidate) {
     let error = '';
     for (let validator of validators) {
         if (typeof validator !== 'undefined') {
-            const validationError = validator(value, fieldLabel);
+            const validationError = validator(value, fieldLabel, objectToValidate);
             if (validationError) {
                 error = validationError;
                 break;
@@ -31,7 +31,7 @@ export function validateField(validators, value, fieldLabel) {
     return error;
 };
 
-export function checkValueIsDefined(value, fieldLabel) {
+export function checkValueIsDefined(value, fieldLabel, objectToValidate) {
     if (value === undefined || value === null) {
         return 'Le champ ' + fieldLabel.toLowerCase() + ' est vide.'
     }
@@ -42,7 +42,7 @@ export function checkValueIsDefined(value, fieldLabel) {
     }
 }
 
-export function checkValueNotContainsSpecialChar(value, fieldLabel) {
+export function checkValueNotContainsSpecialChar(value, fieldLabel, objectToValidate) {
     if (value !== undefined && value !== null && value.length !== 0) {
         value = value.toString().trim().replace(/ +(?= )/g,'')
         let regex = null;
@@ -59,7 +59,7 @@ export function checkValueNotContainsSpecialChar(value, fieldLabel) {
     }
 }
 
-export function valueIsValidPrice(value, fieldLabel) {
+export function valueIsValidPrice(value, fieldLabel, objectToValidate) {
     value = value.toString().trim();
     let priceRegex = /^([0-9]{1,2}(\.[0-9]{1,2})?)$/g;
     if (!value.match(priceRegex)) {
