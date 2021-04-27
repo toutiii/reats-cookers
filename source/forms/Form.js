@@ -66,7 +66,6 @@ export default function Form({ ...props }) {
         setSubmitting(true);
         setErrorMessage('');
         setValidationErrors(getInitialErrorsState(fieldKeys, props));
-        newItem['id'] = props.item['id']
         const errors = validateFields(props.fields, newItem);
         if (Object.keys(errors).length !== 0) {
             setSubmitting(false);
