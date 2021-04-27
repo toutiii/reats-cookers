@@ -211,7 +211,10 @@ export const all_constants = {
                     "Notez que 'soirée' dans la phrase ci-dessus fait référence aux horaires de collecte définies dans le champ 'Votre créneau du soir' "
                 ),
                 email: "Pour modifier uniquement votre email, saisissez votre nouvel email et votre mot de passe actuel.",
-                password: "Pour modifier votre mot de passe, remplissez tous les champs de ce formulaire."
+                password:(
+                    "Pour modifier votre mot de passe, remplissez tous les champs de ce formulaire. \n \n" +
+                    "Le mot de passe doit faire au moins 6 caractères comprenant une majuscule, un chiffre et un des caractères spéciaux suivants: !, #, *"
+                )
             }
         }
     },
