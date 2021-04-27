@@ -11,7 +11,6 @@ import PickerCheckBox from 'react-native-picker-checkbox';
 import {getDaysOfWeek} from "../helpers/global_helpers";
 import CustomButton from "../button/CustomButton";
 import FormLabelModal from "../modals/FormLabelModal";
-import MenuListView from "../listviews/MenuListView";
 
 
 export default function FormField({...props}) {
