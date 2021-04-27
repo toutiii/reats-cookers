@@ -1,11 +1,11 @@
-export function validateFields(fields, values) {
+export function validateFields(fields, objectToValidate) {
     const errors = {};
     const fieldNameKeys = Object.keys(fields)
     for (let fieldName of fieldNameKeys) {
         const fieldObject = fields[fieldName];
         const validators = fieldObject.validators;
         const fieldLabel = fieldObject.label;
-        const value = values[fieldName];
+        const value = objectToValidate[fieldName];
         if (validators && validators.length > 0) {
             const error = validateField(validators, value, fieldLabel);
             if (error) {
