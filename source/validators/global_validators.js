@@ -50,7 +50,7 @@ export function checkValueNotContainsSpecialChar(value, fieldLabel) {
             regex = /([A-Za-z0-9 ',.!])/g;
         }
         else {
-            regex = /([A-Za-z0-9 '])/g;
+            regex = /([A-Za-z0-9 '&])/g;
         }
         let rejectedString = value.replace(regex, '')
         if (rejectedString.length !== 0) {
