@@ -43,7 +43,7 @@ export function checkValueIsDefined(value, fieldLabel) {
 }
 
 export function checkValueNotContainsSpecialChar(value, fieldLabel) {
-    if (value !== undefined) {
+    if (value !== undefined && value !== null && value.length !== 0) {
         value = value.toString().trim().replace(/ +(?= )/g,'')
         let regex = null;
         if (fieldLabel.toLowerCase().includes('description')) {
