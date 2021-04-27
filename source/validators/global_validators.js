@@ -47,7 +47,7 @@ export function checkValueNotContainsSpecialChar(value, fieldLabel) {
         value = value.toString().trim().replace(/ +(?= )/g,'')
         let regex = null;
         if (fieldLabel.toLowerCase().includes('description')) {
-            regex = /([A-Za-z0-9 ',.])/g;
+            regex = /([A-Za-z0-9 ',.!])/g;
         }
         else {
             regex = /([A-Za-z0-9 '])/g;
