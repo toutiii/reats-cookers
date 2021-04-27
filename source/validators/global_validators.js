@@ -43,7 +43,7 @@ export function checkValueIsDefined(value, fieldLabel, objectToValidate) {
 }
 
 export function checkValueNotContainsSpecialChar(value, fieldLabel, objectToValidate) {
-    if (typeof(value) !== "undefined" && value !== null && value.length !== 0) {
+    if (typeof(value) !== "undefined" && value !== null) {
         value = value.toString().trim().replace(/ +(?= )/g,'')
         let regex = null;
         if (fieldLabel.toLowerCase().includes('description')) {
