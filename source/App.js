@@ -34,7 +34,7 @@ export default class App extends Component {
                                 } else if (route.name === 'Orders') {
                                     iconName = 'basket-outline';
                                 } else if (route.name === 'Dishes') {
-                                    iconName = 'fast-food-outline';
+                                    iconName = 'restaurant-outline';
                                 }else if (route.name === 'Balance') {
                                     iconName = 'cash-outline';
                                 }else if (route.name === 'Settings') {
