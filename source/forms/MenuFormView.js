@@ -3,7 +3,8 @@ import Form from "./Form";
 import all_constants from "../constants";
 import {View} from "react-native";
 import update_menu_infos from "../api/update_menu_infos";
-
+import {checkValueNotContainsSpecialChar, checkValueIsDefined, valueIsValidPrice} from "../validators/global_validators"
+import {checkMenuCoherence} from "../validators/menuformview_validators"
 
 export default function MenuFormView ({...props}){
     const handleResult = async (result) => {
@@ -29,35 +30,38 @@ export default function MenuFormView ({...props}){
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.menu.name,
                             placeholder: all_constants.placeholders.form.menu.menu_name,
-                            validators: [],
+                            validators: [checkValueNotContainsSpecialChar],
                             maxLength: 50,
                         },
                         menu_starter: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.menu.starter,
                             placeholder: all_constants.placeholders.form.menu.menu_starter,
-                            validators: [],
+                            validators: [checkValueNotContainsSpecialChar],
                             maxLength: 50,
                         },
                         menu_main_dish: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.menu.main_dish,
                             placeholder: all_constants.placeholders.form.menu.menu_main_dish,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkValueNotContainsSpecialChar
+                            ],
                             maxLength: 50,
                         },
                         menu_dessert: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.menu.dessert,
                             placeholder: all_constants.placeholders.form.menu.menu_dessert,
-                            validators: [],
+                            validators: [checkValueNotContainsSpecialChar],
                             maxLength: 50,
                         },
                         menu_drink: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.menu.drink,
                             placeholder: all_constants.placeholders.form.menu.menu_drink,
-                            validators: [],
+                            validators: [checkValueNotContainsSpecialChar],
                             maxLength: 50,
                         },
                         menu_price: {
@@ -65,7 +69,11 @@ export default function MenuFormView ({...props}){
                             label: all_constants.label.form.menu.price,
                             placeholder: all_constants.placeholders.form.menu.menu_price,
                             keyboardNumeric: true,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                valueIsValidPrice,
+                                checkMenuCoherence
+                            ],
                             maxLength: 5,
                         },
                     }}
