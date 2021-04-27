@@ -32,7 +32,7 @@ export function validateField(validators, value, fieldLabel, objectToValidate) {
 };
 
 export function checkValueIsDefined(value, fieldLabel, objectToValidate) {
-    if (value === undefined || value === null) {
+    if (typeof(value) === "undefined" || value === null) {
         return 'Le champ ' + fieldLabel.toLowerCase() + ' est vide.'
     }
     else {
@@ -43,7 +43,7 @@ export function checkValueIsDefined(value, fieldLabel, objectToValidate) {
 }
 
 export function checkValueNotContainsSpecialChar(value, fieldLabel, objectToValidate) {
-    if (value !== undefined && value !== null && value.length !== 0) {
+    if (typeof(value) !== "undefined" && value !== null && value.length !== 0) {
         value = value.toString().trim().replace(/ +(?= )/g,'')
         let regex = null;
         if (fieldLabel.toLowerCase().includes('description')) {
