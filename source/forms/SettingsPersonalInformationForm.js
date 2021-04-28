@@ -3,6 +3,8 @@ import Form from "./Form";
 import all_constants from "../constants";
 import {View} from "react-native";
 import update_user_settings from "../api/update_settings";
+import {checkValueIsDefined, checkValueNotContainsSpecialChar} from "../validators/global_validators"
+import {checkNumericFormat} from "../validators/settingsform_validators"
 
 
 export default function SettingsPersonalInformationForm ({...props}){
@@ -28,7 +30,10 @@ export default function SettingsPersonalInformationForm ({...props}){
                             label: all_constants.label.form.settings.siren,
                             placeholder: all_constants.placeholders.form.settings.siren,
                             keyboardNumeric: true,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkNumericFormat
+                            ],
                             maxLength: 9,
                         },
                         siret: {
@@ -36,21 +41,30 @@ export default function SettingsPersonalInformationForm ({...props}){
                             label: all_constants.label.form.settings.siret,
                             placeholder: all_constants.placeholders.form.settings.siret,
                             keyboardNumeric: true,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkNumericFormat
+                            ],
                             maxLength: 14,
                         },
                         firstname: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.firstname,
                             placeholder: all_constants.placeholders.form.settings.firstname,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkValueNotContainsSpecialChar
+                            ],
                             maxLength: 50,
                         },
                         lastname: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.lastname,
                             placeholder: all_constants.placeholders.form.settings.lastname,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkValueNotContainsSpecialChar
+                            ],
                             maxLength: 50,
                         },
                         phone: {
@@ -58,7 +72,10 @@ export default function SettingsPersonalInformationForm ({...props}){
                             label: all_constants.label.form.settings.phone,
                             placeholder: all_constants.placeholders.form.settings.phone,
                             keyboardNumeric: true,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkNumericFormat
+                            ],
                             maxLength: 10,
                         },
                     }}
