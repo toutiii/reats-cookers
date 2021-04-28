@@ -3,6 +3,8 @@ import Form from "./Form";
 import all_constants from "../constants";
 import {View} from "react-native";
 import update_user_settings from "../api/update_settings";
+import {checkValueIsDefined, checkValueNotContainsSpecialChar} from "../validators/global_validators";
+import {checkPostalCode} from "../validators/settingsform_validators";
 
 
 export default function SettingsAddressForm ({...props}){
@@ -27,21 +29,27 @@ export default function SettingsAddressForm ({...props}){
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.street_number,
                             placeholder: all_constants.placeholders.form.settings.street_number,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkValueNotContainsSpecialChar
+                            ],
                             maxLength: 20,
                         },
                         street_name: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.street_name,
                             placeholder: all_constants.placeholders.form.settings.street_name,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkValueNotContainsSpecialChar
+                            ],
                             maxLength: 100,
                         },
                         address_complement: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.address_complement,
                             placeholder: all_constants.placeholders.form.settings.address_complement,
-                            validators: [],
+                            validators: [checkValueNotContainsSpecialChar],
                             maxLength: 100,
                         },
                         postal_code: {
@@ -49,14 +57,20 @@ export default function SettingsAddressForm ({...props}){
                             label: all_constants.label.form.settings.postal_code,
                             placeholder: all_constants.placeholders.form.settings.postal_code,
                             keyboardNumeric: true,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkPostalCode
+                            ],
                             maxLength: 5,
                         },
                         town: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.town,
                             placeholder: all_constants.placeholders.form.settings.town,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkValueNotContainsSpecialChar
+                            ],
                             maxLength: 100,
                         },
                     }}
