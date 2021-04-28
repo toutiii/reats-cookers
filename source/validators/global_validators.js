@@ -37,7 +37,7 @@ export function checkValueIsDefined(value, fieldLabel, objectToValidate) {
     }
     else {
         if (value.toString().length === 0) {
-            return 'Le champ ' + fieldLabel.toLowerCase() + ' est vide.'
+            return 'Le champ ' + fieldLabel + ' est vide.'
         }
     }
 }
