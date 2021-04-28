@@ -18,6 +18,9 @@ export const all_constants = {
         inputBorderColor: '#ffd700',
         login_background_color: ['red', 'yellow', 'green']
     },
+    password: {
+        min_length: 6
+    },
     messages: {
         login: 'LOG IN',
         logout: 'LOG OUT',
