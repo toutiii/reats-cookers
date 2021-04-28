@@ -21,8 +21,8 @@ export function getUserSettings() {
         "personal_infos_section":{
             "title": "personal_infos",
             "data": {
-                "siren": "362 521 879",
-                "siret": "362 521 879 00034",
+                "siren": "362521879",
+                "siret": "36252187900034",
                 "firstname": "Irène",
                 "lastname": "JANTEN",
                 "phone": "0649510110"
