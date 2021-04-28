@@ -98,8 +98,8 @@ export const all_constants = {
             address_complement: "Complément",
             password: 'Mot de passe',
             select_days_of_week: 'Sélectionnez les jours de la semaine',
-            noon_delivery_hours: 'Créneau du midi',
-            noon_delivery_days: 'Livraison à midi le',
+            noon_delivery_hours: 'Créneau en journée',
+            noon_delivery_days: 'Livraison en journée le',
             evening_delivery_hours: 'Créneau du soir',
             evening_delivery_days: 'Livraison le soir le'
         },
@@ -135,12 +135,12 @@ export const all_constants = {
                 address_complement: "Complément d'adresse",
                 postal_code: 'Code postal',
                 town: 'Ville',
-                order_days: 'Vous acceptez les commandes le',
+                order_days: 'Jours de prise de commandes',
                 max_order_number: 'Votre nombre max de plats',
-                noon_delivery_hours: 'Votre créneau du midi',
-                noon_delivery_days: 'Les plats seront livrés à midi le',
-                evening_delivery_hours: 'Votre créneau du soir',
-                evening_delivery_days: 'Les plats seront livrés le soir le'
+                noon_delivery_hours: 'Votre créneau en journée',
+                noon_delivery_days: 'Les plats sont livrés en journée le',
+                evening_delivery_hours: 'Votre créneau en soirée',
+                evening_delivery_days: 'Les plats sont livrés en soirée le'
             }
         },
     },
