@@ -3,7 +3,8 @@ import Form from "./Form";
 import all_constants from "../constants";
 import {View} from "react-native";
 import update_user_settings from "../api/update_settings";
-
+import {checkValueIsDefined, checkValueNotContainsSpecialChar} from "../validators/global_validators";
+import {checkEmailFormat, checkPasswordFormat, checkFormCoherence} from "../validators/settingsform_validators";
 
 export default function SettingsCredentialsForm ({...props}){
     const handleResult = async (result) => {
@@ -29,7 +30,10 @@ export default function SettingsCredentialsForm ({...props}){
                             labelModal: true,
                             labelModalText: all_constants.modal.form.settings.email,
                             placeholder: all_constants.placeholders.form.settings.email,
-                            validators: [],
+                            validators: [
+                                checkValueIsDefined,
+                                checkEmailFormat
+                            ],
                             maxLength: 100,
                         },
                         user_settings_current_password: {
@@ -38,7 +42,7 @@ export default function SettingsCredentialsForm ({...props}){
                             labelModal: true,
                             labelModalText: all_constants.modal.form.settings.password,
                             placeholder: all_constants.placeholders.form.settings.user_settings_current_password,
-                            validators: [],
+                            validators: [checkValueIsDefined],
                             maxLength: 12,
                         },
                         user_settings_new_password: {
@@ -47,14 +51,17 @@ export default function SettingsCredentialsForm ({...props}){
                             labelModal: true,
                             labelModalText: all_constants.modal.form.settings.password,
                             placeholder: all_constants.placeholders.form.settings.user_settings_new_password,
-                            validators: [],
+                            validators: [checkPasswordFormat],
                             maxLength: 12,
                         },
                         user_settings_new_password_confirmation: {
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.new_password_confirmation,
                             placeholder: all_constants.placeholders.form.settings.user_settings_new_password_confirmation,
-                            validators: [],
+                            validators: [
+                                checkPasswordFormat,
+                                checkFormCoherence
+                            ],
                             maxLength: 12,
                         },
                     }}
