@@ -216,7 +216,7 @@ export const all_constants = {
                 email: "Pour modifier uniquement votre email, saisissez votre nouvel email et votre mot de passe actuel.",
                 password:(
                     "Pour modifier votre mot de passe, remplissez tous les champs de ce formulaire. \n \n" +
-                    "Le mot de passe doit faire au moins 6 caractères comprenant une majuscule, un chiffre et un des caractères spéciaux suivants: !, #, *"
+                    "Le mot de passe doit faire entre 6 et 10 caractères. Il doit contenir au moins une majuscule, un chiffre et un des caractères spéciaux suivants: !, #, *"
                 )
             }
         }
