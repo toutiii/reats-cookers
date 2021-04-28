@@ -124,7 +124,7 @@ export const all_constants = {
                 email: 'Email',
                 current_password: 'Mot de passe actuel',
                 new_password: 'Nouveau mot de passe',
-                new_password_confirmation: 'Confirmez le nouveau mot de passe',
+                new_password_confirmation: 'Confirmation nouveau mot de passe',
                 siret: 'Numéro SIRET',
                 siren: 'Numéro SIREN',
                 firstname: 'Prénom',
