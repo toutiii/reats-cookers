@@ -26,6 +26,7 @@ export default function SettingsPersonalInformationForm ({...props}){
                     item={props.route.params.item}
                     fields={{
                         siren: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.siren,
                             placeholder: all_constants.placeholders.form.settings.siren,
@@ -37,6 +38,7 @@ export default function SettingsPersonalInformationForm ({...props}){
                             maxLength: 9,
                         },
                         siret: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.siret,
                             placeholder: all_constants.placeholders.form.settings.siret,
@@ -48,6 +50,7 @@ export default function SettingsPersonalInformationForm ({...props}){
                             maxLength: 14,
                         },
                         firstname: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.firstname,
                             placeholder: all_constants.placeholders.form.settings.firstname,
@@ -58,6 +61,7 @@ export default function SettingsPersonalInformationForm ({...props}){
                             maxLength: 50,
                         },
                         lastname: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.lastname,
                             placeholder: all_constants.placeholders.form.settings.lastname,
@@ -68,6 +72,7 @@ export default function SettingsPersonalInformationForm ({...props}){
                             maxLength: 50,
                         },
                         phone: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.phone,
                             placeholder: all_constants.placeholders.form.settings.phone,

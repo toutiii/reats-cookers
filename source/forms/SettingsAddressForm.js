@@ -26,6 +26,7 @@ export default function SettingsAddressForm ({...props}){
                     item={props.route.params.item}
                     fields={{
                         street_number: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.street_number,
                             placeholder: all_constants.placeholders.form.settings.street_number,
@@ -36,6 +37,7 @@ export default function SettingsAddressForm ({...props}){
                             maxLength: 20,
                         },
                         street_name: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.street_name,
                             placeholder: all_constants.placeholders.form.settings.street_name,
@@ -53,6 +55,7 @@ export default function SettingsAddressForm ({...props}){
                             maxLength: 100,
                         },
                         postal_code: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.postal_code,
                             placeholder: all_constants.placeholders.form.settings.postal_code,
@@ -64,6 +67,7 @@ export default function SettingsAddressForm ({...props}){
                             maxLength: 5,
                         },
                         town: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.town,
                             placeholder: all_constants.placeholders.form.settings.town,

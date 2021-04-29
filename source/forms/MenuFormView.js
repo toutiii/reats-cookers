@@ -41,6 +41,7 @@ export default function MenuFormView ({...props}){
                             maxLength: 50,
                         },
                         menu_main_dish: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.menu.main_dish,
                             placeholder: all_constants.placeholders.form.menu.menu_main_dish,
@@ -65,6 +66,7 @@ export default function MenuFormView ({...props}){
                             maxLength: 50,
                         },
                         menu_price: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.menu.price,
                             placeholder: all_constants.placeholders.form.menu.menu_price,

@@ -42,6 +42,7 @@ export default function SettingsOrderInformationForm ({...props}){
                     item={props.route.params.item}
                     fields={{
                         order_days: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.select_picker,
                             label: all_constants.label.form.settings.order_days,
                             labelModal: true,
@@ -54,6 +55,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             maxLength: 10,
                         },
                         max_order_number: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.max_order_number,
                             keyboardNumeric: true,

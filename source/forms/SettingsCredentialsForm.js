@@ -25,6 +25,7 @@ export default function SettingsCredentialsForm ({...props}){
                     item={props.route.params.item}
                     fields={{
                         email: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.email,
                             labelModal: true,
@@ -37,6 +38,7 @@ export default function SettingsCredentialsForm ({...props}){
                             maxLength: 100,
                         },
                         user_settings_current_password: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             label: all_constants.label.form.settings.current_password,
                             labelModal: true,

@@ -31,12 +31,14 @@ export default function DishFormView ({...props}){
                     fourth_button_label={all_constants.label.dishes.remove_dish}
                     fields={{
                         dish_category: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.select,
                             label: all_constants.label.form.dishes.category,
                             placeholder: all_constants.placeholders.form.dishes.dish_category,
                             validators:[checkValueIsDefined]
                         },
                         dish_name: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             maxLength: 50,
                             label: all_constants.label.form.dishes.name,
@@ -47,11 +49,13 @@ export default function DishFormView ({...props}){
                             ]
                         },
                         dish_photo: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.image,
                             label: all_constants.label.form.dishes.image,
                             validators:[checkValueIsDefined]
                         },
                         dish_price: {
+                            fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             maxLength: 5,
                             label: all_constants.label.form.dishes.price,
