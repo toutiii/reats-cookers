@@ -15,6 +15,7 @@ import SettingsCredentialsForm from "./forms/SettingsCredentialsForm";
 import SettingsPersonalInformationForm from "./forms/SettingsPersonalInformationForm";
 import SettingsAddressForm from "./forms/SettingsAddressForm";
 import SettingsOrderInformationForm from "./forms/SettingsOrderInformationForm";
+import MenuTab from "./tab/MenuTab";
 
 const Tab = createBottomTabNavigator();
 
@@ -28,13 +29,14 @@ export default class App extends Component {
                         screenOptions={({ route }) => ({
                             tabBarIcon: ({ focused, color, size }) => {
                                 let iconName;
-
                                 if (route.name === 'Home') {
                                     iconName = 'home-outline'
                                 } else if (route.name === 'Orders') {
                                     iconName = 'basket-outline';
                                 } else if (route.name === 'Dishes') {
                                     iconName = 'restaurant-outline';
+                                } else if (route.name === 'Menus') {
+                                    iconName = 'book-outline';
                                 }else if (route.name === 'Balance') {
                                     iconName = 'cash-outline';
                                 }else if (route.name === 'Settings') {
@@ -65,6 +67,7 @@ export default class App extends Component {
                         <Tab.Screen name="Home" component={HomeStack} />
                         <Tab.Screen name="Orders" component={OrdersTab} options={{ tabBarBadge: 3 }} />
                         <Tab.Screen name="Dishes" component={DishTab} />
+                        <Tab.Screen name="Menus" component={MenuTab} />
                         <Tab.Screen name="Balance" component={BalanceTab} />
                         <Tab.Screen name="Settings" component={SettingsView} />
                         <Tab.Screen name="OrderView" component={OrderView}/>
