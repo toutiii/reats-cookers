@@ -5,6 +5,7 @@ import MenuListView from "../listviews/MenuListView";
 import DishAddView from "../views/DishAddView"
 import all_constants from "../constants";
 import StateTab from "./StateTab";
+import DishFormView from "../forms/DishFormView";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -63,8 +64,9 @@ export default function DishTab () {
             />
             <Tab.Screen
                 name="Add"
-                component={DishAddView}
+                component={DishFormView}
                 options={{ title: all_constants.tab.dish_tab.title.add_item}}
+                initialParams={{item: {}}}
             />
         </Tab.Navigator>
     )
