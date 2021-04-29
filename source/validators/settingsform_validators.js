@@ -93,28 +93,38 @@ export function checkMaxDishesNumber(value, fieldLabel){
 }
 
 export function checkHourFormat(value, fieldLabel){
-    value = value.toString().trim();
-    let regex = /^([0-9]{1,2})-([0-9]{1,2})$/g;
-    let endMessage = null;
-    if (fieldLabel.toLowerCase().includes('midi')){
-        endMessage = 'Exemple: 11-13'
-    }
-    else if (fieldLabel.toLowerCase().includes('soir')){
-        endMessage = 'Exemple: 18-20'
-    }
-    if (!value.match(regex)) {
-        return 'Le champ ' + fieldLabel + ' est incorrect. ' + endMessage;
+    if (typeof(value) !== 'undefined' && value) {
+        value = value.toString().trim();
+        let regex = /^([0-9]{1,2})-([0-9]{1,2})$/g;
+        let endMessage = null;
+        if (fieldLabel.toLowerCase().includes('midi')){
+            endMessage = 'Exemple: 11-13'
+        }
+        else if (fieldLabel.toLowerCase().includes('soir')){
+            endMessage = 'Exemple: 18-20'
+        }
+        if (!value.match(regex)) {
+            return 'Le champ ' + fieldLabel + ' est incorrect. ' + endMessage;
+        }
     }
 }
 
 export function checkHourCoherence(value, fieldLabel){
-    value = value.toString().trim();
-    let valueArray = value.split('-');
-    let startHour = valueArray[0];
-    let endHour = valueArray[1];
-    let startMessage = 'Le champ ' + fieldLabel + ' est incorrect. ';
-    if (startHour === endHour){
-        return startMessage + 'Les heures de début et de fin ne peuvent être identiques.'
+    if (typeof(value) !== 'undefined') {
+        value = value.toString().trim();
+        let valueArray = value.split('-');
+        let startHour = valueArray[0];
+        let endHour = valueArray[1];
+        let startMessage = 'Le champ ' + fieldLabel + ' est incorrect. ';
+        if (startHour === endHour){
+            return startMessage + 'Les heures de début et de fin ne peuvent être identiques.'
+        }
+        if (startHour > endHour){
+            return startMessage + "L'heure de début ne peut pas être supérieure à l'heure de fin."
+        }
+    }
+}
+
     }
     if (startHour > endHour){
         return startMessage + "L'heure de début ne peut pas être supérieure à l'heure de fin."
