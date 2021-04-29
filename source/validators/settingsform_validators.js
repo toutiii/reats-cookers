@@ -141,5 +141,10 @@ export function checkEmptyDeliveryHours(daysArray, fieldLabel, objectToValidate)
     }
 }
 
+export function checkGlobalDeliveryCoherence(value, fieldLabel, objectToValidate){
+    let eveningDeliveryHours = objectToValidate['evening_delivery_hours'];
+    let noonDeliveryHours = objectToValidate['noon_delivery_hours'];
+    if (!eveningDeliveryHours && !noonDeliveryHours) {
+        return "Vous devez choisir au moins un créneau horaire en journée ou en soirée.";
     }
 }
