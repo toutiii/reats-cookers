@@ -76,7 +76,6 @@ export default function SettingsOrderInformationForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.noon_delivery_hours,
                             keyboardNumeric: true,
                             validators: [
-                                checkValueIsDefined,
                                 checkHourFormat,
                                 checkHourCoherence
                             ],
@@ -88,9 +87,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             labelModal: true,
                             labelModalText: all_constants.modal.form.settings.noon_delivery_days,
                             placeholder: all_constants.placeholders.form.settings.noon_delivery_days,
-                            validators: [
-                                checkValueIsDefined
-                            ],
+                            validators: [],
                             checkedItems: getIndexOfDays('noon_delivery_days'),  // Will be used by PickerCheckBox in FormField
                             maxLength: 51,
                         },
@@ -102,7 +99,6 @@ export default function SettingsOrderInformationForm ({...props}){
                             placeholder: all_constants.placeholders.form.settings.evening_delivery_hours,
                             keyboardNumeric: true,
                             validators: [
-                                checkValueIsDefined,
                                 checkHourFormat,
                                 checkHourCoherence
                             ],
@@ -115,9 +111,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             labelModalText: all_constants.modal.form.settings.evening_delivery_days,
                             placeholder: all_constants.placeholders.form.settings.evening_delivery_days,
                             checkedItems: getIndexOfDays('evening_delivery_days'),  // Will be used by PickerCheckBox in FormField
-                            validators: [
-                                checkValueIsDefined
-                            ],
+                            validators: [],
                             maxLength: 51,
                         },
                     }}
