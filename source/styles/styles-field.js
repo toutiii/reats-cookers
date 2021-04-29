@@ -9,7 +9,7 @@ export default styles_field=StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        padding: '5%',
+        padding: '10%',
     },
     label: {
         flex: 3,
