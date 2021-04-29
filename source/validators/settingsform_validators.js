@@ -118,6 +118,5 @@ export function checkHourCoherence(value, fieldLabel){
     }
     if (startHour > endHour){
         return startMessage + "L'heure de début ne peut pas être supérieure à l'heure de fin."
-
     }
 }
