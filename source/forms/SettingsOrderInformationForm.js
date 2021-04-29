@@ -5,7 +5,7 @@ import {View} from "react-native";
 import update_user_settings from "../api/update_settings";
 import {getDaysOfWeek} from "../helpers/global_helpers";
 import {checkValueIsDefined} from "../validators/global_validators";
-import {checkMaxDishesNumber, checkHourFormat, checkHourCoherence} from "../validators/settingsform_validators";
+import {checkMaxDishesNumber, checkHourFormat, checkHourCoherence, checkEmptyDeliveryHours, checkGlobalDeliveryCoherence} from "../validators/settingsform_validators";
 
 export default function SettingsOrderInformationForm ({...props}){
     const handleResult = async (result) => {
@@ -87,7 +87,7 @@ export default function SettingsOrderInformationForm ({...props}){
                             labelModal: true,
                             labelModalText: all_constants.modal.form.settings.noon_delivery_days,
                             placeholder: all_constants.placeholders.form.settings.noon_delivery_days,
-                            validators: [],
+                            validators: [checkEmptyDeliveryHours],
                             checkedItems: getIndexOfDays('noon_delivery_days'),  // Will be used by PickerCheckBox in FormField
                             maxLength: 51,
                         },
@@ -111,7 +111,10 @@ export default function SettingsOrderInformationForm ({...props}){
                             labelModalText: all_constants.modal.form.settings.evening_delivery_days,
                             placeholder: all_constants.placeholders.form.settings.evening_delivery_days,
                             checkedItems: getIndexOfDays('evening_delivery_days'),  // Will be used by PickerCheckBox in FormField
-                            validators: [],
+                            validators: [
+                                checkEmptyDeliveryHours,
+                                checkGlobalDeliveryCoherence
+                            ],
                             maxLength: 51,
                         },
                     }}
