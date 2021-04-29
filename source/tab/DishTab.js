@@ -62,15 +62,6 @@ export default function DishTab () {
                 }}
             />
             <Tab.Screen
-                name="Menus"
-                component={StateTab}
-                options={{ title: all_constants.tab.dish_tab.title.menu}}
-                initialParams={{
-                    tag: all_constants.tag.dishes.menu,
-                    child_component: MenuListView
-                }}
-            />
-            <Tab.Screen
                 name="Add"
                 component={DishAddView}
                 options={{ title: all_constants.tab.dish_tab.title.add_item}}
