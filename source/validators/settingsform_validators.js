@@ -125,8 +125,21 @@ export function checkHourCoherence(value, fieldLabel){
     }
 }
 
+export function checkEmptyDeliveryHours(daysArray, fieldLabel, objectToValidate) {
+    let deliveryHours = null;
+    if (fieldLabel.toLowerCase().includes('journée')){
+        deliveryHours = objectToValidate['noon_delivery_hours'];
     }
-    if (startHour > endHour){
-        return startMessage + "L'heure de début ne peut pas être supérieure à l'heure de fin."
+    else{
+        deliveryHours = objectToValidate['evening_delivery_hours'];
+    }
+    if (daysArray.length !== 0 && !deliveryHours){  // we gave delivery days but the days are empty
+        return 'Vous avez spécifié les jours de livraison ' + daysArray + ' sans préciser de créneau horaire pour ces jours.';
+    }
+    else if (daysArray.length === 0 && deliveryHours){  // we gave delivery hours but any days
+        return 'Vous avez précisé le créneau ' + deliveryHours + " sans préciser les jours où ce créneau s'applique.";
+    }
+}
+
     }
 }
