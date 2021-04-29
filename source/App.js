@@ -52,7 +52,8 @@ export default class App extends Component {
                                 "SettingsCredentialsForm",
                                 "SettingsPersonalInformationForm",
                                 "SettingsAddressForm",
-                                "SettingsOrderInformationForm"
+                                "SettingsOrderInformationForm",
+                                "Balance"
                             ].includes(route.name)
                                 ? () => {
                                     return null;
