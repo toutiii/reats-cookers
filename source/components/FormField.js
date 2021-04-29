@@ -66,9 +66,17 @@ export default function FormField({...props}) {
     return (
         <View style={styles_field.container}>
             <View style={styles_field.label}>
-                <View style={{flex: 1, alignItems: 'center'}}>
-                    <Text style={{fontSize: 20}}>{props.field.label}</Text>
-                </View>
+                {
+                    props.field.fieldIsMandatory?
+                        <View style={{flex: 1, flexDirection: 'row'}}>
+                            <Text style={{color: 'red', fontSize: 20}}>*</Text>
+                            <Text style={{fontSize: 20}}>{props.field.label}</Text>
+                        </View>
+                    :
+                        <View style={{flex: 1}}>
+                            <Text style={{fontSize: 20}}>{props.field.label}</Text>
+                        </View>
+                }
                 {
                     props.field.labelModal ?
                         <View style={{alignItems: 'center'}}>
