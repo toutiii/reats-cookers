@@ -41,12 +41,6 @@ export default function OfferFormView ({...props}){
                                 checkValueNotContainsSpecialChar
                             ]
                         },
-                        dish_photo: {
-                            fieldIsMandatory: true,
-                            type: all_constants.field_type.image,
-                            label: all_constants.label.form.dishes.image,
-                            validators:[checkValueIsDefined]
-                        },
                         dish_price: {
                             fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
