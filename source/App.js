@@ -33,11 +33,11 @@ export default class App extends Component {
                                 let iconName;
                                 if (route.name === 'Home') {
                                     iconName = 'home-outline'
-                                } else if (route.name === 'Orders') {
+                                }else if (route.name === 'Orders') {
                                     iconName = 'basket-outline';
-                                } else if (route.name === 'Dishes') {
+                                }else if (route.name === 'Dishes') {
                                     iconName = 'restaurant-outline';
-                                } else if (route.name === 'Menus') {
+                                }else if (route.name === 'Menus') {
                                     iconName = 'book-outline';
                                 }else if (route.name === 'Offers') {
                                     iconName = 'pricetag-outline';
