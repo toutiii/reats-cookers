@@ -120,6 +120,12 @@ export const all_constants = {
                 drink: 'Boisson',
                 price: 'Prix',
             },
+            special_offer:{
+                name: "Nom de l'item",
+                quantity: "Quantité",
+                rate: "Taux de réduction",
+                price: "Prix promotionnel"
+            },
             settings: {
                 email: 'Email',
                 current_password: 'Mot de passe actuel',
@@ -290,6 +296,12 @@ export const all_constants = {
                 menu_dessert: 'Sélectionnez le dessert',
                 menu_drink: 'Sélectionnez la boisson',
                 menu_price: 'Fixez le prix de votre menu',
+            },
+            special_offer: {
+                name: "Sélectionnez l'item sur lequel vous voulez créer une promotion",
+                quantity: "Entrez le nombre d'item pour la promotion",
+                price: "Renseignez le prix total TTC de la promotion affiché aux clients",
+                rate: "Ce champ est rempli automatiquement."
             },
             settings: {
                 street_number: 'Numéro de rue',
