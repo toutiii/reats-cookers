@@ -66,6 +66,12 @@ export default function OfferFormView ({...props}){
                                 valueIsValidPrice
                             ]
                         },
+                        offer_rate: {
+                            type: all_constants.field_type.textinput,
+                            maxLength: 5,
+                            label: all_constants.label.form.special_offer.rate,
+                            placeholder: all_constants.placeholders.form.special_offer.rate,
+                        },
                     }}
                 />
             </View>
