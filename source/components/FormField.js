@@ -70,11 +70,11 @@ export default function FormField({...props}) {
                     props.field.fieldIsMandatory?
                         <View style={{flex: 1, flexDirection: 'row'}}>
                             <Text style={{color: 'red', fontSize: 22}}>*</Text>
-                            <Text style={{fontSize: 18}}>{props.field.label}</Text>
+                            <Text style={{fontSize: 18, fontStyle: props.field.isReadOnly ? 'italic' : 'normal'}}>{props.field.label}</Text>
                         </View>
                     :
                         <View style={{flex: 1}}>
-                            <Text style={{fontSize: 18}}>{props.field.label}</Text>
+                            <Text style={{fontSize: 18, fontStyle: props.field.isReadOnly ? 'italic': 'normal'}}>{props.field.label}</Text>
                         </View>
                 }
                 {
