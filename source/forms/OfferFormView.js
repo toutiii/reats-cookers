@@ -54,7 +54,7 @@ export default function OfferFormView ({...props}){
                                 valueIsValidQuantity
                             ]
                         },
-                        dish_price: {
+                        offer_price: {
                             fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             maxLength: 5,
