@@ -16,6 +16,8 @@ import SettingsPersonalInformationForm from "./forms/SettingsPersonalInformation
 import SettingsAddressForm from "./forms/SettingsAddressForm";
 import SettingsOrderInformationForm from "./forms/SettingsOrderInformationForm";
 import MenuTab from "./tab/MenuTab";
+import OfferTab from "./tab/OfferTab";
+import OfferFormView from "./forms/OfferFormView";
 
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +39,8 @@ export default class App extends Component {
                                     iconName = 'restaurant-outline';
                                 } else if (route.name === 'Menus') {
                                     iconName = 'book-outline';
+                                }else if (route.name === 'Offers') {
+                                    iconName = 'pricetag-outline';
                                 }else if (route.name === 'Balance') {
                                     iconName = 'cash-outline';
                                 }else if (route.name === 'Settings') {
@@ -53,7 +57,8 @@ export default class App extends Component {
                                 "SettingsPersonalInformationForm",
                                 "SettingsAddressForm",
                                 "SettingsOrderInformationForm",
-                                "Balance"
+                                "Balance",
+                                "OfferFormView"
                             ].includes(route.name)
                                 ? () => {
                                     return null;
@@ -69,11 +74,13 @@ export default class App extends Component {
                         <Tab.Screen name="Orders" component={OrdersTab} options={{ tabBarBadge: 3 }} />
                         <Tab.Screen name="Dishes" component={DishTab} />
                         <Tab.Screen name="Menus" component={MenuTab} />
+                        <Tab.Screen name="Offers" component={OfferTab} />
                         <Tab.Screen name="Balance" component={BalanceTab} />
                         <Tab.Screen name="Settings" component={SettingsView} />
                         <Tab.Screen name="OrderView" component={OrderView}/>
                         <Tab.Screen name="DishFormView" component={DishFormView}/>
                         <Tab.Screen name="MenuFormView" component={MenuFormView}/>
+                        <Tab.Screen name="OfferFormView" component={OfferFormView}/>
                         <Tab.Screen name="SettingsCredentialsForm" component={SettingsCredentialsForm}/>
                         <Tab.Screen name="SettingsPersonalInformationForm" component={SettingsPersonalInformationForm}/>
                         <Tab.Screen name="SettingsAddressForm" component={SettingsAddressForm}/>
