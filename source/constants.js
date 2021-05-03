@@ -240,6 +240,9 @@ export const all_constants = {
         balance: {
             pending: 'pending',
             history: 'history',
+        },
+        offer: {
+            promotion: 'special_offer'
         }
     },
     balance:{
@@ -254,6 +257,9 @@ export const all_constants = {
             dessert: 'DESSERT',
             drink: 'BOISSON',
         },
+    },
+    offer: {
+        no_offer_found: "Vous n'avez créé aucune promotion."
     },
     validators:{
         max_text_length: 30,
@@ -330,6 +336,11 @@ export const all_constants = {
                 drinks: 'BOISSONS',
                 menu: 'MENUS',
                 add_item: 'AJOUTER',
+            }
+        },
+        offer_tab: {
+            title: {
+                offer: 'PROMOTIONS'
             }
         }
     }
