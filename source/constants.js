@@ -259,7 +259,9 @@ export const all_constants = {
         },
     },
     offer: {
-        no_offer_found: "Vous n'avez créé aucune promotion."
+        no_offer_found: "Vous n'avez créé aucune promotion.",
+        offer_message_start: "Vous proposez",
+        offer_message_end: "au prix de"
     },
     validators:{
         max_text_length: 30,
