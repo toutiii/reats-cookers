@@ -35,8 +35,8 @@ export default function OfferFormView ({...props}){
                             fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             maxLength: 50,
-                            label: all_constants.label.form.dishes.name,
-                            placeholder: all_constants.placeholders.form.dishes.dish_name,
+                            label: all_constants.label.form.special_offer.name,
+                            placeholder: all_constants.placeholders.form.special_offer.name,
                             validators: [
                                 checkValueIsDefined,
                                 checkValueNotContainsSpecialChar
@@ -58,8 +58,8 @@ export default function OfferFormView ({...props}){
                             fieldIsMandatory: true,
                             type: all_constants.field_type.textinput,
                             maxLength: 5,
-                            label: all_constants.label.form.dishes.price,
-                            placeholder: all_constants.placeholders.form.dishes.dish_price,
+                            label: all_constants.label.form.special_offer.price,
+                            placeholder: all_constants.placeholders.form.special_offer.price,
                             keyboardNumeric: true,
                             validators: [
                                 checkValueIsDefined,
