@@ -71,6 +71,7 @@ export default function OfferFormView ({...props}){
                             maxLength: 5,
                             label: all_constants.label.form.special_offer.rate,
                             placeholder: all_constants.placeholders.form.special_offer.rate,
+                            isReadOnly: true
                         },
                     }}
                 />
