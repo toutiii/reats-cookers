@@ -33,6 +33,7 @@ export default function OfferFormView ({...props}){
                     fields={{
                         dish_name: {
                             fieldIsMandatory: true,
+                            isReadOnly: !!props.route.params.item['dish_name'],
                             type: all_constants.field_type.textinput,
                             maxLength: 50,
                             label: all_constants.label.form.special_offer.name,
