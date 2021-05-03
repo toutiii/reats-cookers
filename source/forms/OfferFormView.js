@@ -8,6 +8,7 @@ import {
     checkValueNotContainsSpecialChar,
     valueIsValidPrice
 } from "../validators/global_validators";
+import {valueIsValidQuantity} from "../validators/offerformview_validators";
 
 
 export default function OfferFormView ({...props}){
@@ -39,6 +40,18 @@ export default function OfferFormView ({...props}){
                             validators: [
                                 checkValueIsDefined,
                                 checkValueNotContainsSpecialChar
+                            ]
+                        },
+                        offer_quantity: {
+                            fieldIsMandatory: true,
+                            type: all_constants.field_type.textinput,
+                            maxLength: 5,
+                            label: all_constants.label.form.special_offer.quantity,
+                            placeholder: all_constants.placeholders.form.special_offer.quantity,
+                            keyboardNumeric: true,
+                            validators: [
+                                checkValueIsDefined,
+                                valueIsValidQuantity
                             ]
                         },
                         dish_price: {
