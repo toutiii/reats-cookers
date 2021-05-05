@@ -58,7 +58,8 @@ export default class App extends Component {
                                 "SettingsAddressForm",
                                 "SettingsOrderInformationForm",
                                 "Balance",
-                                "OfferFormView"
+                                "OfferFormView",
+                                "Settings"
                             ].includes(route.name)
                                 ? () => {
                                     return null;
