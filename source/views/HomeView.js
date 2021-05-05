@@ -44,17 +44,31 @@ export default class HomeView extends Component {
     render () {
         return (
             <View style={styles_home_view.container}>
-                <View style={[styles_home_view.sub_container]}>
-                    <CustomButton
-                        label={all_constants.messages.logout}
-                        backgroundColor='red'
-                        height={50}
-                        border_width={3}
-                        border_radius={30}
-                        font_size={17}
-                        label_color='white'
-                        onPress={this.onTempSubmit}
-                    />
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: '5%'}}>
+                    <View style={{flex: 1, padding: '7%'}}>
+                        <CustomButton
+                            label={all_constants.messages.logout}
+                            backgroundColor='red'
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            label_color='white'
+                            onPress={this.onTempSubmit}
+                        />
+                    </View>
+                    <View style={{flex: 1 , padding: '11%'}}>
+                        <CustomButton
+                            label={all_constants.messages.settings}
+                            backgroundColor='grey'
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            label_color='white'
+                            onPress={() => {this.onPressNavigateToTab("Settings")}}
+                        />
+                    </View>
                 </View>
                 <View style={[styles_home_view.sub_container, { marginTop: '15%'}]}>
                     <View style={{flex: 1, aspectRatio: 1}}>
