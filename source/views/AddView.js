@@ -38,6 +38,18 @@ export default class AddView extends Component {
                         onPress={() => {this.onSubmitNavigateToScreen("MenuFormView")}}
                     />
                 </View>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <CustomButton
+                        label={all_constants.label.offer.add_offer}
+                        height={50}
+                        border_width={3}
+                        border_radius={30}
+                        font_size={17}
+                        backgroundColor={'tomato'}
+                        label_color={'white'}
+                        onPress={() => {this.onSubmitNavigateToScreen("OfferFormView")}}
+                    />
+                </View>
             </View>
         )
     }
