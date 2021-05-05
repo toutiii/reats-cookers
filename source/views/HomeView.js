@@ -70,7 +70,7 @@ export default class HomeView extends Component {
                         />
                     </View>
                 </View>
-                <View style={[styles_home_view.sub_container, { marginTop: '15%'}]}>
+                <View style={[styles_home_view.sub_container, { marginTop: '30%'}]}>
                     <View style={{flex: 1, aspectRatio: 1}}>
                         <Image
                             source={require('../images/mum_test.jpg')}
