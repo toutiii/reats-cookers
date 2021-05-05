@@ -18,6 +18,7 @@ import SettingsOrderInformationForm from "./forms/SettingsOrderInformationForm";
 import MenuTab from "./tab/MenuTab";
 import OfferTab from "./tab/OfferTab";
 import OfferFormView from "./forms/OfferFormView";
+import AddView from "./views/AddView";
 
 const Tab = createBottomTabNavigator();
 
@@ -41,6 +42,8 @@ export default class App extends Component {
                                     iconName = 'book-outline';
                                 }else if (route.name === 'Offers') {
                                     iconName = 'pricetag-outline';
+                                }else if (route.name === 'Add') {
+                                    iconName = 'add-circle-outline';
                                 }else if (route.name === 'Balance') {
                                     iconName = 'cash-outline';
                                 }else if (route.name === 'Settings') {
@@ -76,6 +79,7 @@ export default class App extends Component {
                         <Tab.Screen name="Dishes" component={DishTab} />
                         <Tab.Screen name="Menus" component={MenuTab} />
                         <Tab.Screen name="Offers" component={OfferTab} />
+                        <Tab.Screen name="Add" component={AddView} />
                         <Tab.Screen name="Balance" component={BalanceTab} />
                         <Tab.Screen name="Settings" component={SettingsView} />
                         <Tab.Screen name="OrderView" component={OrderView}/>
