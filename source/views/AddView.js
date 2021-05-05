@@ -23,7 +23,7 @@ export default class AddView extends Component {
                         font_size={17}
                         backgroundColor={'tomato'}
                         label_color={'white'}
-                        onPress={this.onSubmitDish}
+                        onPress={() => {this.onSubmitNavigateToScreen("DishFormView")}}
                     />
                 </View>
                 <View style={{flex: 1, alignItems: 'center', paddingBottom: '65%'}}>
@@ -35,7 +35,7 @@ export default class AddView extends Component {
                         font_size={17}
                         backgroundColor={'tomato'}
                         label_color={'white'}
-                        onPress={this.onSubmitMenu}
+                        onPress={() => {this.onSubmitNavigateToScreen("MenuFormView")}}
                     />
                 </View>
             </View>
