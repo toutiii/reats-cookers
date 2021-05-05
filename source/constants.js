@@ -24,6 +24,7 @@ export const all_constants = {
     messages: {
         login: 'LOG IN',
         logout: 'LOG OUT',
+        settings: 'PARAMÈTRES',
         send: 'SEND',
         submit: 'VALIDER',
         cancel: 'ANNULER',
