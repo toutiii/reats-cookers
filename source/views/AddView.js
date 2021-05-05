@@ -13,8 +13,8 @@ export default class AddView extends Component {
     }
     render() {
         return(
-            <View style={{flex: 1}}>
-                <View style={{flex: 1, alignItems: 'center', paddingTop: '65%'}}>
+            <View style={{flex: 1, alignItems: 'center', marginTop: '50%'}}>
+                <View style={{flex: 1}}>
                     <CustomButton
                         label={all_constants.label.dishes.add_dish}
                         height={50}
@@ -26,7 +26,7 @@ export default class AddView extends Component {
                         onPress={() => {this.onSubmitNavigateToScreen("DishFormView")}}
                     />
                 </View>
-                <View style={{flex: 1, alignItems: 'center', paddingBottom: '65%'}}>
+                <View style={{flex: 1}}>
                     <CustomButton
                         label={all_constants.label.dishes.add_menu}
                         height={50}
@@ -38,7 +38,7 @@ export default class AddView extends Component {
                         onPress={() => {this.onSubmitNavigateToScreen("MenuFormView")}}
                     />
                 </View>
-                <View style={{flex: 1, alignItems: 'center'}}>
+                <View style={{flex: 1}}>
                     <CustomButton
                         label={all_constants.label.offer.add_offer}
                         height={50}
