@@ -11,6 +11,12 @@ export default styles_home_view = StyleSheet.create({
         alignItems: 'center',
         marginTop: '10%',
     },
+    button_container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '5%'
+    },
     sub_container: {
         flex: 1,
         justifyContent: 'center',

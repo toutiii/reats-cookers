@@ -44,7 +44,7 @@ export default class HomeView extends Component {
     render () {
         return (
             <View style={styles_home_view.container}>
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: '5%'}}>
+                <View style={styles_home_view.button_container}>
                     <View style={{flex: 1, padding: '7%'}}>
                         <CustomButton
                             label={all_constants.messages.logout}
