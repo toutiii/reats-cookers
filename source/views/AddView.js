@@ -4,7 +4,7 @@ import CustomButton from "../button/CustomButton";
 import all_constants from "../constants";
 
 
-export default class  DishAddView extends Component {
+export default class AddView extends Component {
     constructor(props) {
         super(props);
     }
