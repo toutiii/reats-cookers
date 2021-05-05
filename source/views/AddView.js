@@ -8,11 +8,8 @@ export default class AddView extends Component {
     constructor(props) {
         super(props);
     }
-    onSubmitDish = () => {
-        this.props.navigation.navigate('DishFormView', {item: {}})
-    }
-    onSubmitMenu = () => {
-        this.props.navigation.navigate('MenuFormView', {item: {}})
+    onSubmitNavigateToScreen = (screenName) => {
+        this.props.navigation.navigate(screenName, {item: {}});
     }
     render() {
         return(
