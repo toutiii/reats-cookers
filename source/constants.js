@@ -66,6 +66,9 @@ export const all_constants = {
             accept: 'ACCEPTER LA COMMANDE',
             reject: 'REJETER LA COMMANDE',
         },
+        offer: {
+            add_offer: 'CRÉER UNE PROMOTION',
+        },
         dishes: {
             add_dish: 'AJOUTER UN PLAT',
             remove_dish: 'SUPPRIMER',
