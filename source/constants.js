@@ -185,6 +185,10 @@ export const all_constants = {
             show: 'AFFICHER LES PLATS',
             hide: 'FERMER',
         },
+        order_modal: {
+            show: 'AFFICHER LE RÉCAPITULATIF',
+            hide: 'FERMER'
+        },
         form: {
             settings: {
                 order_days: (
