@@ -26,16 +26,15 @@ export default function Order({...props}) {
             <View style={styles_order.order_element}>
                 <Text style={{fontSize: 16,}}>{all_constants.order.infos.owner} {props.order_owner} {all_constants.order.infos.ordered_label} {props.order_date} </Text>
             </View>
-            {
-                props.order_status === all_constants.order.status.delivered ?
-                    <View style={styles_order.order_element}>
-                        <Text style={{fontSize: 16,}}>{all_constants.order.infos.delivered_label} {props.order_delivery_date} </Text>
-                    </View>
-                    :
-                    <View style={styles_order.order_element}>
-                        <Text style={{fontSize: 16,}}>{all_constants.order.infos.status} {props.order_status} </Text>
-                    </View>
-            }
+
+            <View style={styles_order.order_element}>
+                <Text style={{fontSize: 16,}}>{all_constants.order.infos.delivered_label} {props.order_delivery_date} </Text>
+            </View>
+
+            <View style={styles_order.order_element}>
+                <Text style={{fontSize: 16,}}>{all_constants.order.infos.status} {props.order_status} </Text>
+            </View>
+
             {
                 props.order_status === all_constants.order.status.canceled ?
                     <View style={styles_order.order_element}>
