@@ -96,11 +96,11 @@ export function getOrders() {
                     },
                     {
                         "id": "2",
-                        "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
-                        "dish_name": "Poulet Yassa",
+                        "dish_photo": "http://www.fashioncooking.fr/wp-content/uploads/2010/12/IMGP1105bis1.jpg",
+                        "dish_name": "Tchep",
                         "dish_rating": "4.8/5",
-                        "dish_unit_price": "10 €",
-                        "dish_quantity": "5",
+                        "dish_unit_price": "10",
+                        "dish_quantity": "2",
                         "dish_order_date": "9 Mars 2021",
                         "dish_order_status": "En préparation"
                     }
