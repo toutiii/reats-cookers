@@ -47,7 +47,7 @@ export default function Order({...props}) {
                 <Text style={{fontSize: 16,}}>{all_constants.order.infos.amount} {props.order_amount} </Text>
             </View>
             <View style={styles_order.order_element}>
-                <Text style={{fontSize: 16,}}>{all_constants.order.infos.number_of_items} {props.order_number_of_items} </Text>
+                <Text style={{fontSize: 16,}}>{all_constants.order.infos.content}</Text>
             </View>
             {
                 Object.keys(props.order_dishes).map((item) => {

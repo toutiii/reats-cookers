@@ -167,6 +167,7 @@ export const all_constants = {
             owner: 'Passée par',
             amount: 'Cette commande vous rapporte',
             number_of_items: 'Nombre de plats:',
+            content: 'Cette commande contient:',
             ordered_label: 'le',
             canceled_label: 'Commande annulée le',
             delivered_label: 'Commande à livrer le',
