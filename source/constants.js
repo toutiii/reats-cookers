@@ -169,7 +169,7 @@ export const all_constants = {
             number_of_items: 'Nombre de plats:',
             ordered_label: 'le',
             canceled_label: 'Commande annulée le',
-            delivered_label: 'Commande livrée le',
+            delivered_label: 'Commande à livrer le',
             unit_price: 'Prix unitaire:',
             total: 'Total:'
         },
