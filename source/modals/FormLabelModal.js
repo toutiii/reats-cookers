@@ -2,7 +2,6 @@ import {Modal, Text, View} from "react-native";
 import React from "react";
 import all_constants from "../constants";
 import CustomButton from "../button/CustomButton";
-import HorizontalLine from "../components/HorizontalLine";
 
 
 export default function FormLabelModal({...props}) {
