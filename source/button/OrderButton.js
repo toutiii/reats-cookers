@@ -54,7 +54,7 @@ export default function OrderButton({...props}) {
                                 underlayColor={all_constants.colors.inputBorderColor}
                             >
                                 <Order
-                                    key={item.key}
+                                    key={item.id}
                                     order_number={item.order_number}
                                     order_status={item.order_status}
                                     order_owner={item.order_owner}
