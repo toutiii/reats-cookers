@@ -33,6 +33,7 @@ export default function OrderButton({...props}) {
                                 order_cancel_date={item.order_cancel_date}
                                 order_delivery_date={item.order_delivery_date}
                                 order_number_color={item.order_number_color}
+                                order_dishes={item.dishes}
                                 use_horizontal_line={true}
                                 line_width={1}
                             />
