@@ -22,7 +22,7 @@ export default function OrderButton({...props}) {
                     <View style={{flex: 1, marginTop: '2%', alignItems: 'center'}}>
                         <CustomButton
                             label={all_constants.modal.order_modal.show}
-                            backgroundColor='tomato'
+                            backgroundColor='#228b22'
                             height={50}
                             border_width={3}
                             border_radius={30}
