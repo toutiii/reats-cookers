@@ -78,7 +78,7 @@ export default function OrderButton({...props}) {
         <View style={{flex: 1}}>
             {
                 props.allProps.route.params.tag === all_constants.tag.orders.paid ?
-                    <View style={{flex: 1, marginTop: '2%', alignItems: 'center'}}>
+                    <View style={{flex: 1, marginTop: '5%', alignItems: 'center'}}>
                         <CustomButton
                             label={all_constants.modal.order_modal.show}
                             backgroundColor='#228b22'
