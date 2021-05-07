@@ -50,6 +50,30 @@ export default function OrderButton({...props}) {
             return orderModalData;
         }
     }
+    const buildDeliveryDataForOrderModal = () => {
+        if (props.allProps.route.params.tag === all_constants.tag.orders.paid) {
+            const orders_data = props.order_list_data;
+            const indexes = Object.keys(orders_data);
+            let orderDeliveryData = {};
+            for (let i = 0; i < indexes.length; i++) {
+                const orderItemObject = orders_data[i];
+                let deliveryDate = orderItemObject['order_delivery_date'];
+                if (!Object.keys(orderDeliveryData).includes(deliveryDate)){
+                    orderDeliveryData[deliveryDate] = []
+                }
+                const dishIndexes = Object.keys(orderItemObject['dishes']);
+                let tempArray = [];
+                for (let j = 0; j < dishIndexes.length; j++) {
+                    const dishItemObject = orderItemObject['dishes'][j];
+                    let dishQuantity =  dishItemObject['dish_quantity'];
+                    let dishName = dishItemObject['dish_name'];
+                    tempArray.push([dishQuantity, dishName]);
+                }
+                orderDeliveryData[deliveryDate] = tempArray;
+            }
+            return orderDeliveryData;
+        }
+    }
     return (
         <View style={{flex: 1}}>
             {
