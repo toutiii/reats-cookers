@@ -15,6 +15,41 @@ export default function OrderButton({...props}) {
     const onPressCloseModal = () => {
         setModalState(false)
     }
+    const buildDishDataForOrderModal = () => {
+        // We do this only for paid orders
+        if (props.allProps.route.params.tag === all_constants.tag.orders.paid) {
+            const orders_data = props.order_list_data;
+            const indexes = Object.keys(orders_data)
+            let orderModalData = {};
+            let orderTotalAmount = 0;
+            let totalNumberOfDishes = 0;
+            for (let i = 0; i < indexes.length; i++) {
+                const orderItemObject = orders_data[i];
+                const dishIndexes = Object.keys(orderItemObject['dishes']);
+                for (let j = 0; j < dishIndexes.length; j++) {
+                    const dishItemObject = orderItemObject['dishes'][j];
+                    totalNumberOfDishes += parseInt(dishItemObject['dish_quantity']);
+                    orderTotalAmount += ((parseInt(dishItemObject['dish_quantity'])) * parseInt(dishItemObject['dish_unit_price']));
+                    for (let dishKey in dishItemObject){
+                        if (dishKey === 'dish_name') {
+                            const dishName = dishItemObject[dishKey]
+                            if (Object.keys(orderModalData).includes(dishName)){
+                                orderModalData[dishName][0] += parseInt(dishItemObject['dish_quantity']);
+                            }
+                            else{
+                                orderModalData[dishName] = [
+                                    parseInt(dishItemObject['dish_quantity']),
+                                    parseInt(dishItemObject['dish_unit_price'])
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+            orderModalData['Total'] = [totalNumberOfDishes, orderTotalAmount];
+            return orderModalData;
+        }
+    }
     return (
         <View style={{flex: 1}}>
             {
