@@ -187,7 +187,12 @@ export const all_constants = {
         },
         order_modal: {
             show: 'AFFICHER LE RÉCAPITULATIF',
-            hide: 'FERMER'
+            hide: 'FERMER',
+            intro: "Vous pouvez visualiser ici des informations générales sur vos commandes en cours. \n",
+            received_order: "Total des commandes reçues",
+            received_dishes: "Nombre de plats à préparer",
+            detail: "Détails des plats",
+            delivery_schedule: "Planning de livraison"
         },
         form: {
             settings: {
