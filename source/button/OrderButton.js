@@ -86,6 +86,7 @@ export default function OrderButton({...props}) {
                             border_width={3}
                             border_radius={30}
                             font_size={17}
+                            label_color='white'
                             onPress={onPressShowModal}
                         />
                     </View>
