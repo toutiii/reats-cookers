@@ -90,7 +90,6 @@ export default function OrderButton({...props}) {
                             onPress={onPressShowModal}
                         />
                     </View>
-
                     :
                     <View></View>
             }
