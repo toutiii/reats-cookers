@@ -93,10 +93,18 @@ export default function OrderButton({...props}) {
                     :
                     <View></View>
             }
-            <OrderModal
-                state={modalState}
-                onPressCloseModal={onPressCloseModal}
-            />
+            {
+                props.allProps.route.params.tag === all_constants.tag.orders.paid ?
+                    <OrderModal
+                        state={modalState}
+                        onPressCloseModal={onPressCloseModal}
+                        data={buildDishDataForOrderModal()}
+                        deliveryData={buildDeliveryDataForOrderModal()}
+                        numberOfOrders={Object.keys(props.order_list_data).length}
+                    />
+                :
+                    <View></View>
+            }
             <View style={{flex: props.allProps.route.params.tag === all_constants.tag.orders.paid ? 10 : 1}}>
                 <FlatList
                     data={props.order_list_data}
