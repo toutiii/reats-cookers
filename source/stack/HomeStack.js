@@ -15,7 +15,7 @@ export default class HomeStack extends Component{
         return(
             <Stack.Navigator
                 screenOptions={{
-                    headerShown: false
+                    headerShown: true
                 }}
                 initialRouteName='Home'
             >
