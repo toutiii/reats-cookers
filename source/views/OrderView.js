@@ -6,6 +6,7 @@ import all_constants from "../constants";
 import Order from "../components/Order";
 import CustomButton from "../button/CustomButton";
 import DishModal from "../modals/DishModal";
+import styles_form from "../styles/styles-form";
 
 export default class OrderView extends Component {
     constructor(props) {
@@ -107,6 +108,18 @@ export default class OrderView extends Component {
                                />
                            </View>
                     }
+                    <View style={styles_form.cancel_button}>
+                        <CustomButton
+                            label={all_constants.messages.cancel}
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={18}
+                            backgroundColor={'red'}
+                            label_color='white'
+                            onPress={() => {this.props.navigation.goBack(null)}}
+                        />
+                    </View>
                 </View>
                 <DishModal
                     state={this.state.modalVisible}
