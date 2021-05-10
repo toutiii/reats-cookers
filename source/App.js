@@ -76,7 +76,6 @@ export default class App extends Component {
                         <Tab.Screen name="Menus" component={MenuTab} />
                         <Tab.Screen name="Offers" component={OfferTab} />
                         <Tab.Screen name="Add" component={AddView} />
-                        <Tab.Screen name="Balance" component={BalanceTab} />
                         <Tab.Screen name="OrderView" component={OrderView}/>
                         <Tab.Screen name="DishFormView" component={DishFormView}/>
                         <Tab.Screen name="MenuFormView" component={MenuFormView}/>
