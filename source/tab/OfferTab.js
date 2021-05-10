@@ -32,12 +32,6 @@ export default function OfferTab () {
                     child_component: OfferListView
                 }}
             />
-            <Tab.Screen
-                name="Add"
-                component={OfferFormView}
-                options={{ title: all_constants.tab.dish_tab.title.add_item}}
-                initialParams={{item: {}}}
-            />
         </Tab.Navigator>
     )
 }

@@ -32,12 +32,6 @@ export default function MenuTab () {
                     child_component: MenuListView
                 }}
             />
-            <Tab.Screen
-                name="Add"
-                component={MenuFormView}
-                options={{ title: all_constants.tab.dish_tab.title.add_item}}
-                initialParams={{item: {}}}
-            />
         </Tab.Navigator>
     )
 }

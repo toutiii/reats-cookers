@@ -60,12 +60,6 @@ export default function DishTab () {
                     child_component: DishListView
                 }}
             />
-            <Tab.Screen
-                name="Add"
-                component={DishFormView}
-                options={{ title: all_constants.tab.dish_tab.title.add_item}}
-                initialParams={{item: {}}}
-            />
         </Tab.Navigator>
     )
 }
