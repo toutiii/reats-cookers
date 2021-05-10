@@ -18,9 +18,6 @@ export default class SettingsView extends Component {
     render() {
         return (
             <View style={styles_settings.container}>
-                <View style={styles_settings.title}>
-                    <Text style={styles_settings.title_text}> {all_constants.label.settings.my_account} </Text>
-                </View>
                 <View style={{flex: 7, width: '95%'}}>
                     <ScrollView>
                         {
