@@ -46,7 +46,6 @@ export default class OrderView extends Component {
                         order_cancel_date={this.props.route.params.item.order_cancel_date}
                         order_delivery_date={this.props.route.params.item.order_delivery_date}
                         order_number_color={this.props.route.params.item.order_number_color}
-                        order_dishes={this.props.route.params.item.dishes}
                     />
                     <HorizontalLine
                         line_width={3}

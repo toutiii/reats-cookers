@@ -46,21 +46,6 @@ export default function Order({...props}) {
             <View style={styles_order.order_element}>
                 <Text style={{fontSize: 16,}}>{all_constants.order.infos.amount} {props.order_amount} </Text>
             </View>
-            <View style={styles_order.order_element}>
-                <Text style={{fontSize: 16,}}>{all_constants.order.infos.content}</Text>
-            </View>
-            {
-                Object.keys(props.order_dishes).map((item) => {
-                    return(
-                        <View>
-                            <Text style={{fontSize: 16, textAlign: 'center'}}>
-                                {props.order_dishes[item]['dish_quantity']} {}
-                                {props.order_dishes[item]['dish_name']}
-                            </Text>
-                        </View>
-                    )
-                })
-            }
         </View>
     )
 }
