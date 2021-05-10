@@ -23,7 +23,7 @@ export default class SettingsView extends Component {
                         {
                             Object.keys(this.userInfosObject).map((key) => {
                                 return (
-                                    <View key={key} style={{flex: 1, marginTop: '5%'}}>
+                                    <View key={key} style={{flex: 1}}>
                                         <Text numberOfLines={1} style={{fontSize: 22}}>
                                             {all_constants.label.settings.section_title[this.userInfosObject[key]['title']]}
                                         </Text>
