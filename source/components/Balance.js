@@ -11,7 +11,7 @@ export default function Balance({...props}) {
                 <Text style={{fontSize: 20}}>{all_constants.order.infos.number}{props.order_number}</Text>
             </View>
             <View style={styles_balance.order_balance}>
-                <Text style={{fontSize: 20}}>{props.order_balance}</Text>
+                <Text style={{fontSize: 20}}>{props.order_balance}{all_constants.currency_symbol}</Text>
             </View>
         </View>
     )
