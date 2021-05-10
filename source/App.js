@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppearanceProvider } from 'react-native-appearance'
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import SettingsView from "./views/SettingsView";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import OrdersTab from "./tab/OrdersTab";
 import DishTab from "./tab/DishTab";
