@@ -14,7 +14,6 @@ export default styles_order_view = StyleSheet.create({
     button_container: {
         flex: 1,
         margin: '10%',
-        justifyContent: 'space-around',
         alignItems: 'center',
         width: '95%',
     }
