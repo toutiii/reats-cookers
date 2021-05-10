@@ -46,8 +46,6 @@ export default class App extends Component {
                                     iconName = 'add-circle-outline';
                                 }else if (route.name === 'Balance') {
                                     iconName = 'cash-outline';
-                                }else if (route.name === 'Settings') {
-                                    iconName = 'person-outline';
                                 }
                                 // You can return any component that you like here!
                                 return <Ionicons name={iconName} size={size} color={color} />;
@@ -62,7 +60,6 @@ export default class App extends Component {
                                 "SettingsOrderInformationForm",
                                 "Balance",
                                 "OfferFormView",
-                                "Settings"
                             ].includes(route.name)
                                 ? () => {
                                     return null;
@@ -81,7 +78,6 @@ export default class App extends Component {
                         <Tab.Screen name="Offers" component={OfferTab} />
                         <Tab.Screen name="Add" component={AddView} />
                         <Tab.Screen name="Balance" component={BalanceTab} />
-                        <Tab.Screen name="Settings" component={SettingsView} />
                         <Tab.Screen name="OrderView" component={OrderView}/>
                         <Tab.Screen name="DishFormView" component={DishFormView}/>
                         <Tab.Screen name="MenuFormView" component={MenuFormView}/>
