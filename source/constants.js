@@ -62,6 +62,9 @@ export const all_constants = {
             balance: 'BALANCE',
             pending: 'PENDING',
         },
+        balance:{
+            title: "Paiements",
+        },
         order: {
             accept: 'ACCEPTER LA COMMANDE',
             reject: 'REJETER LA COMMANDE',
