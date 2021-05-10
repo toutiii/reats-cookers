@@ -19,7 +19,7 @@ export default class HomeStack extends Component{
                 }}
                 initialRouteName='Home'
             >
-                <Stack.Screen name="Home" component={HomeView} />
+                <Stack.Screen name="Home" component={HomeView} options={{headerShown: false}} />
                 <Stack.Screen name="OrdersTab" component={OrdersTab} />
                 <Stack.Screen name="BalanceTab" component={BalanceTab} />
             </Stack.Navigator>
