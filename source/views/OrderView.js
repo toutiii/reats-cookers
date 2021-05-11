@@ -66,33 +66,33 @@ export default class OrderView extends Component {
                     </View>
                     {
                         this.props.route.params.item.status === "En attente de prise en charge" ?
-                           <View style={{flex: 1}}>
-                               <CustomButton
-                                   label={all_constants.label.order.accept}
-                                   backgroundColor='green'
-                                   label_color='white'
-                                   height={50}
-                                   border_width={3}
-                                   border_radius={30}
-                                   font_size={17}
-                                   onPress={this.onPressValid}
-                               />
-                           </View>
-                       :
-                           <View style={{flex: 1}}>
-                               <CustomButton
-                                   label={all_constants.label.order.reject}
-                                   backgroundColor='red'
-                                   label_color='white'
-                                   height={50}
-                                   border_width={3}
-                                   border_radius={30}
-                                   font_size={17}
-                                   onPress={this.onPressReject}
-                               />
-                           </View>
+                            <View style={{flex: 1}}>
+                                <CustomButton
+                                    label={all_constants.label.order.accept}
+                                    backgroundColor='green'
+                                    label_color='white'
+                                    height={50}
+                                    border_width={3}
+                                    border_radius={30}
+                                    font_size={17}
+                                    onPress={this.onPressValid}
+                                />
+                            </View>
+                            :
+                            <View style={{flex: 1}}>
+                                <CustomButton
+                                    label={all_constants.label.order.reject}
+                                    backgroundColor='red'
+                                    label_color='white'
+                                    height={50}
+                                    border_width={3}
+                                    border_radius={30}
+                                    font_size={17}
+                                    onPress={this.onPressReject}
+                                />
+                            </View>
                     }
-                    <View style={styles_form.cancel_button}>
+                    <View style={{flex: 1}}>
                         <CustomButton
                             label={all_constants.messages.cancel}
                             height={50}
