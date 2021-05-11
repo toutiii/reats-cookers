@@ -16,8 +16,8 @@ export default function DishModal({...props}) {
                 <View style={{flex: 1, alignItems: 'center', marginTop: '10%'}}>
                     <CustomButton
                         label={all_constants.modal.dish_modal.hide}
-                        backgroundColor='#f0ffff'
-                        label_color='black'
+                        backgroundColor='tomato'
+                        label_color='white'
                         height={50}
                         border_width={3}
                         border_radius={30}
