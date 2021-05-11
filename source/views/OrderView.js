@@ -65,22 +65,6 @@ export default class OrderView extends Component {
                         />
                     </View>
                     {
-                        this.state.is_order_approved ?
-                            <View style={{flex: 1}}>
-                                <Text style={{fontSize: 20, color: 'green'}}> Commande acceptée le 09 Mars 2021.</Text>
-                            </View>
-                        :
-                            <View></View>
-                    }
-                    {
-                        this.state.nb_reject > 0 ?
-                            <View style={{flex: 1}}>
-                                <Text style={{fontSize: 20, color: 'red'}}> Commande rejetée le 10 Mars 2021.</Text>
-                            </View>
-                            :
-                            <View></View>
-                    }
-                    {
                        ! this.state.is_order_approved ?
                            <View style={{flex: 1}}>
                                <CustomButton
