@@ -56,7 +56,7 @@ export default class OrderView extends Component {
                     <View style={{flex: 1}}>
                         <CustomButton
                             label={all_constants.modal.dish_modal.show}
-                            backgroundColor='#f0ffff'
+                            backgroundColor='darkgrey'
                             height={50}
                             border_width={3}
                             border_radius={30}
