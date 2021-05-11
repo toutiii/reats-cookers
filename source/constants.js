@@ -198,7 +198,7 @@ export const all_constants = {
             received_order: "Total des commandes reçues",
             received_dishes: "Nombre de plats à préparer",
             detail: "Détails des plats",
-            delivery_schedule: "Planning de livraison"
+            delivery_schedule: "Planning de passage livreurs"
         },
         form: {
             settings: {
