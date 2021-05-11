@@ -53,17 +53,6 @@ export default class OrderView extends Component {
                     />
                 </View>
                 <View style={styles_order_view.button_container}>
-                    <View style={{flex: 1}}>
-                        <CustomButton
-                            label={all_constants.modal.dish_modal.show}
-                            backgroundColor='darkgrey'
-                            height={50}
-                            border_width={3}
-                            border_radius={30}
-                            font_size={17}
-                            onPress={this.onPressShowModal}
-                        />
-                    </View>
                     {
                         this.props.route.params.item.status === "En attente de prise en charge" ?
                             <View style={{flex: 1}}>
@@ -92,6 +81,17 @@ export default class OrderView extends Component {
                                 />
                             </View>
                     }
+                    <View style={{flex: 1}}>
+                        <CustomButton
+                            label={all_constants.modal.dish_modal.show}
+                            backgroundColor='darkgrey'
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            onPress={this.onPressShowModal}
+                        />
+                    </View>
                     <View style={{flex: 1}}>
                         <CustomButton
                             label={all_constants.messages.cancel}
