@@ -65,7 +65,7 @@ export default class OrderView extends Component {
                         />
                     </View>
                     {
-                       ! this.state.is_order_approved ?
+                        this.props.route.params.item.status === "En attente de prise en charge" ?
                            <View style={{flex: 1}}>
                                <CustomButton
                                    label={all_constants.label.order.accept}
