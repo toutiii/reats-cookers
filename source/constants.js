@@ -180,6 +180,7 @@ export const all_constants = {
         status:{
             canceled: 'Annulée',
             delivered: 'Livrée',
+            pending: "En attente de prise en charge",
         },
         no_order_found: 'No orders found.',
     },
