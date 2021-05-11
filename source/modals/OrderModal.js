@@ -56,17 +56,16 @@ export default function OrderModal({...props}) {
                             </Text>
                         </View>
                     </View>
-                    <View style={{height: 20}}></View>
+                    <View style={{height: '3%'}}></View>
                     <View style={{flex: 1}}>
                         <Text style={{fontSize: 18, textAlign: 'center'}}>{all_constants.modal.order_modal.detail}</Text>
                         <HorizontalLine line_width={3} line_color={'tomato'}/>
                     </View>
-                    <View style={{height: 20}}></View>
                     <View style={{flex: 5}}>
                         {
                             Object.keys(props.data).map((key) => {
                                 return(
-                                    <View key={key} style={{flex: 1}}>
+                                    <View key={key} style={{flex: 1 , margin: '1%'}}>
                                         {
                                             key.toLowerCase().includes('total') ?
                                                 <HorizontalLine
@@ -74,7 +73,7 @@ export default function OrderModal({...props}) {
                                                     line_color={'tomato'}
                                                 />
                                                 :
-                                                <View style={{height: 15}}></View>
+                                                <View></View>
                                         }
                                         <View style={{flex: 1, flexDirection: 'row'}}>
                                             <View style={{flex: 1}}>
@@ -121,8 +120,8 @@ export default function OrderModal({...props}) {
                                 )
                             })
                         }
-                        <View style={{height: 50}}></View>
-                        <View style={{flex :1, alignItems:'center'}}>
+                        <View style={{height: '3%'}}></View>
+                        <View style={{flex: 1, alignItems:'center'}}>
                             <Text style={{fontSize: 18}}> {all_constants.modal.order_modal.delivery_schedule} </Text>
                         </View>
                         <HorizontalLine
@@ -133,15 +132,13 @@ export default function OrderModal({...props}) {
                             Object.keys(props.deliveryData).map((dateKey) => {
                                 let arrayOfArrays = props.deliveryData[dateKey];
                                 return(
-                                    <View key={dateKey} style={{flex: 1, alignItems: 'center'}}>
-                                        <View style={{height: 20}}></View>
+                                    <View key={dateKey} style={{flex: 1, alignItems: 'center', margin: '2%'}}>
                                         <Text style={{fontSize: 18, fontWeight: 'bold'}}> {dateKey}</Text>
                                         {
                                             Object.keys(arrayOfArrays).map((arrayKey) => {
                                                 let currentArray = arrayOfArrays[arrayKey]
                                                 return(
                                                     <View key={arrayKey} style={{flex: 1}}>
-                                                        <View style={{height: 5}}></View>
                                                         <Text style={{fontSize: 18}}>
                                                             {currentArray[0]} {currentArray[1]}
                                                         </Text>
