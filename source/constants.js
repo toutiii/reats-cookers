@@ -173,6 +173,7 @@ export const all_constants = {
             content: 'Cette commande contient:',
             ordered_label: 'le',
             canceled_label: 'Commande annulée le',
+            approved_label: 'Commande acceptée le',
             delivered_label: 'Commande à livrer le',
             unit_price: 'Prix unitaire:',
             total: 'Total:'
