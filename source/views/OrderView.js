@@ -68,6 +68,10 @@ export default class OrderView extends Component {
                                 />
                             </View>
                             :
+                            <View></View>
+                    }
+                    {
+                        this.props.route.params.item.order_status === all_constants.order.status.approved?
                             <View style={{flex: 1}}>
                                 <CustomButton
                                     label={all_constants.label.order.reject}
@@ -80,6 +84,8 @@ export default class OrderView extends Component {
                                     onPress={this.onPressReject}
                                 />
                             </View>
+                        :
+                            <View></View>
                     }
                     <View style={{flex: 1}}>
                         <CustomButton
