@@ -54,7 +54,7 @@ export default class OrderView extends Component {
                 </View>
                 <View style={styles_order_view.button_container}>
                     {
-                        this.props.route.params.item.status === "En attente de prise en charge" ?
+                        this.props.route.params.item.order_status === "En attente de prise en charge" ?
                             <View style={{flex: 1}}>
                                 <CustomButton
                                     label={all_constants.label.order.accept}
