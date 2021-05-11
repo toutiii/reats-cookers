@@ -99,7 +99,7 @@ export default class OrderView extends Component {
                             border_width={3}
                             border_radius={30}
                             font_size={18}
-                            backgroundColor={'red'}
+                            backgroundColor={'tomato'}
                             label_color='white'
                             onPress={() => {this.props.navigation.goBack(null)}}
                         />
