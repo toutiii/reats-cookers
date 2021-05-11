@@ -4,7 +4,7 @@ export function getOrders() {
             {
                 "id" :"1",
                 "order_number": "123366",
-                "order_status": "En attente de prise en charge",
+                "order_status": "Acceptée",
                 "order_owner": "Toutii",
                 "order_amount": "100",
                 "order_number_of_items": "10",
