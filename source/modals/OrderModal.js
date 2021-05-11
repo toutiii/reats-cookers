@@ -66,7 +66,7 @@ export default function OrderModal({...props}) {
                         {
                             Object.keys(props.data).map((key) => {
                                 return(
-                                    <View style={{flex: 1}}>
+                                    <View key={key} style={{flex: 1}}>
                                         {
                                             key.toLowerCase().includes('total') ?
                                                 <HorizontalLine
@@ -133,14 +133,14 @@ export default function OrderModal({...props}) {
                             Object.keys(props.deliveryData).map((dateKey) => {
                                 let arrayOfArrays = props.deliveryData[dateKey];
                                 return(
-                                    <View style={{flex: 1, alignItems: 'center'}}>
+                                    <View key={dateKey} style={{flex: 1, alignItems: 'center'}}>
                                         <View style={{height: 20}}></View>
                                         <Text style={{fontSize: 18, fontWeight: 'bold'}}> {dateKey}</Text>
                                         {
                                             Object.keys(arrayOfArrays).map((arrayKey) => {
                                                 let currentArray = arrayOfArrays[arrayKey]
                                                 return(
-                                                    <View style={{flex: 1}}>
+                                                    <View key={arrayKey} style={{flex: 1}}>
                                                         <View style={{height: 5}}></View>
                                                         <Text style={{fontSize: 18}}>
                                                             {currentArray[0]} {currentArray[1]}
