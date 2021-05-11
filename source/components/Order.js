@@ -43,6 +43,17 @@ export default function Order({...props}) {
                     :
                     <View></View>
             }
+
+            {
+                props.order_status === all_constants.order.status.approved ?
+                    <View style={styles_order.order_element}>
+                        <Text style={{fontSize: 16, color: 'green'}}>
+                            {all_constants.order.infos.approved_label} {props.order_cancel_date}
+                        </Text>
+                    </View>
+                    :
+                    <View></View>
+            }
             <View style={styles_order.order_element}>
                 <Text style={{fontSize: 16,}}>{all_constants.order.infos.amount} {props.order_amount}{all_constants.currency_symbol} </Text>
             </View>
