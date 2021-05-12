@@ -146,18 +146,23 @@ export default function Form({ ...props }) {
                                 onPress={submit}
                             />
                         </View>
-                        <View style={styles_form.cancel_button}>
-                            <CustomButton
-                                label={all_constants.messages.cancel}
-                                height={50}
-                                border_width={3}
-                                border_radius={30}
-                                font_size={18}
-                                backgroundColor={'red'}
-                                label_color='white'
-                                onPress={cancel}
-                            />
-                        </View>
+                        {
+                            props.login ?
+                                <View></View>
+                            :
+                                <View style={styles_form.cancel_button}>
+                                    <CustomButton
+                                        label={all_constants.messages.cancel}
+                                        height={50}
+                                        border_width={3}
+                                        border_radius={30}
+                                        font_size={18}
+                                        backgroundColor={'red'}
+                                        label_color='white'
+                                        onPress={cancel}
+                                    />
+                                </View>
+                        }
                         {
                             Object.keys(props.item).length !== 0 && props.third_button_label ?
                                 <View style={styles_form.cancel_button}>
