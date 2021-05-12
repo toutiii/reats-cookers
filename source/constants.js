@@ -154,6 +154,10 @@ export const all_constants = {
                 noon_delivery_days: 'Les plats sont livrés en journée le',
                 evening_delivery_hours: 'Votre créneau en soirée',
                 evening_delivery_days: 'Les plats sont livrés en soirée le'
+            },
+            login:{
+                email: 'Email',
+                password: 'Mot de passe',
             }
         },
     },
@@ -344,6 +348,10 @@ export const all_constants = {
                 firstname: 'Votre prénom',
                 lastname: 'Votre nom de famille',
                 phone: 'Votre numéro de téléphone',
+            },
+            login:{
+                email: 'Votre email',
+                password: 'Votre mot de passe'
             }
         }
 
