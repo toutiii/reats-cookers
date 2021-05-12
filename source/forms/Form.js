@@ -120,6 +120,7 @@ export default function Form({ ...props }) {
                             return(
                                 <FormField
                                     key={key}
+                                    login={props.login}
                                     itemObject={props.item}
                                     newItem={newItem}
                                     fieldName={key}

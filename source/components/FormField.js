@@ -64,7 +64,10 @@ export default function FormField({...props}) {
     }
 
     return (
-        <View style={styles_field.container}>
+        <View style={[
+            styles_field.container,
+            {padding: props.login ? '2%' : '10%'}
+        ]}>
             <View style={styles_field.label}>
                 {
                     props.field.fieldIsMandatory?
