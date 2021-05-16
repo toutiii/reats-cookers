@@ -5,7 +5,6 @@ import all_constants from "../constants";
 import {validateFields} from "../validators/global_validators"
 import FormField from "../components/FormField";
 import styles_form from "../styles/styles-form"
-import AwesomeAlert from 'react-native-awesome-alerts';
 import CustomAlert from "../components/CustomAlert";
 
 

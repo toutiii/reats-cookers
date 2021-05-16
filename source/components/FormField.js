@@ -4,7 +4,6 @@ import styles_field from "../styles/styles-field"
 import all_constants from "../constants";
 import RNPickerSelect from 'react-native-picker-select';
 import {getCategories} from "../helpers/global_helpers"
-import AwesomeAlert from 'react-native-awesome-alerts';
 import CustomImageButton from "../button/CustomImageButton";
 import * as ImagePicker from "expo-image-picker"
 import PickerCheckBox from 'react-native-picker-checkbox';
