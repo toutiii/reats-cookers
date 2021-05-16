@@ -5,7 +5,6 @@ import {Text, View} from "react-native";
 import {checkValueIsDefined} from "../validators/global_validators";
 import {checkEmailFormat} from "../validators/settingsform_validators";
 import submit_login_credentials from "../api/submit_login_credentials";
-import HomeStack from "../stack/HomeStack";
 import {setToken} from "../api/token";
 import { CommonActions } from '@react-navigation/native';
 
