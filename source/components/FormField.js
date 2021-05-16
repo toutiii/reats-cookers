@@ -240,30 +240,22 @@ export default function FormField({...props}) {
             }
             {
                 showAlert ?
-                    <AwesomeAlert
+                    <CustomAlert
                         show={showAlert}
                         title={all_constants.permissions.error}
                         message={all_constants.permissions.gallery}
-                        closeOnTouchOutside={false}
-                        closeOnHardwareBackPress={false}
-                        showConfirmButton={true}
-                        confirmText="OK"
                         confirmButtonColor="red"
-                        onConfirmPressed={() => {setStateShowAlert(false)}}
+                        onConfirmPressed={props.onConfirmPressed}
                     />
                     :
                     <View></View>
             }
             {
                 props.error ?
-                    <AwesomeAlert
+                    <CustomAlert
                         show={props.showAlert}
                         title={all_constants.messages.errors.title}
                         message={props.error}
-                        closeOnTouchOutside={false}
-                        closeOnHardwareBackPress={false}
-                        showConfirmButton={true}
-                        confirmText="OK"
                         confirmButtonColor="red"
                         onConfirmPressed={props.onConfirmPressed}
                     />

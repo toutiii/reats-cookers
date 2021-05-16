@@ -6,6 +6,7 @@ import {validateFields} from "../validators/global_validators"
 import FormField from "../components/FormField";
 import styles_form from "../styles/styles-form"
 import AwesomeAlert from 'react-native-awesome-alerts';
+import CustomAlert from "../components/CustomAlert";
 
 
 const getInitialErrorsState = (fieldKeys) => {
@@ -104,32 +105,24 @@ export default function Form({ ...props }) {
                         </View>
                     )}
                     {
-                        !isSubmitting && noErrorsFound && apiOkResponse ?
-                            <View style={{flex: 1}}>
-                                <AwesomeAlert
-                                    show={showAlert}
-                                    title={all_constants.messages.success.title}
-                                    closeOnTouchOutside={false}
-                                    closeOnHardwareBackPress={false}
-                                    showConfirmButton={true}
-                                    confirmText="OK"
-                                    confirmButtonColor="green"
-                                    onConfirmPressed={() => {setStateShowAlert(false)}}
-                                />
-                            </View>
-                        :
-                            <View style={{flex: 1}}>
-                                <AwesomeAlert
-                                    show={showAlert}
-                                    title={all_constants.messages.failed.title}
-                                    closeOnTouchOutside={false}
-                                    closeOnHardwareBackPress={false}
-                                    showConfirmButton={true}
-                                    confirmText="OK"
-                                    confirmButtonColor="red"
-                                    onConfirmPressed={() => {setStateShowAlert(false)}}
-                                />
-                            </View>
+                        !isSubmitting && noErrorsFound && apiOkResponse && (
+                            <CustomAlert
+                                show={showAlert}
+                                title={all_constants.messages.success.title}
+                                confirmButtonColor='green'
+                                onConfirmPressed={() => {setStateShowAlert(false)}}
+                            />
+                        )
+                    }
+                    {
+                        !isSubmitting && noErrorsFound && !apiOkResponse && (
+                            <CustomAlert
+                                show={showAlert}
+                                title={all_constants.messages.failed.title}
+                                confirmButtonColor='red'
+                                onConfirmPressed={() => {setStateShowAlert(false)}}
+                            />
+                        )
                     }
                     <Animated.View style={{flex: 1, opacity, width: '100%'}}>
                         {
