@@ -7,7 +7,7 @@ import {checkEmailFormat} from "../validators/settingsform_validators";
 import submit_login_credentials from "../api/submit_login_credentials";
 import HomeStack from "../stack/HomeStack";
 
-export default function LoginFormView (){
+export default function LoginFormView ({...props}){
     const handleResult = async (result) => {
         if (result.ok) {
             console.log('OK')
