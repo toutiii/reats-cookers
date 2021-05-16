@@ -6,11 +6,18 @@ import {checkValueIsDefined} from "../validators/global_validators";
 import {checkEmailFormat} from "../validators/settingsform_validators";
 import submit_login_credentials from "../api/submit_login_credentials";
 import HomeStack from "../stack/HomeStack";
+import {setToken} from "../api/token";
+import { CommonActions } from '@react-navigation/native';
 
 export default function LoginFormView ({...props}){
     const handleResult = async (result) => {
         if (result.ok) {
-            console.log('OK')
+            await setToken(result.token);
+            const resetAction = CommonActions.reset({
+                index: 0,
+                routes: [{name: 'MainTabNavigator'}]
+            });
+            props.navigation.dispatch(resetAction);
         } else {
             throw new Error('Failed.');
         }
