@@ -41,6 +41,9 @@ export const all_constants = {
             title: 'Succès',
             email_sent: 'An email has well been sent to '
         },
+        failed:{
+            title: 'Échec',
+        },
         warning: {
             title: 'Warning',
         },
