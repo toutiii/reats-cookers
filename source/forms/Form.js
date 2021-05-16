@@ -39,6 +39,8 @@ export default function Form({ ...props }) {
 
     const [noErrorsFound, setNoErrorsFound] = useState(true);
 
+    const [apiOkResponse, setApiOkResponse] = useState(false);
+
     const onChangeValue = (key, value) => {
         const newState = { ...newItem, [key]: value };
         setValues(newState);
@@ -76,6 +78,7 @@ export default function Form({ ...props }) {
         fadeOut();
         try {
             const result = await props.action(newItem);
+            setApiOkResponse(result.ok);
             await sleep(1000)
             fadeIn();
             setStateShowAlert(true)
@@ -100,20 +103,34 @@ export default function Form({ ...props }) {
                             <ActivityIndicator size="large" color="tomato" />
                         </View>
                     )}
-                    {!isSubmitting && noErrorsFound && (
-                        <View style={{flex: 1}}>
-                            <AwesomeAlert
-                                show={showAlert}
-                                title={all_constants.messages.success.title}
-                                closeOnTouchOutside={false}
-                                closeOnHardwareBackPress={false}
-                                showConfirmButton={true}
-                                confirmText="OK"
-                                confirmButtonColor="green"
-                                onConfirmPressed={() => {setStateShowAlert(false)}}
-                            />
-                        </View>
-                    )}
+                    {
+                        !isSubmitting && noErrorsFound && apiOkResponse ?
+                            <View style={{flex: 1}}>
+                                <AwesomeAlert
+                                    show={showAlert}
+                                    title={all_constants.messages.success.title}
+                                    closeOnTouchOutside={false}
+                                    closeOnHardwareBackPress={false}
+                                    showConfirmButton={true}
+                                    confirmText="OK"
+                                    confirmButtonColor="green"
+                                    onConfirmPressed={() => {setStateShowAlert(false)}}
+                                />
+                            </View>
+                        :
+                            <View style={{flex: 1}}>
+                                <AwesomeAlert
+                                    show={showAlert}
+                                    title={all_constants.messages.failed.title}
+                                    closeOnTouchOutside={false}
+                                    closeOnHardwareBackPress={false}
+                                    showConfirmButton={true}
+                                    confirmText="OK"
+                                    confirmButtonColor="red"
+                                    onConfirmPressed={() => {setStateShowAlert(false)}}
+                                />
+                            </View>
+                    }
                     <Animated.View style={{flex: 1, opacity, width: '100%'}}>
                         {
                             fieldKeys.map((key) => {
