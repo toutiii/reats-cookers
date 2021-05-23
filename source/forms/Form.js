@@ -97,7 +97,10 @@ export default function Form({ ...props }) {
     const forgottenPassword = () => {
         props.navigation.navigate('ForgottenPassword')
     }
-
+    const onPressForgottenPassword = () => {
+        props.navigation.goBack();
+        setStateShowAlert(false)
+    }
     return(
         <KeyboardAvoidingView>
             <ScrollView>
@@ -124,7 +127,7 @@ export default function Form({ ...props }) {
                                 title={all_constants.messages.success.title}
                                 message={all_constants.messages.success.reset_password}
                                 confirmButtonColor='green'
-                                onConfirmPressed={() => {setStateShowAlert(false)}}
+                                onConfirmPressed={onPressForgottenPassword}
                             />
                         )
                     }
