@@ -15,11 +15,11 @@ export default class App extends Component {
                 <NavigationContainer>
                     <Stack.Navigator
                         screenOptions={{
-                            headerShown: false
+                            headerShown: true
                         }}
                         initialRouteName='Signin'
                     >
-                        <Stack.Screen name="Signin" component={LoginFormView} />
+                        <Stack.Screen name="Signin" component={LoginFormView} options={{headerShown: false}} />
                         <Stack.Screen name="ForgottenPassword" component={ForgottenPasswordFormView} />
                         <Stack.Screen name="MainTabNavigator" component={MainTabNavigator} />
                     </Stack.Navigator>
