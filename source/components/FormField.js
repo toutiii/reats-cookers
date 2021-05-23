@@ -125,7 +125,7 @@ export default function FormField({...props}) {
                             numberOfLines={props.field.type === all_constants.field_type.textarea ? 4 : 1}
                             placeholder={props.field.placeholder}
                             keyboardType={props.field.keyboardNumeric ? 'numeric' : 'default'}
-                            editable={props.field.isReadOnly ? false : true}
+                            editable={!props.field.isReadOnly}
                         />
                         {
                             !props.login && !props.reset_password ?
