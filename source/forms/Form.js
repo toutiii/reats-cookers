@@ -134,6 +134,7 @@ export default function Form({ ...props }) {
                                 <FormField
                                     key={key}
                                     login={props.login}
+                                    reset_password={props.reset_password}
                                     itemObject={props.item}
                                     newItem={newItem}
                                     fieldName={key}
