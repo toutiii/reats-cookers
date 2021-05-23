@@ -94,6 +94,10 @@ export default function Form({ ...props }) {
         props.navigation.goBack()
     };
 
+    const forgottenPassword = () => {
+        props.navigation.navigate('ForgottenPassword')
+    }
+
     return(
         <KeyboardAvoidingView>
             <ScrollView>
@@ -158,7 +162,18 @@ export default function Form({ ...props }) {
                         </View>
                         {
                             props.login ?
-                                <View></View>
+                                <View style={styles_form.cancel_button}>
+                                    <CustomButton
+                                        label={all_constants.messages.forgotten_password}
+                                        height={50}
+                                        border_width={3}
+                                        border_radius={30}
+                                        font_size={18}
+                                        backgroundColor={'darkgrey'}
+                                        label_color='white'
+                                        onPress={forgottenPassword}
+                                    />
+                                </View>
                             :
                                 <View style={styles_form.cancel_button}>
                                     <CustomButton
