@@ -28,6 +28,7 @@ export const all_constants = {
         send: 'SEND',
         submit: 'VALIDER',
         cancel: 'ANNULER',
+        forgotten_password: 'MOT DE PASSE OUBLIÉ ?',
         take_picture: 'Prendre une photo',
         upload_picture: 'Ouvrir la galerie',
         errors: {
