@@ -118,6 +118,17 @@ export default function Form({ ...props }) {
                         )
                     }
                     {
+                        props.reset_password && !isSubmitting && noErrorsFound && apiOkResponse && (
+                            <CustomAlert
+                                show={showAlert}
+                                title={all_constants.messages.success.title}
+                                message={all_constants.messages.success.reset_password}
+                                confirmButtonColor='green'
+                                onConfirmPressed={() => {setStateShowAlert(false)}}
+                            />
+                        )
+                    }
+                    {
                         !isSubmitting && noErrorsFound && !apiOkResponse && (
                             <CustomAlert
                                 show={showAlert}
