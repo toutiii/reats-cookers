@@ -30,6 +30,7 @@ export default function LoginFormView ({...props}){
             <View style={{flex: 2}}>
                 <Form
                     action={submit_login_credentials}
+                    navigation={props.navigation}
                     afterSubmit={handleResult}
                     login={true}
                     item={{}}
