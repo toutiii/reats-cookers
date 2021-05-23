@@ -20,9 +20,20 @@ export default class App extends Component {
                         }}
                         initialRouteName='Signin'
                     >
-                        <Stack.Screen name="Signin" component={LoginFormView} options={{headerShown: false}} />
-                        <Stack.Screen name="ForgottenPassword" component={ForgottenPasswordFormView} options={{title: all_constants.label.form.forgotten_password.title}} />
-                        <Stack.Screen name="MainTabNavigator" component={MainTabNavigator} />
+                        <Stack.Screen
+                            name="Signin"
+                            component={LoginFormView}
+                            options={{headerShown: false}}
+                        />
+                        <Stack.Screen
+                            name="ForgottenPassword"
+                            component={ForgottenPasswordFormView}
+                            options={{title: all_constants.label.form.forgotten_password.title}}
+                        />
+                        <Stack.Screen
+                            name="MainTabNavigator"
+                            component={MainTabNavigator}
+                        />
                     </Stack.Navigator>
                 </NavigationContainer>
             </AppearanceProvider>
