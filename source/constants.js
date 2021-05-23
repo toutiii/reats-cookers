@@ -162,7 +162,10 @@ export const all_constants = {
             login:{
                 email: 'Email',
                 password: 'Mot de passe',
-            }
+            },
+            forgotten_password: {
+                title: 'Mot de passe oublié'
+            },
         },
     },
     uri: {
