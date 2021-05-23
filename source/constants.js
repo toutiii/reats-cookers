@@ -40,7 +40,8 @@ export const all_constants = {
         },
         success: {
             title: 'Succès',
-            email_sent: 'An email has well been sent to '
+            email_sent: 'An email has well been sent to ',
+            reset_password: 'Si vous êtes inscrit, vous recevrez un email contenant un nouveau mot de passe. Pensez à regarder vos spams.'
         },
         failed:{
             title: 'Échec',
