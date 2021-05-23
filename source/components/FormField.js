@@ -66,7 +66,7 @@ export default function FormField({...props}) {
     return (
         <View style={[
             styles_field.container,
-            {padding: props.login ? '2%' : '10%'}
+            {padding: props.login || props.reset_password ? '2%' : '10%'}
         ]}>
             <View style={styles_field.label}>
                 {
@@ -128,7 +128,7 @@ export default function FormField({...props}) {
                             editable={props.field.isReadOnly ? false : true}
                         />
                         {
-                            !props.login ?
+                            !props.login && !props.reset_password ?
                                 <View>
                                     {
                                         props.value ?
