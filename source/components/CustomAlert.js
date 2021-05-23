@@ -3,7 +3,6 @@ import React from "react";
 import {View} from "react-native";
 
 export default function CustomAlert ({...props}){
-    console.log(props)
     return(
         <View style={{flex: 1}}>
             <AwesomeAlert
