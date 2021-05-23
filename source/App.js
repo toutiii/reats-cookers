@@ -4,6 +4,7 @@ import { AppearanceProvider } from 'react-native-appearance'
 import LoginFormView from "./forms/LoginFormView";
 import {createStackNavigator} from "@react-navigation/stack";
 import MainTabNavigator from "./tab/MainTabNavigator";
+import ForgottenPasswordFormView from "./forms/ForgottenPasswordFormView";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ export default class App extends Component {
                         initialRouteName='Signin'
                     >
                         <Stack.Screen name="Signin" component={LoginFormView} />
+                        <Stack.Screen name="ForgottenPassword" component={ForgottenPasswordFormView} />
                         <Stack.Screen name="MainTabNavigator" component={MainTabNavigator} />
                     </Stack.Navigator>
                 </NavigationContainer>
