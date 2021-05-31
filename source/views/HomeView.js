@@ -37,16 +37,6 @@ export default class HomeView extends Component {
     onPressNavigateToTab= (tab_name, screen_name) => {
         this.props.navigation.navigate(tab_name, { screen: screen_name });
     }
-    toggleSwitch = () => {
-        this.setState({is_online: !this.state.is_online})
-        if (this.state.is_online) {
-            Alert.alert(all_constants.messages.success.title, all_constants.label.home.online_alert)
-        }
-        else {
-            Alert.alert(all_constants.messages.warning.title, all_constants.label.home.offline_alert)
-        }
-        console.log(this.state)
-    }
 
     render () {
         return (
