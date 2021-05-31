@@ -54,7 +54,10 @@ export default class HomeView extends Component {
                             border_radius={30}
                             font_size={17}
                             label_color='white'
-                            onPress={this.logout}
+                            onPress={() => {
+                                this.setState({willLogout: true});
+                                this.setState({showAlert: true});
+                            }}
                         />
                     </View>
                     <View style={{flex: 1 , padding: '11%'}}>
