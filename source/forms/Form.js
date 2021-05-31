@@ -186,7 +186,7 @@ export default function Form({ ...props }) {
                         )
                     }
                     {
-                        !isSubmitting && noErrorsFound && !apiOkResponse && !wantToGoBack && (
+                        !isSubmitting && noErrorsFound && !apiOkResponse && !wantToGoBack && !disableState && (
                             <CustomAlert
                                 show={showAlert}
                                 title={all_constants.messages.failed.title}
