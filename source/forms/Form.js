@@ -93,7 +93,8 @@ export default function Form({ ...props }) {
     };
 
     const cancel = () => {
-        props.navigation.goBack()
+        setWantToGoBack(true);
+        setStateShowAlert(true);
     };
 
     const forgottenPassword = () => {
