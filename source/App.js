@@ -30,6 +30,7 @@ export default class App extends Component {
                         <Stack.Screen
                             name="MainTabNavigator"
                             component={MainTabNavigator}
+                            options={{headerShown: false}}
                         />
                     </Stack.Navigator>
                 </NavigationContainer>
