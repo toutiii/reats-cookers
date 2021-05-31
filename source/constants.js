@@ -398,6 +398,13 @@ export const all_constants = {
                 pending: 'EN ATTENTE',
                 history: 'HISTORIQUE',
             }
+        },
+        order_tab:{
+            title:{
+                paid: 'PAYÉES',
+                cancelled: 'ANNULÉES',
+                history: 'HISTORIQUE'
+            }
         }
     }
 }
