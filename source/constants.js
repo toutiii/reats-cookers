@@ -457,6 +457,10 @@ export const all_constants = {
             go_offline: "Passer hors ligne ? (Les clients ne pourront plus vous passer de commandes).",
             logout_title: "DÉCONNEXION",
             logout_message: "Souhaitez-vous vous déconnecter ?"
+        },
+        form:{
+            title: 'ATTENTION',
+            message: 'Quitter le formulaire et revenir en arrière ? (vos modifications seront toujours présentes tant que vous ne sélectionnez pas un autre formulaire).',
         }
     }
 }
