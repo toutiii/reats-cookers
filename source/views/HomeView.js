@@ -120,27 +120,48 @@ export default class HomeView extends Component {
                         />
                     </View>
                 </View>
-                <CustomAlert
-                    show={this.state.showAlert}
-                    title={all_constants.custom_alert.homeview.title}
-                    message={
-                        !this.state.is_online ?
-                            all_constants.custom_alert.homeview.go_offline
-                        :
-                            all_constants.custom_alert.homeview.go_online
-                    }
-                    confirmButtonColor='green'
-                    showCancelButton={true}
-                    cancelButtonColor='red'
-                    cancelText={all_constants.custom_alert.homeview.cancel_text}
-                    onConfirmPressed={() => {
-                        this.setState({is_online: !this.state.is_online});
-                        this.setState({showAlert: false})
-                    }}
-                    onCancelPressed={() => {
-                        this.setState({showAlert: false})
-                    }}
-                />
+                {
+                    this.state.willLogout ?
+                        <CustomAlert
+                            show={this.state.showAlert}
+                            title={all_constants.custom_alert.homeview.logout_title}
+                            message={all_constants.custom_alert.homeview.logout_message}
+                            confirmButtonColor='green'
+                            showCancelButton={true}
+                            cancelButtonColor='red'
+                            cancelText={all_constants.custom_alert.homeview.cancel_text}
+                            onConfirmPressed={() => {
+                                this.setState({showAlert: false})
+                                this.logout();
+                            }}
+                            onCancelPressed={() => {
+                                this.setState({willLogout: false});
+                                this.setState({showAlert: false});
+                            }}
+                        />
+                    :
+                        <CustomAlert
+                            show={this.state.showAlert}
+                            title={all_constants.custom_alert.homeview.title}
+                            message={
+                                !this.state.is_online ?
+                                    all_constants.custom_alert.homeview.go_offline
+                                    :
+                                    all_constants.custom_alert.homeview.go_online
+                            }
+                            confirmButtonColor='green'
+                            showCancelButton={true}
+                            cancelButtonColor='red'
+                            cancelText={all_constants.custom_alert.homeview.cancel_text}
+                            onConfirmPressed={() => {
+                                this.setState({is_online: !this.state.is_online});
+                                this.setState({showAlert: false})
+                            }}
+                            onCancelPressed={() => {
+                                this.setState({showAlert: false})
+                            }}
+                        />
+                }
                 <View style={styles_home_view.label_view}>
                     <Text style={{fontSize: 20, }}>
                         {all_constants.label.home.current_week_orders}
