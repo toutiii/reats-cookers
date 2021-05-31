@@ -455,6 +455,8 @@ export const all_constants = {
             cancel_text: "ANNULER",
             go_online: "Passer en ligne ? (Les clients pourront à nouveau vous passer des commandes).",
             go_offline: "Passer hors ligne ? (Les clients ne pourront plus vous passer de commandes).",
+            logout_title: "DÉCONNEXION",
+            logout_message: "Souhaitez-vous vous déconnecter ?"
         }
     }
 }
