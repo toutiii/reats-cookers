@@ -12,9 +12,13 @@ export default function CustomAlert ({...props}){
                 closeOnTouchOutside={false}
                 closeOnHardwareBackPress={false}
                 showConfirmButton={true}
+                showCancelButton={!!props.showCancelButton}
+                cancelText={props.cancelText ? props.cancelText: ''}
                 confirmText="OK"
                 confirmButtonColor={props.confirmButtonColor}
+                cancelButtonColor={props.cancelButtonColor ? props.cancelButtonColor: ''}
                 onConfirmPressed={props.onConfirmPressed}
+                onCancelPressed={props.onCancelPressed}
             />
         </View>
     )
