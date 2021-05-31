@@ -8,9 +8,7 @@ import {checkEmailFormat} from "../validators/settingsform_validators";
 
 export default function ForgottenPasswordFormView({...props}){
     const handleResult = async (result) => {
-        if (result.ok) {
-            //props.navigation.goBack();
-        } else {
+        if (!result.ok) {
             throw new Error('Failed.');
         }
     };
