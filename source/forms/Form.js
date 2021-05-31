@@ -182,6 +182,28 @@ export default function Form({ ...props }) {
                         )
                     }
                     {
+                        props.fourth_button_label && showAlert && removeState && (
+                            <CustomAlert
+                                show={showAlert}
+                                title={all_constants.custom_alert.form.title}
+                                message={all_constants.custom_alert.form.remove_item_message}
+                                confirmButtonColor='green'
+                                showCancelButton={true}
+                                cancelButtonColor='red'
+                                cancelText={all_constants.custom_alert.homeview.cancel_text}
+                                onConfirmPressed={() => {
+                                    setRemoveState(false);
+                                    setStateShowAlert(false);
+                                    console.log('TO DO REMOVE!')
+                                }}
+                                onCancelPressed={() => {
+                                    setRemoveState(false);
+                                    setStateShowAlert(false);
+                                }}
+                            />
+                        )
+                    }
+                    {
                         props.reset_password && !isSubmitting && noErrorsFound && apiOkResponse && (
                             <CustomAlert
                                 show={showAlert}
