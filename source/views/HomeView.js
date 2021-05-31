@@ -13,6 +13,7 @@ export default class HomeView extends Component {
         super(props);
         this.state = {
             is_online: false,
+            showAlert: false
         }
         this.paid_orders_count = 15
         this.cancelled_orders_count = 1
