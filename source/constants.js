@@ -392,6 +392,12 @@ export const all_constants = {
             title: {
                 offer: 'PROMOTIONS'
             }
+        },
+        balance_tab: {
+            title: {
+                pending: 'EN ATTENTE',
+                history: 'HISTORIQUE',
+            }
         }
     }
 }

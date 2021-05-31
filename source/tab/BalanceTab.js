@@ -20,13 +20,13 @@ export default function BalanceTab () {
             <Tab.Screen
                 name="PendingBalance"
                 component={BalanceListView}
-                options={{ title: 'EN ATTENTE' }}
+                options={{ title: all_constants.tab.balance_tab.title.pending }}
                 initialParams={{tag: all_constants.tag.balance.pending}}
             />
             <Tab.Screen
                 name="HistoryBalance"
                 component={BalanceListView}
-                options={{ title: 'HISTORIQUE' }}
+                options={{ title: all_constants.tab.balance_tab.title.history }}
                 initialParams={{tag: all_constants.tag.balance.history}}
             />
         </Tab.Navigator>
