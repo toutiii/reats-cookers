@@ -124,6 +124,28 @@ export default function Form({ ...props }) {
                         )
                     }
                     {
+                        showAlert && wantToGoBack && (
+                            <CustomAlert
+                                show={showAlert}
+                                title={all_constants.custom_alert.form.title}
+                                message={all_constants.custom_alert.form.message}
+                                confirmButtonColor='green'
+                                showCancelButton={true}
+                                cancelButtonColor='red'
+                                cancelText={all_constants.custom_alert.homeview.cancel_text}
+                                onConfirmPressed={() => {
+                                    setStateShowAlert(false);
+                                    setWantToGoBack(false)
+                                    props.navigation.goBack();
+                                }}
+                                onCancelPressed={() => {
+                                    setStateShowAlert(false);
+                                    setWantToGoBack(false)
+                                }}
+                            />
+                        )
+                    }
+                    {
                         props.reset_password && !isSubmitting && noErrorsFound && apiOkResponse && (
                             <CustomAlert
                                 show={showAlert}
