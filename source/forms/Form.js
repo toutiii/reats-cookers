@@ -45,6 +45,8 @@ export default function Form({ ...props }) {
 
     const [disableState, setDisableState] = useState(false);
 
+    const [removeState, setRemoveState] = useState(false);
+
     const onChangeValue = (key, value) => {
         const newState = { ...newItem, [key]: value };
         setValues(newState);
@@ -101,6 +103,11 @@ export default function Form({ ...props }) {
 
     const disableItem = () => {
         setDisableState(true);
+        setStateShowAlert(true);
+    };
+
+    const removeItem = () => {
+        setRemoveState(true);
         setStateShowAlert(true);
     };
 
@@ -283,7 +290,7 @@ export default function Form({ ...props }) {
                                         font_size={18}
                                         backgroundColor={'darkgrey'}
                                         label_color='white'
-                                        onPress={cancel}
+                                        onPress={removeItem}
                                     />
                                 </View>
                             :
