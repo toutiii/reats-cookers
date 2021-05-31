@@ -6,6 +6,7 @@ import CustomImageButton from "../button/CustomImageButton";
 import CustomButton from "../button/CustomButton";
 import {setToken} from "../api/token";
 import {CommonActions} from "@react-navigation/native";
+import CustomAlert from "../components/CustomAlert";
 
 
 export default class HomeView extends Component {
@@ -110,11 +111,32 @@ export default class HomeView extends Component {
                     </View>
                     <View style={{flex: 1, alignItems: 'center'}}>
                         <Switch
-                            onValueChange={this.toggleSwitch}
+                            onValueChange={() => {this.setState({showAlert: true})}}
                             value={!this.state.is_online}
                         />
                     </View>
                 </View>
+                <CustomAlert
+                    show={this.state.showAlert}
+                    title={all_constants.custom_alert.homeview.title}
+                    message={
+                        !this.state.is_online ?
+                            all_constants.custom_alert.homeview.go_offline
+                        :
+                            all_constants.custom_alert.homeview.go_online
+                    }
+                    confirmButtonColor='green'
+                    showCancelButton={true}
+                    cancelButtonColor='red'
+                    cancelText={all_constants.custom_alert.homeview.cancel_text}
+                    onConfirmPressed={() => {
+                        this.setState({is_online: !this.state.is_online});
+                        this.setState({showAlert: false})
+                    }}
+                    onCancelPressed={() => {
+                        this.setState({showAlert: false})
+                    }}
+                />
                 <View style={styles_home_view.label_view}>
                     <Text style={{fontSize: 20, }}>
                         {all_constants.label.home.current_week_orders}
