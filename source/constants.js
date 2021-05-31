@@ -448,6 +448,14 @@ export const all_constants = {
                 history: 'HISTORIQUE'
             }
         }
+    },
+    custom_alert:{
+        homeview:{
+            title: "Changement de statut",
+            cancel_text: "ANNULER",
+            go_online: "Passer en ligne ? (Les clients pourront à nouveau vous passer des commandes).",
+            go_offline: "Passer hors ligne ? (Les clients ne pourront plus vous passer de commandes).",
+        }
     }
 }
 
