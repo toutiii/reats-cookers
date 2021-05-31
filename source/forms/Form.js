@@ -41,6 +41,8 @@ export default function Form({ ...props }) {
 
     const [apiOkResponse, setApiOkResponse] = useState(false);
 
+    const [wantToGoBack, setWantToGoBack] = useState(false);
+
     const onChangeValue = (key, value) => {
         const newState = { ...newItem, [key]: value };
         setValues(newState);
