@@ -461,6 +461,7 @@ export const all_constants = {
         form:{
             title: 'ATTENTION',
             message: 'Quitter le formulaire et revenir en arrière ? (vos modifications seront toujours présentes tant que vous ne sélectionnez pas un autre formulaire).',
+            disable_item_message: 'En désactivant un plat, celui-ci ne sera pas supprimé mais ne sera plus visible des clients.'
         }
     }
 }
