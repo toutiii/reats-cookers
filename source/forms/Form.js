@@ -43,6 +43,8 @@ export default function Form({ ...props }) {
 
     const [wantToGoBack, setWantToGoBack] = useState(false);
 
+    const [disableState, setDisableState] = useState(false);
+
     const onChangeValue = (key, value) => {
         const newState = { ...newItem, [key]: value };
         setValues(newState);
@@ -94,6 +96,11 @@ export default function Form({ ...props }) {
 
     const cancel = () => {
         setWantToGoBack(true);
+        setStateShowAlert(true);
+    };
+
+    const disableItem = () => {
+        setDisableState(true);
         setStateShowAlert(true);
     };
 
@@ -238,7 +245,7 @@ export default function Form({ ...props }) {
                                         font_size={18}
                                         backgroundColor={'tomato'}
                                         label_color='white'
-                                        onPress={cancel}
+                                        onPress={disableItem}
                                     />
                                 </View>
                                 :
