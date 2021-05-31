@@ -1,3 +1,5 @@
+import all_constants from "../constants";
+
 export function checkMenuCoherence(value, fieldLabel, objectToValidate) {
     let menuStarter = objectToValidate['menu_starter'];
     let menuDessert = objectToValidate['menu_dessert'];
@@ -5,6 +7,6 @@ export function checkMenuCoherence(value, fieldLabel, objectToValidate) {
         (menuStarter === null || typeof(menuStarter) === "undefined") &&
         (menuDessert === null || typeof(menuDessert) === "undefined")
     ){
-        return 'Pour créer un menu, vous devez au moins renseigner une entrée et/ou un dessert.';
+        return all_constants.validators.menu.menu_creation_error;
     }
 }

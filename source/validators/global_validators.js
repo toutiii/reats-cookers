@@ -1,3 +1,5 @@
+import all_constants from "../constants";
+
 export function validateFields(fields, objectToValidate) {
     const errors = {};
     const fieldNameKeys = Object.keys(fields)
@@ -33,11 +35,19 @@ export function validateField(validators, value, fieldLabel, objectToValidate) {
 
 export function checkValueIsDefined(value, fieldLabel, objectToValidate) {
     if (typeof(value) === "undefined" || value === null) {
-        return 'Le champ ' + fieldLabel.toLowerCase() + ' est vide.'
+        return (
+            all_constants.validators.global.field +
+            fieldLabel.toLowerCase() +
+            all_constants.validators.global.is_empty
+        );
     }
     else {
         if (value.toString().length === 0) {
-            return 'Le champ ' + fieldLabel + ' est vide.'
+            return (
+                all_constants.validators.global.field +
+                fieldLabel +
+                all_constants.validators.global.is_empty
+            );
         }
     }
 }
@@ -57,7 +67,13 @@ export function checkValueNotContainsSpecialChar(value, fieldLabel, objectToVali
         }
         let rejectedString = value.replace(regex, '')
         if (rejectedString.length !== 0) {
-            return 'Le champ ' + fieldLabel.toLowerCase() + ' est invalide. Veuillez enlever le ' + "\"" + rejectedString[0] + "\"";
+            return (
+                all_constants.validators.global.field +
+                fieldLabel.toLowerCase() +
+                all_constants.validators.global.invalid +
+                "\"" + rejectedString[0] +
+                "\""
+            );
         }
     }
 }
@@ -66,6 +82,10 @@ export function valueIsValidPrice(value, fieldLabel, objectToValidate) {
     value = value.toString().trim();
     let priceRegex = /^([0-9]{1,2}(\.[0-9]{1,2})?)$/g;
     if (!value.match(priceRegex)) {
-        return 'Le champ ' + fieldLabel + ' est invalide. Exemple: 13.90'
+        return (
+            all_constants.validators.global.field +
+            fieldLabel +
+            all_constants.validators.global.invalid_price
+        );
     }
 }

@@ -4,14 +4,18 @@ export function checkPostalCode(value, fieldLabel) {
     value = value.toString().trim();
     let postalCodeRegex = /^([0-9]{5})$/g;
     if (!value.match(postalCodeRegex)) {
-        return 'Le champ ' + fieldLabel + ' est invalide. Exemple: 91100.'
+        return (
+            all_constants.validators.global.field +
+            fieldLabel +
+            all_constants.validators.global.invalid_postal_code
+        )
     }
 }
 
 export function checkEmailFormat(value) {
     let emailRegex = all_constants.email.regex;
     if (!value.match(emailRegex)) {
-        return 'Veuillez renseigner un email valide.';
+        return all_constants.validators.settings.invalid_email_error;
     }
 }
 
@@ -23,7 +27,11 @@ export function checkPasswordFormat(value) {
     if (typeof(value) !== 'undefined') {
         value = value.trim();
         if (value.length < all_constants.password.min_length) {
-            return 'Le mot de passe doit faire au moins ' + all_constants.password.min_length + ' caractères.';
+            return (
+                all_constants.validators.settings.too_short_password_error +
+                all_constants.password.min_length +
+                all_constants.validators.settings.char
+            );
         }
         for (let i = 0; i < expectedSpecialChar.length; i++) {
             if (value.indexOf(expectedSpecialChar[i]) > -1) {
@@ -31,7 +39,10 @@ export function checkPasswordFormat(value) {
             }
         }
         if (foundSpecialCharCount === 0){
-            return 'Le mot de passe doit contenir un des caractères suivants: ' + expectedSpecialChar.join(', ') + '.';
+            return (
+                all_constants.validators.settings.password_missing_special_chars +
+                expectedSpecialChar.join(', ') + '.'
+            );
         }
         for (let i = 0; i < value.length; i++){
             let char = value.charAt(i);
@@ -43,10 +54,10 @@ export function checkPasswordFormat(value) {
             }
         }
         if (foundUppercaseCharCount === 0){
-            return 'Le mot de passe doit contenir au moins une majuscule.';
+            return all_constants.validators.settings.password_missing_uppercase;
         }
         if (foundNumericCount === 0){
-            return 'Le mot de passe doit contenir au moins un chiffre.';
+            return all_constants.validators.settings.password_missing_digit;
         }
     }
 }
@@ -56,7 +67,7 @@ export function checkFormCoherence(value, fieldLabel, objectToValidate) {
     let userNewPasswordConfirmation = objectToValidate['user_settings_new_password_confirmation'];
     if (typeof(userNewPassword) !== "undefined" || typeof(userNewPasswordConfirmation) !== "undefined"){
         if (userNewPassword !== userNewPasswordConfirmation) {
-            return 'Les champs nouveau mot de passe et confirmation nouveau mot de passe doivent être identiques.';
+            return all_constants.validators.settings.non_equal_password_error;
         }
     }
 }
@@ -66,20 +77,20 @@ export function checkNumericFormat(value, fieldLabel){
         value = value.toString().trim();
         let regex = null;
         let endMessage = null;
-        if (fieldLabel.toLowerCase().includes('siren')){
+        if (fieldLabel.toLowerCase().includes(all_constants.validators.includes.siren)){
             regex = /^([0-9]{9})$/g;
-            endMessage = ' doit contenir exactement 9 chiffres sans espace.';
+            endMessage = all_constants.validators.settings.siren_format_error;
         }
-        else if (fieldLabel.toLowerCase().includes('siret')){
+        else if (fieldLabel.toLowerCase().includes(all_constants.validators.includes.siret)){
             regex = /^([0-9]{14})$/g;
-            endMessage = ' doit contenir exactement 14 chiffres sans espace.';
+            endMessage = all_constants.validators.settings.siret_format_error;
         }
-        else if (fieldLabel.toLowerCase().includes('téléphone')){
+        else if (fieldLabel.toLowerCase().includes(all_constants.validators.includes.phone)){
             regex = /^([0-9]{10})$/g;
-            endMessage = ' doit contenir exactement 10 chiffres sans espace.';
+            endMessage = all_constants.validators.settings.phone_format_error;
         }
         if (!value.match(regex)){
-            return 'Le champ ' + fieldLabel + endMessage
+            return all_constants.validators.global.field + fieldLabel + endMessage
         }
     }
 }
@@ -88,7 +99,11 @@ export function checkMaxDishesNumber(value, fieldLabel){
     value = value.toString().trim();
     let regex = /^([0-9]{1,2})$/g;
     if (!value.match(regex)) {
-        return 'Le champ ' + fieldLabel + ' est invalide. Exemple: 18.'
+        return (
+            all_constants.validators.global.field +
+            fieldLabel +
+            all_constants.validators.global.invalid_max_dishes_number_format
+        );
     }
 }
 
@@ -97,14 +112,19 @@ export function checkHourFormat(value, fieldLabel){
         value = value.toString().trim();
         let regex = /^([0-9]{1,2})-([0-9]{1,2})$/g;
         let endMessage = null;
-        if (fieldLabel.toLowerCase().includes('midi')){
-            endMessage = 'Exemple: 11-13'
+        if (fieldLabel.toLowerCase().includes(all_constants.validators.includes.noon)){
+            endMessage = all_constants.validators.settings.noon_hours_format_error;
         }
-        else if (fieldLabel.toLowerCase().includes('soir')){
-            endMessage = 'Exemple: 18-20'
+        else if (fieldLabel.toLowerCase().includes(all_constants.validators.includes.evening)){
+            endMessage = all_constants.validators.settings.evening_hours_format_error
         }
         if (!value.match(regex)) {
-            return 'Le champ ' + fieldLabel + ' est incorrect. ' + endMessage;
+            return (
+                all_constants.validators.global.field +
+                fieldLabel +
+                all_constants.validators.settings.incorrect +
+                endMessage
+            );
         }
     }
 }
@@ -115,29 +135,29 @@ export function checkHourCoherence(value, fieldLabel){
         let valueArray = value.split('-');
         let startHour = valueArray[0];
         let endHour = valueArray[1];
-        let startMessage = 'Le champ ' + fieldLabel + ' est incorrect. ';
+        let startMessage = all_constants.validators.global.field + fieldLabel + all_constants.validators.settings.incorrect;
         if (startHour === endHour){
-            return startMessage + 'Les heures de début et de fin ne peuvent être identiques.'
+            return startMessage + all_constants.validators.settings.identical_start_hours_end_hours_error;
         }
         if (startHour > endHour){
-            return startMessage + "L'heure de début ne peut pas être supérieure à l'heure de fin."
+            return startMessage + all_constants.validators.settings.start_hour_greater_than_end_hour_error;
         }
     }
 }
 
 export function checkEmptyDeliveryHours(daysArray, fieldLabel, objectToValidate) {
     let deliveryHours = null;
-    if (fieldLabel.toLowerCase().includes('journée')){
+    if (fieldLabel.toLowerCase().includes(all_constants.validators.includes.day)){
         deliveryHours = objectToValidate['noon_delivery_hours'];
     }
     else{
         deliveryHours = objectToValidate['evening_delivery_hours'];
     }
-    if (daysArray.length !== 0 && !deliveryHours){  // we gave delivery days but the days are empty
-        return 'Vous avez spécifié les jours de livraison ' + daysArray + ' sans préciser de créneau horaire pour ces jours.';
+    if (daysArray.length !== 0 && !deliveryHours){  // we gave delivery days but no delivery hours
+        return all_constants.validators.settings.delivery_days  + daysArray + all_constants.validators.settings.missing_hours_for_delivery_days;
     }
-    else if (daysArray.length === 0 && deliveryHours){  // we gave delivery hours but any days
-        return 'Vous avez précisé le créneau ' + deliveryHours + " sans préciser les jours où ce créneau s'applique.";
+    else if (daysArray.length === 0 && deliveryHours){  // we gave delivery hours but no days
+        return all_constants.validators.settings.hours_range + deliveryHours + all_constants.validators.settings.missing_days_for_delivery_hours;
     }
 }
 
@@ -145,6 +165,6 @@ export function checkGlobalDeliveryCoherence(value, fieldLabel, objectToValidate
     let eveningDeliveryHours = objectToValidate['evening_delivery_hours'];
     let noonDeliveryHours = objectToValidate['noon_delivery_hours'];
     if (!eveningDeliveryHours && !noonDeliveryHours) {
-        return "Vous devez choisir au moins un créneau horaire en journée ou en soirée.";
+        return all_constants.validators.settings.missing_delivery_hours_error;
     }
 }
