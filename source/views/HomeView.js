@@ -4,6 +4,8 @@ import styles_home_view from '../styles/styles-home-view'
 import all_constants from "../constants";
 import CustomImageButton from "../button/CustomImageButton";
 import CustomButton from "../button/CustomButton";
+import {setToken} from "../api/token";
+import {CommonActions} from "@react-navigation/native";
 
 
 export default class HomeView extends Component {
@@ -24,8 +26,13 @@ export default class HomeView extends Component {
         this.offline_icon_uri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH-AEN1kYTBtKWdVTnIblOQzv3GR1qa4oI5A&usqp=CAU'
         this.arrow_uri = 'https://pics.freeicons.io/uploads/icons/png/6448667931600321999-512.png'
     }
-    onTempSubmit = () => {
-        Alert.alert('JOJO', 'DIO !')
+    logout = async () => {
+        await setToken('');
+        const resetAction = CommonActions.reset({
+            index: 0,
+            routes: [{name: 'Signin'}]
+        });
+        this.props.navigation.dispatch(resetAction);
     }
     onPressNavigateToTab= (tab_name, screen_name) => {
         this.props.navigation.navigate(tab_name, { screen: screen_name });
@@ -54,7 +61,7 @@ export default class HomeView extends Component {
                             border_radius={30}
                             font_size={17}
                             label_color='white'
-                            onPress={this.onTempSubmit}
+                            onPress={this.logout}
                         />
                     </View>
                     <View style={{flex: 1 , padding: '11%'}}>
