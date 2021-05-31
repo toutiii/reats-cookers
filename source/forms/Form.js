@@ -153,6 +153,28 @@ export default function Form({ ...props }) {
                         )
                     }
                     {
+                        props.third_button_label && showAlert && disableState && (
+                            <CustomAlert
+                                show={showAlert}
+                                title={all_constants.custom_alert.form.title}
+                                message={all_constants.custom_alert.form.disable_item_message}
+                                confirmButtonColor='green'
+                                showCancelButton={true}
+                                cancelButtonColor='red'
+                                cancelText={all_constants.custom_alert.homeview.cancel_text}
+                                onConfirmPressed={() => {
+                                    setDisableState(false);
+                                    setStateShowAlert(false);
+                                    console.log('TO DO !')
+                                }}
+                                onCancelPressed={() => {
+                                    setDisableState(false);
+                                    setStateShowAlert(false);
+                                }}
+                            />
+                        )
+                    }
+                    {
                         props.reset_password && !isSubmitting && noErrorsFound && apiOkResponse && (
                             <CustomAlert
                                 show={showAlert}
