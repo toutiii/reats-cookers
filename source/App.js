@@ -15,9 +15,6 @@ export default class App extends Component {
             <AppearanceProvider>
                 <NavigationContainer>
                     <Stack.Navigator
-                        screenOptions={{
-                            headerShown: true
-                        }}
                         initialRouteName='Signin'
                     >
                         <Stack.Screen
