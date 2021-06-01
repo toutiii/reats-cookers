@@ -44,7 +44,9 @@ export default function FormField({...props}) {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
-        props.onChangeText(props.fieldName, moment(currentDate).format("DD-MM-YYYY"))
+        if (event.type === "set") {
+            props.onChangeText(props.fieldName, moment(currentDate).format("DD-MM-YYYY"))
+        }
     };
 
     useEffect(() => {
