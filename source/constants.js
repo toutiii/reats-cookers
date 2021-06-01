@@ -188,7 +188,8 @@ export const all_constants = {
             approved_label: 'Commande acceptée le',
             delivered_label: 'Commande à livrer le',
             unit_price: 'Prix unitaire:',
-            total: 'Total:'
+            total: 'Total:',
+            order_is_menu: 'Attention cette commande est un menu !',
         },
         status:{
             canceled: 'Annulée',
