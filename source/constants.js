@@ -116,6 +116,10 @@ export const all_constants = {
             evening_delivery_days: 'Livraison le soir le'
         },
         form: {
+            order:{
+                start_date: 'Date de début',
+                end_date: 'Date de fin',
+            },
             dishes: {
                 name: 'Nom',
                 price: 'Prix',
@@ -354,6 +358,7 @@ export const all_constants = {
         textarea: 'textarea',
         select: 'select',
         select_picker: 'select_picker',
+        date_picker: 'date_picker',
     },
     placeholders: {
         form: {
@@ -403,6 +408,10 @@ export const all_constants = {
             login:{
                 email: 'Votre email',
                 password: 'Votre mot de passe'
+            },
+            order:{
+                start_date: "Sélectionnez une date de début",
+                end_date: "Sélectionnez une date de fin",
             }
         }
 
