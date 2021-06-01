@@ -83,6 +83,7 @@ export function getOrders() {
                 "order_delivery_date": "12 Mars 2021",
                 "order_tag": "paid",
                 "order_number_color": "green",
+                "order_is_menu": true,
                 "dishes":[
                     {
                         "id": "1",
