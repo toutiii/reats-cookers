@@ -267,6 +267,30 @@ export default function FormField({...props}) {
                     <View></View>
             }
             {
+                props.field.type === all_constants.field_type.date_picker && (
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+                        <TextInput
+                            onTouchStart={() => showDatepicker()}
+                            style={styles_field.textinput}
+                            value={props.value ? props.value : null}
+                            placeholder={props.field.placeholder}
+                        />
+                    </TouchableWithoutFeedback>
+                )
+            }
+            {
+                show && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date}
+                        mode={mode}
+                        is24Hour={true}
+                        display="default"
+                        onChange={onChange}
+                    />
+                )
+            }
+            {
                 showAlert ?
                     <CustomAlert
                         show={showAlert}
