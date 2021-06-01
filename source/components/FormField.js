@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Image, Platform, Text, TextInput, View } from 'react-native';
+import {
+    Image, Keyboard,
+    Platform,
+    Text,
+    TextInput,
+    TouchableWithoutFeedback,
+    View
+} from 'react-native';
 import styles_field from "../styles/styles-field"
 import all_constants from "../constants";
 import RNPickerSelect from 'react-native-picker-select';
@@ -11,6 +18,8 @@ import {getDaysOfWeek} from "../helpers/global_helpers";
 import CustomButton from "../button/CustomButton";
 import FormLabelModal from "../modals/FormLabelModal";
 import CustomAlert from "./CustomAlert";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
 
 export default function FormField({...props}) {
