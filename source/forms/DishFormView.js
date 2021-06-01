@@ -21,7 +21,7 @@ export default function DishFormView ({...props}){
 
     return(
         <View style={{flex: 1}}>
-            <View style={{flex: 2}}>
+            <View style={{flex: 2, marginTop: '10%'}}>
                 <Form
                     action={update_dish_infos}
                     navigation={props.navigation}
