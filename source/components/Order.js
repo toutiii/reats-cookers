@@ -57,6 +57,16 @@ export default function Order({...props}) {
             <View style={styles_order.order_element}>
                 <Text style={{fontSize: 16,}}>{all_constants.order.infos.amount} {props.order_amount}{all_constants.currency_symbol} </Text>
             </View>
+            {
+                props.order_is_menu ?
+                    <View style={styles_order.order_element}>
+                        <Text style={{fontSize: 17, fontWeight: 'bold'}}>
+                            {all_constants.order.infos.order_is_menu}
+                        </Text>
+                    </View>
+                    :
+                    <View></View>
+            }
         </View>
     )
 }
