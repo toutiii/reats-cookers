@@ -268,8 +268,8 @@ export default function FormField({...props}) {
             }
             {
                 props.field.type === all_constants.field_type.date_picker && (
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-                        <TextInput
+                    <TouchableWithoutFeedback>
+                        <TextInput showSoftInputOnFocus={false}
                             onTouchStart={() => showDatepicker()}
                             style={styles_field.textinput}
                             value={props.value ? props.value : null}
