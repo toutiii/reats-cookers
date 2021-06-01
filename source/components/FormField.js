@@ -18,6 +18,26 @@ export default function FormField({...props}) {
     const [picUri, setPicUri] = useState(null)
     const [category, setCategory] = useState(null)
     const [labelModalState, setLabelModalState] = useState(false)
+    const [date, setDate] = useState(new Date())
+    const [show, setShow] = useState(false);
+    const [mode, setMode] = useState('date');
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
+
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+        props.onChangeText(props.fieldName, moment(currentDate).format("DD-MM-YYYY"))
+    };
+
     useEffect(() => {
             setPicUri(props.itemObject.dish_photo)
     }, [props.itemObject])
