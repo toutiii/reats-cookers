@@ -38,11 +38,6 @@ export default function OrdersTab () {
                 component={OrderHistoryFormView}
                 options={{ title: all_constants.tab.order_tab.title.history }}
             />
-            <Tab.Screen
-                name="HistoryOrders"
-                component={OrderListView}
-                initialParams={{tag: 'no_tag'}}
-            />
         </Tab.Navigator>
     )
 }
