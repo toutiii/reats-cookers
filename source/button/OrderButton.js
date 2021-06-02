@@ -75,7 +75,7 @@ export default function OrderButton({...props}) {
         }
     }
     return (
-        <View style={{flex: 1}}>
+        <View style={{flex: 1 , marginTop: props.allProps.route.params.tag === all_constants.tag.orders.archived ? '10%' : '0%'}}>
             {
                 props.allProps.route.params.tag === all_constants.tag.orders.paid ?
                     <View style={{flex: 1, marginTop: '5%', alignItems: 'center'}}>
