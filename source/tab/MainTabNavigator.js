@@ -15,6 +15,7 @@ import SettingsAddressForm from "../forms/SettingsAddressForm";
 import SettingsOrderInformationForm from "../forms/SettingsOrderInformationForm";
 import React from "react";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import OrderListView from "../listviews/OrderListView";
 
 const Tab = createBottomTabNavigator();
 
@@ -53,6 +54,7 @@ export default function MainTabNavigator(){
                     "SettingsOrderInformationForm",
                     "Balance",
                     "OfferFormView",
+                    "OrderHistory"
                 ].includes(route.name)
                     ? () => {
                         return null;
@@ -78,6 +80,7 @@ export default function MainTabNavigator(){
             <Tab.Screen name="SettingsPersonalInformationForm" component={SettingsPersonalInformationForm}/>
             <Tab.Screen name="SettingsAddressForm" component={SettingsAddressForm}/>
             <Tab.Screen name="SettingsOrderInformationForm" component={SettingsOrderInformationForm}/>
+            <Tab.Screen name="OrderHistory" component={OrderListView}/>
         </Tab.Navigator>
     )
 }
