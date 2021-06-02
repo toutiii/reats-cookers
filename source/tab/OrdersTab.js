@@ -41,7 +41,7 @@ export default function OrdersTab () {
             <Tab.Screen
                 name="HistoryOrders"
                 component={OrderListView}
-                options={{ title: 'TO HIDE' }}
+                initialParams={{tag: 'no_tag'}}
             />
         </Tab.Navigator>
     )
