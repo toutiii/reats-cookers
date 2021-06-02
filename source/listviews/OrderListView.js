@@ -21,23 +21,17 @@ export default class OrderListView extends Component {
 
     render() {
         return(
-            <View>
-                {
-                    this.props.route.params.tag !== 'no_tag' && (
-                        <View style={styles_order.container}>
-                            <OrderButton
-                                order_list_data={getData(
-                                    this.getOrderList(),
-                                    this.props.route.params.tag,
-                                    undefined,
-                                    'order_tag',
-                                    'id',
-                                )}
-                                allProps={this.props}
-                            />
-                        </View>
-                    )
-                }
+            <View style={styles_order.container}>
+                <OrderButton
+                    order_list_data={getData(
+                        this.getOrderList(),
+                        this.props.route.params.tag,
+                        undefined,
+                        'order_tag',
+                        'id',
+                    )}
+                    allProps={this.props}
+                />
             </View>
         )
     }
