@@ -44,82 +44,6 @@ export default class HomeView extends Component {
     render () {
         return (
             <View style={styles_home_view.container}>
-                <View style={styles_home_view.button_container}>
-                    <View style={{flex: 1, padding: '7%'}}>
-                        <CustomButton
-                            label={all_constants.messages.logout}
-                            backgroundColor='red'
-                            height={50}
-                            border_width={3}
-                            border_radius={30}
-                            font_size={17}
-                            label_color='white'
-                            onPress={() => {
-                                this.setState({willLogout: true});
-                                this.setState({showAlert: true});
-                            }}
-                        />
-                    </View>
-                    <View style={{flex: 1 , padding: '11%'}}>
-                        <CustomButton
-                            label={all_constants.messages.settings}
-                            backgroundColor='grey'
-                            height={50}
-                            border_width={3}
-                            border_radius={30}
-                            font_size={17}
-                            label_color='white'
-                            onPress={() => {this.onPressNavigateToTab("Settings")}}
-                        />
-                    </View>
-                </View>
-                <View style={[styles_home_view.sub_container, { marginTop: '30%'}]}>
-                    <View style={{flex: 1, aspectRatio: 1}}>
-                        <Image
-                            source={require('../images/mum_test.jpg')}
-                            style={styles_home_view.profile_pic}
-                        />
-                    </View>
-                    <View style={{flex: 1, alignItems: 'stretch', marginLeft: 20}}>
-                       <Text
-                           numberOfLines={1}
-                           adjustsFontSizeToFit
-                           style={{fontSize: 30, textAlign: 'left'}}>
-                           {this.lastname + ' ' + this.firstname}
-                       </Text>
-                        <Text
-                            numberOfLines={1}
-                            adjustsFontSizeToFit
-                            style={{ fontSize: 17,color: 'grey', textAlign: 'left'}}>
-                            {this.email}
-                        </Text>
-                    </View>
-                </View>
-                <View style={[styles_home_view.order_view_style, {marginTop: '10%'}]}>
-                    <View style={{flex: 1}}>
-                        <Image
-                            source={{uri: this.state.is_online ? this.offline_icon_uri : this.online_icon_uri}}
-                            style={{width: 30, height: 30}}
-                        />
-                    </View>
-                    <View style={{flex: 1,}}>
-                        <Text style={
-                            [
-                                styles_home_view.text,
-                                {color: this.state.is_online ? 'red' : 'green'},
-                                {textAlign: 'center'}
-                            ]
-                        }>
-                            {this.state.is_online ? all_constants.label.home.status.offline : all_constants.label.home.status.online}
-                        </Text>
-                    </View>
-                    <View style={{flex: 1, alignItems: 'center'}}>
-                        <Switch
-                            onValueChange={() => {this.setState({showAlert: true})}}
-                            value={!this.state.is_online}
-                        />
-                    </View>
-                </View>
                 {
                     this.state.willLogout ?
                         <CustomAlert
@@ -139,7 +63,7 @@ export default class HomeView extends Component {
                                 this.setState({showAlert: false});
                             }}
                         />
-                    :
+                        :
                         <CustomAlert
                             show={this.state.showAlert}
                             title={all_constants.custom_alert.homeview.title}
@@ -162,85 +86,162 @@ export default class HomeView extends Component {
                             }}
                         />
                 }
-                <View style={styles_home_view.label_view}>
-                    <Text style={{fontSize: 20, }}>
-                        {all_constants.label.home.current_week_orders}
-                    </Text>
-                </View>
-                <View style={styles_home_view.order_view_style}>
-                    <View style={{flex: 1}}>
-                        <Text style={{textAlign: 'left', fontSize: 18, color: 'green'}}>
-                            {all_constants.label.home.paid}
+                <View style={{alignItems: 'center'}}>
+                    <View style={styles_home_view.button_container}>
+                        <View style={{flex: 1, padding: '7%'}}>
+                            <CustomButton
+                                label={all_constants.messages.logout}
+                                backgroundColor='red'
+                                height={50}
+                                border_width={3}
+                                border_radius={30}
+                                font_size={17}
+                                label_color='white'
+                                onPress={() => {
+                                    this.setState({willLogout: true});
+                                    this.setState({showAlert: true});
+                                }}
+                            />
+                        </View>
+                        <View style={{flex: 1 , padding: '11%'}}>
+                            <CustomButton
+                                label={all_constants.messages.settings}
+                                backgroundColor='grey'
+                                height={50}
+                                border_width={3}
+                                border_radius={30}
+                                font_size={17}
+                                label_color='white'
+                                onPress={() => {this.onPressNavigateToTab("Settings")}}
+                            />
+                        </View>
+                    </View>
+                    <View style={[styles_home_view.sub_container, { marginTop: '30%'}]}>
+                        <View style={{flex: 1, aspectRatio: 1}}>
+                            <Image
+                                source={require('../images/mum_test.jpg')}
+                                style={styles_home_view.profile_pic}
+                            />
+                        </View>
+                        <View style={{flex: 1, alignItems: 'stretch', marginLeft: 20}}>
+                            <Text
+                                numberOfLines={1}
+                                adjustsFontSizeToFit
+                                style={{fontSize: 30, textAlign: 'left'}}>
+                                {this.lastname + ' ' + this.firstname}
+                            </Text>
+                            <Text
+                                numberOfLines={1}
+                                adjustsFontSizeToFit
+                                style={{ fontSize: 17,color: 'grey', textAlign: 'left'}}>
+                                {this.email}
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={[styles_home_view.order_view_style, {marginTop: '10%'}]}>
+                        <View style={{flex: 1}}>
+                            <Image
+                                source={{uri: this.state.is_online ? this.offline_icon_uri : this.online_icon_uri}}
+                                style={{width: 30, height: 30}}
+                            />
+                        </View>
+                        <View style={{flex: 1,}}>
+                            <Text style={
+                                [
+                                    styles_home_view.text,
+                                    {color: this.state.is_online ? 'red' : 'green'},
+                                    {textAlign: 'center'}
+                                ]
+                            }>
+                                {this.state.is_online ? all_constants.label.home.status.offline : all_constants.label.home.status.online}
+                            </Text>
+                        </View>
+                        <View style={{flex: 1, alignItems: 'center'}}>
+                            <Switch
+                                onValueChange={() => {this.setState({showAlert: true})}}
+                                value={!this.state.is_online}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles_home_view.label_view}>
+                        <Text style={{fontSize: 20, }}>
+                            {all_constants.label.home.current_week_orders}
                         </Text>
                     </View>
-                    <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'center', fontSize: 20, color: 'green'}}>
-                            {this.paid_orders_count + '/' + this.max_paid_orders}
+                    <View style={styles_home_view.order_view_style}>
+                        <View style={{flex: 1}}>
+                            <Text style={{textAlign: 'left', fontSize: 18, color: 'green'}}>
+                                {all_constants.label.home.paid}
+                            </Text>
+                        </View>
+                        <View style={{flex: 1,}}>
+                            <Text style={{textAlign: 'center', fontSize: 20, color: 'green'}}>
+                                {this.paid_orders_count + '/' + this.max_paid_orders}
+                            </Text>
+                        </View>
+                        <View style={{flex: 1,}}>
+                            <CustomImageButton
+                                onPress={() => this.onPressNavigateToTab('OrdersTab', 'PaidOrders')}
+                                uri={this.arrow_uri}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles_home_view.order_view_style}>
+                        <View style={{flex: 1,}}>
+                            <Text style={{textAlign: 'left', fontSize: 18, color: 'red'}}>
+                                {all_constants.label.home.canceled}
+                            </Text>
+                        </View>
+                        <View style={{flex: 1,}}>
+                            <Text style={{textAlign: 'center', fontSize: 20, color: 'red'}}>
+                                {this.cancelled_orders_count}
+                            </Text>
+                        </View>
+                        <View style={{flex: 1,}}>
+                            <CustomImageButton
+                                onPress={() => this.onPressNavigateToTab('OrdersTab', 'CancelledOrders')}
+                                uri={this.arrow_uri}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles_home_view.order_view_style}>
+                        <View style={{flex: 1,}}>
+                            <Text style={{textAlign: 'left', fontSize: 18}}>
+                                {all_constants.label.home.total}
+                            </Text>
+                        </View>
+                        <View style={{flex: 1,}}>
+                            <Text style={{textAlign: 'center', fontSize: 20}}>
+                                {this.total_orders_count}
+                            </Text>
+                        </View>
+                        <View style={{flex: 1,}}></View>
+                    </View>
+                    <View style={styles_home_view.label_view}>
+                        <Text style={{fontSize: 20, }}>
+                            {all_constants.label.home.balance}
                         </Text>
                     </View>
-                    <View style={{flex: 1,}}>
-                        <CustomImageButton
-                            onPress={() => this.onPressNavigateToTab('OrdersTab', 'PaidOrders')}
-                            uri={this.arrow_uri}
-                        />
-                    </View>
-                </View>
-                <View style={styles_home_view.order_view_style}>
-                    <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'left', fontSize: 18, color: 'red'}}>
-                            {all_constants.label.home.canceled}
-                        </Text>
-                    </View>
-                    <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'center', fontSize: 20, color: 'red'}}>
-                            {this.cancelled_orders_count}
-                        </Text>
-                    </View>
-                    <View style={{flex: 1,}}>
-                        <CustomImageButton
-                            onPress={() => this.onPressNavigateToTab('OrdersTab', 'CancelledOrders')}
-                            uri={this.arrow_uri}
-                        />
-                    </View>
-                </View>
-                <View style={styles_home_view.order_view_style}>
-                    <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'left', fontSize: 18}}>
-                            {all_constants.label.home.total}
-                        </Text>
-                    </View>
-                    <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'center', fontSize: 20}}>
-                            {this.total_orders_count}
-                        </Text>
-                    </View>
-                    <View style={{flex: 1,}}></View>
-                </View>
-                <View style={styles_home_view.label_view}>
-                    <Text style={{fontSize: 20, }}>
-                        {all_constants.label.home.balance}
-                    </Text>
-                </View>
-                <View style={styles_home_view.order_view_style}>
-                    <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'left', fontSize: 18}}>
-                            {all_constants.label.home.pending}
-                        </Text>
-                    </View>
-                    <View style={{flex: 1,}}>
-                        <Text style={{textAlign: 'center', fontSize: 20}}>
-                            {this.current_balance}
-                        </Text>
-                    </View>
-                    <View style={{flex: 1,}}>
-                        <CustomImageButton
-                            onPress={() => this.onPressNavigateToTab('BalanceTab', 'PendingBalance')}
-                            uri={this.arrow_uri}
-                        />
+                    <View style={styles_home_view.order_view_style}>
+                        <View style={{flex: 1,}}>
+                            <Text style={{textAlign: 'left', fontSize: 18}}>
+                                {all_constants.label.home.pending}
+                            </Text>
+                        </View>
+                        <View style={{flex: 1,}}>
+                            <Text style={{textAlign: 'center', fontSize: 20}}>
+                                {this.current_balance}
+                            </Text>
+                        </View>
+                        <View style={{flex: 1,}}>
+                            <CustomImageButton
+                                onPress={() => this.onPressNavigateToTab('BalanceTab', 'PendingBalance')}
+                                uri={this.arrow_uri}
+                            />
+                        </View>
                     </View>
                 </View>
             </View>
-
         )
     }
 }
