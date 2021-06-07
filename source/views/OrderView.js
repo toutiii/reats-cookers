@@ -55,81 +55,83 @@ export default class OrderView extends Component {
                         />
                     )
                 }
-                <View style={{flex: 2, width: '95%'}}>
-                    <Order
-                        order_number={this.props.route.params.item.order_number}
-                        order_status={this.props.route.params.item.order_status}
-                        order_owner={this.props.route.params.item.order_owner}
-                        order_amount={this.props.route.params.item.order_amount}
-                        order_number_of_items={this.props.route.params.item.order_number_of_items}
-                        order_date={this.props.route.params.item.order_date}
-                        order_cancel_date={this.props.route.params.item.order_cancel_date}
-                        order_delivery_date={this.props.route.params.item.order_delivery_date}
-                        order_number_color={this.props.route.params.item.order_number_color}
-                    />
-                    <HorizontalLine
-                        line_width={3}
-                    />
-                </View>
-                <View style={styles_order_view.button_container}>
-                    {
-                        this.props.route.params.item.order_status === all_constants.order.status.pending ?
-                            <View style={{flex: 1}}>
-                                <CustomButton
-                                    label={all_constants.label.order.accept}
-                                    backgroundColor='green'
-                                    label_color='white'
-                                    height={50}
-                                    border_width={3}
-                                    border_radius={30}
-                                    font_size={17}
-                                    onPress={() => {
-                                        this.setState({showAlert: true});
-                                    }}
-                                />
-                            </View>
-                            :
-                            <View></View>
-                    }
-                    {
-                        this.props.route.params.item.order_status === all_constants.order.status.approved?
-                            <View style={{flex: 1}}>
-                                <CustomButton
-                                    label={all_constants.label.order.reject}
-                                    backgroundColor='red'
-                                    label_color='white'
-                                    height={50}
-                                    border_width={3}
-                                    border_radius={30}
-                                    font_size={17}
-                                    onPress={this.onPressReject}
-                                />
-                            </View>
-                        :
-                            <View></View>
-                    }
-                    <View style={{flex: 1}}>
-                        <CustomButton
-                            label={all_constants.modal.dish_modal.show}
-                            backgroundColor='darkgrey'
-                            height={50}
-                            border_width={3}
-                            border_radius={30}
-                            font_size={17}
-                            onPress={this.onPressShowModal}
+                <View>
+                    <View style={{flex: 2, width: '95%'}}>
+                        <Order
+                            order_number={this.props.route.params.item.order_number}
+                            order_status={this.props.route.params.item.order_status}
+                            order_owner={this.props.route.params.item.order_owner}
+                            order_amount={this.props.route.params.item.order_amount}
+                            order_number_of_items={this.props.route.params.item.order_number_of_items}
+                            order_date={this.props.route.params.item.order_date}
+                            order_cancel_date={this.props.route.params.item.order_cancel_date}
+                            order_delivery_date={this.props.route.params.item.order_delivery_date}
+                            order_number_color={this.props.route.params.item.order_number_color}
+                        />
+                        <HorizontalLine
+                            line_width={3}
                         />
                     </View>
-                    <View style={{flex: 1}}>
-                        <CustomButton
-                            label={all_constants.messages.cancel}
-                            height={50}
-                            border_width={3}
-                            border_radius={30}
-                            font_size={18}
-                            backgroundColor={'tomato'}
-                            label_color='white'
-                            onPress={() => {this.props.navigation.goBack(null)}}
-                        />
+                    <View style={styles_order_view.button_container}>
+                        {
+                            this.props.route.params.item.order_status === all_constants.order.status.pending ?
+                                <View style={{flex: 1}}>
+                                    <CustomButton
+                                        label={all_constants.label.order.accept}
+                                        backgroundColor='green'
+                                        label_color='white'
+                                        height={50}
+                                        border_width={3}
+                                        border_radius={30}
+                                        font_size={17}
+                                        onPress={() => {
+                                            this.setState({showAlert: true});
+                                        }}
+                                    />
+                                </View>
+                                :
+                                <View></View>
+                        }
+                        {
+                            this.props.route.params.item.order_status === all_constants.order.status.approved?
+                                <View style={{flex: 1}}>
+                                    <CustomButton
+                                        label={all_constants.label.order.reject}
+                                        backgroundColor='red'
+                                        label_color='white'
+                                        height={50}
+                                        border_width={3}
+                                        border_radius={30}
+                                        font_size={17}
+                                        onPress={this.onPressReject}
+                                    />
+                                </View>
+                                :
+                                <View></View>
+                        }
+                        <View style={{flex: 1}}>
+                            <CustomButton
+                                label={all_constants.modal.dish_modal.show}
+                                backgroundColor='darkgrey'
+                                height={50}
+                                border_width={3}
+                                border_radius={30}
+                                font_size={17}
+                                onPress={this.onPressShowModal}
+                            />
+                        </View>
+                        <View style={{flex: 1}}>
+                            <CustomButton
+                                label={all_constants.messages.cancel}
+                                height={50}
+                                border_width={3}
+                                border_radius={30}
+                                font_size={18}
+                                backgroundColor={'tomato'}
+                                label_color='white'
+                                onPress={() => {this.props.navigation.goBack(null)}}
+                            />
+                        </View>
                     </View>
                 </View>
                 <DishModal
