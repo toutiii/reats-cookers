@@ -21,13 +21,6 @@ export default class OrderView extends Component {
         }
     }
 
-    onPressValid = () => {
-        this.setState({is_order_approved: ! this.state.is_order_approved})
-    }
-    onPressReject = () => {
-        this.setState({is_order_approved: ! this.state.is_order_approved})
-        this.setState({nb_reject: this.state.nb_reject + 1})
-    }
     onPressShowModal = () => {
         this.setState({modalVisible: true })
     }
