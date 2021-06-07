@@ -13,7 +13,8 @@ export default class OrderView extends Component {
         this.state = {
             is_order_approved: false,
             nb_reject: 0,  // TO DO: check in data from back if there is no null reject_date. that will be the criteria
-            modalVisible: false
+            modalVisible: false,
+            showAlert: false
         }
     }
 
@@ -63,7 +64,9 @@ export default class OrderView extends Component {
                                     border_width={3}
                                     border_radius={30}
                                     font_size={17}
-                                    onPress={this.onPressValid}
+                                    onPress={() => {
+                                        this.setState({showAlert: true});
+                                    }}
                                 />
                             </View>
                             :
