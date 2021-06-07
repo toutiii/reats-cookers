@@ -15,7 +15,9 @@ export default class OrderView extends Component {
             is_order_approved: false,
             nb_reject: 0,  // TO DO: check in data from back if there is no null reject_date. that will be the criteria
             modalVisible: false,
-            showAlert: false
+            showAlert: false,
+            acceptOrder: false,
+            declineOrder: false
         }
     }
 
