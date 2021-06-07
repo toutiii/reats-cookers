@@ -59,6 +59,27 @@ export default class OrderView extends Component {
                         />
                     )
                 }
+                {
+                    this.state.showAlert && this.state.declineOrder && (
+                        <CustomAlert
+                            show={this.state.showAlert}
+                            title={all_constants.custom_alert.orderview.decline_order_title}
+                            message={all_constants.custom_alert.orderview.decline_order_message}
+                            confirmButtonColor='green'
+                            showCancelButton={true}
+                            cancelButtonColor='red'
+                            cancelText={all_constants.custom_alert.homeview.cancel_text}
+                            onConfirmPressed={() => {
+                                this.setState({showAlert: false});
+                                this.setState({declineOrder: false});
+                            }}
+                            onCancelPressed={() => {
+                                this.setState({showAlert: false});
+                                this.setState({declineOrder: false});
+                            }}
+                        />
+                    )
+                }
                 <View>
                     <View style={{flex: 2}}>
                         <Order
@@ -108,7 +129,10 @@ export default class OrderView extends Component {
                                         border_width={3}
                                         border_radius={30}
                                         font_size={17}
-                                        onPress={this.onPressReject}
+                                        onPress={() => {
+                                            this.setState({showAlert: true});
+                                            this.setState({declineOrder: true});
+                                        }}
                                     />
                                 </View>
                                 :
