@@ -39,7 +39,7 @@ export default class OrderView extends Component {
         return (
             <View style={styles_order_view.container}>
                 {
-                    this.state.showAlert && (
+                    this.state.showAlert && this.state.acceptOrder && (
                         <CustomAlert
                             show={this.state.showAlert}
                             title={all_constants.custom_alert.orderview.accept_order_title}
@@ -49,10 +49,12 @@ export default class OrderView extends Component {
                             cancelButtonColor='red'
                             cancelText={all_constants.custom_alert.homeview.cancel_text}
                             onConfirmPressed={() => {
-                                this.setState({showAlert: false})
+                                this.setState({showAlert: false});
+                                this.setState({acceptOrder: false});
                             }}
                             onCancelPressed={() => {
                                 this.setState({showAlert: false});
+                                this.setState({acceptOrder: false});
                             }}
                         />
                     )
@@ -88,6 +90,7 @@ export default class OrderView extends Component {
                                         font_size={17}
                                         onPress={() => {
                                             this.setState({showAlert: true});
+                                            this.setState({acceptOrder: true});
                                         }}
                                     />
                                 </View>
