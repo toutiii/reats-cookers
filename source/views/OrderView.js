@@ -20,11 +20,9 @@ export default class OrderView extends Component {
     }
 
     onPressValid = () => {
-        Alert.alert('Commande', "Vous avez accepté la commande.")
         this.setState({is_order_approved: ! this.state.is_order_approved})
     }
     onPressReject = () => {
-        Alert.alert('Attention', "Vous avez rejeté la commande.")
         this.setState({is_order_approved: ! this.state.is_order_approved})
         this.setState({nb_reject: this.state.nb_reject + 1})
     }
