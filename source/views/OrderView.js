@@ -56,7 +56,7 @@ export default class OrderView extends Component {
                     )
                 }
                 <View>
-                    <View style={{flex: 2, width: '95%'}}>
+                    <View style={{flex: 2}}>
                         <Order
                             order_number={this.props.route.params.item.order_number}
                             order_status={this.props.route.params.item.order_status}
