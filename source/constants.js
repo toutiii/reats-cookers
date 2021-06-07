@@ -473,6 +473,21 @@ export const all_constants = {
             message: 'Quitter le formulaire et revenir en arrière ? (vos modifications seront toujours présentes tant que vous ne sélectionnez pas un autre formulaire).',
             disable_item_message: 'En désactivant un plat, celui-ci ne sera pas supprimé mais ne sera plus visible des clients.',
             remove_item_message: 'Supprimer définitivement cet item ?'
+        },
+        orderview:{
+            accept_order_title: "Accepter la commande ?",
+            accept_order_message: (
+                "Vous êtes sur le point d'accepter la commande." + "\n" +
+                "Cette action enverra une confirmation au client." + "\n" +
+                "Notez que vous avez 2 heures pour accepter une commande. Passé ce délai, la commande sera automatiquement annulée."
+            ),
+            decline_order_title: "Refuser la commande ?",
+            decline_order_message: (
+                "Vous êtes sur le point d'annuler la commande." + "\n" +
+                "Attention : une fois annulée, la commande ne pourra plus être acceptée." + "\n" +
+                "Chaque commande annulée baissera votre note générale. " + "\n" +
+                "Le client sera prévenu que vous avez annulé sa commande."
+            )
         }
     }
 }
