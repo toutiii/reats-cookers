@@ -21,6 +21,6 @@ export default styles_order = StyleSheet.create({
     },
     order_element: {
         flex: 1,
-        paddingLeft: '1%',
+        paddingLeft: '5%',
     },
 })
