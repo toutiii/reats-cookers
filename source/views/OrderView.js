@@ -6,6 +6,7 @@ import all_constants from "../constants";
 import Order from "../components/Order";
 import CustomButton from "../button/CustomButton";
 import DishModal from "../modals/DishModal";
+import CustomAlert from "../components/CustomAlert";
 
 export default class OrderView extends Component {
     constructor(props) {
@@ -33,9 +34,29 @@ export default class OrderView extends Component {
     onPressCloseModal = () => {
         this.setState({modalVisible: false })
     }
+
     render() {
         return (
             <View style={styles_order_view.container}>
+                {
+                    this.state.showAlert && (
+                        <CustomAlert
+                            show={this.state.showAlert}
+                            title={all_constants.custom_alert.orderview.accept_order_title}
+                            message={all_constants.custom_alert.orderview.accept_order_message}
+                            confirmButtonColor='green'
+                            showCancelButton={true}
+                            cancelButtonColor='red'
+                            cancelText={all_constants.custom_alert.homeview.cancel_text}
+                            onConfirmPressed={() => {
+                                this.setState({showAlert: false})
+                            }}
+                            onCancelPressed={() => {
+                                this.setState({showAlert: false});
+                            }}
+                        />
+                    )
+                }
                 <View style={{flex: 2, width: '95%'}}>
                     <Order
                         order_number={this.props.route.params.item.order_number}
