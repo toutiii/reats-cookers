@@ -12,8 +12,6 @@ export default class OrderView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            is_order_approved: false,
-            nb_reject: 0,  // TO DO: check in data from back if there is no null reject_date. that will be the criteria
             modalVisible: false,
             showAlert: false,
             acceptOrder: false,
