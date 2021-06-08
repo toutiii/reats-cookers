@@ -450,6 +450,7 @@ export const all_constants = {
             title: {
                 pending: 'EN ATTENTE',
                 history: 'HISTORIQUE',
+                history_balance: 'HISTORIQUE DES PAIEMENTS'
             }
         },
         order_tab:{
