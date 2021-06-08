@@ -25,7 +25,7 @@ export default function DishButton({...props}) {
                         >
                             <Dish
                                 key={item.id}
-                                dish_photo={item.dish_photo}
+                                dish_photo={item.photo}
                                 dish_name={item.dish_name}
                                 dish_category={item.dish_category}
                                 dish_rating={item.dish_rating}

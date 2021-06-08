@@ -32,7 +32,7 @@ export default function DishModal({...props}) {
                         renderItem={({item}) => (
                             <DishForModal
                                 key={item.id}
-                                dish_photo={item.dish_photo}
+                                dish_photo={item.photo}
                                 dish_name={item.dish_name}
                                 dish_rating={item.dish_rating}
                                 dish_unit_price={item.dish_unit_price}
