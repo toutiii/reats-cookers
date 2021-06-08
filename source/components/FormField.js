@@ -50,7 +50,7 @@ export default function FormField({...props}) {
     };
 
     useEffect(() => {
-            setPicUri(props.itemObject.dish_photo)
+            setPicUri(props.itemObject.photo)
     }, [props.itemObject])
     useEffect(() => {
         setCategory(props.newItem.dish_category)
@@ -72,7 +72,7 @@ export default function FormField({...props}) {
                 let result = await ImagePicker.launchImageLibraryAsync({options});
                 if (!result.cancelled) {
                     setPicUri(result.uri)
-                    props.newItem['dish_photo'] = result.uri
+                    props.newItem['photo'] = result.uri
                 }
             }
         }
@@ -88,7 +88,7 @@ export default function FormField({...props}) {
                 let result = await ImagePicker.launchCameraAsync({options});
                 if (!result.cancelled) {
                     setPicUri(result.uri)
-                    props.newItem['dish_photo'] = result.uri
+                    props.newItem['photo'] = result.uri
                 }
             }
         }
