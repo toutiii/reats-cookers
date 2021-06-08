@@ -113,7 +113,7 @@ export default function fetch_order_history(){
                 },
                 {
                     "id" :"4",
-                    "order_number": "123368",
+                    "order_number": "123369",
                     "order_status": "Livrée",
                     "order_owner": "Toutii",
                     "order_amount": "70",
@@ -149,7 +149,7 @@ export default function fetch_order_history(){
                 },
                 {
                     "id" :"5",
-                    "order_number": "123368",
+                    "order_number": "123370",
                     "order_status": "Livrée",
                     "order_owner": "Toutii",
                     "order_amount": "70",
