@@ -3,7 +3,7 @@ export function getDishes() {
         "data":[
             {
                 "id": "1",
-                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
                 "dish_name": "Poulet Yassa",
                 "dish_category": "starter",
                 "dish_rating": "4.8/5",
@@ -14,7 +14,7 @@ export function getDishes() {
             },
             {
                 "id": "2",
-                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
                 "dish_name": "Poulet Yassa",
                 "dish_category": "starter",
                 "dish_rating": "4.8/5",
@@ -25,7 +25,7 @@ export function getDishes() {
             },
             {
                 "id": "3",
-                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
                 "dish_name": "Poulet Yassa",
                 "dish_category": "starter",
                 "dish_rating": "4.8/5",
@@ -36,7 +36,7 @@ export function getDishes() {
             },
             {
                 "id": "4",
-                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
                 "dish_name": "Poulet Yassa",
                 "dish_category": "starter",
                 "dish_rating": "4.8/5",
@@ -47,7 +47,7 @@ export function getDishes() {
             },
             {
                 "id": "5",
-                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
                 "dish_name": "Poulet Yassa",
                 "dish_category": "starter",
                 "dish_rating": "4.8/5",
@@ -58,7 +58,7 @@ export function getDishes() {
             },
             {
                 "id": "6",
-                "dish_photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+                "photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
                 "dish_name": "Poulet Yassa",
                 "dish_category": "starter",
                 "dish_rating": "4.8/5",
