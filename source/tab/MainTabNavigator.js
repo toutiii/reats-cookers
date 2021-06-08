@@ -55,7 +55,8 @@ export default function MainTabNavigator(){
                     "SettingsOrderInformationForm",
                     "Balance",
                     "OfferFormView",
-                    "OrderHistory"
+                    "OrderHistory",
+                    "BalanceHistory"
                 ].includes(route.name)
                     ? () => {
                         return null;
