@@ -8,13 +8,23 @@ import fetch_order_history from "../api/fetch_order_history";
 export default function HistoryFormView({...props}){
     const handleResult = async (result) => {
         if (result.ok) {
-            props.navigation.navigate(
-                'OrderHistory',
-                {
-                    item: result.json,
-                    tag: props.route.params.tag,
-                }
-            );
+            if (props.route.params.tag === all_constants.tag.balance.history){
+                props.navigation.navigate(
+                    'BalanceHistory',
+                    {
+                        item: result.json,
+                        tag: props.route.params.tag,
+                    }
+                );
+            }else if (props.route.params.tag === all_constants.tag.orders.archived){
+                props.navigation.navigate(
+                    'OrderHistory',
+                    {
+                        item: result.json,
+                        tag: props.route.params.tag,
+                    }
+                );
+            }
         } else {
             throw new Error('Failed to fetch order history.');
         }
