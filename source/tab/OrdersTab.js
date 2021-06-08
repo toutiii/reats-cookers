@@ -2,7 +2,7 @@ import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import OrderListView from "../listviews/OrderListView";
 import all_constants from "../constants";
-import OrderHistoryFormView from "../forms/OrderHistoryFormView";
+import HistoryFormView from "../forms/HistoryFormView";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -35,7 +35,7 @@ export default function OrdersTab () {
             />
             <Tab.Screen
                 name="HistoryOrdersForm"
-                component={OrderHistoryFormView}
+                component={HistoryFormView}
                 options={{ title: all_constants.tab.order_tab.title.history }}
             />
         </Tab.Navigator>
