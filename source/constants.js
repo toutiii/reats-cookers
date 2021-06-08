@@ -162,7 +162,8 @@ export const all_constants = {
                 noon_delivery_hours: 'Votre créneau en journée',
                 noon_delivery_days: 'Les plats sont livrés en journée le',
                 evening_delivery_hours: 'Votre créneau en soirée',
-                evening_delivery_days: 'Les plats sont livrés en soirée le'
+                evening_delivery_days: 'Les plats sont livrés en soirée le',
+                image: 'Photo de profil'
             },
             login:{
                 email: 'Email',
