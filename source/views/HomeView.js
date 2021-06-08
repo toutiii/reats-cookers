@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Alert, Image, Switch, Text, TouchableHighlight, View} from "react-native";
+import { Image, Switch, Text, View} from "react-native";
 import styles_home_view from '../styles/styles-home-view'
 import all_constants from "../constants";
 import CustomImageButton from "../button/CustomImageButton";
