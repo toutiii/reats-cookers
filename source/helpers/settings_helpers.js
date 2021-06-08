@@ -21,6 +21,7 @@ export function getUserSettings() {
         "personal_infos_section":{
             "title": "personal_infos",
             "data": {
+                "photo": "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
                 "siren": "362521879",
                 "siret": "36252187900034",
                 "firstname": "Irène",
