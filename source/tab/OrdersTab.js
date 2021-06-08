@@ -37,6 +37,7 @@ export default function OrdersTab () {
                 name="HistoryOrdersForm"
                 component={HistoryFormView}
                 options={{ title: all_constants.tab.order_tab.title.history }}
+                initialParams={{tag: all_constants.tag.orders.archived}}
             />
         </Tab.Navigator>
     )
