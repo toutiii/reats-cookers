@@ -12,7 +12,7 @@ export default function HistoryFormView({...props}){
                 'OrderHistory',
                 {
                     item: result.json,
-                    tag: all_constants.tag.orders.archived,
+                    tag: props.route.params.tag,
                 }
             );
         } else {
