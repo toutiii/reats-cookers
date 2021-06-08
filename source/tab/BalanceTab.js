@@ -25,7 +25,7 @@ export default function BalanceTab () {
                 initialParams={{tag: all_constants.tag.balance.pending}}
             />
             <Tab.Screen
-                name="HistoryBalance"
+                name="HistoryBalanceForm"
                 component={HistoryFormView}
                 options={{ title: all_constants.tab.balance_tab.title.history }}
                 initialParams={{tag: all_constants.tag.balance.history}}
