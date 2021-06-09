@@ -137,6 +137,9 @@ export default function OrderButton({...props}) {
                                     order_number_of_items={item.order_number_of_items}
                                     order_date={item.order_date}
                                     order_cancel_date={item.order_cancel_date}
+                                    order_cancel_hour={item.order_cancel_hour}
+                                    order_accept_date={item.order_accept_date}
+                                    order_accept_hour={item.order_accept_hour}
                                     order_delivery_date={item.order_delivery_date}
                                     order_delivery_hour={item.order_delivery_hour}
                                     order_picking_hour={item.order_picking_hour}
