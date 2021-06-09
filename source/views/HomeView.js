@@ -123,17 +123,17 @@ export default class HomeView extends Component {
                                 style={styles_home_view.profile_pic}
                             />
                         </View>
-                        <View style={{flex: 1, alignItems: 'stretch', marginLeft: 20}}>
+                        <View style={{flex: 1, alignItems: 'stretch'}}>
                             <Text
                                 numberOfLines={1}
                                 adjustsFontSizeToFit
-                                style={{fontSize: 30, textAlign: 'left'}}>
+                                style={{fontSize: 30}}>
                                 {this.lastname + ' ' + this.firstname}
                             </Text>
                             <Text
                                 numberOfLines={1}
                                 adjustsFontSizeToFit
-                                style={{ fontSize: 17,color: 'grey', textAlign: 'left'}}>
+                                style={{ fontSize: 17,color: 'grey'}}>
                                 {this.email}
                             </Text>
                         </View>
