@@ -42,7 +42,7 @@ export default function Order({...props}) {
             {
                 props.order_status === all_constants.order.status.canceled ?
                     <View style={styles_order.order_element}>
-                        <Text style={{fontSize: 16, color: 'red'}}>{all_constants.order.infos.canceled_label} {props.order_cancel_date} </Text>
+                        <Text style={{fontSize: 16, color: 'red'}}>{all_constants.order.infos.canceled_label} {props.order_cancel_date} à {props.order_cancel_hour} </Text>
                     </View>
                     :
                     <View></View>
