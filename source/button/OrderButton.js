@@ -57,7 +57,7 @@ export default function OrderButton({...props}) {
             let orderDeliveryData = {};
             for (let i = 0; i < indexes.length; i++) {
                 const orderItemObject = orders_data[i];
-                let deliveryDate = orderItemObject['order_delivery_date'];
+                let deliveryDate = orderItemObject['order_delivery_date'] + ' à ' + orderItemObject['order_picking_hour'];
                 if (!Object.keys(orderDeliveryData).includes(deliveryDate)){
                     orderDeliveryData[deliveryDate] = []
                 }
