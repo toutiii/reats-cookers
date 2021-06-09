@@ -26,6 +26,11 @@ export default styles_balance = StyleSheet.create({
         paddingRight: '2%',
     },
     order_number: {
+        flex: 3,
+        justifyContent: 'center',
+        paddingLeft: '15%',
+    },
+    order_date: {
         flex: 2,
         justifyContent: 'center',
     },
