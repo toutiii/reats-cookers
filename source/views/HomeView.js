@@ -28,6 +28,8 @@ export default class HomeView extends Component {
         this.online_icon_uri = 'https://pics.freeicons.io/uploads/icons/png/11875166141558096434-512.png'
         this.offline_icon_uri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH-AEN1kYTBtKWdVTnIblOQzv3GR1qa4oI5A&usqp=CAU'
         this.arrow_uri = 'https://pics.freeicons.io/uploads/icons/png/6448667931600321999-512.png'
+        this.average_response_time = '15min'
+        this.average_rating = "4.4/5"
     }
     logout = async () => {
         await setToken('');
@@ -253,7 +255,7 @@ export default class HomeView extends Component {
                         </View>
                         <View style={{flex: 1,}}>
                             <Text style={{textAlign: 'center', fontSize: 18}}>
-                                test
+                                {this.average_response_time}
                             </Text>
                         </View>
                     </View>
@@ -265,7 +267,7 @@ export default class HomeView extends Component {
                         </View>
                         <View style={{flex: 1,}}>
                             <Text style={{textAlign: 'center', fontSize: 18}}>
-                                test
+                                {this.average_rating}
                             </Text>
                         </View>
                     </View>
