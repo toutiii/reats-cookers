@@ -66,6 +66,11 @@ export const all_constants = {
             total: 'TOTAL',
             balance: 'BALANCE',
             pending: 'PENDING',
+            global_stats: 'STATISTIQUES',
+            average_response_time: 'Temps moyen de réponse',
+            average_approval_rate: "Taux acceptation commandes",
+            average_cancel_rate: "Taux annulation commandes",
+            average_rating: "Note générale"
         },
         balance:{
             title: "Paiements",
