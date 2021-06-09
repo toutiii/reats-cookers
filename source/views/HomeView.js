@@ -166,7 +166,7 @@ export default class HomeView extends Component {
                         </View>
                     </View>
                     <View style={styles_home_view.label_view}>
-                        <Text style={{fontSize: 20, }}>
+                        <Text style={{fontSize: 20, textAlign: 'center' }}>
                             {all_constants.label.home.current_week_orders}
                         </Text>
                     </View>
@@ -220,7 +220,7 @@ export default class HomeView extends Component {
                         <View style={{flex: 1,}}></View>
                     </View>
                     <View style={styles_home_view.label_view}>
-                        <Text style={{fontSize: 20, }}>
+                        <Text style={{fontSize: 20, textAlign: 'center'}}>
                             {all_constants.label.home.balance}
                         </Text>
                     </View>
@@ -243,7 +243,7 @@ export default class HomeView extends Component {
                         </View>
                     </View>
                     <View style={styles_home_view.label_view}>
-                        <Text style={{fontSize: 20, }}>
+                        <Text style={{fontSize: 20, textAlign: 'center'}}>
                             {all_constants.label.home.global_stats}
                         </Text>
                     </View>
