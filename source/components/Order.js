@@ -28,7 +28,7 @@ export default function Order({...props}) {
             </View>
 
             <View style={styles_order.order_element}>
-                <Text style={{fontSize: 16,}}>{all_constants.order.infos.delivered_label} {props.order_delivery_date} </Text>
+                <Text style={{fontSize: 16,}}>{all_constants.order.infos.delivered_label} {props.order_delivery_date} à {props.order_delivery_hour} </Text>
             </View>
 
             <View style={styles_order.order_element}>
