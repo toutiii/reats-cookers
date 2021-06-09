@@ -82,6 +82,8 @@ export default class OrderView extends Component {
                             order_date={this.props.route.params.item.order_date}
                             order_cancel_date={this.props.route.params.item.order_cancel_date}
                             order_delivery_date={this.props.route.params.item.order_delivery_date}
+                            order_delivery_hour={this.props.route.params.item.order_delivery_hour}
+                            order_picking_hour={this.props.route.params.item.order_picking_hour}
                             order_number_color={this.props.route.params.item.order_number_color}
                             order_is_menu={this.props.route.params.item.order_is_menu}
                         />
