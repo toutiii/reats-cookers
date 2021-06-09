@@ -36,6 +36,7 @@ export default function BalanceButton({...props}) {
                                 key={item.key}
                                 order_number={item.order_number}
                                 order_balance={item.order_amount}
+                                order_date={item.order_date}
                                 use_horizontal_line={true}
                                 line_width={1}
                             />
