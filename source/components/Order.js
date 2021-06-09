@@ -54,7 +54,7 @@ export default function Order({...props}) {
                 props.order_status === all_constants.order.status.approved ?
                     <View style={styles_order.order_element}>
                         <Text style={{fontSize: 16, color: 'green'}}>
-                            {all_constants.order.infos.approved_label} {props.order_cancel_date}
+                            {all_constants.order.infos.approved_label} {props.order_accept_date}
                         </Text>
                     </View>
                     :
