@@ -29,7 +29,7 @@ export default class BalanceListView extends Component {
                         undefined,
                         undefined,
                         "order_number",
-                        [ "order_number", "order_amount"]
+                        [ "order_number", "order_amount", "order_date"]
                     )}
                     allProps={this.props}
                 />
