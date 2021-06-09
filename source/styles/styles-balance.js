@@ -23,6 +23,7 @@ export default styles_balance = StyleSheet.create({
         flex: 1,
         alignItems:'flex-end',
         justifyContent: 'center',
+        paddingRight: '2%',
     },
     order_number: {
         flex: 2,
