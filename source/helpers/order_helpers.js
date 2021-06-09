@@ -11,6 +11,8 @@ export function getOrders() {
                 "order_date": "9 Mars 2021",
                 "order_cancel_date": "11 Mars 2021",
                 "order_delivery_date": "11 Mars 2021",
+                "order_delivery_hour": "11h30",
+                "order_picking_hour": "11h",
                 "order_tag": "paid",
                 "order_number_color": "green",
                 "dishes":[
@@ -46,6 +48,8 @@ export function getOrders() {
                 "order_date": "9 Mars 2021",
                 "order_cancel_date": "11 Mars 2021",
                 "order_delivery_date": "13 Mars 2021",
+                "order_delivery_hour": "11h30",
+                "order_picking_hour": "11h",
                 "order_tag": "cancelled",
                 "order_number_color": "red",
                 "dishes":[
@@ -81,6 +85,8 @@ export function getOrders() {
                 "order_date": "9 Mars 2021",
                 "order_cancel_date": "11 Mars 2021",
                 "order_delivery_date": "12 Mars 2021",
+                "order_delivery_hour": "11h30",
+                "order_picking_hour": "11h",
                 "order_tag": "paid",
                 "order_number_color": "green",
                 "order_is_menu": true,
@@ -117,6 +123,8 @@ export function getOrders() {
                 "order_date": "9 Mars 2021",
                 "order_cancel_date": "11 Mars 2021",
                 "order_delivery_date": "13 Mars 2021",
+                "order_delivery_hour": "11h30",
+                "order_picking_hour": "11h",
                 "order_tag": "cancelled",
                 "order_number_color": "red",
                 "dishes":[
@@ -152,6 +160,8 @@ export function getOrders() {
                 "order_date": "9 Mars 2021",
                 "order_cancel_date": "11 Mars 2021",
                 "order_delivery_date": "13 Mars 2021",
+                "order_delivery_hour": "11h30",
+                "order_picking_hour": "11h",
                 "order_tag": "paid",
                 "order_number_color": "green",
                 "dishes":[
@@ -327,6 +337,8 @@ export function getOrders() {
                 "order_date": "9 Mars 2021",
                 "order_cancel_date": "11 Mars 2021",
                 "order_delivery_date": "13 Mars 2021",
+                "order_delivery_hour": "11h30",
+                "order_picking_hour": "11h",
                 "order_tag": "cancelled",
                 "order_number_color": "red",
                 "dishes":[
