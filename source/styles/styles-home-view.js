@@ -60,7 +60,6 @@ export default styles_home_view = StyleSheet.create({
         flex:1,
         alignSelf: 'stretch',
         justifyContent: 'center',
-        paddingLeft: '10%',
         backgroundColor: '#d3d3d3'
     },
     order_view_style: {
