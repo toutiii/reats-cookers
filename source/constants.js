@@ -192,6 +192,7 @@ export const all_constants = {
             canceled_label: 'Commande annulée le',
             approved_label: 'Commande acceptée le',
             delivered_label: 'Livraison prévue le',
+            picking_label: 'Ramassage prévu le',
             unit_price: 'Prix unitaire:',
             total: 'Total:',
             order_is_menu: 'Attention cette commande est un menu !',
