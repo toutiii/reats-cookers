@@ -7,6 +7,9 @@ import all_constants from "../constants";
 export default function Balance({...props}) {
     return(
         <View style={styles_balance.sub_container}>
+            <View style={styles_balance.order_date}>
+                <Text style={{fontSize: 20}}>{props.order_date}</Text>
+            </View>
             <View style={styles_balance.order_number}>
                 <Text style={{fontSize: 20}}>{all_constants.order.infos.number}{props.order_number}</Text>
             </View>
