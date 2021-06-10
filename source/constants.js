@@ -121,7 +121,8 @@ export const all_constants = {
             evening_delivery_days: 'Livraison le soir le'
         },
         stats:{
-            title: 'Mes statistiques'
+            title: 'Mes statistiques',
+            automatic_message: 'Ces données sont mises à jour automatiquement.',
         },
         form: {
             order:{
