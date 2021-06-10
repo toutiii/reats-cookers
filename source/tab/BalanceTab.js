@@ -2,7 +2,7 @@ import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import BalanceListView from "../listviews/BalanceListView";
 import all_constants from "../constants";
-import HistoryFormView from "../forms/HistoryFormView";
+import HistoryStack from "../stack/HistoryStack";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -25,8 +25,8 @@ export default function BalanceTab () {
                 initialParams={{tag: all_constants.tag.balance.pending}}
             />
             <Tab.Screen
-                name="HistoryBalanceForm"
-                component={HistoryFormView}
+                name="HistoryStack"
+                component={HistoryStack}
                 options={{ title: all_constants.tab.balance_tab.title.history }}
                 initialParams={{tag: all_constants.tag.balance.history}}
             />
