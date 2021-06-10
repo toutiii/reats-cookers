@@ -109,11 +109,6 @@ export default function OrderButton({...props}) {
                 flex: props.allProps.route.params.tag === all_constants.tag.orders.paid ? 10 : 1,
                 marginTop: props.allProps.route.params.tag === all_constants.tag.orders.archived ? '5%' : '0%'
             }}>
-                {
-                    props.allProps.route.params.tag === all_constants.tag.orders.archived && (
-                        <Text style={{fontSize: 18, textAlign: 'center'}}> {all_constants.tab.order_tab.title.history_order} </Text>
-                    )
-                }
                 <FlatList
                     data={props.order_list_data}
                     ListFooterComponent={<View></View>}
