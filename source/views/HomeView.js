@@ -89,6 +89,11 @@ export default class HomeView extends Component {
                         />
                 }
                 <View style={{alignItems: 'center'}}>
+
+                    {/*
+                        THE LOGOUT AND PARAMETERS BUTTONS
+                    */}
+
                     <View style={styles_home_view.button_container}>
                         <View style={{flex: 1, padding: '7%'}}>
                             <CustomButton
@@ -118,6 +123,11 @@ export default class HomeView extends Component {
                             />
                         </View>
                     </View>
+
+                    {/*
+                        USER PROFILE PIC AND INFORMATION
+                    */}
+
                     <View style={[styles_home_view.sub_container, { marginTop: '30%'}]}>
                         <View style={{flex: 1, aspectRatio: 1}}>
                             <Image
@@ -140,6 +150,11 @@ export default class HomeView extends Component {
                             </Text>
                         </View>
                     </View>
+
+                    {/*
+                        THE TOGGLE
+                    */}
+
                     <View style={[styles_home_view.order_view_style, {marginTop: '10%'}]}>
                         <View style={{flex: 1}}>
                             <Image
@@ -165,6 +180,11 @@ export default class HomeView extends Component {
                             />
                         </View>
                     </View>
+
+                    {/*
+                        CURRENT WEEK ORDER
+                    */}
+
                     <View style={styles_home_view.label_view}>
                         <Text style={{fontSize: 20, textAlign: 'center' }}>
                             {all_constants.label.home.current_week_orders}
@@ -219,6 +239,11 @@ export default class HomeView extends Component {
                         </View>
                         <View style={{flex: 1,}}></View>
                     </View>
+
+                    {/*
+                        BALANCE
+                    */}
+
                     <View style={styles_home_view.label_view}>
                         <Text style={{fontSize: 20, textAlign: 'center'}}>
                             {all_constants.label.home.balance}
@@ -242,6 +267,11 @@ export default class HomeView extends Component {
                             />
                         </View>
                     </View>
+
+                    {/*
+                        STATS
+                    */}
+
                     <View style={styles_home_view.label_view}>
                         <Text style={{fontSize: 20, textAlign: 'center'}}>
                             {all_constants.label.home.global_stats}
