@@ -107,7 +107,6 @@ export default function OrderButton({...props}) {
             }
             <View style={{
                 flex: props.allProps.route.params.tag === all_constants.tag.orders.paid ? 10 : 1,
-                marginTop: props.allProps.route.params.tag === all_constants.tag.orders.archived ? '5%' : '0%'
             }}>
                 <FlatList
                     data={props.order_list_data}
