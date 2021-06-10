@@ -120,6 +120,9 @@ export const all_constants = {
             evening_delivery_hours: 'Créneau du soir',
             evening_delivery_days: 'Livraison le soir le'
         },
+        stats:{
+            title: 'Mes statistiques'
+        },
         form: {
             order:{
                 start_date: 'Date de début',

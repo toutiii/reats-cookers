@@ -260,7 +260,7 @@ export default class HomeView extends Component {
                         </View>
                         <View style={{flex: 1,}}>
                             <CustomImageButton
-                                onPress={() => this.onPressNavigateToTab('BalanceTab', 'PendingBalance')}
+                                onPress={() => this.onPressNavigateToTab('StatsView')}
                                 uri={this.arrow_uri}
                             />
                         </View>
@@ -278,7 +278,7 @@ export default class HomeView extends Component {
                         </View>
                         <View style={{flex: 1,}}>
                             <CustomImageButton
-                                onPress={() => this.onPressNavigateToTab('BalanceTab', 'PendingBalance')}
+                                onPress={() => this.onPressNavigateToTab('StatsView')}
                                 uri={this.arrow_uri}
                             />
                         </View>
