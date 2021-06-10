@@ -5,6 +5,7 @@ import OrdersTab from "../tab/OrdersTab";
 import BalanceTab from "../tab/BalanceTab";
 import SettingsView from "../views/SettingsView";
 import all_constants from "../constants";
+import StatsView from "../views/StatsView";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,11 @@ export default class HomeStack extends Component{
                     name="Settings"
                     component={SettingsView}
                     options={{ title: all_constants.label.settings.my_account}}
+                />
+                <Stack.Screen
+                    name="StatsView"
+                    component={StatsView}
+                    options={{ title: all_constants.label.stats.title}}
                 />
             </Stack.Navigator>
         )
