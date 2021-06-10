@@ -11,11 +11,6 @@ import {getOrders} from "../helpers/order_helpers";
 export default function BalanceButton({...props}) {
     return (
         <View style={{marginTop: props.allProps.route.params.tag === all_constants.tag.balance.history ? '15%' : '0%'}}>
-            {
-                props.allProps.route.params.tag === all_constants.tag.balance.history && (
-                    <Text style={{fontSize: 18, textAlign: 'center'}}> {all_constants.tab.balance_tab.title.history_balance} </Text>
-                )
-            }
             <FlatList
                 data={props.balance_list_data}
                 ListFooterComponent={<View></View>}
