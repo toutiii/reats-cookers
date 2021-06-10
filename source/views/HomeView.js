@@ -258,6 +258,12 @@ export default class HomeView extends Component {
                                 {this.average_response_time}
                             </Text>
                         </View>
+                        <View style={{flex: 1,}}>
+                            <CustomImageButton
+                                onPress={() => this.onPressNavigateToTab('BalanceTab', 'PendingBalance')}
+                                uri={this.arrow_uri}
+                            />
+                        </View>
                     </View>
                     <View style={styles_home_view.order_view_style}>
                         <View style={{flex: 2}}>
@@ -269,6 +275,12 @@ export default class HomeView extends Component {
                             <Text style={{textAlign: 'center', fontSize: 18}}>
                                 {this.average_rating}
                             </Text>
+                        </View>
+                        <View style={{flex: 1,}}>
+                            <CustomImageButton
+                                onPress={() => this.onPressNavigateToTab('BalanceTab', 'PendingBalance')}
+                                uri={this.arrow_uri}
+                            />
                         </View>
                     </View>
                 </View>
