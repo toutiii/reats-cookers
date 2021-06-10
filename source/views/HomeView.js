@@ -248,7 +248,7 @@ export default class HomeView extends Component {
                         </Text>
                     </View>
                     <View style={styles_home_view.order_view_style}>
-                        <View style={{flex: 2}}>
+                        <View style={{flex: 1}}>
                             <Text style={{fontSize: 18}}>
                                 {all_constants.label.home.average_response_time}
                             </Text>
@@ -266,7 +266,7 @@ export default class HomeView extends Component {
                         </View>
                     </View>
                     <View style={styles_home_view.order_view_style}>
-                        <View style={{flex: 2}}>
+                        <View style={{flex: 1}}>
                             <Text style={{fontSize: 18}}>
                                 {all_constants.label.home.average_rating}
                             </Text>
