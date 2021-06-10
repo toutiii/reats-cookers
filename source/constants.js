@@ -468,7 +468,7 @@ export const all_constants = {
                 paid: 'PAYÉES',
                 cancelled: 'ANNULÉES',
                 history: 'HISTORIQUE',
-                history_order: 'HISTORIQUE DE COMMANDES'
+                history_order: 'Historique des commandes'
             }
         }
     },
