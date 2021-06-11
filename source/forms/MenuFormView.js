@@ -5,6 +5,7 @@ import {View} from "react-native";
 import update_menu_infos from "../api/update_menu_infos";
 import {checkValueNotContainsSpecialChar, checkValueIsDefined, valueIsValidPrice} from "../validators/global_validators"
 import {checkMenuCoherence} from "../validators/menuformview_validators"
+import {callBackEnd} from "../api/fetch";
 
 export default function MenuFormView ({...props}){
     const handleResult = async (result) => {
@@ -19,7 +20,9 @@ export default function MenuFormView ({...props}){
         <View style={{flex: 1}}>
             <View style={{flex: 2, marginTop: '10%'}}>
                 <Form
-                    action={update_menu_infos}
+                    action={callBackEnd}
+                    url={all_constants.uri.api.mock}
+                    method={'POST'}
                     navigation={props.navigation}
                     afterSubmit={handleResult}
                     item={props.route.params.item}

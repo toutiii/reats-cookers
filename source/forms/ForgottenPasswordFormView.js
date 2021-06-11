@@ -5,6 +5,7 @@ import submit_login_credentials from "../api/submit_login_credentials";
 import all_constants from "../constants";
 import {checkValueIsDefined} from "../validators/global_validators";
 import {checkEmailFormat} from "../validators/settingsform_validators";
+import {callBackEnd} from "../api/fetch";
 
 export default function ForgottenPasswordFormView({...props}){
     const handleResult = async (result) => {
@@ -16,7 +17,9 @@ export default function ForgottenPasswordFormView({...props}){
         <View style={{flex: 1, marginTop: '25%'}}>
             <View style={{flex: 1}}>
                 <Form
-                    action={submit_login_credentials}
+                    action={callBackEnd}
+                    url={all_constants.uri.api.mock}
+                    method={'POST'}
                     navigation={props.navigation}
                     afterSubmit={handleResult}
                     reset_password={true}

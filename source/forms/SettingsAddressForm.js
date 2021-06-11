@@ -5,6 +5,7 @@ import {View} from "react-native";
 import update_user_settings from "../api/update_settings";
 import {checkValueIsDefined, checkValueNotContainsSpecialChar} from "../validators/global_validators";
 import {checkPostalCode} from "../validators/settingsform_validators";
+import {callBackEnd} from "../api/fetch";
 
 
 export default function SettingsAddressForm ({...props}){
@@ -20,7 +21,9 @@ export default function SettingsAddressForm ({...props}){
         <View style={{flex: 1}}>
             <View style={{flex: 2, marginTop: '10%'}}>
                 <Form
-                    action={update_user_settings}
+                    action={callBackEnd}
+                    url={all_constants.uri.api.mock}
+                    method={'POST'}
                     navigation={props.navigation}
                     afterSubmit={handleResult}
                     item={props.route.params.item}

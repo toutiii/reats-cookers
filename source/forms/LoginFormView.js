@@ -7,6 +7,7 @@ import {checkEmailFormat} from "../validators/settingsform_validators";
 import submit_login_credentials from "../api/submit_login_credentials";
 import {setToken} from "../api/token";
 import { CommonActions } from '@react-navigation/native';
+import {callBackEnd} from "../api/fetch";
 
 export default function LoginFormView ({...props}){
     const handleResult = async (result) => {
@@ -29,7 +30,9 @@ export default function LoginFormView ({...props}){
             </View>
             <View style={{flex: 2}}>
                 <Form
-                    action={submit_login_credentials}
+                    action={callBackEnd}
+                    url={all_constants.uri.api.mock}
+                    method={'POST'}
                     navigation={props.navigation}
                     afterSubmit={handleResult}
                     login={true}

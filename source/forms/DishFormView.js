@@ -8,6 +8,7 @@ import {
     checkValueNotContainsSpecialChar,
     valueIsValidPrice
 } from "../validators/global_validators";
+import {callBackEnd} from "../api/fetch";
 
 
 export default function DishFormView ({...props}){
@@ -23,7 +24,9 @@ export default function DishFormView ({...props}){
         <View style={{flex: 1}}>
             <View style={{flex: 2, marginTop: '10%'}}>
                 <Form
-                    action={update_dish_infos}
+                    action={callBackEnd}
+                    url={all_constants.uri.api.mock}
+                    method={'POST'}
                     navigation={props.navigation}
                     afterSubmit={handleResult}
                     item={props.route.params.item}
