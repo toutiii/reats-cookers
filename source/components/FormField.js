@@ -247,7 +247,6 @@ export default function FormField({...props}) {
                                         <Text>PHOTO</Text>
                                     </View>
                             }
-
                         </View>
                         <View style={{flex: 1}}>
                             <View style={styles_field.button}>
