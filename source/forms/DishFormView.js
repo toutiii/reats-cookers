@@ -48,7 +48,7 @@ export default function DishFormView ({...props}){
                                 checkValueNotContainsSpecialChar
                             ]
                         },
-                        dish_photo: {
+                        photo: {
                             fieldIsMandatory: true,
                             type: all_constants.field_type.image,
                             label: all_constants.label.form.dishes.image,
