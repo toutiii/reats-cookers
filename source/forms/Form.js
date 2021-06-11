@@ -83,7 +83,7 @@ export default function Form({ ...props }) {
         }
         fadeOut();
         try {
-            const result = await props.action(newItem);
+            const result = await props.action(newItem, props.url, props.method);
             setApiOkResponse(result.ok);
             await sleep(1000)
             fadeIn();
