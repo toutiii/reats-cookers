@@ -2,7 +2,6 @@ import React from "react";
 import Form from "./Form";
 import all_constants from "../constants";
 import {View} from "react-native";
-import update_offer_infos from "../api/update_offer_infos";
 import {
     checkValueIsDefined,
     checkValueNotContainsSpecialChar,

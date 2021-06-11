@@ -2,7 +2,6 @@ import React from "react";
 import Form from "./Form";
 import all_constants from "../constants";
 import {View} from "react-native";
-import update_menu_infos from "../api/update_menu_infos";
 import {checkValueNotContainsSpecialChar, checkValueIsDefined, valueIsValidPrice} from "../validators/global_validators"
 import {checkMenuCoherence} from "../validators/menuformview_validators"
 import {callBackEnd} from "../api/fetch";

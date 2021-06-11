@@ -1,7 +1,6 @@
 import React from "react";
 import {View} from "react-native";
 import Form from "./Form";
-import submit_login_credentials from "../api/submit_login_credentials";
 import all_constants from "../constants";
 import {checkValueIsDefined} from "../validators/global_validators";
 import {checkEmailFormat} from "../validators/settingsform_validators";

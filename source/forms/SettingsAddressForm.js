@@ -2,7 +2,6 @@ import React from "react";
 import Form from "./Form";
 import all_constants from "../constants";
 import {View} from "react-native";
-import update_user_settings from "../api/update_settings";
 import {checkValueIsDefined, checkValueNotContainsSpecialChar} from "../validators/global_validators";
 import {checkPostalCode} from "../validators/settingsform_validators";
 import {callBackEnd} from "../api/fetch";

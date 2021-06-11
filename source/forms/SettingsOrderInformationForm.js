@@ -2,7 +2,6 @@ import React from "react";
 import Form from "./Form";
 import all_constants from "../constants";
 import {View} from "react-native";
-import update_user_settings from "../api/update_settings";
 import {getDaysOfWeek} from "../helpers/global_helpers";
 import {checkValueIsDefined} from "../validators/global_validators";
 import {checkMaxDishesNumber, checkHourFormat, checkHourCoherence, checkEmptyDeliveryHours, checkGlobalDeliveryCoherence} from "../validators/settingsform_validators";
