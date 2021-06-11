@@ -502,6 +502,12 @@ export const all_constants = {
                 "Le client sera prévenu que vous avez annulé sa commande."
             )
         }
+    },
+    uri:{
+        api:{
+            mock: "https://postman-echo.com/post"
+        },
+        rating_star: 'https://starpng.com/public/uploads/preview/yellow-star-transparent-background-png-101577029288c5hv8odvjm.png',
     }
 }
 
