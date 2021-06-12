@@ -1,9 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import DishListView from "../listviews/DishListView";
 import all_constants from "../constants";
 import StateTab from "./StateTab";
-import DishFormView from "../forms/DishFormView";
 import DishButton from "../button/DishButton";
 
 
