@@ -58,6 +58,10 @@ export const all_constants = {
                 title: "Statut de la commande",
                 message: "La commande a bien été annulée."
             },
+            error:{
+                title: "Erreur",
+                message: "L'opération a échoué. Attendez quelques minutes avant de réessayer."
+            }
         },
     },
     label: {
