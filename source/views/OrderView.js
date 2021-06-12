@@ -68,7 +68,6 @@ export default class OrderView extends Component {
                             cancelText={all_constants.custom_alert.homeview.cancel_text}
                             onConfirmPressed={() => {
                                 this.setState({showAlert: false});
-                                this.setState({acceptOrder: false});
                                 this.updateOrderStatus(all_constants.order.status.approved);
                             }}
                             onCancelPressed={() => {
@@ -90,7 +89,6 @@ export default class OrderView extends Component {
                             cancelText={all_constants.custom_alert.homeview.cancel_text}
                             onConfirmPressed={() => {
                                 this.setState({showAlert: false});
-                                this.setState({declineOrder: false});
                                 this.updateOrderStatus(all_constants.order.status.canceled);
                             }}
                             onCancelPressed={() => {
