@@ -49,6 +49,16 @@ export const all_constants = {
         warning: {
             title: 'Warning',
         },
+        orders:{
+            accept:{
+                title: "Statut de la commande",
+                message: "La commande a bien été acceptée."
+            },
+            cancel:{
+                title: "Statut de la commande",
+                message: "La commande a bien été annulée."
+            },
+        },
     },
     label: {
         home: {
