@@ -4,15 +4,31 @@ import styles_balance from '../styles/styles-balance.js'
 import all_constants from "../constants";
 import Balance from "../components/Balance"
 import HorizontalLine from "../components/HorizontalLine";
-import {getDataFromUniqueField} from "../helpers/global_helpers";
+import {getData, getDataFromUniqueField} from "../helpers/global_helpers";
 import {getOrders} from "../helpers/order_helpers";
 
 
 export default function BalanceButton({...props}) {
+
+    const getOrderList = () => {
+        if (props.route.params.tag === all_constants.tag.balance.history){
+            return props.route.params.item;
+        }
+        return getOrders();
+    }
     return (
         <View style={{marginTop: props.allProps.route.params.tag === all_constants.tag.balance.history ? '15%' : '0%'}}>
             <FlatList
-                data={props.balance_list_data}
+                data={
+                    getData(
+                        getOrderList(),
+                        undefined,
+                        undefined,
+                        undefined,
+                        "order_number",
+                        [ "order_number", "order_amount", "order_date"]
+                    )
+                }
                 ListFooterComponent={<View></View>}
                 ListFooterComponentStyle={{borderWidth: 5, borderColor: 'red', borderRadius: 50}}
                 ListEmptyComponent={
