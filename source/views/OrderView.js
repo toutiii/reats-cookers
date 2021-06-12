@@ -47,7 +47,8 @@ export default class OrderView extends Component {
     render() {
         return (
             <View style={styles_order_view.container}>
-                {this.state.isSubmitting && (
+                {
+                    this.state.isSubmitting && (
                     <View style={styles_form.activityIndicatorContainer}>
                         <ActivityIndicator size="large" color="tomato" />
                     </View>
