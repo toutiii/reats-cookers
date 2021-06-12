@@ -31,11 +31,15 @@ export default class OrderView extends Component {
         this.setState({modalVisible: false })
     }
     updateOrderStatus = async (newStatus) => {
+        let oldStatus = this.props.route.params.item['order_status'];
         this.setState({isSubmitting: true});
         this.fadeOut();
         this.props.route.params.item['order_status'] = newStatus;
         this.state.result = await callBackEnd(this.props.route.params.item, all_constants.uri.api.mock, 'POST');
         await new Promise(resolve => setTimeout(resolve, 1500));
+        if (!this.state.result.ok){
+            this.props.route.params.item['order_status'] = oldStatus;
+        }
         this.setState({isSubmitting: false});
         this.setState({showAlert: true});
         this.fadeIn();
