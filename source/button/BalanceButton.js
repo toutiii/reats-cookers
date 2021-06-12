@@ -17,7 +17,7 @@ export default function BalanceButton({...props}) {
         return getOrders();
     }
     return (
-        <View style={{marginTop: props.allProps.route.params.tag === all_constants.tag.balance.history ? '15%' : '0%'}}>
+        <View>
             <FlatList
                 data={
                     getData(
