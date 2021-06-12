@@ -5,6 +5,8 @@ import all_constants from "../constants";
 import Order from "../components/Order"
 import CustomButton from "./CustomButton";
 import OrderModal from "../modals/OrderModal";
+import {getData} from "../helpers/global_helpers";
+import {getOrders} from "../helpers/order_helpers";
 
 
 export default function OrderButton({...props}) {
@@ -74,6 +76,14 @@ export default function OrderButton({...props}) {
             return orderDeliveryData;
         }
     }
+
+    const getOrderList = () => {
+        if (props.route.params.tag === all_constants.tag.orders.archived){
+            return props.route.params.item;
+        }
+        return getOrders();
+    }
+
     return (
         <View style={{flex: 1 , marginTop: props.allProps.route.params.tag === all_constants.tag.orders.archived ? '10%' : '0%'}}>
             {
@@ -109,7 +119,15 @@ export default function OrderButton({...props}) {
                 flex: props.allProps.route.params.tag === all_constants.tag.orders.paid ? 10 : 1,
             }}>
                 <FlatList
-                    data={props.order_list_data}
+                    data={
+                        getData(
+                            getOrderList(),
+                            props.route.params.tag,
+                            undefined,
+                            'order_tag',
+                            'id',
+                        )
+                    }
                     ListFooterComponent={<View></View>}
                     ListFooterComponentStyle={{borderWidth: 5, borderColor: 'red', borderRadius: 50}}
                     ListEmptyComponent={
