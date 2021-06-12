@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import all_constants from "../constants";
 import HistoryFormView from "../forms/HistoryFormView";
-import OrderListView from "../listviews/OrderListView";
-import BalanceListView from "../listviews/BalanceListView";
 import BalanceButton from "../button/BalanceButton";
 import OrderButton from "../button/OrderButton";
 
