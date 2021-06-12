@@ -10,7 +10,7 @@ import {getDishes} from "../helpers/dish_helpers";
 
 export default function DishButton({...props}) {
     return (
-        <View>
+        <View style={{flex: 1}}>
             <FlatList
                 data={
                     getData(

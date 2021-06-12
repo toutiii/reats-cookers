@@ -8,7 +8,7 @@ import HorizontalLine from "../components/HorizontalLine";
 
 export default function OrderButton({...props}) {
     return (
-        <View>
+        <View style={{flex: 1}}>
             <FlatList
                 data={props.menu_list_data}
                 ListFooterComponent={<View></View>}

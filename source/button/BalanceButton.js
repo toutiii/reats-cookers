@@ -17,7 +17,7 @@ export default function BalanceButton({...props}) {
         return getOrders();
     }
     return (
-        <View>
+        <View style={{flex: 1}}>
             <FlatList
                 data={
                     getData(

@@ -8,7 +8,7 @@ import Offer from "../components/Offer";
 
 export default function OfferButton({...props}) {
     return (
-        <View>
+        <View style={{flex: 1}}>
             <FlatList
                 data={props.offer_list_data}
                 ListFooterComponent={<View></View>}
