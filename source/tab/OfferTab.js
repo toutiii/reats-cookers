@@ -4,6 +4,7 @@ import OfferListView from "../listviews/OfferListView";
 import all_constants from "../constants";
 import StateTab from "./StateTab";
 import OfferFormView from "../forms/OfferFormView";
+import OfferButton from "../button/OfferButton";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -29,7 +30,7 @@ export default function OfferTab () {
                 options={{ title: all_constants.tab.offer_tab.title.offer}}
                 initialParams={{
                     tag: all_constants.tag.offer.promotion,
-                    child_component: OfferListView
+                    child_component: OfferButton
                 }}
             />
         </Tab.Navigator>
