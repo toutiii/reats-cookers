@@ -86,6 +86,7 @@ export default class OrderView extends Component {
                     )
                 }
                 {
+                    this.state.showAlert && this.state.acceptOrder && Object.keys(this.state.result).length === 0 && (
                         <CustomAlert
                             show={this.state.showAlert}
                             title={all_constants.custom_alert.orderview.accept_order_title}
@@ -106,7 +107,7 @@ export default class OrderView extends Component {
                     )
                 }
                 {
-                    this.state.showAlert && this.state.declineOrder && (
+                    this.state.showAlert && this.state.declineOrder && Object.keys(this.state.result).length === 0 &&(
                         <CustomAlert
                             show={this.state.showAlert}
                             title={all_constants.custom_alert.orderview.decline_order_title}
