@@ -8,6 +8,7 @@ import CustomButton from "../button/CustomButton";
 import DishModal from "../modals/DishModal";
 import CustomAlert from "../components/CustomAlert";
 import styles_form from "../styles/styles-form";
+import {callBackEnd} from "../api/fetch";
 
 export default class OrderView extends Component {
     constructor(props) {
@@ -31,6 +32,7 @@ export default class OrderView extends Component {
     updateOrderStatus = async (newStatus) => {
         this.fadeOut();
         this.props.route.params.item['order_status'] = newStatus;
+        await callBackEnd(this.props.route.params.item, all_constants.uri.api.mock, 'POST')
         await new Promise(resolve => setTimeout(resolve, 1500));
         this.setState({isSubmitting: false});
         this.fadeIn();
