@@ -4,6 +4,7 @@ import DishListView from "../listviews/DishListView";
 import all_constants from "../constants";
 import StateTab from "./StateTab";
 import DishFormView from "../forms/DishFormView";
+import DishButton from "../button/DishButton";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -30,7 +31,7 @@ export default function DishTab () {
                 options={{ title: all_constants.tab.dish_tab.title.starter}}
                 initialParams={{
                     tag: all_constants.tag.dishes.starter,
-                    child_component: DishListView
+                    child_component: DishButton
                 }}
             />
             <Tab.Screen
@@ -39,7 +40,7 @@ export default function DishTab () {
                 options={{ title: all_constants.tab.dish_tab.title.main_dish}}
                 initialParams={{
                     tag: all_constants.tag.dishes.dish,
-                    child_component: DishListView
+                    child_component: DishButton
                 }}
             />
             <Tab.Screen
@@ -48,7 +49,7 @@ export default function DishTab () {
                 options={{ title: all_constants.tab.dish_tab.title.dessert}}
                 initialParams={{
                     tag: all_constants.tag.dishes.dessert,
-                    child_component: DishListView
+                    child_component: DishButton
                 }}
             />
             <Tab.Screen
@@ -57,7 +58,7 @@ export default function DishTab () {
                 options={{ title: all_constants.tab.dish_tab.title.drinks}}
                 initialParams={{
                     tag: all_constants.tag.dishes.drink,
-                    child_component: DishListView
+                    child_component: DishButton
                 }}
             />
         </Tab.Navigator>
