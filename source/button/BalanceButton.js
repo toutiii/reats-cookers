@@ -32,7 +32,7 @@ export default function BalanceButton({...props}) {
                 ListFooterComponent={<View></View>}
                 ListFooterComponentStyle={{borderWidth: 5, borderColor: 'red', borderRadius: 50}}
                 ListEmptyComponent={
-                    <View><Text style={{fontSize: 20}}>{all_constants.order.no_balance_found}</Text></View>
+                    <View style={{flex: 1, alignItems: 'center'}}><Text style={{fontSize: 20}}>{all_constants.order.no_balance_found}</Text></View>
                 }
                 renderItem={({item}) => (
                     <View style={styles_balance.balance_button_container}>
