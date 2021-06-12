@@ -37,6 +37,7 @@ export default class OrderView extends Component {
         this.state.result = await callBackEnd(this.props.route.params.item, all_constants.uri.api.mock, 'POST');
         await new Promise(resolve => setTimeout(resolve, 1500));
         this.setState({isSubmitting: false});
+        this.setState({showAlert: true});
         this.fadeIn();
     }
     fadeOut = () => {
