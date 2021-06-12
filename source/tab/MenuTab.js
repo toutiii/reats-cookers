@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import MenuListView from "../listviews/MenuListView";
 import all_constants from "../constants";
 import StateTab from "./StateTab";
-import MenuFormView from "../forms/MenuFormView";
+import MenuButton from "../button/MenuButton";
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -29,7 +29,7 @@ export default function MenuTab () {
                 options={{ title: all_constants.tab.dish_tab.title.menu}}
                 initialParams={{
                     tag: all_constants.tag.dishes.menu,
-                    child_component: MenuListView
+                    child_component: MenuButton
                 }}
             />
         </Tab.Navigator>
