@@ -4,13 +4,23 @@ import styles_dish from '../styles/styles-dish'
 import all_constants from "../constants";
 import HorizontalLine from "../components/HorizontalLine";
 import Dish from "../components/Dish";
+import {getData} from "../helpers/global_helpers";
+import {getDishes} from "../helpers/dish_helpers";
 
 
 export default function DishButton({...props}) {
     return (
         <View>
             <FlatList
-                data={props.dish_list_data}
+                data={
+                    getData(
+                        getDishes(),
+                        props.route.params.tag,
+                        props.route.params.isEnabled,
+                        'dish_category',
+                        'id',
+                    )
+                }
                 ListFooterComponent={<View></View>}
                 ListFooterComponentStyle={{borderWidth: 5, borderColor: 'red', borderRadius: 50}}
                 ListEmptyComponent={
