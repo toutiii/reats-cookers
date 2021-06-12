@@ -4,6 +4,7 @@ import all_constants from "../constants";
 import HistoryFormView from "../forms/HistoryFormView";
 import OrderListView from "../listviews/OrderListView";
 import BalanceListView from "../listviews/BalanceListView";
+import BalanceButton from "../button/BalanceButton";
 
 const Stack = createStackNavigator();
 
@@ -37,7 +38,7 @@ export default class HistoryStack extends Component{
                 />
                 <Stack.Screen
                     name="BalanceHistory"
-                    component={BalanceListView}
+                    component={BalanceButton}
                     options={{
                         headerShown: true,
                         title: all_constants.tab.balance_tab.title.history_balance,

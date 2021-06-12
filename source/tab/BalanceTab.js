@@ -3,6 +3,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import BalanceListView from "../listviews/BalanceListView";
 import all_constants from "../constants";
 import HistoryStack from "../stack/HistoryStack";
+import BalanceButton from "../button/BalanceButton";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -20,7 +21,7 @@ export default function BalanceTab () {
         >
             <Tab.Screen
                 name="PendingBalance"
-                component={BalanceListView}
+                component={BalanceButton}
                 options={{ title: all_constants.tab.balance_tab.title.pending }}
                 initialParams={{tag: all_constants.tag.balance.pending}}
             />
