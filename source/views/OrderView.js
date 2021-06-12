@@ -26,6 +26,11 @@ export default class OrderView extends Component {
     onPressCloseModal = () => {
         this.setState({modalVisible: false })
     }
+    updateOrderStatus = async (newStatus) => {
+        this.props.route.params.item['order_status'] = newStatus;
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        this.setState({isSubmitting: false});
+    }
 
     render() {
         return (
@@ -44,6 +49,7 @@ export default class OrderView extends Component {
                                 this.setState({showAlert: false});
                                 this.setState({acceptOrder: false});
                                 this.setState({isSubmitting: true});
+                                this.updateOrderStatus(all_constants.order.status.approved);
                             }}
                             onCancelPressed={() => {
                                 this.setState({showAlert: false});
@@ -66,6 +72,7 @@ export default class OrderView extends Component {
                                 this.setState({showAlert: false});
                                 this.setState({declineOrder: false});
                                 this.setState({isSubmitting: true});
+                                this.updateOrderStatus(all_constants.order.status.canceled);
                             }}
                             onCancelPressed={() => {
                                 this.setState({showAlert: false});
