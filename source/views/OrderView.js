@@ -30,6 +30,7 @@ export default class OrderView extends Component {
         this.setState({modalVisible: false })
     }
     updateOrderStatus = async (newStatus) => {
+        this.setState({isSubmitting: true});
         this.fadeOut();
         this.props.route.params.item['order_status'] = newStatus;
         await callBackEnd(this.props.route.params.item, all_constants.uri.api.mock, 'POST')
@@ -66,7 +67,6 @@ export default class OrderView extends Component {
                             onConfirmPressed={() => {
                                 this.setState({showAlert: false});
                                 this.setState({acceptOrder: false});
-                                this.setState({isSubmitting: true});
                                 this.updateOrderStatus(all_constants.order.status.approved);
                             }}
                             onCancelPressed={() => {
@@ -89,7 +89,6 @@ export default class OrderView extends Component {
                             onConfirmPressed={() => {
                                 this.setState({showAlert: false});
                                 this.setState({declineOrder: false});
-                                this.setState({isSubmitting: true});
                                 this.updateOrderStatus(all_constants.order.status.canceled);
                             }}
                             onCancelPressed={() => {
