@@ -38,7 +38,7 @@ export default function BalanceButton({...props}) {
                     <View style={styles_balance.balance_button_container}>
                         <TouchableHighlight
                             onPress={() => {
-                                props.allProps.navigation.navigate('OrderView', {item: getDataFromUniqueField(getOrders(), item.order_number)})
+                                props.navigation.navigate('OrderView', {item: getDataFromUniqueField(getOrders(), item.order_number)})
                             }}
                             style={{flex: 1}}
                             underlayColor={all_constants.colors.inputBorderColor}
