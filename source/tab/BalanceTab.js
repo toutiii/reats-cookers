@@ -1,6 +1,5 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import BalanceListView from "../listviews/BalanceListView";
 import all_constants from "../constants";
 import HistoryStack from "../stack/HistoryStack";
 import BalanceButton from "../button/BalanceButton";
