@@ -6,7 +6,7 @@ import Menu from "../components/Menu"
 import HorizontalLine from "../components/HorizontalLine";
 
 
-export default function OrderButton({...props}) {
+export default function MenuButton({...props}) {
     return (
         <View style={{flex: 1}}>
             <FlatList
