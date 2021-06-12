@@ -7,6 +7,7 @@ import Order from "../components/Order";
 import CustomButton from "../button/CustomButton";
 import DishModal from "../modals/DishModal";
 import CustomAlert from "../components/CustomAlert";
+import styles_form from "../styles/styles-form";
 
 export default class OrderView extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ export default class OrderView extends Component {
             acceptOrder: false,
             declineOrder: false,
             isSubmitting: false,
+            opacity: new Animated.Value(1)
         }
     }
 
@@ -27,14 +29,27 @@ export default class OrderView extends Component {
         this.setState({modalVisible: false })
     }
     updateOrderStatus = async (newStatus) => {
+        this.fadeOut();
         this.props.route.params.item['order_status'] = newStatus;
         await new Promise(resolve => setTimeout(resolve, 1500));
         this.setState({isSubmitting: false});
+        this.fadeIn();
+    }
+    fadeOut = () => {
+        Animated.timing(this.state.opacity, { toValue: 0.2, duration: 200, useNativeDriver: true }).start();
+    }
+   fadeIn = () => {
+        Animated.timing(this.state.opacity, { toValue: 1, duration: 200, useNativeDriver: true }).start();
     }
 
     render() {
         return (
             <View style={styles_order_view.container}>
+                {this.state.isSubmitting && (
+                    <View style={styles_form.activityIndicatorContainer}>
+                        <ActivityIndicator size="large" color="tomato" />
+                    </View>
+                )}
                 {
                     this.state.showAlert && this.state.acceptOrder && (
                         <CustomAlert
@@ -81,7 +96,7 @@ export default class OrderView extends Component {
                         />
                     )
                 }
-                <View>
+                <Animated.View style={{opacity: this.state.opacity}}>
                     <View style={{flex: 2}}>
                         <Order
                             order_number={this.props.route.params.item.order_number}
@@ -170,7 +185,7 @@ export default class OrderView extends Component {
                             />
                         </View>
                     </View>
-                </View>
+                </Animated.View>
                 <DishModal
                     state={this.state.modalVisible}
                     onPressCloseModal={this.onPressCloseModal}
