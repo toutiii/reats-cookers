@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View} from "react-native";
-import OrderButton from "../button/OrderButton"
+import OrderFlatList from "../button/OrderFlatList"
 import styles_order from "../styles/styles-order"
 import {getOrders} from "../helpers/order_helpers";
 import {getData} from "../helpers/global_helpers";
@@ -22,7 +22,7 @@ export default class OrderListView extends Component {
     render() {
         return(
             <View style={styles_order.container}>
-                <OrderButton
+                <OrderFlatList
                     order_list_data={getData(
                         this.getOrderList(),
                         this.props.route.params.tag,

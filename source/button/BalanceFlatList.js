@@ -8,7 +8,7 @@ import {getData, getDataFromUniqueField} from "../helpers/global_helpers";
 import {getOrders} from "../helpers/order_helpers";
 
 
-export default function BalanceButton({...props}) {
+export default function BalanceFlatList({...props}) {
 
     const getOrderList = () => {
         if (props.route.params.tag === all_constants.tag.balance.history){

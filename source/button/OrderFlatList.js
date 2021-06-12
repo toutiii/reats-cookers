@@ -9,7 +9,7 @@ import {getData} from "../helpers/global_helpers";
 import {getOrders} from "../helpers/order_helpers";
 
 
-export default function OrderButton({...props}) {
+export default function OrderFlatList({...props}) {
     const [modalState, setModalState] = useState(false);
     const onPressShowModal = () => {
         setModalState(true)

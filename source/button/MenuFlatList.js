@@ -8,7 +8,7 @@ import {getData} from "../helpers/global_helpers";
 import {getMenus} from "../helpers/menu_helpers";
 
 
-export default function MenuButton({...props}) {
+export default function MenuFlatList({...props}) {
     return (
         <View style={{flex: 1}}>
             <FlatList

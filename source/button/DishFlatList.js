@@ -8,7 +8,7 @@ import {getData} from "../helpers/global_helpers";
 import {getDishes} from "../helpers/dish_helpers";
 
 
-export default function DishButton({...props}) {
+export default function DishFlatList({...props}) {
     return (
         <View style={{flex: 1}}>
             <FlatList

@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import all_constants from "../constants";
 import HistoryFormView from "../forms/HistoryFormView";
-import BalanceButton from "../button/BalanceButton";
-import OrderButton from "../button/OrderButton";
+import BalanceFlatList from "../button/BalanceFlatList";
+import OrderFlatList from "../button/OrderFlatList";
 
 const Stack = createStackNavigator();
 
@@ -26,7 +26,7 @@ export default class HistoryStack extends Component{
                 />
                 <Stack.Screen
                     name="OrderHistory"
-                    component={OrderButton}
+                    component={OrderFlatList}
                     options={{
                         headerShown: true,
                         title: all_constants.tab.order_tab.title.history_order,
@@ -37,7 +37,7 @@ export default class HistoryStack extends Component{
                 />
                 <Stack.Screen
                     name="BalanceHistory"
-                    component={BalanceButton}
+                    component={BalanceFlatList}
                     options={{
                         headerShown: true,
                         title: all_constants.tab.balance_tab.title.history_balance,

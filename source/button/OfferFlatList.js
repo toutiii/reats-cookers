@@ -8,7 +8,7 @@ import {getData} from "../helpers/global_helpers";
 import {getOffers} from "../helpers/offer_helpers";
 
 
-export default function OfferButton({...props}) {
+export default function OfferFlatList({...props}) {
     return (
         <View style={{flex: 1}}>
             <FlatList

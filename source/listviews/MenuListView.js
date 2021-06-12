@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View} from "react-native";
-import MenuButton from "../button/MenuButton"
+import MenuFlatList from "../button/MenuFlatList"
 import styles_menu from "../styles/styles-balance"
 import {getMenus} from "../helpers/menu_helpers";
 import {getData} from "../helpers/global_helpers";
@@ -14,7 +14,7 @@ export default class MenuListView extends Component {
     render() {
         return(
             <View style={styles_menu.container}>
-                <MenuButton
+                <MenuFlatList
                     menu_list_data={
                         getData(
                             getMenus(),
