@@ -4,13 +4,22 @@ import all_constants from "../constants";
 import HorizontalLine from "../components/HorizontalLine";
 import styles_dish from "../styles/styles-dish";
 import Offer from "../components/Offer";
+import {getData} from "../helpers/global_helpers";
+import {getOffers} from "../helpers/offer_helpers";
 
 
 export default function OfferButton({...props}) {
     return (
         <View style={{flex: 1}}>
             <FlatList
-                data={props.offer_list_data}
+                data={
+                    getData(
+                        getOffers(),
+                        props.route.params.tag,
+                        props.route.params.isEnabled,
+                        'offer_tag'
+                    )
+                }
                 ListFooterComponent={<View></View>}
                 ListFooterComponentStyle={{borderWidth: 5, borderColor: 'red', borderRadius: 50}}
                 ListEmptyComponent={
