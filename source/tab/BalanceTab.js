@@ -2,7 +2,7 @@ import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import all_constants from "../constants";
 import HistoryStack from "../stack/HistoryStack";
-import BalanceFlatList from "../button/BalanceFlatList";
+import BalanceFlatList from "../flatlist/BalanceFlatList";
 
 const Tab = createMaterialTopTabNavigator();
 

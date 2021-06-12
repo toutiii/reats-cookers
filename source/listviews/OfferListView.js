@@ -3,7 +3,7 @@ import {View} from "react-native";
 import styles_menu from "../styles/styles-balance"
 import {getOffers} from "../helpers/offer_helpers";
 import {getData} from "../helpers/global_helpers";
-import OfferFlatList from "../button/OfferFlatList";
+import OfferFlatList from "../flatlist/OfferFlatList";
 
 
 export default class OfferListView extends Component {

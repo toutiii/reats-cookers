@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View} from "react-native";
-import MenuFlatList from "../button/MenuFlatList"
+import MenuFlatList from "../flatlist/MenuFlatList"
 import styles_menu from "../styles/styles-balance"
 import {getMenus} from "../helpers/menu_helpers";
 import {getData} from "../helpers/global_helpers";

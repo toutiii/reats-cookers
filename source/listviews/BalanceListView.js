@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View} from "react-native";
-import BalanceFlatList from "../button/BalanceFlatList"
+import BalanceFlatList from "../flatlist/BalanceFlatList"
 import styles_balance from "../styles/styles-balance"
 import {getData} from "../helpers/global_helpers";
 import {getOrders} from "../helpers/order_helpers";

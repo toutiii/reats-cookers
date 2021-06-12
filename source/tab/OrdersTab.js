@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import all_constants from "../constants";
 import HistoryFormView from "../forms/HistoryFormView";
 import HistoryStack from "../stack/HistoryStack";
-import OrderFlatList from "../button/OrderFlatList";
+import OrderFlatList from "../flatlist/OrderFlatList";
 
 const Tab = createMaterialTopTabNavigator();
 

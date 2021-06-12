@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View} from "react-native";
-import DishFlatList from "../button/DishFlatList";
+import DishFlatList from "../flatlist/DishFlatList";
 import styles_dish from '../styles/styles-dish'
 import { getDishes } from "../helpers/dish_helpers"
 import { getData } from "../helpers/global_helpers";

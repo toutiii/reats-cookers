@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import MenuListView from "../listviews/MenuListView";
 import all_constants from "../constants";
 import StateTab from "./StateTab";
-import MenuFlatList from "../button/MenuFlatList";
+import MenuFlatList from "../flatlist/MenuFlatList";
 
 
 const Tab = createMaterialTopTabNavigator();

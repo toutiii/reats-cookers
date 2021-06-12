@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {View} from "react-native";
-import OrderFlatList from "../button/OrderFlatList"
+import OrderFlatList from "../flatlist/OrderFlatList"
 import styles_order from "../styles/styles-order"
 import {getOrders} from "../helpers/order_helpers";
 import {getData} from "../helpers/global_helpers";

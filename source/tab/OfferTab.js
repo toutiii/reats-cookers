@@ -4,7 +4,7 @@ import OfferListView from "../listviews/OfferListView";
 import all_constants from "../constants";
 import StateTab from "./StateTab";
 import OfferFormView from "../forms/OfferFormView";
-import OfferFlatList from "../button/OfferFlatList";
+import OfferFlatList from "../flatlist/OfferFlatList";
 
 
 const Tab = createMaterialTopTabNavigator();

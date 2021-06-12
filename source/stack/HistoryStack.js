@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import all_constants from "../constants";
 import HistoryFormView from "../forms/HistoryFormView";
-import BalanceFlatList from "../button/BalanceFlatList";
-import OrderFlatList from "../button/OrderFlatList";
+import BalanceFlatList from "../flatlist/BalanceFlatList";
+import OrderFlatList from "../flatlist/OrderFlatList";
 
 const Stack = createStackNavigator();
 
