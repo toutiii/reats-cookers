@@ -86,6 +86,22 @@ export default class OrderView extends Component {
                     )
                 }
                 {
+                    !this.state.isSubmitting && !this.state.result.ok && Object.keys(this.state.result).length !== 0 && (
+                        <CustomAlert
+                            show={this.state.showAlert}
+                            title={all_constants.messages.orders.error.title}
+                            message={all_constants.messages.orders.error.message}
+                            confirmButtonColor='red'
+                            onConfirmPressed={() => {
+                                this.setState({showAlert: false});
+                                this.setState({declineOrder: false});
+                                this.setState({acceptOrder: false});
+                                this.setState({result: {}})
+                            }}
+                        />
+                    )
+                }
+                {
                     this.state.showAlert && this.state.acceptOrder && Object.keys(this.state.result).length === 0 && (
                         <CustomAlert
                             show={this.state.showAlert}
