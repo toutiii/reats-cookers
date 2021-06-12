@@ -28,7 +28,7 @@ export default function OfferButton({...props}) {
                 renderItem={({item}) => (
                     <View style={styles_dish.dish_button_container}>
                         <TouchableHighlight
-                            onPress={() => {props.allProps.navigation.navigate('OfferFormView', { item: item });}}
+                            onPress={() => {props.navigation.navigate('OfferFormView', { item: item });}}
                             style={{flex: 1}}
                             underlayColor={all_constants.colors.inputBorderColor}
                         >
