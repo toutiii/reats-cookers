@@ -19,7 +19,8 @@ export default class OrderView extends Component {
             acceptOrder: false,
             declineOrder: false,
             isSubmitting: false,
-            opacity: new Animated.Value(1)
+            opacity: new Animated.Value(1),
+            result: {}
         }
     }
 
@@ -33,7 +34,7 @@ export default class OrderView extends Component {
         this.setState({isSubmitting: true});
         this.fadeOut();
         this.props.route.params.item['order_status'] = newStatus;
-        await callBackEnd(this.props.route.params.item, all_constants.uri.api.mock, 'POST')
+        this.state.result = await callBackEnd(this.props.route.params.item, all_constants.uri.api.mock, 'POST');
         await new Promise(resolve => setTimeout(resolve, 1500));
         this.setState({isSubmitting: false});
         this.fadeIn();
