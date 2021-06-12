@@ -15,7 +15,8 @@ export default class OrderView extends Component {
             modalVisible: false,
             showAlert: false,
             acceptOrder: false,
-            declineOrder: false
+            declineOrder: false,
+            isSubmitting: false,
         }
     }
 
@@ -42,6 +43,7 @@ export default class OrderView extends Component {
                             onConfirmPressed={() => {
                                 this.setState({showAlert: false});
                                 this.setState({acceptOrder: false});
+                                this.setState({isSubmitting: true});
                             }}
                             onCancelPressed={() => {
                                 this.setState({showAlert: false});
@@ -63,6 +65,7 @@ export default class OrderView extends Component {
                             onConfirmPressed={() => {
                                 this.setState({showAlert: false});
                                 this.setState({declineOrder: false});
+                                this.setState({isSubmitting: true});
                             }}
                             onCancelPressed={() => {
                                 this.setState({showAlert: false});
