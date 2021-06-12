@@ -4,13 +4,22 @@ import styles_menu from '../styles/styles-menu.js'
 import all_constants from "../constants";
 import Menu from "../components/Menu"
 import HorizontalLine from "../components/HorizontalLine";
+import {getData} from "../helpers/global_helpers";
+import {getMenus} from "../helpers/menu_helpers";
 
 
 export default function MenuButton({...props}) {
     return (
         <View style={{flex: 1}}>
             <FlatList
-                data={props.menu_list_data}
+                data={
+                    getData(
+                        getMenus(),
+                        props.route.params.tag,
+                        props.route.params.isEnabled,
+                        'menu_tag'
+                    )
+                }
                 ListFooterComponent={<View></View>}
                 ListFooterComponentStyle={{borderWidth: 5, borderColor: 'red', borderRadius: 50}}
                 ListEmptyComponent={
