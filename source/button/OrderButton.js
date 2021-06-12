@@ -19,8 +19,14 @@ export default function OrderButton({...props}) {
     }
     const buildDishDataForOrderModal = () => {
         // We do this only for paid orders
-        if (props.allProps.route.params.tag === all_constants.tag.orders.paid) {
-            const orders_data = props.order_list_data;
+        if (props.route.params.tag === all_constants.tag.orders.paid) {
+            const orders_data = getData(
+                getOrderList(),
+                props.route.params.tag,
+                undefined,
+                'order_tag',
+                'id',
+            );
             const indexes = Object.keys(orders_data)
             let orderModalData = {};
             let orderTotalAmount = 0;
@@ -53,8 +59,14 @@ export default function OrderButton({...props}) {
         }
     }
     const buildDeliveryDataForOrderModal = () => {
-        if (props.allProps.route.params.tag === all_constants.tag.orders.paid) {
-            const orders_data = props.order_list_data;
+        if (props.route.params.tag === all_constants.tag.orders.paid) {
+            const orders_data = getData(
+                getOrderList(),
+                props.route.params.tag,
+                undefined,
+                'order_tag',
+                'id',
+            );
             const indexes = Object.keys(orders_data);
             let orderDeliveryData = {};
             for (let i = 0; i < indexes.length; i++) {
@@ -85,9 +97,9 @@ export default function OrderButton({...props}) {
     }
 
     return (
-        <View style={{flex: 1 , marginTop: props.allProps.route.params.tag === all_constants.tag.orders.archived ? '10%' : '0%'}}>
+        <View style={{flex: 1 , marginTop: props.route.params.tag === all_constants.tag.orders.archived ? '10%' : '0%'}}>
             {
-                props.allProps.route.params.tag === all_constants.tag.orders.paid ?
+                props.route.params.tag === all_constants.tag.orders.paid ?
                     <View style={{flex: 1, marginTop: '5%', alignItems: 'center'}}>
                         <CustomButton
                             label={all_constants.modal.order_modal.show}
@@ -104,19 +116,28 @@ export default function OrderButton({...props}) {
                     <View></View>
             }
             {
-                props.allProps.route.params.tag === all_constants.tag.orders.paid ?
+                props.route.params.tag === all_constants.tag.orders.paid ?
                     <OrderModal
                         state={modalState}
                         onPressCloseModal={onPressCloseModal}
                         data={buildDishDataForOrderModal()}
                         deliveryData={buildDeliveryDataForOrderModal()}
-                        numberOfOrders={Object.keys(props.order_list_data).length}
+                        numberOfOrders={Object.keys(
+                            getData(
+                                getOrderList(),
+                                props.route.params.tag,
+                                undefined,
+                                'order_tag',
+                                'id',
+                            )
+                        ).length
+                        }
                     />
                 :
                     <View></View>
             }
             <View style={{
-                flex: props.allProps.route.params.tag === all_constants.tag.orders.paid ? 10 : 1,
+                flex: props.route.params.tag === all_constants.tag.orders.paid ? 10 : 1,
             }}>
                 <FlatList
                     data={
@@ -136,7 +157,7 @@ export default function OrderButton({...props}) {
                     renderItem={({item}) => (
                         <View style={styles_order.order_button_container}>
                             <TouchableHighlight
-                                onPress={() => { props.allProps.navigation.navigate('OrderView', { item, props })}}
+                                onPress={() => { props.navigation.navigate('OrderView', { item, props })}}
                                 style={{flex: 1}}
                                 underlayColor={all_constants.colors.inputBorderColor}
                             >
