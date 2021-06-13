@@ -10,8 +10,9 @@ export default styles_menu = StyleSheet.create({
     menu_button_container: {
         flex: 1,
         aspectRatio: 16/9,
-        margin: '3%',
-        width: '95%',
+        paddingTop: '3%',
+        paddingLeft: '2%',
+        paddingRight: '2%',
     },
     dish_label: {
         fontSize: 16,
