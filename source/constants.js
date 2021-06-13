@@ -22,10 +22,10 @@ export const all_constants = {
         min_length: 6
     },
     messages: {
-        login: 'LOG IN',
-        logout: 'LOG OUT',
+        login: 'CONNEXION',
+        logout: 'DÉCONNEXION',
         settings: 'PARAMÈTRES',
-        send: 'SEND',
+        send: 'ENVOYER',
         submit: 'VALIDER',
         cancel: 'ANNULER',
         forgotten_password: 'MOT DE PASSE OUBLIÉ ?',
@@ -33,21 +33,21 @@ export const all_constants = {
         upload_picture: 'Ouvrir la galerie',
         errors: {
             title: 'Erreur',
-            empty_email: 'Pleaser enter your email.',
-            wrong_email_format: 'Please enter a valid email.',
-            empty_password: 'Please enter your password.',
-            forgot_password: 'Forgot password ?'
+            empty_email: 'Veuillez renseigner votre mail',
+            wrong_email_format: 'Veuillez entrer un email valide',
+            empty_password: 'Veuillez renseigner votre mot de passe',
+            forgot_password: 'Mot de passe oublié ?'
         },
         success: {
             title: 'Succès',
-            email_sent: 'An email has well been sent to ',
+            email_sent: 'Un email a été envoyé à ',
             reset_password: 'Si vous êtes inscrit, vous recevrez un email contenant un nouveau mot de passe. Pensez à regarder vos spams.'
         },
         failed:{
             title: 'Échec',
         },
         warning: {
-            title: 'Warning',
+            title: 'Attention',
         },
         orders:{
             accept:{
@@ -66,20 +66,20 @@ export const all_constants = {
     },
     label: {
         home: {
-            offline: 'Go online',
-            online: 'Go offline',
+            offline: 'En ligne',
+            online: 'Hors ligne',
             status: {
-                online: 'Online',
-                offline: 'Offline',
+                online: 'En ligne',
+                offline: 'Hors ligne',
             },
             online_alert: 'You are online now and you can receive orders.',
             offline_alert: 'You are offline so users will not be able to send you orders.',
             current_week_orders: 'CURRENT WEEK ORDERS',
-            paid: 'PAID',
-            canceled: 'CANCELLED',
+            paid: 'Payées',
+            canceled: 'Annulées',
             total: 'TOTAL',
-            balance: 'BALANCE',
-            pending: 'PENDING',
+            balance: 'SOLDE',
+            pending: 'En attente',
             global_stats: 'STATISTIQUES',
             average_response_time: 'Temps moyen de réponse',
             average_approval_rate: "Taux acceptation commandes",
@@ -436,7 +436,6 @@ export const all_constants = {
                 end_date: "Sélectionnez une date de fin",
             }
         }
-
     },
     remaining_char: 'Caractères restants: ',
     permissions: {
