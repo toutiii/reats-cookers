@@ -317,10 +317,10 @@ export const all_constants = {
         no_menu_found: "Vous n'avez créé aucun menu.",
         label: {
             menu_name: 'MENU',
-            starter: 'ENTRÉE',
-            dish: 'PLAT',
-            dessert: 'DESSERT',
-            drink: 'BOISSON',
+            menu_starter: 'ENTRÉE',
+            menu_main_dish: 'PLAT',
+            menu_dessert: 'DÉSSERT',
+            menu_drink: 'BOISSON',
         },
     },
     offer: {
