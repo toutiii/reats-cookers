@@ -6,6 +6,7 @@ import HorizontalLine from "./HorizontalLine";
 
 
 export default function Menu({...props}) {
+    const menuFields = ['menu_starter', 'menu_main_dish', 'menu_dessert', 'menu_price', 'menu_drink'];
     return(
         <View style={{flex: 1, alignItems: 'center'}}>
             <View style={{flex: 1}}>
@@ -16,57 +17,22 @@ export default function Menu({...props}) {
             </View>
             <View style={{flex: 5}}>
                 {
-                    props.menu_starter ?
-                        <View style={{flex: 1, alignItems: 'center'}}>
-                            <View style={{flex: 1}}>
-                                <Text style={styles_menu.dish_label}>{all_constants.menu.label.starter}</Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text numberOfLines={1} style={styles_menu.menu_element}>{props.menu_starter}</Text>
-                            </View>
-                        </View>
-                    :
-                        <View></View>
+                    Object.keys(props).map((key) => {
+                        if (menuFields.includes(key) && props[key] !== null) {
+                            return (
+                                <View key={key} style={{flex: 1, alignItems: 'center'}}>
+                                    <View style={{flex: 1}}>
+                                        <Text style={styles_menu.dish_label}>{all_constants.menu.label[key]}</Text>
+                                    </View>
+                                    <View style={{flex: 1}}>
+                                        <Text numberOfLines={1} style={styles_menu.menu_element}>{props[key]}</Text>
+                                    </View>
+                                </View>
+                            )
+                        }
+                    })
                 }
-                <View style={{flex: 1, alignItems: 'center'}}>
-                    <View style={{flex: 1}}>
-                        <Text style={styles_menu.dish_label}>{all_constants.menu.label.dish}</Text>
-                    </View>
-                    <View style={{flex: 1}}>
-                        <Text numberOfLines={1} style={styles_menu.menu_element}>{props.menu_dish}</Text>
-                    </View>
-                </View>
-                {
-                    props.menu_dessert ?
-                        <View style={{flex: 1, alignItems: 'center'}}>
-                            <View style={{flex: 1}}>
-                                <Text style={styles_menu.dish_label}>{all_constants.menu.label.dessert}</Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text numberOfLines={1} style={styles_menu.menu_element}>{props.menu_dessert}</Text>
-                            </View>
-                        </View>
-                    :
-                        <View></View>
-                }
-                {
-                    props.menu_drink ?
-                        <View style={{flex: 1, alignItems: 'center'}}>
-                            <View style={{flex: 1}}>
-                                <Text style={styles_menu.dish_label}>{all_constants.menu.label.drink}</Text>
-                            </View>
-                            <View style={{flex: 1}}>
-                                <Text numberOfLines={1} style={styles_menu.menu_element}>{props.menu_drink}</Text>
-                            </View>
-                        </View>
-                    :
-                        <View></View>
-                }
-            </View>
-            <View style={{flex: 1, justifyContent: 'flex-end'}}>
-                <Text style={{fontSize: 18, color: 'black'}}>
-                    {props.menu_price}
-                </Text>
+
             </View>
         </View>
     )
