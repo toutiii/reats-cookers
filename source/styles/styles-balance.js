@@ -16,7 +16,7 @@ export default styles_balance = StyleSheet.create({
         flex: 1,
         aspectRatio: 5/1,
         margin: '3%',
-        width: '95%',
+        width: '94%',
         height: '30%',
     },
     order_balance: {
