@@ -1,6 +1,5 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import MenuListView from "../listviews/MenuListView";
 import all_constants from "../constants";
 import StateTab from "./StateTab";
 import MenuFlatList from "../flatlist/MenuFlatList";

@@ -1,6 +1,5 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import OfferListView from "../listviews/OfferListView";
 import all_constants from "../constants";
 import StateTab from "./StateTab";
 import OfferFormView from "../forms/OfferFormView";
