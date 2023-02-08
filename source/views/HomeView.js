@@ -129,47 +129,6 @@ export default class HomeView extends Component {
                         STATS
                     */}
 
-                    <View style={styles_home_view.label_view}>
-                        <Text style={{fontSize: 20, textAlign: 'center'}}>
-                            {all_constants.label.home.global_stats}
-                        </Text>
-                    </View>
-                    <View style={styles_home_view.order_view_style}>
-                        <View style={{flex: 1}}>
-                            <Text style={{fontSize: 18}}>
-                                {all_constants.label.home.average_response_time}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <Text style={{textAlign: 'center', fontSize: 18}}>
-                                {this.average_response_time}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <CustomImageButton
-                                onPress={() => this.onPressNavigateToTab('StatsView')}
-                                uri={this.arrow_uri}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles_home_view.order_view_style}>
-                        <View style={{flex: 1}}>
-                            <Text style={{fontSize: 18}}>
-                                {all_constants.label.home.average_rating}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <Text style={{textAlign: 'center', fontSize: 18}}>
-                                {this.average_rating}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <CustomImageButton
-                                onPress={() => this.onPressNavigateToTab('StatsView')}
-                                uri={this.arrow_uri}
-                            />
-                        </View>
-                    </View>
                 </View>
             </View>
         )
