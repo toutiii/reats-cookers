@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Image, Switch, Text, View} from "react-native";
+import {View} from "react-native";
 import styles_home_view from '../styles/styles-home-view'
 import all_constants from "../constants";
-import CustomImageButton from "../button/CustomImageButton";
-import CustomButton from "../button/CustomButton";
 import {setToken} from "../api/token";
 import {CommonActions} from "@react-navigation/native";
 import CustomAlert from "../components/CustomAlert";
