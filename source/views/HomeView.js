@@ -7,8 +7,6 @@ import CustomButton from "../button/CustomButton";
 import {setToken} from "../api/token";
 import {CommonActions} from "@react-navigation/native";
 import CustomAlert from "../components/CustomAlert";
-
-
 import LogoutAndParametersButtonsView from './LogoutAndParametersButtonsView.js';
 import UserProfilePicAndInformationView from './UserProfilePicAndInformationView';
 import ToggleView from './ToggleView';
@@ -32,7 +30,6 @@ export default class HomeView extends Component {
         });
         this.props.navigation.dispatch(resetAction);
     }
-
     render () {
         return (
             <View style={styles_home_view.container}>
@@ -79,41 +76,29 @@ export default class HomeView extends Component {
                         />
                 }
                 <View style={{alignItems: 'center'}}>
-
                     {/*
                         THE LOGOUT AND PARAMETERS BUTTONS
                     */}
-
                     <LogoutAndParametersButtonsView></LogoutAndParametersButtonsView>
-
                     {/*
                         USER PROFILE PIC AND INFORMATION
                     */}
-
                     <UserProfilePicAndInformationView></UserProfilePicAndInformationView>
-
                     {/*
                         THE TOGGLE
                     */}
-
                     <ToggleView></ToggleView>
-
                     {/*
                         CURRENT WEEK ORDER
                     */}
-
                     <CurrentWeekOrderView></CurrentWeekOrderView>
-
                     {/*
                         BALANCE
                     */}
-
                     <SplitBalanceView></SplitBalanceView>
-
                     {/*
                         STATS
                     */}
-
                     <SplitStatsView></SplitStatsView>
                 </View>
             </View>
