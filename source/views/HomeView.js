@@ -95,6 +95,7 @@ export default class HomeView extends Component {
                         THE LOGOUT AND PARAMETERS BUTTONS
                     */}
 
+                    <LogoutAndParametersButtonsView></LogoutAndParametersButtonsView>
 
                     {/*
                         USER PROFILE PIC AND INFORMATION
