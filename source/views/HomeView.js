@@ -10,6 +10,7 @@ import CustomAlert from "../components/CustomAlert";
 
 
 import LogoutAndParametersButtonsView from './LogoutAndParametersButtonsView.js';
+import UserProfilePicAndInformationView from './UserProfilePicAndInformationView';
 export default class HomeView extends Component {
     constructor(props) {
         super(props);
