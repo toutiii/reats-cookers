@@ -130,6 +130,7 @@ export default class HomeView extends Component {
                         STATS
                     */}
 
+                    <SplitStatsView></SplitStatsView>
                 </View>
             </View>
         )
