@@ -109,6 +109,7 @@ export default class HomeView extends Component {
                         THE TOGGLE
                     */}
 
+                    <ToggleView></ToggleView>
 
                     {/*
                         CURRENT WEEK ORDER
