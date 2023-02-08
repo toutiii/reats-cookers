@@ -32,9 +32,6 @@ export default class HomeView extends Component {
         });
         this.props.navigation.dispatch(resetAction);
     }
-    onPressNavigateToTab= (tab_name, screen_name) => {
-        this.props.navigation.navigate(tab_name, { screen: screen_name });
-    }
 
     render () {
         return (
