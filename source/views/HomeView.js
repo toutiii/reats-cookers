@@ -9,6 +9,7 @@ import {CommonActions} from "@react-navigation/native";
 import CustomAlert from "../components/CustomAlert";
 
 
+import LogoutAndParametersButtonsView from './LogoutAndParametersButtonsView.js';
 export default class HomeView extends Component {
     constructor(props) {
         super(props);
