@@ -122,29 +122,6 @@ export default class HomeView extends Component {
                         BALANCE
                     */}
 
-                    <View style={styles_home_view.label_view}>
-                        <Text style={{fontSize: 20, textAlign: 'center'}}>
-                            {all_constants.label.home.balance}
-                        </Text>
-                    </View>
-                    <View style={styles_home_view.order_view_style}>
-                        <View style={{flex: 1,}}>
-                            <Text style={{textAlign: 'left', fontSize: 18}}>
-                                {all_constants.label.home.pending}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <Text style={{textAlign: 'center', fontSize: 20}}>
-                                {this.current_balance}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <CustomImageButton
-                                onPress={() => this.onPressNavigateToTab('BalanceTab', 'PendingBalance')}
-                                uri={this.arrow_uri}
-                            />
-                        </View>
-                    </View>
 
                     {/*
                         STATS
