@@ -108,31 +108,6 @@ export default class HomeView extends Component {
                         THE TOGGLE
                     */}
 
-                    <View style={[styles_home_view.order_view_style, {marginTop: '10%'}]}>
-                        <View style={{flex: 1}}>
-                            <Image
-                                source={{uri: this.state.is_online ? this.offline_icon_uri : this.online_icon_uri}}
-                                style={{width: 30, height: 30}}
-                            />
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <Text style={
-                                [
-                                    styles_home_view.text,
-                                    {color: this.state.is_online ? 'red' : 'green'},
-                                    {textAlign: 'center'}
-                                ]
-                            }>
-                                {this.state.is_online ? all_constants.label.home.status.offline : all_constants.label.home.status.online}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1, alignItems: 'center'}}>
-                            <Switch
-                                onValueChange={() => {this.setState({showAlert: true})}}
-                                value={!this.state.is_online}
-                            />
-                        </View>
-                    </View>
 
                     {/*
                         CURRENT WEEK ORDER
