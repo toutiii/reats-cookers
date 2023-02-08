@@ -116,6 +116,7 @@ export default class HomeView extends Component {
                         CURRENT WEEK ORDER
                     */}
 
+                    <CurrentWeekOrderView></CurrentWeekOrderView>
 
                     {/*
                         BALANCE
