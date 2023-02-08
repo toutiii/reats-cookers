@@ -115,60 +115,6 @@ export default class HomeView extends Component {
                         CURRENT WEEK ORDER
                     */}
 
-                    <View style={styles_home_view.label_view}>
-                        <Text style={{fontSize: 20, textAlign: 'center' }}>
-                            {all_constants.label.home.current_week_orders}
-                        </Text>
-                    </View>
-                    <View style={styles_home_view.order_view_style}>
-                        <View style={{flex: 1}}>
-                            <Text style={{textAlign: 'left', fontSize: 18, color: 'green'}}>
-                                {all_constants.label.home.paid}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <Text style={{textAlign: 'center', fontSize: 20, color: 'green'}}>
-                                {this.paid_orders_count + '/' + this.max_paid_orders}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <CustomImageButton
-                                onPress={() => this.onPressNavigateToTab('OrdersTab', 'PaidOrders')}
-                                uri={this.arrow_uri}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles_home_view.order_view_style}>
-                        <View style={{flex: 1,}}>
-                            <Text style={{textAlign: 'left', fontSize: 18, color: 'red'}}>
-                                {all_constants.label.home.canceled}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <Text style={{textAlign: 'center', fontSize: 20, color: 'red'}}>
-                                {this.cancelled_orders_count}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <CustomImageButton
-                                onPress={() => this.onPressNavigateToTab('OrdersTab', 'CancelledOrders')}
-                                uri={this.arrow_uri}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles_home_view.order_view_style}>
-                        <View style={{flex: 1,}}>
-                            <Text style={{textAlign: 'left', fontSize: 18}}>
-                                {all_constants.label.home.total}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}>
-                            <Text style={{textAlign: 'center', fontSize: 20}}>
-                                {this.total_orders_count}
-                            </Text>
-                        </View>
-                        <View style={{flex: 1,}}></View>
-                    </View>
 
                     {/*
                         BALANCE
