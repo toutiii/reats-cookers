@@ -102,6 +102,7 @@ export default class HomeView extends Component {
                         USER PROFILE PIC AND INFORMATION
                     */}
 
+                    <UserProfilePicAndInformationView></UserProfilePicAndInformationView>
 
                     {/*
                         THE TOGGLE
