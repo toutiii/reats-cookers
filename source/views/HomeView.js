@@ -11,6 +11,7 @@ import CustomAlert from "../components/CustomAlert";
 
 import LogoutAndParametersButtonsView from './LogoutAndParametersButtonsView.js';
 import UserProfilePicAndInformationView from './UserProfilePicAndInformationView';
+import ToggleView from './ToggleView';
 export default class HomeView extends Component {
     constructor(props) {
         super(props);
