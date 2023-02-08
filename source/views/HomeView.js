@@ -123,6 +123,7 @@ export default class HomeView extends Component {
                         BALANCE
                     */}
 
+                    <SplitBalanceView></SplitBalanceView>
 
                     {/*
                         STATS
