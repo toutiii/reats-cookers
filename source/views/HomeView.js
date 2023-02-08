@@ -13,6 +13,7 @@ import LogoutAndParametersButtonsView from './LogoutAndParametersButtonsView.js'
 import UserProfilePicAndInformationView from './UserProfilePicAndInformationView';
 import ToggleView from './ToggleView';
 import CurrentWeekOrderView from './CurrentWeekOrderView';
+import SplitBalanceView from './SplitBalanceView';
 export default class HomeView extends Component {
     constructor(props) {
         super(props);
