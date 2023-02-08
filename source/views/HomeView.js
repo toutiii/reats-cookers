@@ -23,19 +23,6 @@ export default class HomeView extends Component {
             showAlert: false,
             willLogout: false,
         }
-        this.paid_orders_count = 15
-        this.cancelled_orders_count = 1
-        this.total_orders_count = 16
-        this.current_balance = 150 + ' €'
-        this.max_paid_orders = 30
-        this.firstname = 'Irene'
-        this.lastname = 'Janten'
-        this.email = 'toulevi@yahoo.fr'
-        this.online_icon_uri = 'https://pics.freeicons.io/uploads/icons/png/11875166141558096434-512.png'
-        this.offline_icon_uri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH-AEN1kYTBtKWdVTnIblOQzv3GR1qa4oI5A&usqp=CAU'
-        this.arrow_uri = 'https://pics.freeicons.io/uploads/icons/png/6448667931600321999-512.png'
-        this.average_response_time = '15min'
-        this.average_rating = "4.4/5"
     }
     logout = async () => {
         await setToken('');
