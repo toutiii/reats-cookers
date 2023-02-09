@@ -4,7 +4,7 @@ import styles_home_view from '../styles/styles-home-view'
 import all_constants from "../constants";
 import CustomImageButton from "../button/CustomImageButton";
 import CustomAlert from "../components/CustomAlert";
-class CurrentWeekOrderView extends Component{
+export default class CurrentWeekOrderView extends Component{
     constructor(props){
     super(props);
     this.paid_orders_count = 15
@@ -71,4 +71,3 @@ class CurrentWeekOrderView extends Component{
         )
     }
 }
-export default CurrentWeekOrderView
