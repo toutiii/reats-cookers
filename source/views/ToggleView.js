@@ -2,8 +2,7 @@ import { Component } from "react";
 import all_constants from "../constants";
 import { Image, Switch, Text, View} from "react-native";
 import styles_home_view from '../styles/styles-home-view'
-class ToggleView extends Component{
-
+export default class ToggleView extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -44,4 +43,3 @@ class ToggleView extends Component{
         )
     }
 }
-export default ToggleView
