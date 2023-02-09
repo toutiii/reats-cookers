@@ -4,7 +4,7 @@ import { Image, Text, View} from "react-native";
 import styles_home_view from '../styles/styles-home-view'
 
 
-class UserProfilePicAndInformationView extends Component{
+export default class UserProfilePicAndInformationView extends Component{
     constructor(props){
         super(props);
         this.firstname = 'Irene'
@@ -38,4 +38,3 @@ class UserProfilePicAndInformationView extends Component{
     )
     }
 }
-export default UserProfilePicAndInformationView
