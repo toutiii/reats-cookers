@@ -3,7 +3,7 @@ import CustomImageButton from "../button/CustomImageButton";
 import { Text, View} from "react-native";
 import styles_home_view from '../styles/styles-home-view'
 import all_constants from "../constants";
-class SplitStatsView extends Component{
+export default class SplitStatsView extends Component{
     constructor(props){
         super(props);
         this.arrow_uri = 'https://pics.freeicons.io/uploads/icons/png/6448667931600321999-512.png'
@@ -56,4 +56,3 @@ class SplitStatsView extends Component{
         )
     }
 }
-export default SplitStatsView
