@@ -74,12 +74,12 @@ export default class HomeView extends Component {
                         />
                 }
                 <View style={{alignItems: 'center'}}>
-                    <LogoutAndParametersButtonsView></LogoutAndParametersButtonsView>
-                    <UserProfilePicAndInformationView></UserProfilePicAndInformationView>
-                    <ToggleView></ToggleView>
-                    <CurrentWeekOrderView></CurrentWeekOrderView>
-                    <SplitBalanceView></SplitBalanceView>
-                    <SplitStatsView></SplitStatsView>
+                    <LogoutAndParametersButtonsView/>
+                    <UserProfilePicAndInformationView/>
+                    <ToggleView/>
+                    <CurrentWeekOrderView/>
+                    <SplitBalanceView/>
+                    <SplitStatsView/>
                 </View>
             </View>
         )
