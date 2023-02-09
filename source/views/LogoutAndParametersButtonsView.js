@@ -4,7 +4,7 @@ import CustomButton from "../button/CustomButton";
 import styles_home_view from '../styles/styles-home-view'
 import all_constants from "../constants";
 
-class LogoutAndParametersButtonsView extends Component {
+export default class LogoutAndParametersButtonsView extends Component {
     render() {
         return (
         <View style={styles_home_view.button_container}>
@@ -36,7 +36,7 @@ class LogoutAndParametersButtonsView extends Component {
                             />
                     </View>
             </View>
+            
         )
     }
 }
-export default LogoutAndParametersButtonsView 
