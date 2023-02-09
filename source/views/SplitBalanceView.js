@@ -3,7 +3,7 @@ import styles_home_view from '../styles/styles-home-view';
 import all_constants from "../constants";
 import CustomImageButton from "../button/CustomImageButton";
 import {Text, View} from "react-native";
-class SplitBalanceView extends Component {
+export default class SplitBalanceView extends Component {
     constructor(props){
         super(props);
         this.current_balance = 150 + ' €'
@@ -41,4 +41,3 @@ class SplitBalanceView extends Component {
         )
     }
 }
-export default SplitBalanceView
