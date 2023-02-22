@@ -22,7 +22,7 @@ const Tab = createBottomTabNavigator();
 export default function MainTabNavigator(){
     return(
         <Tab.Navigator
-            initialRouteName="Signin"
+            initialRouteName="Home"
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
