@@ -54,6 +54,8 @@ export default function MainTabNavigator(){
                     "SettingsOrderInformationForm",
                     "Balance",
                     "OfferFormView",
+                    "MainDrawerNavigator",
+
                 ].includes(route.name)
                     ? () => {
                         return null;
