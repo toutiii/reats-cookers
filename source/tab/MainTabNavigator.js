@@ -1,4 +1,4 @@
-import Ionicons from "react-native-vector-icons/Ionicons";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import HomeStack from "../stack/HomeStack";
 import OrdersTab from "./OrdersTab";
 import DishTab from "./DishTab";
