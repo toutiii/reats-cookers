@@ -24,6 +24,8 @@ export default function MainTabNavigator() {
     <Tab.Navigator
       initialRouteName="TabHome"
       screenOptions={({ route }) => ({
+        activeTintColor: "tomato",
+        inactiveTintColor: "gray",
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           if (route.name === "TabHome") {
@@ -61,10 +63,6 @@ export default function MainTabNavigator() {
             }
           : undefined,
       })}
-      tabBarOptions={{
-        activeTintColor: "tomato",
-        inactiveTintColor: "gray",
-      }}
     >
       <Tab.Screen name="TabHome" component={HomeStack} />
       <Tab.Screen
