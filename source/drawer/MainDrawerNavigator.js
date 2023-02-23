@@ -1,10 +1,7 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import OrdersTab from "../tab/OrdersTab";
-import BalanceTab from "../tab/BalanceTab";
 import SettingsView from "../views/SettingsView";
 import all_constants from "../constants";
-import StatsView from "../views/StatsView";
 import HomeView from "../views/HomeView";
 import CurrentWeekOrderView from "../views/CurrentWeekOrderView";
 import SplitBalanceView from "../views/SplitBalanceView";
