@@ -64,7 +64,11 @@ export default function MainTabNavigator() {
           : undefined,
       })}
     >
-      <Tab.Screen name="TabHome" component={HomeStack} />
+      <Tab.Screen
+        name="TabHome"
+        component={HomeStack}
+        options={{ headerShown: false }}
+      />
       <Tab.Screen
         name="MainDrawerNavigator"
         component={MainDrawerNavigator}
