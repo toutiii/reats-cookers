@@ -1,5 +1,4 @@
 import React from "react";
-import SimpleView from "../views/SimpleView";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 const Drawer = createDrawerNavigator();
