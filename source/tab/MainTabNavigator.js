@@ -22,11 +22,11 @@ const Tab = createBottomTabNavigator();
 export default function MainTabNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="TabHome"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "Home") {
+          if (route.name === "TabHome") {
             iconName = "home-outline";
           } else if (route.name === "Orders") {
             iconName = "basket-outline";
@@ -66,7 +66,7 @@ export default function MainTabNavigator() {
         inactiveTintColor: "gray",
       }}
     >
-      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="TabHome" component={HomeStack} />
       <Tab.Screen
         name="MainDrawerNavigator"
         component={MainDrawerNavigator}
