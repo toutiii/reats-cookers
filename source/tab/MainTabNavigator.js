@@ -31,11 +31,11 @@ export default function MainTabNavigator() {
             iconName = "home-outline";
           } else if (route.name === "Orders") {
             iconName = "basket-outline";
-          } else if (route.name === "Dishes") {
+          } else if (route.name === "TabDishes") {
             iconName = "restaurant-outline";
-          } else if (route.name === "Menus") {
+          } else if (route.name === "TabMenus") {
             iconName = "book-outline";
-          } else if (route.name === "Offers") {
+          } else if (route.name === "TabOffers") {
             iconName = "pricetag-outline";
           } else if (route.name === "Add") {
             iconName = "add-circle-outline";
