@@ -72,9 +72,9 @@ export default function MainTabNavigator() {
         component={OrdersTab}
         options={{ tabBarBadge: 3 }}
       />
-      <Tab.Screen name="Dishes" component={DishTab} />
-      <Tab.Screen name="Menus" component={MenuTab} />
-      <Tab.Screen name="Offers" component={OfferTab} />
+      <Tab.Screen name="TabDishes" component={DishTab} />
+      <Tab.Screen name="TabMenus" component={MenuTab} />
+      <Tab.Screen name="TabOffers" component={OfferTab} />
       <Tab.Screen name="Add" component={AddView} />
       <Tab.Screen name="OrderView" component={OrderView} />
       <Tab.Screen name="DishFormView" component={DishFormView} />
