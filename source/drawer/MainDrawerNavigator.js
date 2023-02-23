@@ -17,27 +17,27 @@ export default function MainDrawerNavigator() {
       <Drawer.Screen
         name="Home"
         component={HomeView}
-        options={{ headerShown: false }}
+        options={{ title: all_constants.main_drawer_navigator.titles.home }}
       />
       <Drawer.Screen
         name="OrdersTab"
         component={OrdersTab}
-        options={{ headerShown: false }}
+        options={{ title: all_constants.main_drawer_navigator.titles.orders }}
       />
       <Drawer.Screen
         name="BalanceTab"
         component={BalanceTab}
-        options={{ title: all_constants.label.balance.title }}
+        options={{ title: all_constants.main_drawer_navigator.titles.balance }}
       />
       <Drawer.Screen
         name="Settings"
         component={SettingsView}
-        options={{ title: all_constants.label.settings.my_account }}
+        options={{ title: all_constants.main_drawer_navigator.titles.settings }}
       />
       <Drawer.Screen
         name="StatsView"
         component={StatsView}
-        options={{ title: all_constants.label.stats.title }}
+        options={{ title: all_constants.main_drawer_navigator.titles.stats }}
       />
     </Drawer.Navigator>
   );
