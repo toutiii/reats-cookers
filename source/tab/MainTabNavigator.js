@@ -25,6 +25,7 @@ export default function MainTabNavigator() {
       screenOptions={({ route }) => ({
         activeTintColor: "tomato",
         inactiveTintColor: "gray",
+        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           if (route.name === "TabHome") {
@@ -62,11 +63,7 @@ export default function MainTabNavigator() {
           : undefined,
       })}
     >
-      <Tab.Screen
-        name="TabHome"
-        component={MainDrawerNavigator}
-        options={{ headerShown: false }}
-      />
+      <Tab.Screen name="TabHome" component={MainDrawerNavigator} />
       <Tab.Screen
         name="Orders"
         component={OrdersTab}
