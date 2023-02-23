@@ -56,7 +56,6 @@ export default function MainTabNavigator() {
           "SettingsOrderInformationForm",
           "Balance",
           "OfferFormView",
-          "MainDrawerNavigator",
         ].includes(route.name)
           ? () => {
               return null;
@@ -66,11 +65,6 @@ export default function MainTabNavigator() {
     >
       <Tab.Screen
         name="TabHome"
-        component={HomeStack}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="MainDrawerNavigator"
         component={MainDrawerNavigator}
         options={{ headerShown: false }}
       />
