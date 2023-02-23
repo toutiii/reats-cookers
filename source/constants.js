@@ -541,6 +541,16 @@ export const all_constants = {
     rating_star:
       "https://starpng.com/public/uploads/preview/yellow-star-transparent-background-png-101577029288c5hv8odvjm.png",
   },
+
+  main_drawer_navigator: {
+    titles: {
+      home: "Accueil",
+      orders: "Mes commandes",
+      balance: "Mon solde",
+      settings: "Mes paramètres",
+      stats: "Mes statistiques",
+    },
+  },
 };
 
 export default all_constants;
