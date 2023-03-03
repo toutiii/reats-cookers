@@ -7,6 +7,7 @@ import CustomButton from "../button/CustomButton";
 import OrderModal from "../modals/OrderModal";
 import { getData } from "../helpers/global_helpers";
 import { getOrders } from "../helpers/order_helpers";
+import NewOrder from "../components/NewOrder.js";
 import { Searchbar } from "react-native-paper";
 
 export default function OrderFlatList({ ...props }) {
@@ -176,6 +177,7 @@ export default function OrderFlatList({ ...props }) {
                 style={{ flex: 1 }}
                 underlayColor={all_constants.colors.inputBorderColor}
               >
+                <NewOrder></NewOrder>
               </TouchableHighlight>
             </View>
           )}
