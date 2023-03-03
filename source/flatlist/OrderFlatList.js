@@ -112,22 +112,6 @@ export default function OrderFlatList({ ...props }) {
       }}
     >
       {props.route.params.tag === all_constants.tag.orders.paid ? (
-        <View style={{ flex: 1, marginTop: "5%", alignItems: "center" }}>
-          <CustomButton
-            label={all_constants.modal.order_modal.show}
-            backgroundColor="#228b22"
-            height={50}
-            border_width={3}
-            border_radius={30}
-            font_size={17}
-            label_color="white"
-            onPress={onPressShowModal}
-          />
-        </View>
-      ) : (
-        <View></View>
-      )}
-      {props.route.params.tag === all_constants.tag.orders.paid ? (
         <OrderModal
           state={modalState}
           onPressCloseModal={onPressCloseModal}
