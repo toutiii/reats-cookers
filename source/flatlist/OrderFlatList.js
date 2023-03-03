@@ -176,27 +176,6 @@ export default function OrderFlatList({ ...props }) {
                 style={{ flex: 1 }}
                 underlayColor={all_constants.colors.inputBorderColor}
               >
-                <Order
-                  key={item.key}
-                  order_number={item.order_number}
-                  order_status={item.order_status}
-                  order_owner={item.order_owner}
-                  order_amount={item.order_amount}
-                  order_number_of_items={item.order_number_of_items}
-                  order_date={item.order_date}
-                  order_hour={item.order_hour}
-                  order_cancel_date={item.order_cancel_date}
-                  order_cancel_hour={item.order_cancel_hour}
-                  order_accept_date={item.order_accept_date}
-                  order_accept_hour={item.order_accept_hour}
-                  order_delivery_date={item.order_delivery_date}
-                  order_delivery_hour={item.order_delivery_hour}
-                  order_picking_hour={item.order_picking_hour}
-                  order_number_color={item.order_number_color}
-                  order_is_menu={item.order_is_menu}
-                  use_horizontal_line={true}
-                  line_width={1}
-                />
               </TouchableHighlight>
             </View>
           )}
