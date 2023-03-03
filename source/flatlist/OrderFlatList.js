@@ -143,6 +143,7 @@ export default function OrderFlatList({ ...props }) {
       )}
       <View
         style={{
+          backgroundColor: "white",
           flex:
             props.route.params.tag === all_constants.tag.orders.paid ? 10 : 1,
         }}
