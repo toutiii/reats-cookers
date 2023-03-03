@@ -7,6 +7,7 @@ import CustomButton from "../button/CustomButton";
 import OrderModal from "../modals/OrderModal";
 import { getData } from "../helpers/global_helpers";
 import { getOrders } from "../helpers/order_helpers";
+import { Searchbar } from "react-native-paper";
 
 export default function OrderFlatList({ ...props }) {
   const [modalState, setModalState] = useState(false);
@@ -100,7 +101,9 @@ export default function OrderFlatList({ ...props }) {
     }
     return getOrders();
   };
+  const [searchQuery, setSearchQuery] = React.useState("");
 
+  const onChangeSearch = (query) => setSearchQuery(query);
   return (
     <View
       style={{
@@ -111,6 +114,11 @@ export default function OrderFlatList({ ...props }) {
             : "0%",
       }}
     >
+      <Searchbar
+        placeholder="Search"
+        onChangeText={onChangeSearch}
+        value={searchQuery}
+      />
       {props.route.params.tag === all_constants.tag.orders.paid ? (
         <OrderModal
           state={modalState}
