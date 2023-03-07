@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { Divider } from "react-native-paper";
-export default function NewOrder() {
+export default function NewOrder({ ...props }) {
   return (
     <View style={{ flex: 1 }}>
       <View
