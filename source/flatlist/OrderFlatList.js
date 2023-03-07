@@ -178,7 +178,13 @@ export default function OrderFlatList({ ...props }) {
                 style={{ flex: 1 }}
                 underlayColor={all_constants.colors.inputBorderColor}
               >
-                <NewOrder></NewOrder>
+                <NewOrder
+                  order_number_color={item.order_number_color}
+                  order_number={item.order_number}
+                  order_status={item.order_status}
+                  order_delivery_date={item.order_delivery_date}
+                  order_delivery_hour={item.order_delivery_hour}
+                ></NewOrder>
               </TouchableHighlight>
             </View>
           )}
