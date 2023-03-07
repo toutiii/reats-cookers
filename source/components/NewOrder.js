@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { Divider } from "react-native-paper";
+import all_constants from "../constants";
 export default function NewOrder({ ...props }) {
   return (
     <View style={{ flex: 1 }}>
