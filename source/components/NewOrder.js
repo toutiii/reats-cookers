@@ -29,7 +29,18 @@ export default function NewOrder({ ...props }) {
             margin: "1%",
             aspectRatio: 2,
           }}
-        />
+        >
+          <View style={{ padding: 10, alignItems: "flex-start" }}>
+            <Text
+              style={{
+                fontSize: 20,
+                color: props.order_number_color,
+              }}
+            >
+              {all_constants.order.infos.number} {props.order_number}
+            </Text>
+          </View>
+        </View>
       </View>
       <Divider />
     </View>
