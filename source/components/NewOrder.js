@@ -39,6 +39,10 @@ export default function NewOrder({ ...props }) {
             >
               {all_constants.order.infos.number} {props.order_number}
             </Text>
+            <Text style={{ fontSize: 15 }}>
+              {all_constants.order.infos.delivered_label}{" "}
+              {props.order_delivery_date} à {props.order_delivery_hour}{" "}
+            </Text>
           </View>
         </View>
       </View>
