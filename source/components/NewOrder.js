@@ -53,6 +53,10 @@ export default function NewOrder({ ...props }) {
             <Text style={{ fontSize: 15 }}>
               {all_constants.order.infos.status} {props.order_status}{" "}
             </Text>
+            <Text style={{ fontSize: 15 }}>
+              {all_constants.order.infos.amount} {props.order_amount}
+              {all_constants.currency_symbol}{" "}
+            </Text>
           </View>
         </View>
       </View>
