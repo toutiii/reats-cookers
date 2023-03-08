@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { Divider } from "react-native-paper";
 import all_constants from "../constants";
 export default function NewOrder({ ...props }) {
@@ -19,7 +19,14 @@ export default function NewOrder({ ...props }) {
             margin: "1%",
             aspectRatio: 1,
           }}
-        />
+        >
+          <Image
+            source={{
+              uri: "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+            }}
+            style={{ flex: 1 }}
+          />
+        </View>
         <View
           style={{
             borderColor: "green",
