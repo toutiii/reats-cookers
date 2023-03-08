@@ -179,6 +179,7 @@ export default function OrderFlatList({ ...props }) {
                 underlayColor={all_constants.colors.inputBorderColor}
               >
                 <NewOrder
+                  order_amount={item.order_amount}
                   order_number_color={item.order_number_color}
                   order_number={item.order_number}
                   order_status={item.order_status}
