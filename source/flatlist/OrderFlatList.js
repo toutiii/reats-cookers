@@ -7,7 +7,6 @@ import CustomButton from "../button/CustomButton";
 import OrderModal from "../modals/OrderModal";
 import { getData } from "../helpers/global_helpers";
 import { getOrders } from "../helpers/order_helpers";
-import NewOrder from "../components/NewOrder.js";
 import { Searchbar } from "react-native-paper";
 
 export default function OrderFlatList({ ...props }) {
@@ -178,14 +177,14 @@ export default function OrderFlatList({ ...props }) {
                 style={{ flex: 1 }}
                 underlayColor={all_constants.colors.inputBorderColor}
               >
-                <NewOrder
+                <Order
                   order_amount={item.order_amount}
                   order_number_color={item.order_number_color}
                   order_number={item.order_number}
                   order_status={item.order_status}
                   order_delivery_date={item.order_delivery_date}
                   order_delivery_hour={item.order_delivery_hour}
-                ></NewOrder>
+                ></Order>
               </TouchableHighlight>
             </View>
           )}
