@@ -13,8 +13,6 @@ export default function NewOrder({ ...props }) {
       >
         <View
           style={{
-            borderColor: "red",
-            borderWidth: 2,
             flex: 1,
             margin: "1%",
             aspectRatio: 1,
@@ -29,9 +27,6 @@ export default function NewOrder({ ...props }) {
         </View>
         <View
           style={{
-            borderColor: "green",
-            borderWidth: 2,
-            borderRadius: 20,
             flex: 2,
             margin: "1%",
             aspectRatio: 2,
