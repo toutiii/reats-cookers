@@ -1,88 +1,58 @@
-import { Text, View } from "react-native";
-import styles_order from "../styles/styles-order";
+import { Image, Text, View } from "react-native";
+import { Divider } from "react-native-paper";
 import all_constants from "../constants";
-import React from "react";
-import HorizontalLine from "./HorizontalLine";
-
 export default function Order({ ...props }) {
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles_order.order_number}>
-        <Text style={{ fontSize: 26, color: props.order_number_color }}>
-          {all_constants.order.infos.number} {props.order_number}
-        </Text>
-      </View>
-      {props.use_horizontal_line && props.line_width ? (
-        <View style={{ flex: 1 }}>
-          <HorizontalLine line_width={props.line_width} />
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          marginTop: "8%",
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            margin: "1%",
+            aspectRatio: 1,
+          }}
+        >
+          <Image
+            source={{
+              uri: "https://img-3.journaldesfemmes.fr/M_bbWpTVNekL5O_MLzQ4dyInmJU=/750x/smart/1c9fe4d4419047f18efc37134a046e5a/recipe-jdf/1001383.jpg",
+            }}
+            style={{ flex: 1 }}
+          />
         </View>
-      ) : (
-        <View style={{ flex: 1 }}></View>
-      )}
-      <View style={styles_order.order_element}>
-        <Text style={{ fontSize: 16 }}>
-          {all_constants.order.infos.owner} {props.order_owner}{" "}
-          {all_constants.order.infos.ordered_label} {props.order_date} à{" "}
-          {props.order_hour}
-        </Text>
-      </View>
-
-      <View style={styles_order.order_element}>
-        <Text style={{ fontSize: 16 }}>
-          {all_constants.order.infos.picking_label} {props.order_delivery_date}{" "}
-          à {props.order_picking_hour}{" "}
-        </Text>
-      </View>
-
-      <View style={styles_order.order_element}>
-        <Text style={{ fontSize: 16 }}>
-          {all_constants.order.infos.delivered_label}{" "}
-          {props.order_delivery_date} à {props.order_delivery_hour}{" "}
-        </Text>
-      </View>
-
-      <View style={styles_order.order_element}>
-        <Text style={{ fontSize: 16 }}>
-          {all_constants.order.infos.status} {props.order_status}{" "}
-        </Text>
-      </View>
-
-      {props.order_status === all_constants.order.status.canceled ? (
-        <View style={styles_order.order_element}>
-          <Text style={{ fontSize: 16, color: "red" }}>
-            {all_constants.order.infos.canceled_label} {props.order_cancel_date}{" "}
-            à {props.order_cancel_hour}
-          </Text>
+        <View
+          style={{
+            flex: 2,
+            margin: "1%",
+            aspectRatio: 2,
+          }}
+        >
+          <View style={{ padding: 10, alignItems: "flex-start" }}>
+            <Text
+              style={{
+                fontSize: 20,
+                color: props.order_number_color,
+              }}
+            >
+              {all_constants.order.infos.number} {props.order_number}
+            </Text>
+            <Text style={{ fontSize: 13 }}>
+              {props.order_delivery_date} à {props.order_delivery_hour}{" "}
+            </Text>
+            <Text style={{ fontSize: 13 }}>{props.order_status} </Text>
+            <Text style={{ fontSize: 13 }}>
+              {props.order_amount}
+              {all_constants.currency_symbol}
+            </Text>
+          </View>
         </View>
-      ) : (
-        <View></View>
-      )}
-
-      {props.order_status === all_constants.order.status.approved ? (
-        <View style={styles_order.order_element}>
-          <Text style={{ fontSize: 16, color: "green" }}>
-            {all_constants.order.infos.approved_label} {props.order_accept_date}{" "}
-            à {props.order_accept_hour}
-          </Text>
-        </View>
-      ) : (
-        <View></View>
-      )}
-      <View style={styles_order.order_element}>
-        <Text style={{ fontSize: 16 }}>
-          {all_constants.order.infos.amount} {props.order_amount}
-          {all_constants.currency_symbol}{" "}
-        </Text>
       </View>
-      {props.order_is_menu ? (
-        <View style={styles_order.order_element}>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-            {all_constants.order.infos.order_is_menu}
-          </Text>
-        </View>
-      ) : (
-        <View></View>
-      )}
+      <Divider />
     </View>
   );
 }
