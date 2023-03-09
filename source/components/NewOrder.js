@@ -47,15 +47,12 @@ export default function NewOrder({ ...props }) {
               {all_constants.order.infos.number} {props.order_number}
             </Text>
             <Text style={{ fontSize: 13 }}>
-              {all_constants.order.infos.delivered_label}{" "}
               {props.order_delivery_date} à {props.order_delivery_hour}{" "}
             </Text>
+            <Text style={{ fontSize: 13 }}>{props.order_status} </Text>
             <Text style={{ fontSize: 13 }}>
-              {all_constants.order.infos.status} {props.order_status}{" "}
-            </Text>
-            <Text style={{ fontSize: 13 }}>
-              {all_constants.order.infos.amount} {props.order_amount}
-              {all_constants.currency_symbol}{" "}
+              {props.order_amount}
+              {all_constants.currency_symbol}
             </Text>
           </View>
         </View>
