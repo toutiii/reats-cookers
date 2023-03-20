@@ -15,9 +15,6 @@ export default function OrdersTab() {
         labelStyle: {
           fontSize: 12,
         },
-        style: {
-          marginTop: "7%",
-        },
       }}
     >
       <Tab.Screen

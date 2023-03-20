@@ -16,9 +16,7 @@ export default function DishTab() {
         labelStyle: {
           fontSize: 12,
         },
-        style: {
-          marginTop: "7%",
-        },
+
         scrollEnabled: true,
       }}
     >

@@ -17,9 +17,6 @@ export default function OfferTab() {
         labelStyle: {
           fontSize: 12,
         },
-        style: {
-          marginTop: "7%",
-        },
       }}
     >
       <Tab.Screen
