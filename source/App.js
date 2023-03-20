@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginFormView from "./forms/LoginFormView";
 import { createStackNavigator } from "@react-navigation/stack";
-import MainTabNavigator from "./tab/MainTabNavigator";
 import ForgottenPasswordFormView from "./forms/ForgottenPasswordFormView";
 import all_constants from "./constants";
+import { MainDrawerNavigator } from "./drawer/MainDrawerNavigator";
+import MainTabNavigator from "./tab/MainTabNavigator";
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,7 @@ export default class App extends Component {
   render() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MainTabNavigator">
+        <Stack.Navigator initialRouteName="MainDrawerNavigator">
           <Stack.Screen
             name="Signin"
             component={LoginFormView}
@@ -26,8 +27,8 @@ export default class App extends Component {
             }}
           />
           <Stack.Screen
-            name="MainTabNavigator"
-            component={MainTabNavigator}
+            name="MainDrawerNavigator"
+            component={MainDrawerNavigator}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
