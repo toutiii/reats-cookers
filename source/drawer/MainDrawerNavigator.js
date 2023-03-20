@@ -10,11 +10,7 @@ export const MainDrawerNavigator = () => {
     <Drawer.Navigator
       drawerContent={(props) => <MainDrawerContent {...props} />}
     >
-      <Drawer.Screen
-        name="MainTabNavigator"
-        component={MainTabNavigator}
-        //options={{ headerShown: false }}
-      />
+      <Drawer.Screen name="MainTabNavigator" component={MainTabNavigator} />
     </Drawer.Navigator>
   );
 };
