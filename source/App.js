@@ -5,7 +5,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ForgottenPasswordFormView from "./forms/ForgottenPasswordFormView";
 import all_constants from "./constants";
 import { MainDrawerNavigator } from "./drawer/MainDrawerNavigator";
-import MainTabNavigator from "./tab/MainTabNavigator";
 
 const Stack = createStackNavigator();
 
