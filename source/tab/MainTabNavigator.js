@@ -14,7 +14,8 @@ import SettingsAddressForm from "../forms/SettingsAddressForm";
 import SettingsOrderInformationForm from "../forms/SettingsOrderInformationForm";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MainDrawerNavigator from "../drawer/MainDrawerNavigator";
+
+import HomeView from "../views/HomeView";
 
 const Tab = createBottomTabNavigator();
 
@@ -63,7 +64,7 @@ export default function MainTabNavigator() {
           : undefined,
       })}
     >
-      <Tab.Screen name="TabHome" component={MainDrawerNavigator} />
+      <Tab.Screen name="TabHome" component={HomeView} />
       <Tab.Screen
         name="Orders"
         component={OrdersTab}
