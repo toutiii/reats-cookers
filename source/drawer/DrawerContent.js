@@ -56,7 +56,7 @@ export default function DrawerContent(props) {
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
-                name="bookmark-outline"
+                name="food-turkey"
                 color={color}
                 size={size}
               />
@@ -66,11 +66,7 @@ export default function DrawerContent(props) {
           />
           <DrawerItem
             icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="bookmark-outline"
-                color={color}
-                size={size}
-              />
+              <MaterialCommunityIcons name="food" color={color} size={size} />
             )}
             label="Mes menus"
             onPress={() => {}}
@@ -81,7 +77,7 @@ export default function DrawerContent(props) {
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
-                name="bookmark-outline"
+                name="percent"
                 color={color}
                 size={size}
               />
@@ -94,22 +90,14 @@ export default function DrawerContent(props) {
         <Drawer.Section title="Préférences">
           <DrawerItem
             icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="bookmark-outline"
-                color={color}
-                size={size}
-              />
+              <MaterialCommunityIcons name="lock" color={color} size={size} />
             )}
             label="Connexion"
             onPress={() => {}}
           />
           <DrawerItem
             icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="bookmark-outline"
-                color={color}
-                size={size}
-              />
+              <MaterialCommunityIcons name="basket" color={color} size={size} />
             )}
             label="Commandes"
             onPress={() => {}}
@@ -117,7 +105,7 @@ export default function DrawerContent(props) {
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
-                name="bookmark-outline"
+                name="account"
                 color={color}
                 size={size}
               />
