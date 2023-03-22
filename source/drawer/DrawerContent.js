@@ -113,6 +113,16 @@ export default function DrawerContent(props) {
             onPress={() => {}}
           />
         </Drawer.Section>
+
+        <Drawer.Section>
+          <DrawerItem
+            icon={({ size }) => (
+              <MaterialCommunityIcons name="power" color="red" size={size} />
+            )}
+            label={() => <Text style={{ color: "red" }}>Déconnexion</Text>}
+            onPress={() => {}}
+          />
+        </Drawer.Section>
       </Animated.View>
     </DrawerContentScrollView>
   );
