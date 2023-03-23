@@ -19,10 +19,12 @@ import {
   useTheme,
 } from "react-native-paper";
 import Animated from "react-native-reanimated";
-import ToggleView from "../views/ToggleView";
 
 export default function DrawerContent(props) {
   const paperTheme = useTheme();
+  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+
+  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   return (
     <DrawerContentScrollView {...props}>
@@ -47,8 +49,33 @@ export default function DrawerContent(props) {
             />
           </TouchableOpacity>
         </View>
-        <Drawer.Section style={styles.drawerSection}>
-          <ToggleView />
+
+        <Drawer.Section
+          title="Visibilité"
+          style={{ marginTop: "4%", marginRight: 15 }}
+        >
+          <TouchableRipple
+            onPress={() => {
+              console.log("Hi");
+            }}
+          >
+            <View style={{ flexDirection: "row", flex: 1 }}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  paddingLeft: 20,
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 14 }}>
+                  En ligne
+                </Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Switch value={isSwitchOn} />
+              </View>
+            </View>
+          </TouchableRipple>
         </Drawer.Section>
 
         <Drawer.Section title="Cuisine">
@@ -119,7 +146,11 @@ export default function DrawerContent(props) {
             icon={({ size }) => (
               <MaterialCommunityIcons name="power" color="red" size={size} />
             )}
-            label={() => <Text style={{ color: "red" }}>Déconnexion</Text>}
+            label={() => (
+              <Text style={{ color: "red", fontWeight: "bold" }}>
+                Déconnexion
+              </Text>
+            )}
             onPress={() => {}}
           />
         </Drawer.Section>
