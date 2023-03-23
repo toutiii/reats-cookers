@@ -1,20 +1,12 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {
-  DrawerContentComponentProps,
-  DrawerContentOptions,
-  DrawerContentScrollView,
-  DrawerItem,
-} from "@react-navigation/drawer";
+import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import {
   Avatar,
-  Caption,
   Drawer,
-  Paragraph,
   Switch,
   Text,
-  Title,
   TouchableRipple,
   useTheme,
 } from "react-native-paper";
