@@ -9,8 +9,7 @@ import DishModal from "../modals/DishModal";
 import CustomAlert from "../components/CustomAlert";
 import styles_form from "../styles/styles-form";
 import { callBackEnd } from "../api/fetch";
-import Ionicons from "@expo/vector-icons/Ionicons";
-
+import { AntDesign, Ionicons,FontAwesome,MaterialIcons,MaterialCommunityIcons } from '@expo/vector-icons'; 
 export default class OrderView extends Component {
   constructor(props) {
     super(props);
@@ -208,7 +207,9 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                 }}
-              ></View>
+              >
+                <AntDesign name="user" size={24} color="black" />
+              </View>
               <View
                 style={{
                   borderColor: "blue",
@@ -217,7 +218,7 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                 }}
-              ></View>
+              ><FontAwesome name="money" size={24} color="black" /></View>
               <View
                 style={{
                   borderColor: "blue",
@@ -226,7 +227,7 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                 }}
-              ></View>
+              ><FontAwesome name="hourglass-half" size={24} color="black" /></View>
               <View
                 style={{
                   borderColor: "blue",
@@ -235,7 +236,7 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                 }}
-              ></View>
+              ><MaterialIcons name="delivery-dining" size={24} color="black" /></View>
               <View
                 style={{
                   borderColor: "blue",
@@ -244,7 +245,7 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                 }}
-              ></View>
+              ><MaterialCommunityIcons name="google-maps" size={24} color="black" /></View>
             </View>
             <HorizontalLine line_width={3} />
           </View>
