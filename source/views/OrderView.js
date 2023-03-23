@@ -9,6 +9,7 @@ import DishModal from "../modals/DishModal";
 import CustomAlert from "../components/CustomAlert";
 import styles_form from "../styles/styles-form";
 import { callBackEnd } from "../api/fetch";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default class OrderView extends Component {
   constructor(props) {
