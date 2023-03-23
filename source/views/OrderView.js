@@ -164,7 +164,7 @@ export default class OrderView extends Component {
           )}
         <Animated.View style={{ opacity: this.state.opacity }}>
           <View style={{ flex: 2 }}>
-            <Order
+            {/* <Order
               order_number={this.props.route.params.item.order_number}
               order_status={this.props.route.params.item.order_status}
               order_owner={this.props.route.params.item.order_owner}
@@ -191,7 +191,7 @@ export default class OrderView extends Component {
                 this.props.route.params.item.order_number_color
               }
               order_is_menu={this.props.route.params.item.order_is_menu}
-            />
+            /> */}
             <HorizontalLine line_width={3} />
           </View>
           <View style={styles_order_view.button_container}>
