@@ -192,6 +192,59 @@ export default class OrderView extends Component {
               }
               order_is_menu={this.props.route.params.item.order_is_menu}
             /> */}
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  borderColor: "blue",
+                  borderWidth: 2,
+                  flex: 1,
+                  margin: "2%",
+                  aspectRatio: 5,
+                }}
+              ></View>
+              <View
+                style={{
+                  borderColor: "blue",
+                  borderWidth: 2,
+                  flex: 1,
+                  margin: "2%",
+                  aspectRatio: 5,
+                }}
+              ></View>
+              <View
+                style={{
+                  borderColor: "blue",
+                  borderWidth: 2,
+                  flex: 1,
+                  margin: "2%",
+                  aspectRatio: 5,
+                }}
+              ></View>
+              <View
+                style={{
+                  borderColor: "blue",
+                  borderWidth: 2,
+                  flex: 1,
+                  margin: "2%",
+                  aspectRatio: 5,
+                }}
+              ></View>
+              <View
+                style={{
+                  borderColor: "blue",
+                  borderWidth: 2,
+                  flex: 1,
+                  margin: "2%",
+                  aspectRatio: 5,
+                }}
+              ></View>
+            </View>
             <HorizontalLine line_width={3} />
           </View>
           <View style={styles_order_view.button_container}>
