@@ -91,8 +91,15 @@ export default function DrawerContent(props) {
                   paddingLeft: 20,
                 }}
               >
-                <Text style={{ fontWeight: "bold", fontSize: 14 }}>
-                  En ligne
+                <Text
+                  style={[
+                    { color: online ? "green" : "red" },
+                    { fontWeight: "bold" },
+                  ]}
+                >
+                  {online
+                    ? all_constants.label.home.status.online
+                    : all_constants.label.home.status.offline}
                 </Text>
               </View>
               <View style={{ flex: 1 }}>
