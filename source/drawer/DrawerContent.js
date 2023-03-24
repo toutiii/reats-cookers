@@ -11,12 +11,19 @@ import {
   useTheme,
 } from "react-native-paper";
 import Animated from "react-native-reanimated";
+import CustomAlert from "../components/CustomAlert";
+import all_constants from "../constants";
 
 export default function DrawerContent(props) {
   const paperTheme = useTheme();
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [online, isOnline] = React.useState(false); // TODO: this value will come from the back
 
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
+  const onToggleSwitch = () => {
+    setIsSwitchOn(!isSwitchOn);
+    setShowAlert(!showAlert);
+  };
 
   return (
     <DrawerContentScrollView {...props}>
@@ -28,6 +35,31 @@ export default function DrawerContent(props) {
           },
         ]}
       >
+        {showAlert ? (
+          <CustomAlert
+            show={showAlert}
+            title={all_constants.custom_alert.homeview.title}
+            message={
+              online
+                ? all_constants.custom_alert.homeview.go_offline
+                : all_constants.custom_alert.homeview.go_online
+            }
+            confirmButtonColor="green"
+            showCancelButton={true}
+            cancelButtonColor="red"
+            cancelText={all_constants.custom_alert.homeview.cancel_text}
+            onConfirmPressed={() => {
+              isOnline(!online);
+              setShowAlert(false);
+            }}
+            onCancelPressed={() => {
+              isOnline(online);
+              setShowAlert(false);
+            }}
+          />
+        ) : (
+          ""
+        )}
         <View style={styles.userInfoSection}>
           <TouchableOpacity
             style={{ marginLeft: 10 }}
@@ -64,7 +96,7 @@ export default function DrawerContent(props) {
                 </Text>
               </View>
               <View style={{ flex: 1 }}>
-                <Switch onValueChange={onToggleSwitch} value={isSwitchOn} />
+                <Switch onValueChange={onToggleSwitch} value={online} />
               </View>
             </View>
           </TouchableRipple>
