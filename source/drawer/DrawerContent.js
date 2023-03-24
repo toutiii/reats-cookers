@@ -64,7 +64,7 @@ export default function DrawerContent(props) {
                 </Text>
               </View>
               <View style={{ flex: 1 }}>
-                <Switch value={isSwitchOn} />
+                <Switch onValueChange={onToggleSwitch} value={isSwitchOn} />
               </View>
             </View>
           </TouchableRipple>
