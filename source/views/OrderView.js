@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ActivityIndicator, Animated, View } from "react-native";
+import { ActivityIndicator, Animated, View,Text } from "react-native";
 import styles_order_view from "../styles/styles-order-view";
 import HorizontalLine from "../components/HorizontalLine";
 import all_constants from "../constants";
@@ -206,9 +206,11 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 5,
+                  flexDirection: "row",
                 }}
               >
                 <AntDesign name="user" size={24} color="black" />
+                <Text>{all_constants.order.infos.owner} {this.props.route.params.item.order_owner} le {this.props.route.params.item.order_date} à {this.props.route.params.item.order_hour} </Text>
               </View>
               <View
                 style={{
@@ -217,8 +219,11 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 5,
+                  flexDirection: "row",
                 }}
-              ><FontAwesome name="money" size={24} color="black" /></View>
+              ><FontAwesome name="money" size={24} color="black" />
+              <Text>{all_constants.order.infos.amount} {this.props.route.params.item.order_amount} {all_constants.currency_symbol}</Text>
+              </View>
               <View
                 style={{
                   borderColor: "blue",
@@ -226,8 +231,15 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 5,
+                  flexDirection: "row",
                 }}
-              ><FontAwesome name="hourglass-half" size={24} color="black" /></View>
+              >
+              {this.props.route.params.item.order_status === all_constants.order.status.approved? (
+                <><AntDesign name="checkcircle" size={24} color="black" /><Text> {all_constants.order.infos.approved_label} {this.props.route.params.item.order_accept_date} à {this.props.route.params.item.order_accept_hour} </Text></>
+              ):this.props.route.params.item.order_status === all_constants.order.status.canceled ?(
+                <><MaterialIcons name="cancel" size={24} color="black" /><Text>{all_constants.order.infos.canceled_label} {this.props.route.params.item.order_cancel_date} à {this.props.route.params.item.order_cancel_hour}</Text></>
+              ):(<><FontAwesome name="hourglass-half" size={24} color="black" /><Text>{this.props.route.params.item.order_status}</Text></>)}
+              </View>
               <View
                 style={{
                   borderColor: "blue",
@@ -235,8 +247,16 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 5,
+                  flexDirection: "row",
                 }}
-              ><MaterialIcons name="delivery-dining" size={24} color="black" /></View>
+              ><MaterialIcons name="delivery-dining" size={24} color="black" />
+              {this.props.route.params.item.order_status === all_constants.order.status.approved?(
+                <Text>{all_constants.order.infos.delivered_label} {this.props.route.params.item.order_delivery_date} à {this.props.route.params.item.order_picking_hour} </Text>
+              ):this.props.route.params.item.order_status === all_constants.order.status.canceled ?(
+                <Text>Livraison {this.props.route.params.item.order_status}</Text>
+              ):(
+                <Text>Livraison en attente de confirmation</Text>
+              )}</View>
               <View
                 style={{
                   borderColor: "blue",
@@ -244,8 +264,10 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 5,
+                  flexDirection: "row",
                 }}
-              ><MaterialCommunityIcons name="google-maps" size={24} color="black" /></View>
+              ><MaterialCommunityIcons name="google-maps" size={24} color="black" />
+              <Text>4 rue de la grande ferme lieusaint 77127</Text></View>
             </View>
             <HorizontalLine line_width={3} />
           </View>
