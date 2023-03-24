@@ -205,7 +205,7 @@ export default class OrderView extends Component {
                   borderWidth: 2,
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 5,
+                  aspectRatio: 6,
                   flexDirection: "row",
                 }}
               >
@@ -218,7 +218,7 @@ export default class OrderView extends Component {
                   borderWidth: 2,
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 5,
+                  aspectRatio: 6,
                   flexDirection: "row",
                 }}
               ><FontAwesome name="money" size={24} color="black" />
@@ -230,7 +230,7 @@ export default class OrderView extends Component {
                   borderWidth: 2,
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 5,
+                  aspectRatio: 6,
                   flexDirection: "row",
                 }}
               >
@@ -246,7 +246,7 @@ export default class OrderView extends Component {
                   borderWidth: 2,
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 5,
+                  aspectRatio: 6,
                   flexDirection: "row",
                 }}
               ><MaterialIcons name="delivery-dining" size={24} color="black" />
@@ -263,7 +263,7 @@ export default class OrderView extends Component {
                   borderWidth: 2,
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 5,
+                  aspectRatio: 6,
                   flexDirection: "row",
                 }}
               ><MaterialCommunityIcons name="google-maps" size={24} color="black" />
