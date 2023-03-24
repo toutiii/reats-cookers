@@ -498,12 +498,11 @@ export const all_constants = {
   },
   custom_alert: {
     homeview: {
-      title: "Changement de statut",
+      online_title: "Passer en ligne ?",
+      offline_title: "Passer hors ligne ?",
       cancel_text: "ANNULER",
-      go_online:
-        "Passer en ligne ? (Les clients pourront à nouveau vous passer des commandes).",
-      go_offline:
-        "Passer hors ligne ? (Les clients ne pourront plus vous passer de commandes).",
+      go_online: "Vous pourrez à nouveau recevoir des commandes.",
+      go_offline: "ATTENTION, vous ne pourrez plus recevoir de commandes !",
       logout_title: "DÉCONNEXION",
       logout_message: "Souhaitez-vous vous déconnecter ?",
     },

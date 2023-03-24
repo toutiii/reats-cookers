@@ -38,7 +38,11 @@ export default function DrawerContent(props) {
         {showAlert ? (
           <CustomAlert
             show={showAlert}
-            title={all_constants.custom_alert.homeview.title}
+            title={
+              online
+                ? all_constants.custom_alert.homeview.offline_title
+                : all_constants.custom_alert.homeview.online_title
+            }
             message={
               online
                 ? all_constants.custom_alert.homeview.go_offline
