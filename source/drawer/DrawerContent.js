@@ -186,6 +186,19 @@ export default function DrawerContent(props) {
               props.navigation.navigate("SettingsPersonalInformationForm");
             }}
           />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="map-marker"
+                color={color}
+                size={size}
+              />
+            )}
+            label="Localisation"
+            onPress={() => {
+              props.navigation.navigate("SettingsAddressForm");
+            }}
+          />
         </Drawer.Section>
 
         <Drawer.Section>
