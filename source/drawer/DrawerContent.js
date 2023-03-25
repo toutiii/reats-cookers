@@ -132,7 +132,9 @@ export default function DrawerContent(props) {
               <MaterialCommunityIcons name="food" color={color} size={size} />
             )}
             label="Mes menus"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("TabMenus");
+            }}
           />
         </Drawer.Section>
 
@@ -146,7 +148,9 @@ export default function DrawerContent(props) {
               />
             )}
             label="Mes promotions"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("TabOffers");
+            }}
           />
         </Drawer.Section>
 
@@ -156,14 +160,18 @@ export default function DrawerContent(props) {
               <MaterialCommunityIcons name="lock" color={color} size={size} />
             )}
             label="Connexion"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("SettingsCredentialsForm");
+            }}
           />
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons name="basket" color={color} size={size} />
             )}
             label="Commandes"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("SettingsOrderInformationForm");
+            }}
           />
           <DrawerItem
             icon={({ color, size }) => (
@@ -174,7 +182,9 @@ export default function DrawerContent(props) {
               />
             )}
             label="Compte"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("SettingsPersonalInformationForm");
+            }}
           />
         </Drawer.Section>
 
