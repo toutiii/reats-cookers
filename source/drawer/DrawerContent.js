@@ -123,7 +123,9 @@ export default function DrawerContent(props) {
               />
             )}
             label="Mes plats"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("TabDishes");
+            }}
           />
           <DrawerItem
             icon={({ color, size }) => (
