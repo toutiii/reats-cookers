@@ -13,17 +13,24 @@ import {
 import Animated from "react-native-reanimated";
 import CustomAlert from "../components/CustomAlert";
 import all_constants from "../constants";
+import { getUserSettings } from "../helpers/settings_helpers";
 
 export default function DrawerContent(props) {
   const paperTheme = useTheme();
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
   const [online, isOnline] = React.useState(false); // TODO: this value will come from the back
-
+  const [userData, getUserData] = React.useState(null);
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
     setShowAlert(!showAlert);
   };
+
+  React.useEffect(() => {
+    console.log("Fetching data to feed drawer content");
+    getUserData(null);
+    getUserData(getUserSettings());
+  }, []);
 
   return (
     <DrawerContentScrollView {...props}>
