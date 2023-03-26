@@ -168,7 +168,9 @@ export default function DrawerContent(props) {
             )}
             label="Connexion"
             onPress={() => {
-              props.navigation.navigate("SettingsCredentialsForm");
+              props.navigation.navigate("SettingsCredentialsForm", {
+                item: userData["credential_infos_section"]["data"],
+              });
             }}
           />
           <DrawerItem
@@ -177,7 +179,9 @@ export default function DrawerContent(props) {
             )}
             label="Commandes"
             onPress={() => {
-              props.navigation.navigate("SettingsOrderInformationForm");
+              props.navigation.navigate("SettingsOrderInformationForm", {
+                item: userData["order_infos_section"]["data"],
+              });
             }}
           />
           <DrawerItem
@@ -190,7 +194,9 @@ export default function DrawerContent(props) {
             )}
             label="Compte"
             onPress={() => {
-              props.navigation.navigate("SettingsPersonalInformationForm");
+              props.navigation.navigate("SettingsPersonalInformationForm", {
+                item: userData["personal_infos_section"]["data"],
+              });
             }}
           />
           <DrawerItem
@@ -203,7 +209,9 @@ export default function DrawerContent(props) {
             )}
             label="Localisation"
             onPress={() => {
-              props.navigation.navigate("SettingsAddressForm");
+              props.navigation.navigate("SettingsAddressForm", {
+                item: userData["address_section"]["data"],
+              });
             }}
           />
         </Drawer.Section>
