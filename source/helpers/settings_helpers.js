@@ -1,4 +1,9 @@
-export function getUserSettings() {
+const sleep = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+export async function getUserSettings() {
+  await sleep(3000);
   const userSettingsObject = {
     credential_infos_section: {
       title: "credential_infos",
