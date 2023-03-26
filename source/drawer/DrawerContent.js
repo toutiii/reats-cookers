@@ -7,6 +7,7 @@ import {
   Drawer,
   Switch,
   Text,
+  Title,
   TouchableRipple,
   useTheme,
 } from "react-native-paper";
@@ -83,6 +84,9 @@ export default function DrawerContent(props) {
               size={60}
             />
           </TouchableOpacity>
+          <Title style={styles.title}>
+            Bonjour {userData["personal_infos_section"]["data"]["firstname"]}
+          </Title>
         </View>
 
         <Drawer.Section
@@ -240,5 +244,9 @@ const styles = StyleSheet.create({
   },
   userInfoSection: {
     paddingLeft: 20,
+  },
+  title: {
+    marginTop: 10,
+    fontWeight: "bold",
   },
 });
