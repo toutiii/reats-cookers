@@ -3,6 +3,7 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import {
+  ActivityIndicator,
   Avatar,
   Drawer,
   Switch,
@@ -46,7 +47,9 @@ export default function DrawerContent(props) {
   return (
     <View style={{ flex: 1 }}>
       {requesting ? (
-        <Text>Loading...</Text>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <ActivityIndicator animating={true} color="tomato" />
+        </View>
       ) : (
         <DrawerContentScrollView {...props}>
           <Animated.View
