@@ -22,219 +22,252 @@ export default function DrawerContent(props) {
   const [showAlert, setShowAlert] = React.useState(false);
   const [online, isOnline] = React.useState(false); // TODO: this value will come from the back
   const [userData, getUserData] = React.useState(null);
+  const [requesting, isRequesting] = React.useState(true);
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
     setShowAlert(!showAlert);
   };
 
   React.useEffect(() => {
-    console.log("Fetching data to feed drawer content");
-    getUserData(null);
-    getUserData(getUserSettings());
-  }, []);
+    if (requesting) {
+      console.log("Fetching data to feed drawer content");
+      async function getData() {
+        const data = await getUserSettings();
+        getUserData(data);
+      }
+      getData();
+    }
+
+    return () => {
+      isRequesting(false);
+    };
+  }, [userData]);
 
   return (
-    <DrawerContentScrollView {...props}>
-      <Animated.View
-        style={[
-          styles.drawerContent,
-          {
-            backgroundColor: paperTheme.colors.surface,
-          },
-        ]}
-      >
-        {showAlert ? (
-          <CustomAlert
-            show={showAlert}
-            title={
-              online
-                ? all_constants.custom_alert.homeview.offline_title
-                : all_constants.custom_alert.homeview.online_title
-            }
-            message={
-              online
-                ? all_constants.custom_alert.homeview.go_offline
-                : all_constants.custom_alert.homeview.go_online
-            }
-            confirmButtonColor="green"
-            showCancelButton={true}
-            cancelButtonColor="red"
-            cancelText={all_constants.custom_alert.homeview.cancel_text}
-            onConfirmPressed={() => {
-              isOnline(!online);
-              setShowAlert(false);
-            }}
-            onCancelPressed={() => {
-              isOnline(online);
-              setShowAlert(false);
-            }}
-          />
-        ) : (
-          ""
-        )}
-        <View style={styles.userInfoSection}>
-          <TouchableOpacity
-            style={{ marginLeft: 10 }}
-            onPress={() => {
-              props.navigation.toggleDrawer();
-            }}
+    <View style={{ flex: 1 }}>
+      {requesting ? (
+        <Text>Loading...</Text>
+      ) : (
+        <DrawerContentScrollView {...props}>
+          <Animated.View
+            style={[
+              styles.drawerContent,
+              {
+                backgroundColor: paperTheme.colors.surface,
+              },
+            ]}
           >
-            <Avatar.Image
-              source={require("../images/mum_test.jpg")}
-              size={60}
-            />
-          </TouchableOpacity>
-          <Title style={styles.title}>
-            Bonjour {userData["personal_infos_section"]["data"]["firstname"]}
-          </Title>
-        </View>
-
-        <Drawer.Section
-          title="Visibilité"
-          style={{ marginTop: "4%", marginRight: 15 }}
-        >
-          <TouchableRipple
-            onPress={() => {
-              console.log("Hi");
-            }}
-          >
-            <View style={{ flexDirection: "row", flex: 1 }}>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  paddingLeft: 20,
+            {showAlert ? (
+              <CustomAlert
+                show={showAlert}
+                title={
+                  online
+                    ? all_constants.custom_alert.homeview.offline_title
+                    : all_constants.custom_alert.homeview.online_title
+                }
+                message={
+                  online
+                    ? all_constants.custom_alert.homeview.go_offline
+                    : all_constants.custom_alert.homeview.go_online
+                }
+                confirmButtonColor="green"
+                showCancelButton={true}
+                cancelButtonColor="red"
+                cancelText={all_constants.custom_alert.homeview.cancel_text}
+                onConfirmPressed={() => {
+                  isOnline(!online);
+                  setShowAlert(false);
+                }}
+                onCancelPressed={() => {
+                  isOnline(online);
+                  setShowAlert(false);
+                }}
+              />
+            ) : (
+              ""
+            )}
+            <View style={styles.userInfoSection}>
+              <TouchableOpacity
+                style={{ marginLeft: 10 }}
+                onPress={() => {
+                  props.navigation.toggleDrawer();
                 }}
               >
-                <Text
-                  style={[
-                    { color: online ? "green" : "red" },
-                    { fontWeight: "bold" },
-                  ]}
-                >
-                  {online
-                    ? all_constants.label.home.status.online
-                    : all_constants.label.home.status.offline}
-                </Text>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Switch onValueChange={onToggleSwitch} value={online} />
-              </View>
+                <Avatar.Image
+                  source={require("../images/mum_test.jpg")}
+                  size={60}
+                />
+              </TouchableOpacity>
+              <Title style={styles.title}>
+                Bonjour{" "}
+                {userData["personal_infos_section"]["data"]["firstname"]}
+              </Title>
             </View>
-          </TouchableRipple>
-        </Drawer.Section>
 
-        <Drawer.Section title="Cuisine">
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="food-turkey"
-                color={color}
-                size={size}
-              />
-            )}
-            label="Mes plats"
-            onPress={() => {
-              props.navigation.navigate("TabDishes");
-            }}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons name="food" color={color} size={size} />
-            )}
-            label="Mes menus"
-            onPress={() => {
-              props.navigation.navigate("TabMenus");
-            }}
-          />
-        </Drawer.Section>
+            <Drawer.Section
+              title="Visibilité"
+              style={{ marginTop: "4%", marginRight: 15 }}
+            >
+              <TouchableRipple
+                onPress={() => {
+                  console.log("Hi");
+                }}
+              >
+                <View style={{ flexDirection: "row", flex: 1 }}>
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      paddingLeft: 20,
+                    }}
+                  >
+                    <Text
+                      style={[
+                        { color: online ? "green" : "red" },
+                        { fontWeight: "bold" },
+                      ]}
+                    >
+                      {online
+                        ? all_constants.label.home.status.online
+                        : all_constants.label.home.status.offline}
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Switch onValueChange={onToggleSwitch} value={online} />
+                  </View>
+                </View>
+              </TouchableRipple>
+            </Drawer.Section>
 
-        <Drawer.Section title="Marketing">
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="percent"
-                color={color}
-                size={size}
+            <Drawer.Section title="Cuisine">
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="food-turkey"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Mes plats"
+                onPress={() => {
+                  props.navigation.navigate("TabDishes");
+                }}
               />
-            )}
-            label="Mes promotions"
-            onPress={() => {
-              props.navigation.navigate("TabOffers");
-            }}
-          />
-        </Drawer.Section>
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="food"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Mes menus"
+                onPress={() => {
+                  props.navigation.navigate("TabMenus");
+                }}
+              />
+            </Drawer.Section>
 
-        <Drawer.Section title="Préférences">
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons name="lock" color={color} size={size} />
-            )}
-            label="Connexion"
-            onPress={() => {
-              props.navigation.navigate("SettingsCredentialsForm", {
-                item: userData["credential_infos_section"]["data"],
-              });
-            }}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons name="basket" color={color} size={size} />
-            )}
-            label="Commandes"
-            onPress={() => {
-              props.navigation.navigate("SettingsOrderInformationForm", {
-                item: userData["order_infos_section"]["data"],
-              });
-            }}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="account"
-                color={color}
-                size={size}
+            <Drawer.Section title="Marketing">
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="percent"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Mes promotions"
+                onPress={() => {
+                  props.navigation.navigate("TabOffers");
+                }}
               />
-            )}
-            label="Compte"
-            onPress={() => {
-              props.navigation.navigate("SettingsPersonalInformationForm", {
-                item: userData["personal_infos_section"]["data"],
-              });
-            }}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="map-marker"
-                color={color}
-                size={size}
-              />
-            )}
-            label="Localisation"
-            onPress={() => {
-              props.navigation.navigate("SettingsAddressForm", {
-                item: userData["address_section"]["data"],
-              });
-            }}
-          />
-        </Drawer.Section>
+            </Drawer.Section>
 
-        <Drawer.Section>
-          <DrawerItem
-            icon={({ size }) => (
-              <MaterialCommunityIcons name="power" color="red" size={size} />
-            )}
-            label={() => (
-              <Text style={{ color: "red", fontWeight: "bold" }}>
-                Déconnexion
-              </Text>
-            )}
-            onPress={() => {}}
-          />
-        </Drawer.Section>
-      </Animated.View>
-    </DrawerContentScrollView>
+            <Drawer.Section title="Préférences">
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="lock"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Connexion"
+                onPress={() => {
+                  props.navigation.navigate("SettingsCredentialsForm", {
+                    item: userData["credential_infos_section"]["data"],
+                  });
+                }}
+              />
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="basket"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Commandes"
+                onPress={() => {
+                  props.navigation.navigate("SettingsOrderInformationForm", {
+                    item: userData["order_infos_section"]["data"],
+                  });
+                }}
+              />
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="account"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Compte"
+                onPress={() => {
+                  props.navigation.navigate("SettingsPersonalInformationForm", {
+                    item: userData["personal_infos_section"]["data"],
+                  });
+                }}
+              />
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="map-marker"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Localisation"
+                onPress={() => {
+                  props.navigation.navigate("SettingsAddressForm", {
+                    item: userData["address_section"]["data"],
+                  });
+                }}
+              />
+            </Drawer.Section>
+
+            <Drawer.Section>
+              <DrawerItem
+                icon={({ size }) => (
+                  <MaterialCommunityIcons
+                    name="power"
+                    color="red"
+                    size={size}
+                  />
+                )}
+                label={() => (
+                  <Text style={{ color: "red", fontWeight: "bold" }}>
+                    Déconnexion
+                  </Text>
+                )}
+                onPress={() => {}}
+              />
+            </Drawer.Section>
+          </Animated.View>
+        </DrawerContentScrollView>
+      )}
+    </View>
   );
 }
 
