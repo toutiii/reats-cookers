@@ -15,7 +15,6 @@ import SettingsOrderInformationForm from "../forms/SettingsOrderInformationForm"
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../views/Dashboard";
-import HomeView from "../views/HomeView";
 
 const Tab = createBottomTabNavigator();
 
