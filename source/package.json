@@ -55,5 +55,8 @@
     "eslint": "^8.7.0",
     "prettier": "^2.5.1"
   },
+  "resolutions": {
+    "react-native-svg": "13.4.0"
+  },
   "private": true
 }
