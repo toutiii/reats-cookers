@@ -33,6 +33,7 @@
     "react-native-cli": "^2.0.1",
     "react-native-dynamic": "^1.0.0",
     "react-native-gesture-handler": "~2.8.0",
+    "react-native-gifted-charts": "^1.2.42",
     "react-native-largelist-v3": "^3.0.15",
     "react-native-pager-view": "6.0.1",
     "react-native-paper": "^4.7.2",
