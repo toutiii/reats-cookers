@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { BarChart, PieChart } from "react-native-gifted-charts";
+import { TouchableRipple } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Divider } from "react-native-paper";
 
 export default function Dashboard(props) {
@@ -162,10 +164,28 @@ export default function Dashboard(props) {
         flex: 1,
       }}
     >
+      <TouchableRipple
+        onPress={() => {
+          console.log("PRESS");
+        }}
+        rippleColor="yellow"
+      >
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <MaterialCommunityIcons
+            name="information-outline"
+            color={"#232B5D"}
+            size={35}
+          />
+        </View>
+      </TouchableRipple>
       <View
         style={{
           margin: 20,
-          padding: 16,
           borderRadius: 20,
           backgroundColor: "#232B5D",
           flex: 1,
@@ -195,7 +215,6 @@ export default function Dashboard(props) {
       <View
         style={{
           margin: 20,
-          padding: 16,
           borderRadius: 20,
           backgroundColor: "#232B5D",
           flex: 1,
