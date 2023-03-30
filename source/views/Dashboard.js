@@ -8,9 +8,8 @@ import {
   Text,
 } from "react-native";
 import { BarChart, PieChart } from "react-native-gifted-charts";
-import { TouchableRipple } from "react-native-paper";
+import { Divider, TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Divider } from "react-native-paper";
 import { getUserSettings } from "../helpers/settings_helpers";
 
 export default function Dashboard(props) {
