@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import {
   Animated,
+  Button,
   RefreshControl,
   SafeAreaView,
   StyleSheet,
@@ -11,10 +12,12 @@ import { BarChart, PieChart } from "react-native-gifted-charts";
 import { Divider, TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { getUserSettings } from "../helpers/settings_helpers";
+import Modal from "react-native-modal";
 
 export default function Dashboard(props) {
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const [refreshing, setRefreshing] = React.useState(false);
+  const [isModalVisible, setModalVisible] = React.useState(false);
 
   const fadeIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
@@ -198,6 +201,10 @@ export default function Dashboard(props) {
     );
   };
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Animated.ScrollView
@@ -210,12 +217,40 @@ export default function Dashboard(props) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <TouchableRipple
-          onPress={() => {
-            console.log("PRESS");
-          }}
-          rippleColor="yellow"
-        >
+        {isModalVisible ? (
+          <Modal
+            testID={"modal"}
+            isVisible={isModalVisible}
+            backdropOpacity={0.8}
+            animationIn="zoomInDown"
+            animationOut="zoomOutUp"
+            animationInTiming={600}
+            animationOutTiming={600}
+            backdropTransitionInTiming={600}
+            backdropTransitionOutTiming={600}
+          >
+            <View style={{ flex: 1, backgroundColor: "white", padding: 10 }}>
+              <View style={{ flex: 1 }}>
+                <Button title="Close" onPress={toggleModal} />
+              </View>
+
+              <View
+                style={{
+                  flex: 2,
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 16, textAlign: "center" }}>
+                  Pour mettre à jour les informations, fermez cette fenêtre et
+                  scrollez vers le bas.
+                </Text>
+              </View>
+            </View>
+          </Modal>
+        ) : (
+          ""
+        )}
+        <TouchableRipple onPress={toggleModal} rippleColor="yellow">
           <View
             style={{
               justifyContent: "center",
