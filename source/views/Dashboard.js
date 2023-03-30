@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
+  Animated,
   RefreshControl,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   View,
   Text,
@@ -11,8 +11,30 @@ import { BarChart, PieChart } from "react-native-gifted-charts";
 import { TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Divider } from "react-native-paper";
+import { getUserSettings } from "../helpers/settings_helpers";
 
 export default function Dashboard(props) {
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    console.log("fading out");
+    Animated.timing(fadeAnim, {
+      toValue: 0.2,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  };
   const pieData = [
     {
       value: 1,
@@ -85,14 +107,18 @@ export default function Dashboard(props) {
     { value: 28, frontColor: "#3BE9DE", gradientColor: "#93FCF8" },
   ];
 
-  const [refreshing, setRefreshing] = React.useState(false);
-
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
+    fadeOut();
     setTimeout(() => {
+      async function getData() {
+        await getUserSettings();
+      }
+      getData();
       setRefreshing(false);
-    }, 2000);
-  }, []);
+      fadeIn();
+    }, 5000);
+  }, [refreshing]);
 
   const renderDot = (color) => {
     return (
@@ -175,10 +201,11 @@ export default function Dashboard(props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
+      <Animated.ScrollView
         style={{
           backgroundColor: "white",
           flex: 1,
+          opacity: fadeAnim,
         }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -266,7 +293,7 @@ export default function Dashboard(props) {
             />
           </View>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </SafeAreaView>
   );
 }
@@ -274,8 +301,14 @@ export default function Dashboard(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   scrollView: {
     flex: 1,
+  },
+
+  fadingContainer: {
+    padding: 20,
+    backgroundColor: "powderblue",
   },
 });
