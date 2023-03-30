@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text } from "react-native";
+import {
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+} from "react-native";
 import { BarChart, PieChart } from "react-native-gifted-charts";
 import { TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -77,6 +84,15 @@ export default function Dashboard(props) {
 
     { value: 28, frontColor: "#3BE9DE", gradientColor: "#93FCF8" },
   ];
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   const renderDot = (color) => {
     return (
@@ -158,94 +174,108 @@ export default function Dashboard(props) {
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: "white",
-        flex: 1,
-      }}
-    >
-      <TouchableRipple
-        onPress={() => {
-          console.log("PRESS");
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        style={{
+          backgroundColor: "white",
+          flex: 1,
         }}
-        rippleColor="yellow"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
+        <TouchableRipple
+          onPress={() => {
+            console.log("PRESS");
+          }}
+          rippleColor="yellow"
+        >
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <MaterialCommunityIcons
+              name="information-outline"
+              color={"#232B5D"}
+              size={35}
+            />
+          </View>
+        </TouchableRipple>
         <View
           style={{
-            justifyContent: "center",
-            alignItems: "center",
+            margin: 20,
+            borderRadius: 20,
+            backgroundColor: "#232B5D",
+            flex: 1,
           }}
         >
-          <MaterialCommunityIcons
-            name="information-outline"
-            color={"#232B5D"}
-            size={35}
-          />
-        </View>
-      </TouchableRipple>
-      <View
-        style={{
-          margin: 20,
-          borderRadius: 20,
-          backgroundColor: "#232B5D",
-          flex: 1,
-        }}
-      >
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-            Commandes
-          </Text>
-        </View>
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+              Commandes
+            </Text>
+          </View>
 
-        <View style={{ padding: 20, alignItems: "center" }}>
-          <PieChart
-            data={pieData}
-            donut
-            showGradient
-            focusOnPress={true}
-            radius={90}
-            innerRadius={60}
-            innerCircleColor={"white"}
-          />
-        </View>
+          <View style={{ padding: 20, alignItems: "center" }}>
+            <PieChart
+              data={pieData}
+              donut
+              showGradient
+              focusOnPress={true}
+              radius={90}
+              innerRadius={60}
+              innerCircleColor={"white"}
+            />
+          </View>
 
-        {renderLegendComponent()}
-      </View>
-      <Divider />
-      <View
-        style={{
-          margin: 20,
-          borderRadius: 20,
-          backgroundColor: "#232B5D",
-          flex: 1,
-        }}
-      >
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-            Turnover
-          </Text>
+          {renderLegendComponent()}
         </View>
+        <Divider />
+        <View
+          style={{
+            margin: 20,
+            borderRadius: 20,
+            backgroundColor: "#232B5D",
+            flex: 1,
+          }}
+        >
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+              Turnover
+            </Text>
+          </View>
 
-        <View style={{ padding: 20, alignItems: "center" }}>
-          <BarChart
-            data={barData}
-            barWidth={16}
-            initialSpacing={10}
-            barBorderRadius={4}
-            yAxisThickness={0}
-            xAxisType={"dashed"}
-            xAxisColor={"lightgray"}
-            yAxisTextStyle={{ color: "lightgray" }}
-            stepValue={0}
-            maxValue={100}
-            minValue={0}
-            noOfSections={5}
-            xAxisLabelTextStyle={{ color: "lightgray", textAlign: "center" }}
-            showScrollIndicator
-            yAxisLabelSuffix={"€"}
-          />
+          <View style={{ padding: 20, alignItems: "center" }}>
+            <BarChart
+              data={barData}
+              barWidth={16}
+              initialSpacing={10}
+              barBorderRadius={4}
+              yAxisThickness={0}
+              xAxisType={"dashed"}
+              xAxisColor={"lightgray"}
+              yAxisTextStyle={{ color: "lightgray" }}
+              stepValue={0}
+              maxValue={100}
+              minValue={0}
+              noOfSections={5}
+              xAxisLabelTextStyle={{ color: "lightgray", textAlign: "center" }}
+              showScrollIndicator
+              yAxisLabelSuffix={"€"}
+            />
+          </View>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+  },
+});
