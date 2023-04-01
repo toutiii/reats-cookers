@@ -29,13 +29,17 @@ export default function SearchFilterModal(props) {
           />
         </View>
         <View style={{ flex: 7 }}>
-          <MultipleSelectList
-            setSelected={(val) => props.stateSearchData(val)}
-            search={false}
-            data={data}
-            save="value"
-            placeholder="Sélectionnez"
-          />
+          {props.enableOrderStateFilter ? (
+            <MultipleSelectList
+              setSelected={(val) => props.stateSearchData(val)}
+              search={false}
+              data={data}
+              save="value"
+              placeholder="Sélectionnez"
+            />
+          ) : (
+            ""
+          )}
         </View>
       </View>
     </Modal>
