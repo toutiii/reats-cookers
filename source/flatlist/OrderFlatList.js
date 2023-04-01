@@ -127,7 +127,7 @@ export default function OrderFlatList({ ...props }) {
     >
       {isSearchFilterModalVisible ? (
         <SearchFilterModal
-          enableOrderStateFilter={false}
+          enableActiveFilter={false}
           isModalVisible={isSearchFilterModalVisible}
           toggleModal={toggleSearchFilterModal}
           stateSearchData={setselectedStates}

@@ -4,7 +4,7 @@ import { Button, View } from "react-native";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 
 export default function SearchFilterModal(props) {
-  const data = [
+  const activeFilterData = [
     { key: "1", value: "ACTIFS" },
     { key: "2", value: "INACTIFS" },
   ];
@@ -29,11 +29,11 @@ export default function SearchFilterModal(props) {
           />
         </View>
         <View style={{ flex: 7 }}>
-          {props.enableOrderStateFilter ? (
+          {props.enableActiveFilter ? (
             <MultipleSelectList
               setSelected={(val) => props.stateSearchData(val)}
               search={false}
-              data={data}
+              data={activeFilterData}
               save="value"
               placeholder="Sélectionnez"
             />
