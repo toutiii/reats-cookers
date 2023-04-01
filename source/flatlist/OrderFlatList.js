@@ -16,6 +16,8 @@ export default function OrderFlatList({ ...props }) {
   const [isSearchFilterModalVisible, setSearchFilterModalVisible] =
     React.useState(false);
 
+  const [selectedStates, setselectedStates] = React.useState([]);
+
   const toggleSearchFilterModal = () => {
     setSearchFilterModalVisible(!isSearchFilterModalVisible);
   };
@@ -127,6 +129,7 @@ export default function OrderFlatList({ ...props }) {
         <SearchFilterModal
           isModalVisible={isSearchFilterModalVisible}
           toggleModal={toggleSearchFilterModal}
+          stateSearchData={setselectedStates}
         />
       ) : (
         ""

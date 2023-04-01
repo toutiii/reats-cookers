@@ -1,8 +1,13 @@
 import React from "react";
 import Modal from "react-native-modal";
 import { Button, View } from "react-native";
+import { MultipleSelectList } from "react-native-dropdown-select-list";
 
 export default function SearchFilterModal(props) {
+  const data = [
+    { key: "1", value: "ACTIFS" },
+    { key: "2", value: "INACTIFS" },
+  ];
   return (
     <Modal
       isVisible={props.isModalVisible}
@@ -21,6 +26,15 @@ export default function SearchFilterModal(props) {
             onPress={() => {
               props.toggleModal();
             }}
+          />
+        </View>
+        <View style={{ flex: 7 }}>
+          <MultipleSelectList
+            setSelected={(val) => props.stateSearchData(val)}
+            search={false}
+            data={data}
+            save="value"
+            placeholder="Sélectionnez"
           />
         </View>
       </View>
