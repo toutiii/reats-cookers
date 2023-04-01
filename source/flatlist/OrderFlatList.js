@@ -113,7 +113,6 @@ export default function OrderFlatList({ ...props }) {
 
   const onChangeSearch = (query) => setSearchQuery(query);
 
-  const renderSearchFilterModal = () => {};
   return (
     <View
       style={{
