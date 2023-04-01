@@ -141,7 +141,7 @@ export default function OrderFlatList({ ...props }) {
       <View style={{ flex: 1, flexDirection: "row", backgroundColor: "white" }}>
         <View style={{ flex: 4 }}>
           <Searchbar
-            placeholder="Search"
+            placeholder="Écrivez pour lancer la recherche"
             onChangeText={onChangeSearch}
             value={searchQuery}
           />
