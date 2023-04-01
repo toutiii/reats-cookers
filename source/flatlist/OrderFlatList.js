@@ -3,7 +3,6 @@ import { FlatList, Text, TouchableHighlight, View } from "react-native";
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Order from "../components/Order";
-import CustomButton from "../button/CustomButton";
 import OrderModal from "../modals/OrderModal";
 import { getData } from "../helpers/global_helpers";
 import { getOrders } from "../helpers/order_helpers";
