@@ -9,9 +9,16 @@ import { getOrders } from "../helpers/order_helpers";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import SearchFilterModal from "../modals/SearchFilterModal.js";
 
 export default function OrderFlatList({ ...props }) {
   const [modalState, setModalState] = useState(false);
+  const [isSearchFilterModalVisible, setSearchFilterModalVisible] =
+    React.useState(false);
+
+  const toggleSearchFilterModal = () => {
+    setSearchFilterModalVisible(!isSearchFilterModalVisible);
+  };
   const onPressShowModal = () => {
     setModalState(true);
   };
@@ -105,6 +112,8 @@ export default function OrderFlatList({ ...props }) {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const onChangeSearch = (query) => setSearchQuery(query);
+
+  const renderSearchFilterModal = () => {};
   return (
     <View
       style={{
@@ -115,6 +124,14 @@ export default function OrderFlatList({ ...props }) {
             : "0%",
       }}
     >
+      {isSearchFilterModalVisible ? (
+        <SearchFilterModal
+          isModalVisible={isSearchFilterModalVisible}
+          toggleModal={toggleSearchFilterModal}
+        />
+      ) : (
+        ""
+      )}
       <View style={{ flex: 1, flexDirection: "row", backgroundColor: "white" }}>
         <View style={{ flex: 4 }}>
           <Searchbar
@@ -131,7 +148,7 @@ export default function OrderFlatList({ ...props }) {
           }}
         >
           <TouchableRipple
-            onPress={() => console.log("Pressed")}
+            onPress={toggleSearchFilterModal}
             rippleColor="rgba(0, 0, 0, .32)"
           >
             <MaterialCommunityIcons
