@@ -43,7 +43,7 @@ export default function SearchFilterModal(props) {
               search={false}
               data={activeFilterData}
               save="value"
-              placeholder="Sélectionnez"
+              placeholder="Items actifs ou inactifs"
             />
           ) : (
             ""
@@ -54,7 +54,7 @@ export default function SearchFilterModal(props) {
               search={false}
               data={orderStateFilterData}
               save="value"
-              placeholder="Sélectionnez"
+              placeholder="État de la commande"
             />
           ) : (
             ""
