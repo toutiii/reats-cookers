@@ -8,6 +8,8 @@ import OrderModal from "../modals/OrderModal";
 import { getData } from "../helpers/global_helpers";
 import { getOrders } from "../helpers/order_helpers";
 import { Searchbar } from "react-native-paper";
+import { TouchableRipple } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function OrderFlatList({ ...props }) {
   const [modalState, setModalState] = useState(false);
@@ -114,11 +116,34 @@ export default function OrderFlatList({ ...props }) {
             : "0%",
       }}
     >
-      <Searchbar
-        placeholder="Search"
-        onChangeText={onChangeSearch}
-        value={searchQuery}
-      />
+      <View style={{ flex: 1, flexDirection: "row", backgroundColor: "white" }}>
+        <View style={{ flex: 4 }}>
+          <Searchbar
+            placeholder="Search"
+            onChangeText={onChangeSearch}
+            value={searchQuery}
+          />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <TouchableRipple
+            onPress={() => console.log("Pressed")}
+            rippleColor="rgba(0, 0, 0, .32)"
+          >
+            <MaterialCommunityIcons
+              name="filter-variant"
+              color={"black"}
+              size={40}
+            />
+          </TouchableRipple>
+        </View>
+      </View>
+
       {props.route.params.tag === all_constants.tag.orders.paid ? (
         <OrderModal
           state={modalState}
