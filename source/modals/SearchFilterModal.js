@@ -28,14 +28,6 @@ export default function SearchFilterModal(props) {
       backdropTransitionOutTiming={600}
     >
       <View style={{ flex: 1, backgroundColor: "white", padding: 10 }}>
-        <View style={{ flex: 1 }}>
-          <Button
-            title="Close"
-            onPress={() => {
-              props.toggleModal();
-            }}
-          />
-        </View>
         <View style={{ flex: 7 }}>
           {props.enableActiveFilter ? (
             <MultipleSelectList
@@ -59,6 +51,14 @@ export default function SearchFilterModal(props) {
           ) : (
             ""
           )}
+        </View>
+        <View style={{ flex: 1 }}>
+          <Button
+            title="OK"
+            onPress={() => {
+              props.toggleModal();
+            }}
+          />
         </View>
       </View>
     </Modal>
