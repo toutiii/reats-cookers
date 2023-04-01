@@ -8,6 +8,14 @@ export default function SearchFilterModal(props) {
     { key: "1", value: "ACTIFS" },
     { key: "2", value: "INACTIFS" },
   ];
+  const orderStateFilterData = [
+    { key: "1", value: "ready" },
+    { key: "2", value: "cooking" },
+    { key: "3", value: "pending" },
+    { key: "4", value: "canceled" },
+    { key: "5", value: "delivered" },
+  ];
+
   return (
     <Modal
       isVisible={props.isModalVisible}
@@ -34,6 +42,17 @@ export default function SearchFilterModal(props) {
               setSelected={(val) => props.stateSearchData(val)}
               search={false}
               data={activeFilterData}
+              save="value"
+              placeholder="Sélectionnez"
+            />
+          ) : (
+            ""
+          )}
+          {props.enableOrderStateFilter ? (
+            <MultipleSelectList
+              setSelected={(val) => props.stateOrderData(val)}
+              search={false}
+              data={orderStateFilterData}
               save="value"
               placeholder="Sélectionnez"
             />
