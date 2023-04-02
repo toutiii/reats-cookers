@@ -1,7 +1,9 @@
 import React from "react";
 import Modal from "react-native-modal";
-import { Button, View } from "react-native";
+import { Button, Platform, Text, View } from "react-native";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 
 export default function SearchFilterModal(props) {
   const activeFilterData = [
@@ -15,6 +17,51 @@ export default function SearchFilterModal(props) {
     { key: "4", value: "canceled" },
     { key: "5", value: "delivered" },
   ];
+
+  const datePickerMode = "date";
+  const [date, setDate] = React.useState(new Date());
+  const [show, setShow] = React.useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setShow(false);
+    setDate(currentDate);
+  };
+
+  const showAndroidMode = () => {
+    // Below is the recommended way to open picker on android in the docs.
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange,
+      mode: datePickerMode,
+      is24Hour: true,
+    });
+  };
+
+  const showIOSMode = () => {
+    setShow(true);
+  };
+
+  const showDatepicker = () => {
+    if (Platform.OS === "android") {
+      showAndroidMode();
+    } else {
+      showIOSMode();
+    }
+  };
+
+  const renderDateTimePicker = () => {
+    console.log("manual rendering");
+    return (
+      <DateTimePicker
+        testID="dateTimePicker"
+        value={date}
+        mode={datePickerMode}
+        is24Hour={true}
+        onChange={onChange}
+      />
+    );
+  };
 
   return (
     <Modal
@@ -51,6 +98,10 @@ export default function SearchFilterModal(props) {
           ) : (
             ""
           )}
+          <View>
+            <Button onPress={showDatepicker} title="Show date picker!" />
+            {show && renderDateTimePicker()}
+          </View>
         </View>
         <View style={{ flex: 1 }}>
           <Button
