@@ -1,9 +1,12 @@
 import React from "react";
 import Modal from "react-native-modal";
-import { Button, Platform, Text, View } from "react-native";
+import { Button, Platform, View } from "react-native";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import { TextInput } from "react-native-paper";
+import { TouchableRipple } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function SearchFilterModal(props) {
   const activeFilterData = [
@@ -98,10 +101,64 @@ export default function SearchFilterModal(props) {
           ) : (
             ""
           )}
-          <View>
-            <Button onPress={showDatepicker} title="Show date picker!" />
-            {show && renderDateTimePicker()}
+
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 4 }}>
+              <TextInput
+                editable={false}
+                placeholder={"Date de début"}
+                mode="outlined"
+              />
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <TouchableRipple
+                onPress={showDatepicker}
+                rippleColor="rgba(0, 0, 0, .32)"
+              >
+                <MaterialCommunityIcons
+                  name="calendar"
+                  color={"black"}
+                  size={35}
+                />
+              </TouchableRipple>
+            </View>
           </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 4 }}>
+              <TextInput
+                editable={false}
+                placeholder={"Date de fin"}
+                mode="outlined"
+              />
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <TouchableRipple
+                onPress={showDatepicker}
+                rippleColor="rgba(0, 0, 0, .32)"
+              >
+                <MaterialCommunityIcons
+                  name="calendar"
+                  color={"black"}
+                  size={35}
+                />
+              </TouchableRipple>
+            </View>
+          </View>
+
+          <View style={{ flex: 1 }}>{show && renderDateTimePicker()}</View>
         </View>
         <View style={{ flex: 1 }}>
           <Button
