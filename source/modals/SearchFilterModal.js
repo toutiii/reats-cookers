@@ -7,6 +7,7 @@ import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { TextInput } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { format } from "date-fns";
 
 export default function SearchFilterModal(props) {
   const activeFilterData = [
@@ -21,44 +22,46 @@ export default function SearchFilterModal(props) {
     { key: "5", value: "delivered" },
   ];
 
-  const datePickerMode = "date";
-  const [date, setDate] = React.useState(new Date());
+  const datePickerMode = "startDate";
+  const [startDate, setStartDate] = React.useState(new Date());
+  const [endDate, setEndDate] = React.useState(new Date());
   const [show, setShow] = React.useState(false);
+  const isStartDate = React.useRef(true);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
-    setDate(currentDate);
+    isStartDate.current ? setStartDate(currentDate) : setEndDate(currentDate);
   };
 
   const showAndroidMode = () => {
     // Below is the recommended way to open picker on android in the docs.
     DateTimePickerAndroid.open({
-      value: date,
+      value: isStartDate.current ? startDate : endDate,
       onChange,
       mode: datePickerMode,
       is24Hour: true,
     });
   };
 
-  const showIOSMode = () => {
-    setShow(true);
-  };
-
-  const showDatepicker = () => {
+  const showDatepicker = (boolValue) => {
+    if (boolValue) {
+      isStartDate.current = true;
+    } else {
+      isStartDate.current = false;
+    }
     if (Platform.OS === "android") {
       showAndroidMode();
     } else {
-      showIOSMode();
+      setShow(true);
     }
   };
 
   const renderDateTimePicker = () => {
-    console.log("manual rendering");
     return (
       <DateTimePicker
         testID="dateTimePicker"
-        value={date}
+        value={isStartDate.current ? startDate : endDate}
         mode={datePickerMode}
         is24Hour={true}
         onChange={onChange}
@@ -108,6 +111,7 @@ export default function SearchFilterModal(props) {
                 editable={false}
                 placeholder={"Date de début"}
                 mode="outlined"
+                value={format(startDate, "dd/LL/yyyy")}
               />
             </View>
             <View
@@ -118,7 +122,9 @@ export default function SearchFilterModal(props) {
               }}
             >
               <TouchableRipple
-                onPress={showDatepicker}
+                onPress={() => {
+                  showDatepicker(true);
+                }}
                 rippleColor="rgba(0, 0, 0, .32)"
               >
                 <MaterialCommunityIcons
@@ -136,6 +142,7 @@ export default function SearchFilterModal(props) {
                 editable={false}
                 placeholder={"Date de fin"}
                 mode="outlined"
+                value={format(endDate, "dd/LL/yyyy")}
               />
             </View>
             <View
@@ -146,7 +153,9 @@ export default function SearchFilterModal(props) {
               }}
             >
               <TouchableRipple
-                onPress={showDatepicker}
+                onPress={() => {
+                  showDatepicker(false);
+                }}
                 rippleColor="rgba(0, 0, 0, .32)"
               >
                 <MaterialCommunityIcons
