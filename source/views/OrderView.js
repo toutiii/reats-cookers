@@ -209,7 +209,7 @@ export default class OrderView extends Component {
                   flexDirection: "row",
                 }}
               >
-                <AntDesign name="user" size={24} color="black" style={{paddingRight:"1%"}} />
+                <AntDesign name="user" size={30} color="black" style={{paddingRight:"1%"}} />
                 <Text>{all_constants.order.infos.owner} {this.props.route.params.item.order_owner} le {this.props.route.params.item.order_date} à {this.props.route.params.item.order_hour} </Text>
               </View>
               <View
@@ -221,7 +221,7 @@ export default class OrderView extends Component {
                   aspectRatio: 6,
                   flexDirection: "row",
                 }}
-              ><FontAwesome name="money" size={24} color="black" style={{paddingRight:"1%"}}/>
+              ><FontAwesome name="money" size={30} color="black" style={{paddingRight:"1%"}}/>
               <Text>{all_constants.order.infos.amount} {this.props.route.params.item.order_amount} {all_constants.currency_symbol}</Text>
               </View>
               <View
@@ -235,9 +235,9 @@ export default class OrderView extends Component {
                 }}
               >
               {this.props.route.params.item.order_status === all_constants.order.status.approved? (
-                <><AntDesign name="checkcircle" size={24} color="black" style={{paddingRight:"1%"}}/><Text> {all_constants.order.infos.approved_label} {this.props.route.params.item.order_accept_date} à {this.props.route.params.item.order_accept_hour} </Text></>
+                <><AntDesign name="checkcircle" size={30} color="black" style={{paddingRight:"1%"}}/><Text> {all_constants.order.infos.approved_label} {this.props.route.params.item.order_accept_date} à {this.props.route.params.item.order_accept_hour} </Text></>
               ):this.props.route.params.item.order_status === all_constants.order.status.canceled ?(
-                <><MaterialIcons name="cancel" size={24} color="black" style={{paddingRight:"1%"}}/><Text>{all_constants.order.infos.canceled_label} {this.props.route.params.item.order_cancel_date} à {this.props.route.params.item.order_cancel_hour}</Text></>
+                <><MaterialIcons name="cancel" size={30} color="black" style={{paddingRight:"1%"}}/><Text>{all_constants.order.infos.canceled_label} {this.props.route.params.item.order_cancel_date} à {this.props.route.params.item.order_cancel_hour}</Text></>
               ):(<><FontAwesome name="hourglass-half" size={24} color="black" style={{paddingRight:"1%"}} /><Text>{this.props.route.params.item.order_status}</Text></>)}
               </View>
               <View
@@ -249,7 +249,7 @@ export default class OrderView extends Component {
                   aspectRatio: 6,
                   flexDirection: "row",
                 }}
-              ><MaterialIcons name="delivery-dining" size={24} color="black" style={{paddingRight:"1%"}}/>
+              ><MaterialIcons name="delivery-dining" size={30} color="black" style={{paddingRight:"1%"}}/>
               {this.props.route.params.item.order_status === all_constants.order.status.approved?(
                 <Text>{all_constants.order.infos.delivered_label} {this.props.route.params.item.order_delivery_date} à {this.props.route.params.item.order_picking_hour} </Text>
               ):this.props.route.params.item.order_status === all_constants.order.status.canceled ?(
@@ -266,7 +266,7 @@ export default class OrderView extends Component {
                   aspectRatio: 6,
                   flexDirection: "row",
                 }}
-              ><MaterialCommunityIcons name="google-maps" size={24} color="black" style={{paddingRight:"1%"}}/>
+              ><MaterialCommunityIcons name="google-maps" size={30} color="black" style={{paddingRight:"1%"}}/>
               <Text>4 rue de la grande ferme lieusaint 77127</Text></View>
             </View>
             <HorizontalLine line_width={3} />
