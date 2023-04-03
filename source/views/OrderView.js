@@ -201,8 +201,6 @@ export default class OrderView extends Component {
             >
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
@@ -215,8 +213,6 @@ export default class OrderView extends Component {
               </View>
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
@@ -228,8 +224,6 @@ export default class OrderView extends Component {
               </View>
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
@@ -245,8 +239,6 @@ export default class OrderView extends Component {
               </View>
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
@@ -263,8 +255,6 @@ export default class OrderView extends Component {
               )}</View>
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
