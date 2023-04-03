@@ -207,6 +207,7 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 6,
                   flexDirection: "row",
+                  alignItems:"center"
                 }}
               >
                 <AntDesign name="user" size={30} color="black" style={{paddingRight:"1%"}} />
@@ -220,6 +221,7 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 6,
                   flexDirection: "row",
+                  alignItems:"center"
                 }}
               ><FontAwesome name="money" size={30} color="black" style={{paddingRight:"1%"}}/>
               <Text>{all_constants.order.infos.amount} {this.props.route.params.item.order_amount} {all_constants.currency_symbol}</Text>
@@ -232,6 +234,7 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 6,
                   flexDirection: "row",
+                  alignItems:"center"
                 }}
               >
               {this.props.route.params.item.order_status === all_constants.order.status.approved? (
@@ -248,6 +251,7 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 6,
                   flexDirection: "row",
+                  alignItems:"center"
                 }}
               ><MaterialIcons name="delivery-dining" size={30} color="black" style={{paddingRight:"1%"}}/>
               {this.props.route.params.item.order_status === all_constants.order.status.approved?(
@@ -265,6 +269,7 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 6,
                   flexDirection: "row",
+                  alignItems:"center"
                 }}
               ><MaterialCommunityIcons name="google-maps" size={30} color="black" style={{paddingRight:"1%"}}/>
               <Text>4 rue de la grande ferme lieusaint 77127</Text></View>
