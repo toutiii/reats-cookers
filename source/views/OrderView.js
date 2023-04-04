@@ -188,18 +188,22 @@ export default class OrderView extends Component {
                   alignItems: "center",
                 }}
               >
-                <AntDesign
-                  name="user"
-                  size={30}
-                  color="black"
-                  style={{ paddingRight: "1%" }}
-                />
-                <Text>
-                  {all_constants.order.infos.owner}{" "}
-                  {this.props.route.params.item.order_owner} le{" "}
-                  {this.props.route.params.item.order_date} à{" "}
-                  {this.props.route.params.item.order_hour}{" "}
-                </Text>
+                <View>
+                  <AntDesign
+                    name="user"
+                    size={30}
+                    color="black"
+                    style={{ paddingRight: "1%" }}
+                  />
+                </View>
+                <View>
+                  <Text>
+                    {all_constants.order.infos.owner}{" "}
+                    {this.props.route.params.item.order_owner} le{" "}
+                    {this.props.route.params.item.order_date} à{" "}
+                    {this.props.route.params.item.order_hour}{" "}
+                  </Text>
+                </View>
               </View>
               <View
                 style={{
@@ -212,17 +216,21 @@ export default class OrderView extends Component {
                   alignItems: "center",
                 }}
               >
-                <FontAwesome
-                  name="money"
-                  size={30}
-                  color="black"
-                  style={{ paddingRight: "1%" }}
-                />
-                <Text>
-                  {all_constants.order.infos.amount}{" "}
-                  {this.props.route.params.item.order_amount}{" "}
-                  {all_constants.currency_symbol}
-                </Text>
+                <View>
+                  <FontAwesome
+                    name="money"
+                    size={30}
+                    color="black"
+                    style={{ paddingRight: "1%" }}
+                  />
+                </View>
+                <View>
+                  <Text>
+                    {all_constants.order.infos.amount}{" "}
+                    {this.props.route.params.item.order_amount}{" "}
+                    {all_constants.currency_symbol}
+                  </Text>
+                </View>
               </View>
               <View
                 style={{
@@ -238,43 +246,55 @@ export default class OrderView extends Component {
                 {this.props.route.params.item.order_status ===
                 all_constants.order.status.approved ? (
                   <>
-                    <AntDesign
-                      name="checkcircle"
-                      size={30}
-                      color="black"
-                      style={{ paddingRight: "1%" }}
-                    />
-                    <Text>
-                      {" "}
-                      {all_constants.order.infos.approved_label}{" "}
-                      {this.props.route.params.item.order_accept_date} à{" "}
-                      {this.props.route.params.item.order_accept_hour}{" "}
-                    </Text>
+                    <View>
+                      <AntDesign
+                        name="checkcircle"
+                        size={30}
+                        color="black"
+                        style={{ paddingRight: "1%" }}
+                      />
+                    </View>
+                    <View>
+                      <Text>
+                        {" "}
+                        {all_constants.order.infos.approved_label}{" "}
+                        {this.props.route.params.item.order_accept_date} à{" "}
+                        {this.props.route.params.item.order_accept_hour}{" "}
+                      </Text>
+                    </View>
                   </>
                 ) : this.props.route.params.item.order_status ===
                   all_constants.order.status.canceled ? (
                   <>
-                    <MaterialIcons
-                      name="cancel"
-                      size={30}
-                      color="black"
-                      style={{ paddingRight: "1%" }}
-                    />
-                    <Text>
-                      {all_constants.order.infos.canceled_label}{" "}
-                      {this.props.route.params.item.order_cancel_date} à{" "}
-                      {this.props.route.params.item.order_cancel_hour}
-                    </Text>
+                    <View>
+                      <MaterialIcons
+                        name="cancel"
+                        size={30}
+                        color="black"
+                        style={{ paddingRight: "1%" }}
+                      />
+                    </View>
+                    <View>
+                      <Text>
+                        {all_constants.order.infos.canceled_label}{" "}
+                        {this.props.route.params.item.order_cancel_date} à{" "}
+                        {this.props.route.params.item.order_cancel_hour}
+                      </Text>
+                    </View>
                   </>
                 ) : (
                   <>
-                    <FontAwesome
-                      name="hourglass-half"
-                      size={24}
-                      color="black"
-                      style={{ paddingRight: "1%" }}
-                    />
-                    <Text>{this.props.route.params.item.order_status}</Text>
+                    <View>
+                      <FontAwesome
+                        name="hourglass-half"
+                        size={24}
+                        color="black"
+                        style={{ paddingRight: "1%" }}
+                      />
+                    </View>
+                    <View>
+                      <Text>{this.props.route.params.item.order_status}</Text>
+                    </View>
                   </>
                 )}
               </View>
@@ -289,27 +309,31 @@ export default class OrderView extends Component {
                   alignItems: "center",
                 }}
               >
-                <MaterialIcons
-                  name="delivery-dining"
-                  size={30}
-                  color="black"
-                  style={{ paddingRight: "1%" }}
-                />
-                {this.props.route.params.item.order_status ===
-                all_constants.order.status.approved ? (
-                  <Text>
-                    {all_constants.order.infos.delivered_label}{" "}
-                    {this.props.route.params.item.order_delivery_date} à{" "}
-                    {this.props.route.params.item.order_picking_hour}{" "}
-                  </Text>
-                ) : this.props.route.params.item.order_status ===
-                  all_constants.order.status.canceled ? (
-                  <Text>
-                    Livraison {this.props.route.params.item.order_status}
-                  </Text>
-                ) : (
-                  <Text>Livraison en attente de confirmation</Text>
-                )}
+                <View>
+                  <MaterialIcons
+                    name="delivery-dining"
+                    size={30}
+                    color="black"
+                    style={{ paddingRight: "1%" }}
+                  />
+                </View>
+                <View>
+                  {this.props.route.params.item.order_status ===
+                  all_constants.order.status.approved ? (
+                    <Text>
+                      {all_constants.order.infos.delivered_label}{" "}
+                      {this.props.route.params.item.order_delivery_date} à{" "}
+                      {this.props.route.params.item.order_picking_hour}{" "}
+                    </Text>
+                  ) : this.props.route.params.item.order_status ===
+                    all_constants.order.status.canceled ? (
+                    <Text>
+                      Livraison {this.props.route.params.item.order_status}
+                    </Text>
+                  ) : (
+                    <Text>Livraison en attente de confirmation</Text>
+                  )}
+                </View>
               </View>
               <View
                 style={{
@@ -322,13 +346,17 @@ export default class OrderView extends Component {
                   alignItems: "center",
                 }}
               >
-                <MaterialCommunityIcons
-                  name="google-maps"
-                  size={30}
-                  color="black"
-                  style={{ paddingRight: "1%" }}
-                />
-                <Text>4 rue de la grande ferme lieusaint 77127</Text>
+                <View>
+                  <MaterialCommunityIcons
+                    name="google-maps"
+                    size={30}
+                    color="black"
+                    style={{ paddingRight: "1%" }}
+                  />
+                </View>
+                <View>
+                  <Text>4 rue de la grande ferme lieusaint 77127</Text>
+                </View>
               </View>
             </View>
             <HorizontalLine line_width={3} />
