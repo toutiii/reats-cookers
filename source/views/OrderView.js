@@ -168,7 +168,9 @@ export default class OrderView extends Component {
               }}
             />
           )}
-        <Animated.View style={{ opacity: this.state.opacity }}>
+        <Animated.View
+          style={{ opacity: this.state.opacity, backgroundColor: "white" }}
+        >
           <View style={{ flex: 2, backgroundColor: "white" }}>
             <View
               style={{
@@ -179,8 +181,6 @@ export default class OrderView extends Component {
             >
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
@@ -201,8 +201,6 @@ export default class OrderView extends Component {
               </View>
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
@@ -222,8 +220,6 @@ export default class OrderView extends Component {
               </View>
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
@@ -278,8 +274,6 @@ export default class OrderView extends Component {
               </View>
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
@@ -313,8 +307,6 @@ export default class OrderView extends Component {
               </View>
               <View
                 style={{
-                  borderColor: "blue",
-                  borderWidth: 2,
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
@@ -335,7 +327,6 @@ export default class OrderView extends Component {
                 </View>
               </View>
             </View>
-            <HorizontalLine line_width={3} />
           </View>
           <View style={styles_order_view.button_container}>
             {this.props.route.params.item.order_status ===
