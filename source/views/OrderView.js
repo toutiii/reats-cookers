@@ -169,7 +169,7 @@ export default class OrderView extends Component {
             />
           )}
         <Animated.View style={{ opacity: this.state.opacity }}>
-          <View style={{ flex: 2 }}>
+          <View style={{ flex: 2, backgroundColor: "white" }}>
             <View
               style={{
                 flex: 1,
