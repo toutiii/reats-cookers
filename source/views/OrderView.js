@@ -184,17 +184,11 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
-                  flexDirection: "row",
                   alignItems: "center",
                 }}
               >
                 <View>
-                  <AntDesign
-                    name="user"
-                    size={30}
-                    color="black"
-                    style={{ paddingRight: "1%" }}
-                  />
+                  <AntDesign name="user" size={30} color="black" />
                 </View>
                 <View>
                   <Text>
@@ -212,17 +206,11 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
-                  flexDirection: "row",
                   alignItems: "center",
                 }}
               >
                 <View>
-                  <FontAwesome
-                    name="money"
-                    size={30}
-                    color="black"
-                    style={{ paddingRight: "1%" }}
-                  />
+                  <FontAwesome name="money" size={30} color="black" />
                 </View>
                 <View>
                   <Text>
@@ -239,7 +227,6 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
-                  flexDirection: "row",
                   alignItems: "center",
                 }}
               >
@@ -247,12 +234,7 @@ export default class OrderView extends Component {
                 all_constants.order.status.approved ? (
                   <>
                     <View>
-                      <AntDesign
-                        name="checkcircle"
-                        size={30}
-                        color="black"
-                        style={{ paddingRight: "1%" }}
-                      />
+                      <AntDesign name="checkcircle" size={30} color="black" />
                     </View>
                     <View>
                       <Text>
@@ -267,12 +249,7 @@ export default class OrderView extends Component {
                   all_constants.order.status.canceled ? (
                   <>
                     <View>
-                      <MaterialIcons
-                        name="cancel"
-                        size={30}
-                        color="black"
-                        style={{ paddingRight: "1%" }}
-                      />
+                      <MaterialIcons name="cancel" size={30} color="black" />
                     </View>
                     <View>
                       <Text>
@@ -289,7 +266,6 @@ export default class OrderView extends Component {
                         name="hourglass-half"
                         size={24}
                         color="black"
-                        style={{ paddingRight: "1%" }}
                       />
                     </View>
                     <View>
@@ -305,7 +281,6 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
-                  flexDirection: "row",
                   alignItems: "center",
                 }}
               >
@@ -314,7 +289,6 @@ export default class OrderView extends Component {
                     name="delivery-dining"
                     size={30}
                     color="black"
-                    style={{ paddingRight: "1%" }}
                   />
                 </View>
                 <View>
@@ -342,7 +316,6 @@ export default class OrderView extends Component {
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 6,
-                  flexDirection: "row",
                   alignItems: "center",
                 }}
               >
@@ -351,7 +324,6 @@ export default class OrderView extends Component {
                     name="google-maps"
                     size={30}
                     color="black"
-                    style={{ paddingRight: "1%" }}
                   />
                 </View>
                 <View>
