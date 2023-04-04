@@ -191,7 +191,7 @@ export default class OrderView extends Component {
                   <AntDesign name="user" size={30} color="black" />
                 </View>
                 <View>
-                  <Text>
+                  <Text style={{ fontSize: 17 }}>
                     {all_constants.order.infos.owner}{" "}
                     {this.props.route.params.item.order_owner} le{" "}
                     {this.props.route.params.item.order_date} à{" "}
@@ -213,7 +213,7 @@ export default class OrderView extends Component {
                   <FontAwesome name="money" size={30} color="black" />
                 </View>
                 <View>
-                  <Text>
+                  <Text style={{ fontSize: 17 }}>
                     {all_constants.order.infos.amount}{" "}
                     {this.props.route.params.item.order_amount}{" "}
                     {all_constants.currency_symbol}
@@ -237,7 +237,7 @@ export default class OrderView extends Component {
                       <AntDesign name="checkcircle" size={30} color="black" />
                     </View>
                     <View>
-                      <Text>
+                      <Text style={{ fontSize: 17 }}>
                         {" "}
                         {all_constants.order.infos.approved_label}{" "}
                         {this.props.route.params.item.order_accept_date} à{" "}
@@ -252,7 +252,7 @@ export default class OrderView extends Component {
                       <MaterialIcons name="cancel" size={30} color="black" />
                     </View>
                     <View>
-                      <Text>
+                      <Text style={{ fontSize: 17 }}>
                         {all_constants.order.infos.canceled_label}{" "}
                         {this.props.route.params.item.order_cancel_date} à{" "}
                         {this.props.route.params.item.order_cancel_hour}
@@ -269,7 +269,9 @@ export default class OrderView extends Component {
                       />
                     </View>
                     <View>
-                      <Text>{this.props.route.params.item.order_status}</Text>
+                      <Text style={{ fontSize: 17 }}>
+                        {this.props.route.params.item.order_status}
+                      </Text>
                     </View>
                   </>
                 )}
@@ -294,14 +296,14 @@ export default class OrderView extends Component {
                 <View>
                   {this.props.route.params.item.order_status ===
                   all_constants.order.status.approved ? (
-                    <Text>
+                    <Text style={{ fontSize: 17 }}>
                       {all_constants.order.infos.delivered_label}{" "}
                       {this.props.route.params.item.order_delivery_date} à{" "}
                       {this.props.route.params.item.order_picking_hour}{" "}
                     </Text>
                   ) : this.props.route.params.item.order_status ===
                     all_constants.order.status.canceled ? (
-                    <Text>
+                    <Text style={{ fontSize: 17 }}>
                       Livraison {this.props.route.params.item.order_status}
                     </Text>
                   ) : (
@@ -327,7 +329,9 @@ export default class OrderView extends Component {
                   />
                 </View>
                 <View>
-                  <Text>4 rue de la grande ferme lieusaint 77127</Text>
+                  <Text style={{ fontSize: 17 }}>
+                    4 rue de la grande ferme lieusaint 77127
+                  </Text>
                 </View>
               </View>
             </View>
