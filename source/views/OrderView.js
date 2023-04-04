@@ -164,34 +164,6 @@ export default class OrderView extends Component {
           )}
         <Animated.View style={{ opacity: this.state.opacity }}>
           <View style={{ flex: 2 }}>
-            {/* <Order
-              order_number={this.props.route.params.item.order_number}
-              order_status={this.props.route.params.item.order_status}
-              order_owner={this.props.route.params.item.order_owner}
-              order_amount={this.props.route.params.item.order_amount}
-              order_number_of_items={
-                this.props.route.params.item.order_number_of_items
-              }
-              order_date={this.props.route.params.item.order_date}
-              order_hour={this.props.route.params.item.order_hour}
-              order_cancel_date={this.props.route.params.item.order_cancel_date}
-              order_cancel_hour={this.props.route.params.item.order_cancel_hour}
-              order_accept_date={this.props.route.params.item.order_accept_date}
-              order_accept_hour={this.props.route.params.item.order_accept_hour}
-              order_delivery_date={
-                this.props.route.params.item.order_delivery_date
-              }
-              order_delivery_hour={
-                this.props.route.params.item.order_delivery_hour
-              }
-              order_picking_hour={
-                this.props.route.params.item.order_picking_hour
-              }
-              order_number_color={
-                this.props.route.params.item.order_number_color
-              }
-              order_is_menu={this.props.route.params.item.order_is_menu}
-            /> */}
             <View
               style={{
                 flex: 1,
