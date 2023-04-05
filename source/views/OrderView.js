@@ -168,9 +168,7 @@ export default class OrderView extends Component {
               }}
             />
           )}
-        <Animated.View
-          style={{ opacity: this.state.opacity, backgroundColor: "white" }}
-        >
+        <Animated.View style={{ opacity: this.state.opacity }}>
           <View style={{ flex: 2, backgroundColor: "white" }}>
             <View
               style={{
