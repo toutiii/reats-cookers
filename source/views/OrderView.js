@@ -301,7 +301,9 @@ export default class OrderView extends Component {
                       Livraison {this.props.route.params.item.order_status}
                     </Text>
                   ) : (
-                    <Text>Livraison en attente de confirmation</Text>
+                    <Text style={{ fontSize: 17 }}>
+                      Livraison en attente de confirmation
+                    </Text>
                   )}
                 </View>
               </View>
