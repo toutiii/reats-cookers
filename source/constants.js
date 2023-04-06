@@ -558,6 +558,9 @@ export const all_constants = {
       turnover: "Turnover",
     },
   },
+  drawercontent: {
+    logout: "Déconnexion",
+  },
 };
 
 export default all_constants;
