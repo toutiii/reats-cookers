@@ -13,6 +13,7 @@ import { Divider, TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { getUserSettings } from "../helpers/settings_helpers";
 import Modal from "react-native-modal";
+import all_constants from "../constants";
 
 export default function Dashboard(props) {
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -241,8 +242,7 @@ export default function Dashboard(props) {
                 }}
               >
                 <Text style={{ fontSize: 16, textAlign: "center" }}>
-                  Pour mettre à jour les informations, fermez cette fenêtre et
-                  scrollez vers le bas.
+                  {all_constants.dashboard.scroll_update}
                 </Text>
               </View>
             </View>
@@ -274,7 +274,7 @@ export default function Dashboard(props) {
         >
           <View style={{ alignItems: "center" }}>
             <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-              Commandes
+              {all_constants.dashboard.titles.command}
             </Text>
           </View>
 
@@ -303,7 +303,7 @@ export default function Dashboard(props) {
         >
           <View style={{ alignItems: "center" }}>
             <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-              Turnover
+              {all_constants.dashboard.titles.turnover}
             </Text>
           </View>
 
