@@ -261,7 +261,7 @@ export default function DrawerContent(props) {
                 )}
                 label={() => (
                   <Text style={{ color: "red", fontWeight: "bold" }}>
-                    Déconnexion
+                    {all_constants.drawercontent.logout}
                   </Text>
                 )}
                 onPress={() => {}}
