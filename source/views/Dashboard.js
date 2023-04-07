@@ -274,7 +274,7 @@ export default function Dashboard(props) {
         >
           <View style={{ alignItems: "center" }}>
             <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
-              {all_constants.dashboard.titles.command}
+              {all_constants.dashboard.titles.orders}
             </Text>
           </View>
 
