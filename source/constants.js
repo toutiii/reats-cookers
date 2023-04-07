@@ -554,7 +554,7 @@ export const all_constants = {
     scroll_update:
       "Pour mettre à jour les informations, fermez cette fenêtre et scrollez vers le bas.",
     titles: {
-      command: "Commandes",
+      orders: "Commandes",
       turnover: "Turnover",
     },
   },
