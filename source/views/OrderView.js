@@ -169,6 +169,36 @@ export default class OrderView extends Component {
               }}
             />
           )}
+        {this.state.modalVisible ? (
+          <Modal
+            testID={"modal"}
+            isVisible={this.state.modalVisible}
+            backdropOpacity={0.8}
+            animationIn="zoomInDown"
+            animationOut="zoomOutUp"
+            animationInTiming={600}
+            animationOutTiming={600}
+            backdropTransitionInTiming={600}
+            backdropTransitionOutTiming={600}
+          >
+            <View style={{ flex: 1, backgroundColor: "white", padding: 10 }}>
+              <View style={{ flex: 1 }}>
+                <Button title="Close" onPress={this.onPressCloseModal} />
+              </View>
+
+              <View
+                style={{
+                  flex: 2,
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 16, textAlign: "center" }}>Hello</Text>
+              </View>
+            </View>
+          </Modal>
+        ) : (
+          ""
+        )}
         <Animated.View style={{ opacity: this.state.opacity }}>
           <View style={{ flex: 2, backgroundColor: "white" }}>
             <View
