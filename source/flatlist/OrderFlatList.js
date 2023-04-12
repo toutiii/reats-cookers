@@ -124,6 +124,14 @@ export default function OrderFlatList({ ...props }) {
     toggleSearchFilterModal();
   };
 
+  const fetchData = () => {
+    console.log(selectedStates);
+    console.log(selectedOrderStates);
+    console.log(startDate);
+    console.log(endDate);
+    toggleSearchFilterModal();
+  };
+
   return (
     <View
       style={{
@@ -149,6 +157,7 @@ export default function OrderFlatList({ ...props }) {
           stateSearchData={setselectedStates}
           stateOrderData={setselectedOrderStates}
           onPressClear={onPressClearFilters}
+          onPressFilter={fetchData}
           buttonLabel={all_constants.search_modal.search_button_label}
         />
       ) : (

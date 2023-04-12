@@ -179,7 +179,7 @@ export default function SearchFilterModal(props) {
                 : all_constants.search_modal.default_button_label
             }
             onPress={() => {
-              props.toggleModal();
+              props.onPressFilter();
             }}
           />
         </View>
