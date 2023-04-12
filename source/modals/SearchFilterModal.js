@@ -82,7 +82,7 @@ export default function SearchFilterModal(props) {
     >
       <View style={{ flex: 1, backgroundColor: "white", padding: 10 }}>
         <View style={{ flex: 7 }}>
-          {props.enableActiveFilter ? (
+          {props.enableActiveFilter && (
             <MultipleSelectList
               setSelected={(val) => props.stateSearchData(val)}
               search={false}
@@ -90,10 +90,8 @@ export default function SearchFilterModal(props) {
               save="value"
               placeholder="Items actifs ou inactifs"
             />
-          ) : (
-            ""
           )}
-          {props.enableOrderStateFilter ? (
+          {props.enableOrderStateFilter && (
             <MultipleSelectList
               setSelected={(val) => props.stateOrderData(val)}
               search={false}
