@@ -561,6 +561,10 @@ export const all_constants = {
   drawercontent: {
     logout: "Déconnexion",
   },
+  search_modal: {
+    default_button_label: "OK",
+    search_button_label: "Filtrer",
+  },
 };
 
 export default all_constants;

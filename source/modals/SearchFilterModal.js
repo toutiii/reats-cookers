@@ -8,6 +8,7 @@ import { TextInput } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { format } from "date-fns";
+import all_constants from "../constants";
 
 export default function SearchFilterModal(props) {
   const activeFilterData = [
@@ -171,7 +172,11 @@ export default function SearchFilterModal(props) {
         </View>
         <View style={{ flex: 1 }}>
           <Button
-            title="OK"
+            title={
+              props.buttonLabel
+                ? props.buttonLabel
+                : all_constants.search_modal.default_button_label
+            }
             onPress={() => {
               props.toggleModal();
             }}

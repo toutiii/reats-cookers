@@ -136,6 +136,7 @@ export default function OrderFlatList({ ...props }) {
           toggleModal={toggleSearchFilterModal}
           stateSearchData={setselectedStates}
           stateOrderData={setselectedOrderStates}
+          buttonLabel={all_constants.search_modal.search_button_label}
         />
       ) : (
         ""
