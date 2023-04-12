@@ -24,21 +24,22 @@ export default function SearchFilterModal(props) {
   ];
 
   const datePickerMode = "startDate";
-  const [startDate, setStartDate] = React.useState(new Date());
-  const [endDate, setEndDate] = React.useState(new Date());
+
   const [show, setShow] = React.useState(false);
   const isStartDate = React.useRef(true);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
-    isStartDate.current ? setStartDate(currentDate) : setEndDate(currentDate);
+    isStartDate.current
+      ? props.pickStartDate(currentDate)
+      : props.pickEndDate(currentDate);
   };
 
   const showAndroidMode = () => {
     // Below is the recommended way to open picker on android in the docs.
     DateTimePickerAndroid.open({
-      value: isStartDate.current ? startDate : endDate,
+      value: isStartDate.current ? props.startDate : props.endDate,
       onChange,
       mode: datePickerMode,
       is24Hour: true,
@@ -62,7 +63,7 @@ export default function SearchFilterModal(props) {
     return (
       <DateTimePicker
         testID="dateTimePicker"
-        value={isStartDate.current ? startDate : endDate}
+        value={isStartDate.current ? props.startDate : props.endDate}
         mode={datePickerMode}
         is24Hour={true}
         onChange={onChange}
@@ -109,7 +110,7 @@ export default function SearchFilterModal(props) {
                   editable={false}
                   placeholder={"Date de début"}
                   mode="outlined"
-                  value={format(startDate, "dd/LL/yyyy")}
+                  value={format(props.startDate, "dd/LL/yyyy")}
                 />
               </View>
               <View
@@ -142,7 +143,7 @@ export default function SearchFilterModal(props) {
                   editable={false}
                   placeholder={"Date de fin"}
                   mode="outlined"
-                  value={format(endDate, "dd/LL/yyyy")}
+                  value={format(props.endDate, "dd/LL/yyyy")}
                 />
               </View>
               <View
