@@ -101,71 +101,73 @@ export default function SearchFilterModal(props) {
               save="value"
               placeholder="État de la commande"
             />
-          ) : (
-            ""
           )}
 
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ flex: 4 }}>
-              <TextInput
-                editable={false}
-                placeholder={"Date de début"}
-                mode="outlined"
-                value={format(startDate, "dd/LL/yyyy")}
-              />
-            </View>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <TouchableRipple
-                onPress={() => {
-                  showDatepicker(true);
-                }}
-                rippleColor="rgba(0, 0, 0, .32)"
-              >
-                <MaterialCommunityIcons
-                  name="calendar"
-                  color={"black"}
-                  size={35}
+          {props.enableStartDateFilter && (
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ flex: 4 }}>
+                <TextInput
+                  editable={false}
+                  placeholder={"Date de début"}
+                  mode="outlined"
+                  value={format(startDate, "dd/LL/yyyy")}
                 />
-              </TouchableRipple>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <TouchableRipple
+                  onPress={() => {
+                    showDatepicker(true);
+                  }}
+                  rippleColor="rgba(0, 0, 0, .32)"
+                >
+                  <MaterialCommunityIcons
+                    name="calendar"
+                    color={"black"}
+                    size={35}
+                  />
+                </TouchableRipple>
+              </View>
             </View>
-          </View>
+          )}
 
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ flex: 4 }}>
-              <TextInput
-                editable={false}
-                placeholder={"Date de fin"}
-                mode="outlined"
-                value={format(endDate, "dd/LL/yyyy")}
-              />
-            </View>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <TouchableRipple
-                onPress={() => {
-                  showDatepicker(false);
-                }}
-                rippleColor="rgba(0, 0, 0, .32)"
-              >
-                <MaterialCommunityIcons
-                  name="calendar"
-                  color={"black"}
-                  size={35}
+          {props.enableEndDateFilter && (
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ flex: 4 }}>
+                <TextInput
+                  editable={false}
+                  placeholder={"Date de fin"}
+                  mode="outlined"
+                  value={format(endDate, "dd/LL/yyyy")}
                 />
-              </TouchableRipple>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <TouchableRipple
+                  onPress={() => {
+                    showDatepicker(false);
+                  }}
+                  rippleColor="rgba(0, 0, 0, .32)"
+                >
+                  <MaterialCommunityIcons
+                    name="calendar"
+                    color={"black"}
+                    size={35}
+                  />
+                </TouchableRipple>
+              </View>
             </View>
-          </View>
+          )}
 
           <View style={{ flex: 1 }}>{show && renderDateTimePicker()}</View>
         </View>

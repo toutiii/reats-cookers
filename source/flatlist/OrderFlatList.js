@@ -130,6 +130,8 @@ export default function OrderFlatList({ ...props }) {
         <SearchFilterModal
           enableActiveFilter={false}
           enableOrderStateFilter={true}
+          enableStartDateFilter={true}
+          enableEndDateFilter={true}
           isModalVisible={isSearchFilterModalVisible}
           toggleModal={toggleSearchFilterModal}
           stateSearchData={setselectedStates}
