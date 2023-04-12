@@ -564,6 +564,7 @@ export const all_constants = {
   search_modal: {
     default_button_label: "OK",
     search_button_label: "Filtrer",
+    clear_filter_button_label: "Réinitialiser",
   },
 };
 

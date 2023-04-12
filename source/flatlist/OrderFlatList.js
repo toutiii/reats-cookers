@@ -116,6 +116,12 @@ export default function OrderFlatList({ ...props }) {
 
   const onChangeSearch = (query) => setSearchQuery(query);
 
+  const onPressClearFilters = () => {
+    setselectedStates([]);
+    setselectedOrderStates([]);
+    toggleSearchFilterModal();
+  };
+
   return (
     <View
       style={{
@@ -136,6 +142,7 @@ export default function OrderFlatList({ ...props }) {
           toggleModal={toggleSearchFilterModal}
           stateSearchData={setselectedStates}
           stateOrderData={setselectedOrderStates}
+          onPressClear={onPressClearFilters}
           buttonLabel={all_constants.search_modal.search_button_label}
         />
       ) : (

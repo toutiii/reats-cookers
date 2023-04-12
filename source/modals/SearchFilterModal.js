@@ -182,6 +182,15 @@ export default function SearchFilterModal(props) {
             }}
           />
         </View>
+        <View style={{ flex: 1 }}>
+          <Button
+            color="red"
+            title={all_constants.search_modal.clear_filter_button_label}
+            onPress={() => {
+              props.onPressClear();
+            }}
+          />
+        </View>
       </View>
     </Modal>
   );
