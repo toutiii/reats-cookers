@@ -47,8 +47,6 @@ export default function MainTabNavigator() {
             route.name === all_constants.tab.main_tab_navigator.OfferFlatList
           ) {
             iconName = "pricetag-outline";
-          } else if (route.name === "Balance") {
-            iconName = "cash-outline";
           }
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -61,7 +59,6 @@ export default function MainTabNavigator() {
           "SettingsPersonalInformationForm",
           "SettingsAddressForm",
           "SettingsOrderInformationForm",
-          "Balance",
           "OfferFormView",
         ].includes(route.name)
           ? () => {
