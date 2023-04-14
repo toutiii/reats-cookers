@@ -3,7 +3,7 @@ import { FlatList, Text, TouchableHighlight, View } from "react-native";
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Order from "../components/Order";
-import { getData } from "../helpers/global_helpers";
+import { getData } from "../helpers/global_helpers.js";
 import { getOrders } from "../helpers/order_helpers";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
@@ -23,12 +23,6 @@ export default function OrderFlatList({ ...props }) {
     setSearchFilterModalVisible(!isSearchFilterModalVisible);
   };
 
-  const getOrderList = () => {
-    if (props.route.params.tag === all_constants.tag.orders.archived) {
-      return props.route.params.item;
-    }
-    return getOrders();
-  };
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const onChangeSearch = (query) => setSearchQuery(query);
@@ -48,15 +42,7 @@ export default function OrderFlatList({ ...props }) {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        marginTop:
-          props.route.params.tag === all_constants.tag.orders.archived
-            ? "10%"
-            : "0%",
-      }}
-    >
+    <View style={{ flex: 1 }}>
       {isSearchFilterModalVisible ? (
         <SearchFilterModal
           enableActiveFilter={false}
@@ -109,18 +95,11 @@ export default function OrderFlatList({ ...props }) {
       <View
         style={{
           backgroundColor: "white",
-          flex:
-            props.route.params.tag === all_constants.tag.orders.paid ? 10 : 1,
+          flex: 1,
         }}
       >
         <FlatList
-          data={getData(
-            getOrderList(),
-            props.route.params.tag,
-            undefined,
-            "order_tag",
-            "id"
-          )}
+          data={getData(getOrders())}
           ListFooterComponent={<View></View>}
           ListFooterComponentStyle={{
             borderWidth: 5,
