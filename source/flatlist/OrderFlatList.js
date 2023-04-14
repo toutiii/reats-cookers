@@ -64,7 +64,12 @@ export default function OrderFlatList({ ...props }) {
       ) : (
         ""
       )}
-      <View style={{ flex: 1, flexDirection: "row", backgroundColor: "white" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          backgroundColor: "white",
+        }}
+      >
         <View style={{ flex: 4 }}>
           <Searchbar
             placeholder="Écrivez pour lancer la recherche"
@@ -95,7 +100,6 @@ export default function OrderFlatList({ ...props }) {
       <View
         style={{
           backgroundColor: "white",
-          flex: 1,
         }}
       >
         <FlatList
