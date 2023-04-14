@@ -458,7 +458,15 @@ export const all_constants = {
     error: "Erreur de permission",
   },
   currency_symbol: "€",
-  tab: {},
+  tab: {
+    main_tab_navigator: {
+      Home: "Accueil",
+      DishFlatList: "Mes plats",
+      MenuFlatList: "Mes menus",
+      OfferFlatList: "Mes promos",
+      OrderFlatList: "Commandes",
+    },
+  },
   custom_alert: {
     homeview: {
       online_title: "Passer en ligne ?",
