@@ -15,6 +15,7 @@ import SettingsOrderInformationForm from "../forms/SettingsOrderInformationForm"
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../views/Dashboard";
+import OrderFlatList from "../flatlist/OrderFlatList";
 
 const Tab = createBottomTabNavigator();
 
@@ -66,7 +67,7 @@ export default function MainTabNavigator() {
       <Tab.Screen name="HomeView" component={Dashboard} />
       <Tab.Screen
         name="Orders"
-        component={OrdersTab}
+        component={OrderFlatList}
         options={{ tabBarBadge: 3 }}
       />
       <Tab.Screen name="TabDishes" component={DishTab} />
