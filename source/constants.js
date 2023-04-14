@@ -458,44 +458,7 @@ export const all_constants = {
     error: "Erreur de permission",
   },
   currency_symbol: "€",
-  tab: {
-    state_tab: {
-      title: {
-        enabled_items: "ACTIFS",
-        disabled_items: "INACTIFS",
-      },
-    },
-    dish_tab: {
-      title: {
-        starter: "ENTRÉES",
-        main_dish: "PLATS",
-        dessert: "DÉSSERTS",
-        drinks: "BOISSONS",
-        menu: "MENUS",
-        add_item: "AJOUTER",
-      },
-    },
-    offer_tab: {
-      title: {
-        offer: "PROMOTIONS",
-      },
-    },
-    balance_tab: {
-      title: {
-        pending: "EN ATTENTE",
-        history: "HISTORIQUE",
-        history_balance: "Historique des paiements",
-      },
-    },
-    order_tab: {
-      title: {
-        paid: "PAYÉES",
-        cancelled: "ANNULÉES",
-        history: "HISTORIQUE",
-        history_order: "Historique des commandes",
-      },
-    },
-  },
+  tab: {},
   custom_alert: {
     homeview: {
       online_title: "Passer en ligne ?",
