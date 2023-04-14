@@ -104,12 +104,6 @@ export default function OrderFlatList({ ...props }) {
       >
         <FlatList
           data={getData(getOrders())}
-          ListFooterComponent={<View></View>}
-          ListFooterComponentStyle={{
-            borderWidth: 5,
-            borderColor: "red",
-            borderRadius: 50,
-          }}
           ListEmptyComponent={
             <View style={{ flex: 1, alignItems: "center" }}>
               <Text style={{ fontSize: 20 }}>
