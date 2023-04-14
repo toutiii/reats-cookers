@@ -47,8 +47,6 @@ export default function MainTabNavigator() {
             route.name === all_constants.tab.main_tab_navigator.OfferFlatList
           ) {
             iconName = "pricetag-outline";
-          } else if (route.name === "Add") {
-            iconName = "add-circle-outline";
           } else if (route.name === "Balance") {
             iconName = "cash-outline";
           }
@@ -93,7 +91,6 @@ export default function MainTabNavigator() {
         name={all_constants.tab.main_tab_navigator.OfferFlatList}
         component={OfferFlatList}
       />
-      <Tab.Screen name="Add" component={AddView} />
       <Tab.Screen name="OrderView" component={OrderView} />
       <Tab.Screen name="DishFormView" component={DishFormView} />
       <Tab.Screen name="MenuFormView" component={MenuFormView} />
