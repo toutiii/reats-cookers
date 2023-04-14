@@ -566,6 +566,9 @@ export const all_constants = {
     search_button_label: "Filtrer",
     clear_filter_button_label: "Réinitialiser",
   },
+  search_bar: {
+    placeholder: "Écrivez pour lancer la recherche",
+  },
 };
 
 export default all_constants;
