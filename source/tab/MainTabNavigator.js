@@ -1,5 +1,4 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import OrdersTab from "./OrdersTab";
 import DishTab from "./DishTab";
 import MenuTab from "./MenuTab";
 import OfferTab from "./OfferTab";
