@@ -16,8 +16,8 @@ export default function OrderFlatList({ ...props }) {
 
   const [selectedStates, setselectedStates] = React.useState([]);
   const [selectedOrderStates, setselectedOrderStates] = React.useState([]);
-  const [startDate, setStartDate] = React.useState(new Date());
-  const [endDate, setEndDate] = React.useState(new Date());
+  const [startDate, setStartDate] = React.useState(null);
+  const [endDate, setEndDate] = React.useState(null);
 
   const toggleSearchFilterModal = () => {
     setSearchFilterModalVisible(!isSearchFilterModalVisible);

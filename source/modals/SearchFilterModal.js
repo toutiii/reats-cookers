@@ -39,7 +39,13 @@ export default function SearchFilterModal(props) {
   const showAndroidMode = () => {
     // Below is the recommended way to open picker on android in the docs.
     DateTimePickerAndroid.open({
-      value: isStartDate.current ? props.startDate : props.endDate,
+      value: isStartDate.current
+        ? props.startDate === null
+          ? new Date()
+          : props.startDate
+        : props.endDate === null
+        ? new Date()
+        : props.endDate,
       onChange,
       mode: datePickerMode,
       is24Hour: true,
@@ -110,7 +116,11 @@ export default function SearchFilterModal(props) {
                   editable={false}
                   placeholder={"Date de début"}
                   mode="outlined"
-                  value={format(props.startDate, "dd/LL/yyyy")}
+                  value={
+                    props.startDate === null
+                      ? "-"
+                      : format(props.startDate, "dd/LL/yyyy")
+                  }
                 />
               </View>
               <View
@@ -143,7 +153,11 @@ export default function SearchFilterModal(props) {
                   editable={false}
                   placeholder={"Date de fin"}
                   mode="outlined"
-                  value={format(props.endDate, "dd/LL/yyyy")}
+                  value={
+                    props.endDate === null
+                      ? "-"
+                      : format(props.endDate, "dd/LL/yyyy")
+                  }
                 />
               </View>
               <View
