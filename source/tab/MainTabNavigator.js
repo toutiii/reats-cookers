@@ -1,5 +1,4 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import OfferTab from "./OfferTab";
 import AddView from "../views/AddView";
 import OrderView from "../views/OrderView";
 import DishFormView from "../forms/DishFormView";
@@ -14,6 +13,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../views/Dashboard";
 import DishFlatList from "../flatlist/DishFlatList";
 import MenuFlatList from "../flatlist/MenuFlatList";
+import OfferFlatList from "../flatlist/OfferFlatList";
 import OrderFlatList from "../flatlist/OrderFlatList";
 
 const Tab = createBottomTabNavigator();
@@ -71,7 +71,7 @@ export default function MainTabNavigator() {
       />
       <Tab.Screen name="TabDishes" component={DishFlatList} />
       <Tab.Screen name="TabMenus" component={MenuFlatList} />
-      <Tab.Screen name="TabOffers" component={OfferTab} />
+      <Tab.Screen name="TabOffers" component={OfferFlatList} />
       <Tab.Screen name="Add" component={AddView} />
       <Tab.Screen name="OrderView" component={OrderView} />
       <Tab.Screen name="DishFormView" component={DishFormView} />
