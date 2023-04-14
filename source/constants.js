@@ -226,7 +226,7 @@ export const all_constants = {
       pending: "En attente de prise en charge",
       approved: "Acceptée",
     },
-    no_order_found: "No orders found.",
+    no_results: "Aucun résultat.",
   },
   modal: {
     dish_modal: {

@@ -105,9 +105,14 @@ export default function OrderFlatList({ ...props }) {
         <FlatList
           data={getData(getOrders())}
           ListEmptyComponent={
-            <View style={{ flex: 1, alignItems: "center" }}>
+            <View
+              style={{
+                alignItems: "center",
+                marginTop: "5%",
+              }}
+            >
               <Text style={{ fontSize: 20 }}>
-                {all_constants.order.no_order_found}
+                {all_constants.order.no_results}
               </Text>
             </View>
           }
