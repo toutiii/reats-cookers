@@ -15,28 +15,37 @@ import DishFlatList from "../flatlist/DishFlatList";
 import MenuFlatList from "../flatlist/MenuFlatList";
 import OfferFlatList from "../flatlist/OfferFlatList";
 import OrderFlatList from "../flatlist/OrderFlatList";
+import all_constants from "../constants";
 
 const Tab = createBottomTabNavigator();
 
 export default function MainTabNavigator() {
   return (
     <Tab.Navigator
-      initialRouteName="HomeView"
+      initialRouteName={all_constants.tab.main_tab_navigator.Home}
       screenOptions={({ route }) => ({
         activeTintColor: "tomato",
         inactiveTintColor: "gray",
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "HomeView") {
+          if (route.name === all_constants.tab.main_tab_navigator.Home) {
             iconName = "home-outline";
-          } else if (route.name === "Orders") {
+          } else if (
+            route.name === all_constants.tab.main_tab_navigator.OrderFlatList
+          ) {
             iconName = "basket-outline";
-          } else if (route.name === "TabDishes") {
+          } else if (
+            route.name === all_constants.tab.main_tab_navigator.DishFlatList
+          ) {
             iconName = "restaurant-outline";
-          } else if (route.name === "TabMenus") {
+          } else if (
+            route.name === all_constants.tab.main_tab_navigator.MenuFlatList
+          ) {
             iconName = "book-outline";
-          } else if (route.name === "TabOffers") {
+          } else if (
+            route.name === all_constants.tab.main_tab_navigator.OfferFlatList
+          ) {
             iconName = "pricetag-outline";
           } else if (route.name === "Add") {
             iconName = "add-circle-outline";
@@ -63,15 +72,27 @@ export default function MainTabNavigator() {
           : undefined,
       })}
     >
-      <Tab.Screen name="HomeView" component={Dashboard} />
       <Tab.Screen
-        name="Orders"
+        name={all_constants.tab.main_tab_navigator.Home}
+        component={Dashboard}
+      />
+      <Tab.Screen
+        name={all_constants.tab.main_tab_navigator.OrderFlatList}
         component={OrderFlatList}
         options={{ tabBarBadge: 3 }}
       />
-      <Tab.Screen name="TabDishes" component={DishFlatList} />
-      <Tab.Screen name="TabMenus" component={MenuFlatList} />
-      <Tab.Screen name="TabOffers" component={OfferFlatList} />
+      <Tab.Screen
+        name={all_constants.tab.main_tab_navigator.DishFlatList}
+        component={DishFlatList}
+      />
+      <Tab.Screen
+        name={all_constants.tab.main_tab_navigator.MenuFlatList}
+        component={MenuFlatList}
+      />
+      <Tab.Screen
+        name={all_constants.tab.main_tab_navigator.OfferFlatList}
+        component={OfferFlatList}
+      />
       <Tab.Screen name="Add" component={AddView} />
       <Tab.Screen name="OrderView" component={OrderView} />
       <Tab.Screen name="DishFormView" component={DishFormView} />
