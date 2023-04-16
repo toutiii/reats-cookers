@@ -1,7 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import OrderView from "../views/OrderView";
 import DishFormView from "../forms/DishFormView";
-import MenuFormView from "../forms/MenuFormView";
 import OfferFormView from "../forms/OfferFormView";
 import SettingsCredentialsForm from "../forms/SettingsCredentialsForm";
 import SettingsPersonalInformationForm from "../forms/SettingsPersonalInformationForm";
@@ -80,7 +79,6 @@ export default function MainTabNavigator() {
       />
       <Tab.Screen name="OrderView" component={OrderView} />
       <Tab.Screen name="DishFormView" component={DishFormView} />
-      <Tab.Screen name="MenuFormView" component={MenuFormView} />
       <Tab.Screen name="OfferFormView" component={OfferFormView} />
       <Tab.Screen
         name="SettingsCredentialsForm"
