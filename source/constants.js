@@ -103,8 +103,6 @@ export const all_constants = {
       add_dish: "AJOUTER UN PLAT",
       remove_dish: "SUPPRIMER",
       disable_dish: "DÉSACTIVER",
-      add_menu: "AJOUTER UN MENU",
-      remove_menu: "SUPPRIMER CE MENU",
     },
     settings: {
       section_title: {
@@ -153,14 +151,6 @@ export const all_constants = {
         category: "Catégorie",
         description: "Description",
         country: "Pays d'origine de l'item",
-      },
-      menu: {
-        name: "Nom du menu",
-        starter: "Entrée",
-        main_dish: "Plat",
-        dessert: "Dessert",
-        drink: "Boisson",
-        price: "Prix",
       },
       special_offer: {
         name: "Nom de l'item",
@@ -218,7 +208,6 @@ export const all_constants = {
       picking_label: "Ramassage prévu le",
       dish_unit_price: "Prix unitaire:",
       total: "Total:",
-      order_is_menu: "Attention cette commande est un menu !",
     },
     status: {
       canceled: "Annulée",
@@ -288,16 +277,7 @@ export const all_constants = {
   balance: {
     no_balance_found: "Aucun item trouvé.",
   },
-  menu: {
-    no_menu_found: "Vous n'avez créé aucun menu.",
-    label: {
-      menu_name: "MENU",
-      menu_starter: "ENTRÉE",
-      menu_main_dish: "PLAT",
-      menu_dessert: "DÉSSERT",
-      menu_drink: "BOISSON",
-    },
-  },
+
   offer: {
     no_offer_found: "Vous n'avez créé aucune promotion.",
     offer_message_start: "Vous proposez",
@@ -315,10 +295,7 @@ export const all_constants = {
       invalid_postal_code: " est invalide. Exemple: 91100.",
       invalid_max_dishes_number_format: " est invalide. Exemple: 18.",
     },
-    menu: {
-      menu_creation_error:
-        "Pour créer un menu, vous devez au moins renseigner une entrée et/ou un dessert.",
-    },
+
     settings: {
       invalid_email_error: "Veuillez renseigner un email valide.",
       too_short_password_error: "Le mot de passe doit faire au moins ",
@@ -377,14 +354,6 @@ export const all_constants = {
         dish_country:
           "Pas obligatoire mais très recommandé, surtout pour les plats",
       },
-      menu: {
-        menu_name: "Donnez un nom à votre menu",
-        menu_starter: "Sélectionnez l'entrée",
-        menu_main_dish: "Sélectionnez le plat de résistance",
-        menu_dessert: "Sélectionnez le dessert",
-        menu_drink: "Sélectionnez la boisson",
-        menu_price: "Fixez le prix de votre menu",
-      },
       special_offer: {
         name: "Sélectionnez l'item sur lequel vous voulez créer une promotion",
         quantity: "Entrez le nombre d'item pour la promotion",
@@ -439,7 +408,6 @@ export const all_constants = {
     main_tab_navigator: {
       Home: "Accueil",
       DishFlatList: "Mes plats",
-      MenuFlatList: "Mes menus",
       OfferFlatList: "Mes promos",
       OrderFlatList: "Commandes",
     },
