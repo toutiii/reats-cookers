@@ -1,5 +1,4 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import AddView from "../views/AddView";
 import OrderView from "../views/OrderView";
 import DishFormView from "../forms/DishFormView";
 import MenuFormView from "../forms/MenuFormView";
