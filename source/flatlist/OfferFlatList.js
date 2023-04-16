@@ -11,12 +11,7 @@ export default function OfferFlatList({ ...props }) {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={getData(
-          getOffers(),
-          props.route.params.tag,
-          props.route.params.isEnabled,
-          "offer_tag"
-        )}
+        data={getData(getOffers())}
         ListFooterComponent={<View></View>}
         ListFooterComponentStyle={{
           borderWidth: 5,
