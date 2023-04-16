@@ -156,19 +156,6 @@ export default function DrawerContent(props) {
                   props.navigation.navigate("TabDishes");
                 }}
               />
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="food"
-                    color={color}
-                    size={size}
-                  />
-                )}
-                label="Mes menus"
-                onPress={() => {
-                  props.navigation.navigate("TabMenus");
-                }}
-              />
             </Drawer.Section>
 
             <Drawer.Section title="Marketing">
