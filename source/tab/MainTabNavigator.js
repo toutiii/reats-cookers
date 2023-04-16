@@ -11,7 +11,6 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../views/Dashboard";
 import DishFlatList from "../flatlist/DishFlatList";
-import MenuFlatList from "../flatlist/MenuFlatList";
 import OfferFlatList from "../flatlist/OfferFlatList";
 import OrderFlatList from "../flatlist/OrderFlatList";
 import all_constants from "../constants";
@@ -38,10 +37,6 @@ export default function MainTabNavigator() {
             route.name === all_constants.tab.main_tab_navigator.DishFlatList
           ) {
             iconName = "restaurant-outline";
-          } else if (
-            route.name === all_constants.tab.main_tab_navigator.MenuFlatList
-          ) {
-            iconName = "book-outline";
           } else if (
             route.name === all_constants.tab.main_tab_navigator.OfferFlatList
           ) {
@@ -78,10 +73,6 @@ export default function MainTabNavigator() {
       <Tab.Screen
         name={all_constants.tab.main_tab_navigator.DishFlatList}
         component={DishFlatList}
-      />
-      <Tab.Screen
-        name={all_constants.tab.main_tab_navigator.MenuFlatList}
-        component={MenuFlatList}
       />
       <Tab.Screen
         name={all_constants.tab.main_tab_navigator.OfferFlatList}
