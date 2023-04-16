@@ -28,19 +28,16 @@ export default styles_dish = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "flex-end",
-    marginTop: "5%",
   },
   dish_name: {
     flex: 1,
     justifyContent: "flex-end",
-    marginTop: "1%",
   },
   dish_rating: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "flex-start",
-    marginBottom: "5%",
   },
   rating_star: {
     width: 20,
