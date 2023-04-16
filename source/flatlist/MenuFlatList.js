@@ -11,12 +11,7 @@ export default function MenuFlatList({ ...props }) {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={getData(
-          getMenus(),
-          props.route.params.tag,
-          props.route.params.isEnabled,
-          "menu_tag"
-        )}
+        data={getData(getMenus())}
         ListFooterComponent={<View></View>}
         ListFooterComponentStyle={{
           borderWidth: 5,
