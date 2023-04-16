@@ -47,7 +47,6 @@ export default function MainTabNavigator() {
         tabBarButton: [
           "OrderView",
           "DishFormView",
-          "MenuFormView",
           "SettingsCredentialsForm",
           "SettingsPersonalInformationForm",
           "SettingsAddressForm",
