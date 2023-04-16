@@ -284,30 +284,7 @@ export const all_constants = {
       },
     },
   },
-  tag: {
-    dishes: {
-      starter: "starter",
-      dish: "main_dish",
-      dessert: "dessert",
-      drink: "drink",
-      menu: "menu",
-    },
-    orders: {
-      all: "all",
-      paid: "paid",
-      canceled: "cancelled",
-      history: "history",
-      delivered: "delivered",
-      archived: "archived",
-    },
-    balance: {
-      pending: "pending",
-      history: "history",
-    },
-    offer: {
-      promotion: "special_offer",
-    },
-  },
+
   balance: {
     no_balance_found: "Aucun item trouvé.",
   },
