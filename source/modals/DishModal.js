@@ -7,7 +7,17 @@ import Modal from "react-native-modal";
 export default function DishModal({ ...props }) {
   return (
     <View>
-      <Modal animationType="slide" transparent={false} visible={props.state}>
+      <Modal
+        testID={"modal"}
+        backdropOpacity={0.8}
+        animationIn="zoomInDown"
+        animationOut="zoomOutUp"
+        animationInTiming={600}
+        animationOutTiming={600}
+        backdropTransitionInTiming={600}
+        backdropTransitionOutTiming={600}
+        isVisible={props.state}
+      >
         <View style={{ flex: 1, alignItems: "center", marginTop: "10%" }}>
           <CustomButton
             label={all_constants.modal.dish_modal.hide}
