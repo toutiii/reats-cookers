@@ -52,6 +52,7 @@ export default function Order({ ...props }) {
               {props.order_amount}
               {all_constants.currency_symbol}
             </Text>
+            <Text style={{ fontSize: 13 }}>{props.dishes_number} plats</Text>
           </View>
         </View>
       </View>
