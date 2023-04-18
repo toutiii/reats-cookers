@@ -24,7 +24,13 @@ export default function SearchFilterModal(props) {
   ];
 
   const datePickerMode = "startDate";
-  const [hide, setHide] = React.useState(false);
+  const [
+    keyMultipleSelectOrderStateFilter,
+    setKeyMultipleSelectOrderStateFilter,
+  ] = React.useState(0);
+
+  const [keyMultipleSelectActiveFilter, setKeyMultipleSelectActiveFilter] =
+    React.useState(1);
   const [show, setShow] = React.useState(false);
   const isStartDate = React.useRef(true);
 
@@ -92,7 +98,7 @@ export default function SearchFilterModal(props) {
         <View style={{ flex: 7 }}>
           {props.enableActiveFilter && (
             <MultipleSelectList
-              key={hide}
+              key={keyMultipleSelectActiveFilter}
               setSelected={(val) => props.stateSearchData(val)}
               data={activeFilterData}
               save="value"
@@ -101,7 +107,7 @@ export default function SearchFilterModal(props) {
           )}
           {props.enableOrderStateFilter && (
             <MultipleSelectList
-              key={hide}
+              key={keyMultipleSelectOrderStateFilter}
               setSelected={(val) => props.stateOrderData(val)}
               data={orderStateFilterData}
               save="value"
@@ -206,7 +212,12 @@ export default function SearchFilterModal(props) {
               props.pickEndDate(null);
               props.stateSearchData([]);
               props.stateOrderData([]);
-              setHide(!hide);
+              setKeyMultipleSelectActiveFilter(
+                keyMultipleSelectActiveFilter + 1
+              );
+              setKeyMultipleSelectOrderStateFilter(
+                keyMultipleSelectOrderStateFilter + 1
+              );
             }}
           />
         </View>
