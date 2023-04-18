@@ -94,7 +94,6 @@ export default function SearchFilterModal(props) {
             <MultipleSelectList
               key={hide}
               setSelected={(val) => props.stateSearchData(val)}
-              search={false}
               data={activeFilterData}
               save="value"
               placeholder="Items actifs ou inactifs"
@@ -104,7 +103,6 @@ export default function SearchFilterModal(props) {
             <MultipleSelectList
               key={hide}
               setSelected={(val) => props.stateOrderData(val)}
-              search={false}
               data={orderStateFilterData}
               save="value"
               placeholder="État de la commande"
