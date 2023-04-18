@@ -125,6 +125,7 @@ export default function OrderFlatList({ ...props }) {
                   order_status={item.order_status}
                   order_delivery_date={item.order_delivery_date}
                   order_delivery_hour={item.order_delivery_hour}
+                  dishes_number={item.dishes.length}
                 ></Order>
               </TouchableHighlight>
             </View>
