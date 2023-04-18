@@ -24,7 +24,7 @@ export default function SearchFilterModal(props) {
   ];
 
   const datePickerMode = "startDate";
-
+  const [hide, setHide] = React.useState(false);
   const [show, setShow] = React.useState(false);
   const isStartDate = React.useRef(true);
 
@@ -92,6 +92,7 @@ export default function SearchFilterModal(props) {
         <View style={{ flex: 7 }}>
           {props.enableActiveFilter && (
             <MultipleSelectList
+              key={hide}
               setSelected={(val) => props.stateSearchData(val)}
               search={false}
               data={activeFilterData}
@@ -101,6 +102,7 @@ export default function SearchFilterModal(props) {
           )}
           {props.enableOrderStateFilter && (
             <MultipleSelectList
+              key={hide}
               setSelected={(val) => props.stateOrderData(val)}
               search={false}
               data={orderStateFilterData}
@@ -202,7 +204,11 @@ export default function SearchFilterModal(props) {
             color="red"
             title={all_constants.search_modal.clear_filter_button_label}
             onPress={() => {
-              props.onPressClear();
+              props.pickStartDate(null);
+              props.pickEndDate(null);
+              props.stateSearchData([]);
+              props.stateOrderData([]);
+              setHide(!hide);
             }}
           />
         </View>
