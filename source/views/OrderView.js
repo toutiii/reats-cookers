@@ -236,7 +236,12 @@ export default class OrderView extends Component {
                 }}
               >
                 <View>
-                  <FontAwesome name="money" size={30} color="black" />
+                  <FontAwesome
+                    name="money"
+                    size={30}
+                    style={{ marginRight: "1%" }}
+                    color="black"
+                  />
                 </View>
                 <View>
                   <Text style={{ fontSize: 17 }}>
@@ -261,7 +266,12 @@ export default class OrderView extends Component {
                 all_constants.order.status.approved ? (
                   <>
                     <View>
-                      <AntDesign name="checkcircle" size={30} color="black" />
+                      <AntDesign
+                        name="checkcircle"
+                        style={{ marginRight: "1%" }}
+                        size={30}
+                        color="black"
+                      />
                     </View>
                     <View>
                       <Text style={{ fontSize: 17 }}>
@@ -276,7 +286,12 @@ export default class OrderView extends Component {
                   all_constants.order.status.canceled ? (
                   <>
                     <View>
-                      <MaterialIcons name="cancel" size={30} color="black" />
+                      <MaterialIcons
+                        name="cancel"
+                        style={{ marginRight: "1%" }}
+                        size={30}
+                        color="black"
+                      />
                     </View>
                     <View>
                       <Text style={{ fontSize: 17 }}>
@@ -293,6 +308,7 @@ export default class OrderView extends Component {
                         name="hourglass-half"
                         size={24}
                         color="black"
+                        style={{ marginRight: "1%" }}
                       />
                     </View>
                     <View>
@@ -316,6 +332,7 @@ export default class OrderView extends Component {
               >
                 <View>
                   <MaterialIcons
+                    style={{ marginRight: "1%" }}
                     name="delivery-dining"
                     size={30}
                     color="black"
@@ -357,6 +374,7 @@ export default class OrderView extends Component {
                     name="google-maps"
                     size={30}
                     color="black"
+                    style={{ marginRight: "1%" }}
                   />
                 </View>
                 <View>
