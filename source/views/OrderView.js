@@ -191,8 +191,10 @@ export default class OrderView extends Component {
                 style={{
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 6,
+                  aspectRatio: 5,
                   alignItems: "center",
+                  borderColor: "red",
+                  borderWidth: 1,
                 }}
               >
                 <View>
@@ -211,8 +213,10 @@ export default class OrderView extends Component {
                 style={{
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 6,
+                  aspectRatio: 5,
                   alignItems: "center",
+                  borderColor: "red",
+                  borderWidth: 1,
                 }}
               >
                 <View>
@@ -230,8 +234,10 @@ export default class OrderView extends Component {
                 style={{
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 6,
+                  aspectRatio: 5,
                   alignItems: "center",
+                  borderColor: "red",
+                  borderWidth: 1,
                 }}
               >
                 {this.props.route.params.item.order_status ===
@@ -284,8 +290,10 @@ export default class OrderView extends Component {
                 style={{
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 6,
+                  aspectRatio: 5,
                   alignItems: "center",
+                  borderColor: "red",
+                  borderWidth: 1,
                 }}
               >
                 <View>
@@ -319,8 +327,10 @@ export default class OrderView extends Component {
                 style={{
                   flex: 1,
                   margin: "2%",
-                  aspectRatio: 6,
+                  aspectRatio: 5,
                   alignItems: "center",
+                  borderColor: "red",
+                  borderWidth: 1,
                 }}
               >
                 <View>
