@@ -189,6 +189,20 @@ export default class OrderView extends Component {
             >
               <View
                 style={{
+                  borderColor: "red",
+                  borderWidth: 1,
+
+                  alignItems: "flex-end",
+                }}
+              >
+                <Text style={{ fontSize: 17 }}>
+                  n°
+                  {this.props.route.params.item.order_number}
+                </Text>
+              </View>
+
+              <View
+                style={{
                   flex: 1,
                   margin: "2%",
                   aspectRatio: 5,
