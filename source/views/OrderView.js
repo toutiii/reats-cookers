@@ -195,6 +195,7 @@ export default class OrderView extends Component {
                   alignItems: "center",
                   borderColor: "red",
                   borderWidth: 1,
+                  flexDirection: "row",
                 }}
               >
                 <View>
@@ -217,6 +218,7 @@ export default class OrderView extends Component {
                   alignItems: "center",
                   borderColor: "red",
                   borderWidth: 1,
+                  flexDirection: "row",
                 }}
               >
                 <View>
@@ -238,6 +240,7 @@ export default class OrderView extends Component {
                   alignItems: "center",
                   borderColor: "red",
                   borderWidth: 1,
+                  flexDirection: "row",
                 }}
               >
                 {this.props.route.params.item.order_status ===
@@ -294,6 +297,7 @@ export default class OrderView extends Component {
                   alignItems: "center",
                   borderColor: "red",
                   borderWidth: 1,
+                  flexDirection: "row",
                 }}
               >
                 <View>
@@ -331,6 +335,7 @@ export default class OrderView extends Component {
                   alignItems: "center",
                   borderColor: "red",
                   borderWidth: 1,
+                  flexDirection: "row",
                 }}
               >
                 <View>
