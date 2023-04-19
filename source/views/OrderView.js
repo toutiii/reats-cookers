@@ -189,9 +189,6 @@ export default class OrderView extends Component {
             >
               <View
                 style={{
-                  borderColor: "red",
-                  borderWidth: 1,
-
                   alignItems: "flex-end",
                 }}
               >
@@ -207,8 +204,6 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                   alignItems: "center",
-                  borderColor: "red",
-                  borderWidth: 1,
                   flexDirection: "row",
                 }}
               >
@@ -230,8 +225,6 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                   alignItems: "center",
-                  borderColor: "red",
-                  borderWidth: 1,
                   flexDirection: "row",
                 }}
               >
@@ -257,8 +250,6 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                   alignItems: "center",
-                  borderColor: "red",
-                  borderWidth: 1,
                   flexDirection: "row",
                 }}
               >
@@ -325,8 +316,6 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                   alignItems: "center",
-                  borderColor: "red",
-                  borderWidth: 1,
                   flexDirection: "row",
                 }}
               >
@@ -364,8 +353,6 @@ export default class OrderView extends Component {
                   margin: "2%",
                   aspectRatio: 5,
                   alignItems: "center",
-                  borderColor: "red",
-                  borderWidth: 1,
                   flexDirection: "row",
                 }}
               >
