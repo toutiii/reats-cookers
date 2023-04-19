@@ -40,6 +40,7 @@ export default function Order({ ...props }) {
             flex: 2,
             margin: "1%",
             aspectRatio: 2,
+            alignItems: "center",
           }}
         >
           <View style={{ padding: 10, alignItems: "flex-start" }}>
