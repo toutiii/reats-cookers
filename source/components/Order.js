@@ -4,6 +4,16 @@ import all_constants from "../constants";
 export default function Order({ ...props }) {
   return (
     <View style={{ flex: 1 }}>
+      <View style={{ alignItems: "center" }}>
+        <Text
+          style={{
+            fontSize: 20,
+            color: props.order_number_color,
+          }}
+        >
+          {all_constants.order.infos.number} {props.order_number}
+        </Text>
+      </View>
       <View
         style={{
           flex: 1,
@@ -33,14 +43,6 @@ export default function Order({ ...props }) {
           }}
         >
           <View style={{ padding: 10, alignItems: "flex-start" }}>
-            <Text
-              style={{
-                fontSize: 20,
-                color: props.order_number_color,
-              }}
-            >
-              {all_constants.order.infos.number} {props.order_number}
-            </Text>
             <Text style={{ fontSize: 13 }}>
               {props.order_delivery_date} à {props.order_delivery_hour}{" "}
             </Text>
