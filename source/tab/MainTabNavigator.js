@@ -13,6 +13,7 @@ import DishFlatList from "../flatlist/DishFlatList";
 import OfferFlatList from "../flatlist/OfferFlatList";
 import OrderFlatList from "../flatlist/OrderFlatList";
 import all_constants from "../constants";
+import OrderFlatlistStackNavigator from "../stack/OrderFlatlistStackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -65,7 +66,7 @@ export default function MainTabNavigator() {
       />
       <Tab.Screen
         name={all_constants.tab.main_tab_navigator.OrderFlatList}
-        component={OrderFlatList}
+        component={OrderFlatlistStackNavigator}
         options={{ tabBarBadge: 3 }}
       />
       <Tab.Screen
