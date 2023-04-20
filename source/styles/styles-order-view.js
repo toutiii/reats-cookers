@@ -15,4 +15,11 @@ export default styles_order_view = StyleSheet.create({
     alignItems: "center",
     width: "95%",
   },
+  orderview: {
+    flex: 1,
+    margin: "2%",
+    aspectRatio: 5,
+    alignItems: "center",
+    flexDirection: "row",
+  },
 });
