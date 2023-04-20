@@ -1,6 +1,12 @@
 import { Image, Text, View } from "react-native";
 import { Divider } from "react-native-paper";
 import all_constants from "../constants";
+import {
+  AntDesign,
+  FontAwesome,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 export default function Order({ ...props }) {
   return (
     <View style={{ flex: 1 }}>
