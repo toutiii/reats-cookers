@@ -102,7 +102,7 @@ export default function SearchFilterModal(props) {
               setSelected={(val) => props.stateSearchData(val)}
               data={activeFilterData}
               save="value"
-              placeholder="Items actifs ou inactifs"
+              placeholder={all_constants.search_modal.state_item}
             />
           )}
           {props.enableOrderStateFilter && (
@@ -111,7 +111,7 @@ export default function SearchFilterModal(props) {
               setSelected={(val) => props.stateOrderData(val)}
               data={orderStateFilterData}
               save="value"
-              placeholder="État de la commande"
+              placeholder={all_constants.search_modal.state_order}
             />
           )}
 
@@ -120,7 +120,7 @@ export default function SearchFilterModal(props) {
               <View style={{ flex: 4 }}>
                 <TextInput
                   editable={false}
-                  placeholder={"Date de début"}
+                  placeholder={all_constants.search_modal.start_date}
                   mode="outlined"
                   value={
                     props.startDate === null
@@ -157,7 +157,7 @@ export default function SearchFilterModal(props) {
               <View style={{ flex: 4 }}>
                 <TextInput
                   editable={false}
-                  placeholder={"Date de fin"}
+                  placeholder={all_constants.search_modal.end_date}
                   mode="outlined"
                   value={
                     props.endDate === null
