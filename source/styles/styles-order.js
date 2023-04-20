@@ -24,4 +24,7 @@ export default styles_order = StyleSheet.create({
     flex: 1,
     paddingLeft: "5%",
   },
+  row_element: {
+    flexDirection: "row",
+  },
 });
