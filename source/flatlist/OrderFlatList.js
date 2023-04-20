@@ -113,7 +113,9 @@ export default function OrderFlatList({ ...props }) {
             <View style={styles_order.order_button_container}>
               <TouchableHighlight
                 onPress={() => {
-                  props.navigation.navigate("OrderView", { item: item });
+                  props.navigation.navigate("FlatlistStackNavigatorOrderView", {
+                    item: item,
+                  });
                 }}
                 style={{ flex: 1 }}
                 underlayColor={all_constants.colors.inputBorderColor}
