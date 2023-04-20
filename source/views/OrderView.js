@@ -10,6 +10,7 @@ import CustomAlert from "../components/CustomAlert";
 import styles_form from "../styles/styles-form";
 import { callBackEnd } from "../api/fetch";
 import {
+  Fontisto,
   AntDesign,
   Ionicons,
   FontAwesome,
@@ -192,7 +193,7 @@ export default class OrderView extends Component {
                   alignItems: "flex-end",
                 }}
               >
-                <Text style={{ fontSize: 17 }}>
+                <Text style={{ fontSize: 25 }}>
                   n°
                   {this.props.route.params.item.order_number}
                 </Text>
@@ -202,7 +203,7 @@ export default class OrderView extends Component {
                 <View>
                   <AntDesign
                     name="user"
-                    style={{ marginRight: "1%" }}
+                    style={styles_order_view.icons}
                     size={30}
                     color="black"
                   />
@@ -221,7 +222,7 @@ export default class OrderView extends Component {
                   <FontAwesome
                     name="money"
                     size={30}
-                    style={{ marginRight: "1%" }}
+                    style={styles_order_view.icons}
                     color="black"
                   />
                 </View>
@@ -240,7 +241,7 @@ export default class OrderView extends Component {
                     <View>
                       <AntDesign
                         name="checkcircle"
-                        style={{ marginRight: "1%" }}
+                        style={styles_order_view.icons}
                         size={30}
                         color="black"
                       />
@@ -260,7 +261,7 @@ export default class OrderView extends Component {
                     <View>
                       <MaterialIcons
                         name="cancel"
-                        style={{ marginRight: "1%" }}
+                        style={styles_order_view.icons}
                         size={30}
                         color="black"
                       />
@@ -280,7 +281,7 @@ export default class OrderView extends Component {
                         name="hourglass-half"
                         size={24}
                         color="black"
-                        style={{ marginRight: "1%" }}
+                        style={styles_order_view.icons}
                       />
                     </View>
                     <View>
@@ -294,7 +295,7 @@ export default class OrderView extends Component {
               <View style={styles_order_view.orderview}>
                 <View>
                   <MaterialIcons
-                    style={{ marginRight: "1%" }}
+                    style={styles_order_view.icons}
                     name="delivery-dining"
                     size={30}
                     color="black"
@@ -326,7 +327,7 @@ export default class OrderView extends Component {
                     name="google-maps"
                     size={30}
                     color="black"
-                    style={{ marginRight: "1%" }}
+                    style={styles_order_view.icons}
                   />
                 </View>
                 <View>
