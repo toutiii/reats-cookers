@@ -22,4 +22,7 @@ export default styles_order_view = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
+  icons: {
+    marginRight: "1%",
+  },
 });
