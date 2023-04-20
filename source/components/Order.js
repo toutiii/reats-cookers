@@ -1,6 +1,7 @@
 import { Image, Text, View } from "react-native";
 import { Divider } from "react-native-paper";
 import all_constants from "../constants";
+import stylesOrder from "../styles/styles-order";
 import {
   AntDesign,
   FontAwesome,
@@ -50,7 +51,7 @@ export default function Order({ ...props }) {
           }}
         >
           <View style={{ padding: 10, alignItems: "flex-start" }}>
-            <View style={{ flexDirection: "row" }}>
+            <View style={stylesOrder.row_element}>
               <View>
                 <MaterialIcons name="delivery-dining" size={20} color="black" />
               </View>
@@ -58,13 +59,13 @@ export default function Order({ ...props }) {
                 {props.order_delivery_date} à {props.order_delivery_hour}{" "}
               </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={stylesOrder.row_element}>
               <View>
                 <FontAwesome name="hourglass-half" size={20} color="black" />
               </View>
               <Text style={{ fontSize: 13 }}>{props.order_status} </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={stylesOrder.row_element}>
               <View>
                 <FontAwesome name="money" size={20} color="black" />
               </View>
