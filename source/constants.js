@@ -481,6 +481,10 @@ export const all_constants = {
     default_button_label: "OK",
     search_button_label: "Filtrer",
     clear_filter_button_label: "Réinitialiser",
+    state_item: "Items actifs ou inactifs",
+    state_order: "État de la commande",
+    start_date: "Date de début",
+    end_date: "Date de fin",
   },
   search_bar: {
     placeholder: "Écrivez pour lancer la recherche",
