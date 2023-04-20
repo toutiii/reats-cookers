@@ -188,15 +188,24 @@ export default class OrderView extends Component {
                 alignItems: "center",
               }}
             >
-              <View
-                style={{
-                  alignItems: "flex-end",
-                }}
-              >
-                <Text style={{ fontSize: 25 }}>
-                  n°
-                  {this.props.route.params.item.order_number}
-                </Text>
+              <View style={{ flexDirection: "row" }}>
+                <View>
+                  <Fontisto
+                    name="shopping-basket"
+                    style={styles_order_view.icons}
+                    size={25}
+                    color="black"
+                  />
+                </View>
+                <View
+                  style={{
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+                    {this.props.route.params.item.order_number}
+                  </Text>
+                </View>
               </View>
 
               <View style={styles_order_view.orderview}>
