@@ -198,17 +198,14 @@ export default class OrderView extends Component {
                 </Text>
               </View>
 
-              <View
-                style={{
-                  flex: 1,
-                  margin: "2%",
-                  aspectRatio: 5,
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
+              <View style={styles_order_view.orderview}>
                 <View>
-                  <AntDesign name="user" size={30} color="black" />
+                  <AntDesign
+                    name="user"
+                    style={{ marginRight: "1%" }}
+                    size={30}
+                    color="black"
+                  />
                 </View>
                 <View>
                   <Text style={{ fontSize: 17 }}>
@@ -219,15 +216,7 @@ export default class OrderView extends Component {
                   </Text>
                 </View>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  margin: "2%",
-                  aspectRatio: 5,
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
+              <View style={styles_order_view.orderview}>
                 <View>
                   <FontAwesome
                     name="money"
@@ -244,15 +233,7 @@ export default class OrderView extends Component {
                   </Text>
                 </View>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  margin: "2%",
-                  aspectRatio: 5,
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
+              <View style={styles_order_view.orderview}>
                 {this.props.route.params.item.order_status ===
                 all_constants.order.status.approved ? (
                   <>
@@ -310,15 +291,7 @@ export default class OrderView extends Component {
                   </>
                 )}
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  margin: "2%",
-                  aspectRatio: 5,
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
+              <View style={styles_order_view.orderview}>
                 <View>
                   <MaterialIcons
                     style={{ marginRight: "1%" }}
@@ -347,15 +320,7 @@ export default class OrderView extends Component {
                   )}
                 </View>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  margin: "2%",
-                  aspectRatio: 5,
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
+              <View style={styles_order_view.orderview}>
                 <View>
                   <MaterialCommunityIcons
                     name="google-maps"
