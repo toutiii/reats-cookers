@@ -50,14 +50,30 @@ export default function Order({ ...props }) {
           }}
         >
           <View style={{ padding: 10, alignItems: "flex-start" }}>
-            <Text style={{ fontSize: 13 }}>
-              {props.order_delivery_date} à {props.order_delivery_hour}{" "}
-            </Text>
-            <Text style={{ fontSize: 13 }}>{props.order_status} </Text>
-            <Text style={{ fontSize: 13 }}>
-              {props.order_amount}
-              {all_constants.currency_symbol}
-            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <View>
+                <MaterialIcons name="delivery-dining" size={20} color="black" />
+              </View>
+              <Text style={{ fontSize: 13 }}>
+                {props.order_delivery_date} à {props.order_delivery_hour}{" "}
+              </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <View>
+                <FontAwesome name="hourglass-half" size={20} color="black" />
+              </View>
+              <Text style={{ fontSize: 13 }}>{props.order_status} </Text>
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <View>
+                <FontAwesome name="money" size={20} color="black" />
+              </View>
+              <Text style={{ fontSize: 13 }}>
+                {props.order_amount}
+                {all_constants.currency_symbol}
+              </Text>
+            </View>
+
             <Text style={{ fontSize: 13 }}>{props.dishes_number} plats</Text>
           </View>
         </View>
