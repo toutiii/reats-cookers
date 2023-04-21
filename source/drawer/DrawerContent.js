@@ -141,7 +141,38 @@ export default function DrawerContent(props) {
                 </View>
               </TouchableRipple>
             </Drawer.Section>
-            <Drawer.Section title="Gérer"></Drawer.Section>
+            <Drawer.Section title="Gérer">
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="food-turkey"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Ajouter un plat"
+                onPress={() => {
+                  props.navigation.navigate("DishFormView", {
+                    item: userData["order_infos_section"]["data"],
+                  });
+                }}
+              />
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="percent"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label="Créer une promotion"
+                onPress={() => {
+                  props.navigation.navigate("OfferFormView", {
+                    item: userData["order_infos_section"]["data"],
+                  });
+                }}
+              />
+            </Drawer.Section>
             <Drawer.Section title="Préférences">
               <DrawerItem
                 icon={({ color, size }) => (
