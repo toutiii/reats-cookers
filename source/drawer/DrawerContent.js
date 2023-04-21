@@ -141,6 +141,7 @@ export default function DrawerContent(props) {
                 </View>
               </TouchableRipple>
             </Drawer.Section>
+            <Drawer.Section title="Gérer"></Drawer.Section>
             <Drawer.Section title="Préférences">
               <DrawerItem
                 icon={({ color, size }) => (
