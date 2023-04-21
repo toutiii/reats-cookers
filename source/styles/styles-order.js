@@ -27,4 +27,7 @@ export default styles_order = StyleSheet.create({
   row_element: {
     flexDirection: "row",
   },
+  order_text: {
+    fontSize: 15,
+  },
 });
