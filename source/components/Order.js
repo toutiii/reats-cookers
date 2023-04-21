@@ -85,10 +85,18 @@ export default function Order({ ...props }) {
                 {all_constants.currency_symbol}
               </Text>
             </View>
-
-            <Text style={stylesOrder.order_text}>
-              {props.dishes_number} plats
-            </Text>
+            <View style={stylesOrder.row_element}>
+              <View>
+                <MaterialCommunityIcons
+                  name="food-turkey"
+                  color="black"
+                  size={20}
+                />
+              </View>
+              <Text style={stylesOrder.order_text}>
+                {props.dishes_number} plats
+              </Text>
+            </View>
           </View>
         </View>
       </View>
