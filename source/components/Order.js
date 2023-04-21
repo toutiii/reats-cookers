@@ -59,12 +59,23 @@ export default function Order({ ...props }) {
                 {props.order_delivery_date} à {props.order_delivery_hour}{" "}
               </Text>
             </View>
+
             <View style={stylesOrder.row_element}>
-              <View>
-                <FontAwesome name="hourglass-half" size={20} color="black" />
-              </View>
+              {props.order_status === all_constants.order.status.approved ? (
+                <View>
+                  <AntDesign name="checkcircle" size={20} color="black" />
+                </View>
+              ) : props.order_status === all_constants.order.status.canceled ? (
+                <MaterialIcons name="cancel" size={20} color="black" />
+              ) : (
+                <View>
+                  <FontAwesome name="hourglass-half" size={20} color="black" />
+                </View>
+              )}
+
               <Text style={{ fontSize: 13 }}>{props.order_status} </Text>
             </View>
+
             <View style={stylesOrder.row_element}>
               <View>
                 <FontAwesome name="money" size={20} color="black" />
