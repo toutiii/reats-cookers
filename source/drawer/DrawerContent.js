@@ -141,39 +141,6 @@ export default function DrawerContent(props) {
                 </View>
               </TouchableRipple>
             </Drawer.Section>
-
-            <Drawer.Section title="Cuisine">
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="food-turkey"
-                    color={color}
-                    size={size}
-                  />
-                )}
-                label="Mes plats"
-                onPress={() => {
-                  props.navigation.navigate("TabDishes");
-                }}
-              />
-            </Drawer.Section>
-
-            <Drawer.Section title="Marketing">
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="percent"
-                    color={color}
-                    size={size}
-                  />
-                )}
-                label="Mes promotions"
-                onPress={() => {
-                  props.navigation.navigate("TabOffers");
-                }}
-              />
-            </Drawer.Section>
-
             <Drawer.Section title="Préférences">
               <DrawerItem
                 icon={({ color, size }) => (
