@@ -1,4 +1,9 @@
-export function getOrders() {
+const sleep = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+export async function getOrders() {
+  await sleep(1000);
   const order_list_data = {
     data: [
       {
