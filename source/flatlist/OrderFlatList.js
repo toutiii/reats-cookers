@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ActivityIndicator,
   Animated,
   FlatList,
   Text,
@@ -135,6 +136,7 @@ export default function OrderFlatList({ ...props }) {
           backgroundColor: "white",
         }}
       >
+        {isFetchingData && <ActivityIndicator size="large" color="tomato" />}
         <FlatList
           data={data}
           ListEmptyComponent={
