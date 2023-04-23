@@ -20,8 +20,8 @@ export default function OrderFlatList({ ...props }) {
   const [isSearchFilterModalVisible, setSearchFilterModalVisible] =
     React.useState(false);
 
-  const [selectedStates, setselectedStates] = React.useState([]);
-  const [selectedOrderStates, setselectedOrderStates] = React.useState([]);
+  const [selectedStates, setSelectedStates] = React.useState([]);
+  const [selectedOrderStates, setSelectedOrderStates] = React.useState([]);
   const [startDate, setStartDate] = React.useState(null);
   const [endDate, setEndDate] = React.useState(null);
   const fadeAnim = React.useRef(new Animated.Value(1)).current;
@@ -67,7 +67,7 @@ export default function OrderFlatList({ ...props }) {
         }
         fetchDataFromBackend();
         updateSearchingStatus();
-
+        resetFilters();
         fadeIn();
       }, 5000);
     }
@@ -75,7 +75,26 @@ export default function OrderFlatList({ ...props }) {
 
   const onPressFilter = () => {
     toggleSearchFilterModal();
-    updateSearchingStatus();
+
+    if (
+      selectedOrderStates.length !== 0 ||
+      selectedStates.length !== 0 ||
+      startDate !== null ||
+      endDate !== null
+    ) {
+      console.log(selectedStates);
+      console.log(selectedOrderStates);
+      console.log(startDate);
+      console.log(endDate);
+      updateSearchingStatus();
+    }
+  };
+
+  const resetFilters = () => {
+    setSelectedOrderStates([]);
+    setSelectedStates([]);
+    setStartDate(null);
+    setEndDate(null);
   };
 
   return (
@@ -92,9 +111,10 @@ export default function OrderFlatList({ ...props }) {
           endDate={endDate}
           isModalVisible={isSearchFilterModalVisible}
           toggleModal={toggleSearchFilterModal}
-          stateSearchData={setselectedStates}
-          stateOrderData={setselectedOrderStates}
+          stateSearchData={setSelectedStates}
+          stateOrderData={setSelectedOrderStates}
           onPressFilter={onPressFilter}
+          onPressClear={resetFilters}
           buttonLabel={all_constants.search_modal.search_button_label}
         />
       )}

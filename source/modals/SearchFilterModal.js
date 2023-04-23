@@ -208,10 +208,8 @@ export default function SearchFilterModal(props) {
             color="red"
             title={all_constants.search_modal.clear_filter_button_label}
             onPress={() => {
-              props.pickStartDate(null);
-              props.pickEndDate(null);
-              props.stateSearchData([]);
-              props.stateOrderData([]);
+              props.onPressClear();
+
               setKeyMultipleSelectActiveFilter(
                 keyMultipleSelectActiveFilter + 1
               );
