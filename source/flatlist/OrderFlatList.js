@@ -56,7 +56,7 @@ export default function OrderFlatList({ ...props }) {
     setIsFetchingData(!isFetchingData);
   };
 
-  const fetchData = React.useCallback(() => {
+  React.useEffect(() => {
     if (isFetchingData) {
       fadeOut();
 
@@ -76,7 +76,6 @@ export default function OrderFlatList({ ...props }) {
   const onPressFilter = () => {
     toggleSearchFilterModal();
     updateSearchingStatus();
-    fetchData();
   };
 
   return (
