@@ -37,7 +37,7 @@ export default function OrderFlatList({ ...props }) {
 
   return (
     <View style={{ flex: 1 }}>
-      {isSearchFilterModalVisible ? (
+      {isSearchFilterModalVisible && (
         <SearchFilterModal
           enableActiveFilter={false}
           enableOrderStateFilter={true}
@@ -54,8 +54,6 @@ export default function OrderFlatList({ ...props }) {
           onPressFilter={fetchData}
           buttonLabel={all_constants.search_modal.search_button_label}
         />
-      ) : (
-        ""
       )}
       <View
         style={{
