@@ -1,5 +1,11 @@
 import React from "react";
-import { FlatList, Text, TouchableHighlight, View } from "react-native";
+import {
+  Animated,
+  FlatList,
+  Text,
+  TouchableHighlight,
+  View,
+} from "react-native";
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Order from "../components/Order";
@@ -18,6 +24,25 @@ export default function OrderFlatList({ ...props }) {
   const [selectedOrderStates, setselectedOrderStates] = React.useState([]);
   const [startDate, setStartDate] = React.useState(null);
   const [endDate, setEndDate] = React.useState(null);
+  const fadeAnim = React.useRef(new Animated.Value(1)).current;
+  const [isFetchingData, setIsFetchingData] = React.useState(false);
+  const [data, setData] = React.useState([]);
+
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0.2,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const toggleSearchFilterModal = () => {
     setSearchFilterModalVisible(!isSearchFilterModalVisible);
@@ -27,16 +52,35 @@ export default function OrderFlatList({ ...props }) {
 
   const onChangeSearch = (query) => setSearchQuery(query);
 
-  const fetchData = () => {
-    console.log(selectedStates);
-    console.log(selectedOrderStates);
-    console.log(startDate);
-    console.log(endDate);
+  const updateSearchingStatus = () => {
+    setIsFetchingData(!isFetchingData);
+  };
+
+  const fetchData = React.useCallback(() => {
+    if (isFetchingData) {
+      fadeOut();
+
+      setTimeout(() => {
+        async function fetchDataFromBackend() {
+          const results = await getOrders();
+          setData(results.data);
+        }
+        fetchDataFromBackend();
+        updateSearchingStatus();
+
+        fadeIn();
+      }, 5000);
+    }
+  }, [isFetchingData]);
+
+  const onPressFilter = () => {
     toggleSearchFilterModal();
+    updateSearchingStatus();
+    fetchData();
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
       {isSearchFilterModalVisible && (
         <SearchFilterModal
           enableActiveFilter={false}
@@ -51,7 +95,7 @@ export default function OrderFlatList({ ...props }) {
           toggleModal={toggleSearchFilterModal}
           stateSearchData={setselectedStates}
           stateOrderData={setselectedOrderStates}
-          onPressFilter={fetchData}
+          onPressFilter={onPressFilter}
           buttonLabel={all_constants.search_modal.search_button_label}
         />
       )}
@@ -94,7 +138,7 @@ export default function OrderFlatList({ ...props }) {
         }}
       >
         <FlatList
-          data={getData(getOrders())}
+          data={data}
           ListEmptyComponent={
             <View
               style={{
@@ -132,6 +176,6 @@ export default function OrderFlatList({ ...props }) {
           )}
         />
       </View>
-    </View>
+    </Animated.View>
   );
 }
