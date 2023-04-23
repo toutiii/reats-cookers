@@ -9,7 +9,6 @@ import {
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Order from "../components/Order";
-import { getData } from "../helpers/global_helpers.js";
 import { getOrders } from "../helpers/order_helpers";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";

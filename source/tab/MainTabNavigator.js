@@ -11,7 +11,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../views/Dashboard";
 import DishFlatList from "../flatlist/DishFlatList";
 import OfferFlatList from "../flatlist/OfferFlatList";
-import OrderFlatList from "../flatlist/OrderFlatList";
 import all_constants from "../constants";
 import OrderFlatlistStackNavigator from "../stack/OrderFlatlistStackNavigator";
 
