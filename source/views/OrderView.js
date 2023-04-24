@@ -203,6 +203,7 @@ export default class OrderView extends Component {
                   }}
                 >
                   <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+                    {all_constants.order.infos.number}
                     {this.props.route.params.item.order_number}
                   </Text>
                 </View>
