@@ -66,7 +66,10 @@ export default function OrderFlatList({ ...props }) {
       setSearchQuery(query.replace("  ", ""));
     }
 
-    if (query.length >= minLengthToTriggerSearch) {
+    if (
+      query.replace("  ", "").replace(" ", "").length >=
+      minLengthToTriggerSearch
+    ) {
       updateSearchingStatus();
     }
   };
