@@ -30,6 +30,7 @@ export default function OrderFlatList({ ...props }) {
   const [runSearchByTextInput, setRunSearchByTextInput] = React.useState(false);
   const minLengthToTriggerSearch = 3;
   const maxInputLength = 100;
+  const delaySearch = 2000;
 
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
@@ -54,6 +55,7 @@ export default function OrderFlatList({ ...props }) {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const onChangeSearch = (query) => {
+    console.log(query);
     if (query.length === 0) {
       setSearchQuery("");
     }
@@ -70,7 +72,7 @@ export default function OrderFlatList({ ...props }) {
       query.replace("  ", "").replace(" ", "").length >=
       minLengthToTriggerSearch
     ) {
-      updateSearchingStatus();
+      setRunSearchByTextInput(true);
     }
   };
 
@@ -90,10 +92,21 @@ export default function OrderFlatList({ ...props }) {
         fetchDataFromBackend();
         updateSearchingStatus();
         resetFilters();
+        setRunSearchByTextInput(false);
         fadeIn();
       }, 5000);
     }
   }, [isFetchingData]);
+
+  React.useEffect(() => {
+    if (runSearchByTextInput) {
+      const delayDebounceFn = setTimeout(() => {
+        updateSearchingStatus();
+      }, delaySearch);
+
+      return () => clearTimeout(delayDebounceFn);
+    }
+  }, [runSearchByTextInput]);
 
   const onPressFilter = () => {
     toggleSearchFilterModal();
