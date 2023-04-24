@@ -27,6 +27,9 @@ export default function OrderFlatList({ ...props }) {
   const fadeAnim = React.useRef(new Animated.Value(1)).current;
   const [isFetchingData, setIsFetchingData] = React.useState(false);
   const [data, setData] = React.useState([]);
+  const [runSearchByTextInput, setRunSearchByTextInput] = React.useState(false);
+  const minLengthToTriggerSearch = 3;
+  const maxInputLength = 100;
 
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
@@ -50,7 +53,23 @@ export default function OrderFlatList({ ...props }) {
 
   const [searchQuery, setSearchQuery] = React.useState("");
 
-  const onChangeSearch = (query) => setSearchQuery(query);
+  const onChangeSearch = (query) => {
+    if (query.length === 0) {
+      setSearchQuery("");
+    }
+
+    if (
+      query.length > 0 &&
+      query.length <= maxInputLength &&
+      query.charCodeAt(query.slice(-1)) <= 127
+    ) {
+      setSearchQuery(query.replace("  ", ""));
+    }
+
+    if (query.length >= minLengthToTriggerSearch) {
+      updateSearchingStatus();
+    }
+  };
 
   const updateSearchingStatus = () => {
     setIsFetchingData(!isFetchingData);
