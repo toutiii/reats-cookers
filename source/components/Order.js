@@ -45,12 +45,11 @@ export default function Order({ ...props }) {
         <View
           style={{
             flex: 2,
-            margin: "1%",
             aspectRatio: 2,
             alignItems: "center",
           }}
         >
-          <View style={{ padding: 10, alignItems: "flex-start" }}>
+          <View style={{ alignItems: "flex-start" }}>
             <View style={stylesOrder.row_element}>
               <View>
                 <MaterialIcons name="delivery-dining" size={20} color="black" />
