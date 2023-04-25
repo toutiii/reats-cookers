@@ -36,7 +36,6 @@ export default styles_order = StyleSheet.create({
   },
   order_status_text_style: {
     flex: 5,
-    alignSelf: "flex-start",
     alignItems: "flex-start",
   },
 });
