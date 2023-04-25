@@ -49,7 +49,7 @@ export default function Order({ ...props }) {
             alignItems: "center",
           }}
         >
-          <View style={{ alignItems: "flex-start" }}>
+          <View>
             <View style={stylesOrder.row_element}>
               <View>
                 <MaterialIcons name="delivery-dining" size={20} color="black" />
@@ -61,18 +61,24 @@ export default function Order({ ...props }) {
 
             <View style={stylesOrder.row_element}>
               {props.order_status === all_constants.order.status.approved ? (
-                <View>
+                <View style={stylesOrder.icon_element}>
                   <AntDesign name="checkcircle" size={20} color="black" />
                 </View>
               ) : props.order_status === all_constants.order.status.canceled ? (
-                <MaterialIcons name="cancel" size={20} color="black" />
+                <View style={stylesOrder.icon_element}>
+                  <MaterialIcons name="cancel" size={20} color="black" />
+                </View>
               ) : (
-                <View>
+                <View style={stylesOrder.icon_element}>
                   <FontAwesome name="hourglass-half" size={20} color="black" />
                 </View>
               )}
 
-              <Text style={stylesOrder.order_text}>{props.order_status} </Text>
+              <View style={stylesOrder.order_status_text_style}>
+                <Text numberOfLines={1} style={stylesOrder.order_text}>
+                  {props.order_status}{" "}
+                </Text>
+              </View>
             </View>
 
             <View style={stylesOrder.row_element}>

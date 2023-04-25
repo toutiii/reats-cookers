@@ -29,7 +29,14 @@ export default styles_order = StyleSheet.create({
   },
   order_text: {
     fontSize: 15,
-    paddingLeft: "10%",
-    paddingBottom: "3%",
+    paddingBottom: "6%",
+  },
+  icon_element: {
+    flex: 1,
+  },
+  order_status_text_style: {
+    flex: 5,
+    alignSelf: "flex-start",
+    alignItems: "flex-start",
   },
 });
