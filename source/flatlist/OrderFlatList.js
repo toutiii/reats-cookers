@@ -99,6 +99,21 @@ export default function OrderFlatList({ ...props }) {
   }, [isFetchingData]);
 
   React.useEffect(() => {
+    setIsFetchingData(true);
+    fadeOut();
+
+    setTimeout(() => {
+      async function fetchDataFromBackend() {
+        const results = await getOrders();
+        setData(results.data);
+      }
+      fetchDataFromBackend();
+      setIsFetchingData(false);
+      fadeIn();
+    }, 5000);
+  }, []);
+
+  React.useEffect(() => {
     if (runSearchByTextInput) {
       const delayDebounceFn = setTimeout(() => {
         updateSearchingStatus();
