@@ -47,59 +47,64 @@ export default function Order({ ...props }) {
             flex: 2,
             aspectRatio: 2,
             alignItems: "center",
+            paddingLeft: "5%",
           }}
         >
-          <View>
-            <View style={stylesOrder.row_element}>
-              <View>
-                <MaterialIcons name="delivery-dining" size={20} color="black" />
-              </View>
+          <View style={stylesOrder.row_element}>
+            <View style={stylesOrder.icon_element}>
+              <MaterialIcons name="delivery-dining" size={20} color="black" />
+            </View>
+            <View style={stylesOrder.order_status_text_style}>
               <Text style={stylesOrder.order_text}>
                 {props.order_delivery_date} à {props.order_delivery_hour}{" "}
               </Text>
             </View>
+          </View>
 
-            <View style={stylesOrder.row_element}>
-              {props.order_status === all_constants.order.status.approved ? (
-                <View style={stylesOrder.icon_element}>
-                  <AntDesign name="checkcircle" size={20} color="black" />
-                </View>
-              ) : props.order_status === all_constants.order.status.canceled ? (
-                <View style={stylesOrder.icon_element}>
-                  <MaterialIcons name="cancel" size={20} color="black" />
-                </View>
-              ) : (
-                <View style={stylesOrder.icon_element}>
-                  <FontAwesome name="hourglass-half" size={20} color="black" />
-                </View>
-              )}
-
-              <View style={stylesOrder.order_status_text_style}>
-                <Text numberOfLines={1} style={stylesOrder.order_text}>
-                  {props.order_status}{" "}
-                </Text>
+          <View style={stylesOrder.row_element}>
+            {props.order_status === all_constants.order.status.approved ? (
+              <View style={stylesOrder.icon_element}>
+                <AntDesign name="checkcircle" size={20} color="black" />
               </View>
+            ) : props.order_status === all_constants.order.status.canceled ? (
+              <View style={stylesOrder.icon_element}>
+                <MaterialIcons name="cancel" size={20} color="black" />
+              </View>
+            ) : (
+              <View style={stylesOrder.icon_element}>
+                <FontAwesome name="hourglass-half" size={20} color="black" />
+              </View>
+            )}
+
+            <View style={stylesOrder.order_status_text_style}>
+              <Text numberOfLines={1} style={stylesOrder.order_text}>
+                {props.order_status}{" "}
+              </Text>
             </View>
+          </View>
 
-            <View style={stylesOrder.row_element}>
-              <View>
-                <FontAwesome name="money" size={20} color="black" />
-              </View>
+          <View style={stylesOrder.row_element}>
+            <View style={stylesOrder.icon_element}>
+              <FontAwesome name="money" size={20} color="black" />
+            </View>
+            <View style={stylesOrder.order_status_text_style}>
               <Text style={stylesOrder.order_text}>
                 {props.order_amount}
                 {all_constants.currency_symbol}
               </Text>
             </View>
-            <View style={stylesOrder.row_element}>
-              <View>
-                <MaterialCommunityIcons
-                  name="food-turkey"
-                  color="black"
-                  size={20}
-                />
-              </View>
+          </View>
+          <View style={stylesOrder.row_element}>
+            <View style={stylesOrder.icon_element}>
+              <MaterialCommunityIcons
+                name="food-turkey"
+                color="black"
+                size={20}
+              />
+            </View>
+            <View style={stylesOrder.order_status_text_style}>
               <Text style={stylesOrder.order_text}>
-                {props.dishes_number} plats
+                {props.dishes_number} plats{" "}
               </Text>
             </View>
           </View>
