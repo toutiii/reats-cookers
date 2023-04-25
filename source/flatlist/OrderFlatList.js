@@ -35,7 +35,7 @@ export default function OrderFlatList({ ...props }) {
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 1000,
+      duration: 0,
       useNativeDriver: true,
     }).start();
   };
