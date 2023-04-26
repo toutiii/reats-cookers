@@ -15,6 +15,7 @@ import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
+import CustomAlert from "../components/CustomAlert.js";
 
 export default function OrderFlatList({ ...props }) {
   const [isSearchFilterModalVisible, setSearchFilterModalVisible] =
@@ -28,6 +29,9 @@ export default function OrderFlatList({ ...props }) {
   const [isFetchingData, setIsFetchingData] = React.useState(false);
   const [data, setData] = React.useState([]);
   const [runSearchByTextInput, setRunSearchByTextInput] = React.useState(false);
+  const [dateCheckingOk, setIsDateCheckingOk] = React.useState(true);
+  const [showAlert, setShowAlert] = React.useState(false);
+
   const minLengthToTriggerSearch = 3;
   const maxInputLength = 100;
   const delaySearch = 2000;
@@ -81,7 +85,7 @@ export default function OrderFlatList({ ...props }) {
   };
 
   React.useEffect(() => {
-    if (isFetchingData) {
+    if (isFetchingData && dateCheckingOk) {
       fadeOut();
 
       setTimeout(() => {
@@ -123,7 +127,16 @@ export default function OrderFlatList({ ...props }) {
     }
   }, [runSearchByTextInput]);
 
+  const checkDates = () => {
+    if (startDate !== null && endDate !== null && startDate > endDate) {
+      setShowAlert(true);
+      setIsDateCheckingOk(false);
+    }
+  };
+
   const onPressFilter = () => {
+    checkDates();
+
     toggleSearchFilterModal();
 
     if (
@@ -168,6 +181,7 @@ export default function OrderFlatList({ ...props }) {
           buttonLabel={all_constants.search_modal.search_button_label}
         />
       )}
+
       <View
         style={{
           flexDirection: "row",
@@ -207,7 +221,22 @@ export default function OrderFlatList({ ...props }) {
           backgroundColor: "white",
         }}
       >
-        {isFetchingData && <ActivityIndicator size="large" color="tomato" />}
+        {!dateCheckingOk && (
+          <CustomAlert
+            show={showAlert}
+            title={all_constants.search_modal.alert.date.title}
+            message={all_constants.search_modal.alert.date.message}
+            confirmButtonColor="red"
+            onConfirmPressed={() => {
+              setShowAlert(false);
+              setIsDateCheckingOk(true);
+              setIsFetchingData(false);
+            }}
+          />
+        )}
+        {isFetchingData && dateCheckingOk && (
+          <ActivityIndicator size="large" color="tomato" />
+        )}
         <FlatList
           data={data}
           ListEmptyComponent={

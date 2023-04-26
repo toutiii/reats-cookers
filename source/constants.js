@@ -485,6 +485,13 @@ export const all_constants = {
     state_order: "État de la commande",
     start_date: "Date de début",
     end_date: "Date de fin",
+    alert: {
+      date: {
+        title: "Erreur",
+        message:
+          "La date de fin ne peut pas être antérieure à la date de début.",
+      },
+    },
   },
   search_bar: {
     placeholder: "Écrivez pour lancer la recherche",
