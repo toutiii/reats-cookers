@@ -232,7 +232,7 @@ export default function FormField({ ...props }) {
         <View></View>
       )}
       {props.field.type === all_constants.field_type.select_picker ? (
-        <View style={styles_field.picker_container}>
+        <View style={{ flex: 1 }}>
           <MultipleSelectList
             setSelected={setSelected}
             data={getDaysOfWeek()}
