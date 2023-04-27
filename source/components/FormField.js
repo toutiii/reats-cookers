@@ -249,10 +249,6 @@ export default function FormField({ ...props }) {
                 <Text style={{ color: "black" }}>{props.value}</Text>
               )
             }
-            arrowSize={0}
-            placeholderSelectedItems={"" + props.value}
-            dividerVisible={true}
-            checkedItems={props.field.checkedItems}
           />
         </View>
       ) : (
