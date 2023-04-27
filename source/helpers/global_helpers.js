@@ -14,32 +14,32 @@ export function getCategories(itemType) {
 export function getDaysOfWeek() {
   const daysOfWeek = [
     {
-      itemKey: 1,
-      itemDescription: "Lundi",
+      Key: 1,
+      value: "Lundi",
     },
     {
-      itemKey: 2,
-      itemDescription: "Mardi",
+      key: 2,
+      value: "Mardi",
     },
     {
-      itemKey: 3,
-      itemDescription: "Mercredi",
+      key: 3,
+      value: "Mercredi",
     },
     {
-      itemKey: 4,
-      itemDescription: "Jeudi",
+      key: 4,
+      value: "Jeudi",
     },
     {
-      itemKey: 5,
-      itemDescription: "Vendredi",
+      key: 5,
+      value: "Vendredi",
     },
     {
-      itemKey: 6,
-      itemDescription: "Samedi",
+      key: 6,
+      value: "Samedi",
     },
     {
-      itemKey: 7,
-      itemDescription: "Dimanche",
+      key: 7,
+      value: "Dimanche",
     },
   ];
   return daysOfWeek;
