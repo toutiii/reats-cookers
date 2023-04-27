@@ -13,7 +13,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { getCategories } from "../helpers/global_helpers";
 import CustomImageButton from "../button/CustomImageButton";
 import * as ImagePicker from "expo-image-picker";
-import PickerCheckBox from "react-native-picker-checkbox";
+import { MultipleSelectList } from "react-native-dropdown-select-list";
 import { getDaysOfWeek } from "../helpers/global_helpers";
 import CustomButton from "../button/CustomButton";
 import FormLabelModal from "../modals/FormLabelModal";
