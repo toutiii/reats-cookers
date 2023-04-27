@@ -232,27 +232,11 @@ export default function FormField({ ...props }) {
       )}
       {props.field.type === all_constants.field_type.select_picker ? (
         <View style={styles_field.picker_container}>
-          <PickerCheckBox
+          <MultipleSelectList
+            setSelected={setSelected}
             data={getDaysOfWeek()}
-            headerComponent={
-              <Text style={{ fontSize: 18 }}>
-                {all_constants.label.settings.select_days_of_week}
-              </Text>
-            }
-            OnConfirm={(value) => {
-              if (value.length !== 0) {
-                let valueArray = [];
-                value.forEach((key) => {
-                  valueArray.push(key.itemDescription);
-                });
-                props.onChangeText(props.fieldName, valueArray.join(", "));
-              } else {
-                props.onChangeText(props.fieldName, value);
-              }
-            }}
-            ConfirmButtonTitle="OK"
-            DescriptionField="itemDescription"
-            KeyField="itemKey"
+            boxStyles={styles_field.dropdown_container}
+            dropdownStyles={styles_field.dropdown_container}
             placeholder={
               props.value === null ||
               !props.value ||
