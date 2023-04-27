@@ -30,6 +30,7 @@ export default function FormField({ ...props }) {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState("date");
+  const [selected, setSelected] = useState("");
 
   const showDatepicker = () => {
     showMode("date");
