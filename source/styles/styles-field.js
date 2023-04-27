@@ -68,4 +68,21 @@ export default styles_field = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  dropdown_box_container: {
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    elevation: 20,
+    width: "100%",
+    height: 50,
+    borderColor: "tomato",
+    borderBottomWidth: 1,
+    borderRadius: 0,
+  },
+  dropdown_container: {
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    borderColor: "tomato",
+    borderBottomWidth: 1,
+    borderRadius: 0,
+  },
 });
