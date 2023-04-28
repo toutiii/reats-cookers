@@ -73,7 +73,6 @@ export default styles_field = StyleSheet.create({
     backgroundColor: "#fff",
     elevation: 20,
     width: "100%",
-    height: 50,
     borderColor: "tomato",
     borderBottomWidth: 1,
     borderRadius: 0,
