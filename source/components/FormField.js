@@ -236,7 +236,7 @@ export default function FormField({ ...props }) {
           <MultipleSelectList
             setSelected={setSelected}
             data={getDaysOfWeek()}
-            boxStyles={styles_field.dropdown_container}
+            boxStyles={styles_field.dropdown_box_container}
             dropdownStyles={styles_field.dropdown_container}
             placeholder={
               props.value === null ||
