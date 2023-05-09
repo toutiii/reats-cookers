@@ -23,6 +23,13 @@ export default function SearchFilterModal(props) {
     { key: "5", value: "delivered" },
   ];
 
+  const dishCategoriesData = [
+    { key: "1", value: "starter" },
+    { key: "2", value: "dish" },
+    { key: "3", value: "dessert" },
+    { key: "4", value: "drink" },
+  ];
+
   const datePickerMode = "startDate";
   const [
     keyMultipleSelectOrderStateFilter,
@@ -112,6 +119,16 @@ export default function SearchFilterModal(props) {
               data={orderStateFilterData}
               save="value"
               placeholder={all_constants.search_modal.state_order}
+            />
+          )}
+
+          {props.enableDishCategories && (
+            <MultipleSelectList
+              key={keyMultipleSelectOrderStateFilter}
+              setSelected={(val) => props.dishCategoriesData(val)}
+              data={dishCategoriesData}
+              save="value"
+              placeholder={all_constants.search_modal.dish_categories}
             />
           )}
 
