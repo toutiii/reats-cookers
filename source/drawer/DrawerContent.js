@@ -170,6 +170,7 @@ export default function DrawerContent(props) {
                 onPress={() => {
                   props.navigation.navigate("OfferFormView", {
                     item: userData["order_infos_section"]["data"],
+                    new_item: true,
                   });
                 }}
               />
