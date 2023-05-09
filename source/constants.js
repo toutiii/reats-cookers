@@ -483,6 +483,7 @@ export const all_constants = {
     clear_filter_button_label: "Réinitialiser",
     state_item: "Items actifs ou inactifs",
     state_order: "État de la commande",
+    dish_categories: "Le type de plat",
     start_date: "Date de début",
     end_date: "Date de fin",
     alert: {
