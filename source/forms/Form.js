@@ -305,6 +305,7 @@ export default function Form({ ...props }) {
               </View>
             )}
             {Object.keys(props.item).length !== 0 &&
+            !props.is_new_item &&
             props.third_button_label ? (
               <View style={styles_form.cancel_button}>
                 <CustomButton
@@ -321,6 +322,7 @@ export default function Form({ ...props }) {
               <View></View>
             )}
             {Object.keys(props.item).length !== 0 &&
+            !props.is_new_item &&
             props.fourth_button_label ? (
               <View style={styles_form.cancel_button}>
                 <CustomButton

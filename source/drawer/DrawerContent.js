@@ -154,6 +154,7 @@ export default function DrawerContent(props) {
                 onPress={() => {
                   props.navigation.navigate("DishFormView", {
                     item: userData["order_infos_section"]["data"],
+                    new_item: true,
                   });
                 }}
               />
