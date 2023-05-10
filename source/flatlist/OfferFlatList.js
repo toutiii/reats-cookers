@@ -67,7 +67,7 @@ export default function OfferFlatList({ ...props }) {
     }
 
     if (
-      query.replace("  ", "").replace(" ", "drop").length >=
+      query.replace("  ", "").replace(" ", "").length >=
       minLengthToTriggerSearch
     ) {
       setRunSearchByTextInput(true);
