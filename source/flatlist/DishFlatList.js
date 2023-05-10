@@ -16,7 +16,7 @@ import { TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
 
-export default function OrderFlatList({ ...props }) {
+export default function DishFlatList({ ...props }) {
   const [isSearchFilterModalVisible, setSearchFilterModalVisible] =
     React.useState(false);
 
