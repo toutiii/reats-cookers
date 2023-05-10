@@ -192,9 +192,12 @@ export default function OfferFlatList({ ...props }) {
             <View style={styles_dish.dish_button_container}>
               <TouchableHighlight
                 onPress={() => {
-                  props.navigation.navigate("OfferFormView", {
-                    item: item,
-                  });
+                  props.navigation.navigate(
+                    "OfferFlatlistStackNavigatorOfferFormView",
+                    {
+                      item: item,
+                    }
+                  );
                 }}
                 style={{ flex: 1 }}
                 underlayColor={all_constants.colors.inputBorderColor}
