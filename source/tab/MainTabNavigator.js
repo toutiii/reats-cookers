@@ -12,6 +12,7 @@ import Dashboard from "../views/Dashboard";
 import DishFlatList from "../flatlist/DishFlatList";
 import OfferFlatList from "../flatlist/OfferFlatList";
 import all_constants from "../constants";
+import DishFlatlistStackNavigator from "../stack/DishFlatlistStackNavigator";
 import OrderFlatlistStackNavigator from "../stack/OrderFlatlistStackNavigator";
 
 const Tab = createBottomTabNavigator();
@@ -70,7 +71,7 @@ export default function MainTabNavigator() {
       />
       <Tab.Screen
         name={all_constants.tab.main_tab_navigator.DishFlatList}
-        component={DishFlatList}
+        component={DishFlatlistStackNavigator}
       />
       <Tab.Screen
         name={all_constants.tab.main_tab_navigator.OfferFlatList}

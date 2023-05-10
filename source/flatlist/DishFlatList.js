@@ -199,9 +199,12 @@ export default function DishFlatList({ ...props }) {
             <View style={styles_order.order_button_container}>
               <TouchableHighlight
                 onPress={() => {
-                  props.navigation.navigate("DishFormView", {
-                    item: item,
-                  });
+                  props.navigation.navigate(
+                    "DishFlatlistStackNavigatorDishFormView",
+                    {
+                      item: item,
+                    }
+                  );
                 }}
                 style={{ flex: 1 }}
                 underlayColor={all_constants.colors.inputBorderColor}
