@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   View,
 } from "react-native";
-import styles_order from "../styles/styles-order.js";
+import styles_dish from "../styles/styles-dish";
 import all_constants from "../constants";
 import Offer from "../components/Offer";
 import { getOffers } from "../helpers/offer_helpers";
@@ -189,7 +189,7 @@ export default function OfferFlatList({ ...props }) {
             </View>
           }
           renderItem={({ item }) => (
-            <View style={styles_order.order_button_container}>
+            <View style={styles_dish.dish_button_container}>
               <TouchableHighlight
                 onPress={() => {
                   props.navigation.navigate("OfferFormView", {
