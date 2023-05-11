@@ -191,7 +191,7 @@ export const all_constants = {
     },
   },
   dishes: {
-    no_dishes_found: "Aucun item trouvé.",
+    no_dishes_found: "Aucun plat trouvé.",
   },
   order: {
     infos: {
@@ -498,6 +498,8 @@ export const all_constants = {
     placeholder: "Écrivez pour lancer la recherche",
     search_bar_offer:
       "Utilisez la barre de recherche ci-dessus pour consulter vos promotions.",
+    search_bar_dishes:
+      "Utilisez la barre de recherche ci-dessus pour consulter vos plats.",
   },
 };
 

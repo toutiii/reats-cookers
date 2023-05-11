@@ -28,6 +28,7 @@ export default function DishFlatList({ ...props }) {
   const [isFetchingData, setIsFetchingData] = React.useState(false);
   const [data, setData] = React.useState([]);
   const [runSearchByTextInput, setRunSearchByTextInput] = React.useState(false);
+  const [oneSearchHasBeenRun, setOneSearchHasBeenRun] = React.useState(false);
 
   const minLengthToTriggerSearch = 3;
   const maxInputLength = 100;
@@ -94,6 +95,7 @@ export default function DishFlatList({ ...props }) {
         updateSearchingStatus();
         resetFilters();
         setRunSearchByTextInput(false);
+        setOneSearchHasBeenRun(true);
         fadeIn();
       }, 5000);
     }
@@ -174,56 +176,86 @@ export default function DishFlatList({ ...props }) {
         </View>
       </View>
 
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "white",
-        }}
-      >
-        {isFetchingData && <ActivityIndicator size="large" color="tomato" />}
-        <FlatList
-          data={data}
-          ListEmptyComponent={
-            <View
-              style={{
-                alignItems: "center",
-                marginTop: "5%",
-              }}
-            >
-              <Text style={{ fontSize: 20 }}>
-                {all_constants.order.no_results}
-              </Text>
-            </View>
-          }
-          renderItem={({ item }) => (
-            <View style={styles_order.order_button_container}>
-              <TouchableHighlight
-                onPress={() => {
-                  props.navigation.navigate(
-                    "DishFlatlistStackNavigatorDishFormView",
-                    {
-                      item: item,
-                    }
-                  );
+      {!oneSearchHasBeenRun && (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+            alignItems: "center",
+            marginTop: "5%",
+          }}
+        >
+          <Text
+            style={{ fontSize: 16, textAlign: "center", fontStyle: "italic" }}
+          >
+            {all_constants.search_bar.search_bar_dishes}
+          </Text>
+        </View>
+      )}
+
+      {isFetchingData && (
+        <View
+          style={{
+            backgroundColor: "white",
+            alignItems: "center",
+            marginTop: "5%",
+          }}
+        >
+          <ActivityIndicator size="large" color="tomato" />
+        </View>
+      )}
+
+      {oneSearchHasBeenRun && (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+          }}
+        >
+          <FlatList
+            data={data}
+            ListEmptyComponent={
+              <View
+                style={{
+                  alignItems: "center",
+                  marginTop: "5%",
                 }}
-                style={{ flex: 1 }}
-                underlayColor={all_constants.colors.inputBorderColor}
               >
-                <Dish
-                  key={item.id}
-                  dish_photo={item.photo}
-                  dish_name={item.dish_name}
-                  dish_category={item.dish_category}
-                  dish_rating={item.dish_rating}
-                  dish_price={item.dish_price + all_constants.currency_symbol}
-                  dish_description={item.dish_description}
-                  onPress={item.onPress}
-                />
-              </TouchableHighlight>
-            </View>
-          )}
-        />
-      </View>
+                <Text style={{ fontSize: 20 }}>
+                  {all_constants.dishes.no_dishes_found}
+                </Text>
+              </View>
+            }
+            renderItem={({ item }) => (
+              <View style={styles_order.order_button_container}>
+                <TouchableHighlight
+                  onPress={() => {
+                    props.navigation.navigate(
+                      "DishFlatlistStackNavigatorDishFormView",
+                      {
+                        item: item,
+                      }
+                    );
+                  }}
+                  style={{ flex: 1 }}
+                  underlayColor={all_constants.colors.inputBorderColor}
+                >
+                  <Dish
+                    key={item.id}
+                    dish_photo={item.photo}
+                    dish_name={item.dish_name}
+                    dish_category={item.dish_category}
+                    dish_rating={item.dish_rating}
+                    dish_price={item.dish_price + all_constants.currency_symbol}
+                    dish_description={item.dish_description}
+                    onPress={item.onPress}
+                  />
+                </TouchableHighlight>
+              </View>
+            )}
+          />
+        </View>
+      )}
     </Animated.View>
   );
 }
