@@ -180,7 +180,6 @@ export default function OrderFlatList({ ...props }) {
           stateOrderData={setSelectedOrderStates}
           onPressFilter={onPressFilter}
           onPressClear={resetFilters}
-          buttonLabel={all_constants.search_modal.search_button_label}
         />
       )}
 

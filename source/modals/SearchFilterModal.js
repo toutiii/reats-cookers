@@ -210,11 +210,7 @@ export default function SearchFilterModal(props) {
         </View>
         <View style={{ flex: 1 }}>
           <Button
-            title={
-              props.buttonLabel
-                ? props.buttonLabel
-                : all_constants.search_modal.default_button_label
-            }
+            title={all_constants.search_modal.default_button_label}
             onPress={() => {
               props.onPressFilter();
             }}

@@ -141,7 +141,6 @@ export default function DishFlatList({ ...props }) {
           dishCategoriesData={setSelectedDishCategories}
           onPressFilter={onPressFilter}
           onPressClear={resetFilters}
-          buttonLabel={all_constants.search_modal.search_button_label}
         />
       )}
 
