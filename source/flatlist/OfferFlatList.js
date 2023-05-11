@@ -25,6 +25,7 @@ export default function OfferFlatList({ ...props }) {
   const [isFetchingData, setIsFetchingData] = React.useState(false);
   const [data, setData] = React.useState([]);
   const [runSearchByTextInput, setRunSearchByTextInput] = React.useState(false);
+  const [oneSearchHasBeenRun, setOneSearchHasBeenRun] = React.useState(false);
 
   const minLengthToTriggerSearch = 3;
   const maxInputLength = 100;
@@ -91,6 +92,7 @@ export default function OfferFlatList({ ...props }) {
         updateSearchingStatus();
         resetFilters();
         setRunSearchByTextInput(false);
+        setOneSearchHasBeenRun(true);
         fadeIn();
       }, 5000);
     }
@@ -167,55 +169,85 @@ export default function OfferFlatList({ ...props }) {
         </View>
       </View>
 
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "white",
-        }}
-      >
-        {isFetchingData && <ActivityIndicator size="large" color="tomato" />}
-        <FlatList
-          data={data}
-          ListEmptyComponent={
-            <View
-              style={{
-                alignItems: "center",
-                marginTop: "5%",
-              }}
-            >
-              <Text style={{ fontSize: 20 }}>
-                {all_constants.order.no_results}
-              </Text>
-            </View>
-          }
-          renderItem={({ item }) => (
-            <View style={styles_dish.dish_button_container}>
-              <TouchableHighlight
-                onPress={() => {
-                  props.navigation.navigate(
-                    "OfferFlatlistStackNavigatorOfferFormView",
-                    {
-                      item: item,
-                    }
-                  );
+      {!oneSearchHasBeenRun && (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+            alignItems: "center",
+            marginTop: "5%",
+          }}
+        >
+          <Text
+            style={{ fontSize: 16, textAlign: "center", fontStyle: "italic" }}
+          >
+            {all_constants.search_bar.search_bar_offer}
+          </Text>
+        </View>
+      )}
+
+      {isFetchingData && (
+        <View
+          style={{
+            backgroundColor: "white",
+            alignItems: "center",
+            marginTop: "5%",
+          }}
+        >
+          <ActivityIndicator size="large" color="tomato" />
+        </View>
+      )}
+
+      {oneSearchHasBeenRun && (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+          }}
+        >
+          <FlatList
+            data={data}
+            ListEmptyComponent={
+              <View
+                style={{
+                  alignItems: "center",
+                  marginTop: "5%",
                 }}
-                style={{ flex: 1 }}
-                underlayColor={all_constants.colors.inputBorderColor}
               >
-                <Offer
-                  key={item.id}
-                  dish_id={item.dish_id}
-                  dish_photo={item.dish_photo}
-                  dish_name={item.dish_name}
-                  offer_quantity={item.offer_quantity}
-                  offer_rate={item.offer_rate}
-                  offer_price={item.offer_price}
-                />
-              </TouchableHighlight>
-            </View>
-          )}
-        />
-      </View>
+                <Text style={{ fontSize: 18, textAlign: "center" }}>
+                  {all_constants.offer.no_offer_found}
+                </Text>
+              </View>
+            }
+            renderItem={({ item }) => (
+              <View style={styles_dish.dish_button_container}>
+                <TouchableHighlight
+                  onPress={() => {
+                    props.navigation.navigate(
+                      "OfferFlatlistStackNavigatorOfferFormView",
+                      {
+                        item: item,
+                      }
+                    );
+                  }}
+                  style={{ flex: 1 }}
+                  underlayColor={all_constants.colors.inputBorderColor}
+                >
+                  <Offer
+                    key={item.id}
+                    dish_id={item.dish_id}
+                    dish_photo={item.dish_photo}
+                    dish_name={item.dish_name}
+                    offer_quantity={item.offer_quantity}
+                    offer_rate={item.offer_rate}
+                    offer_price={item.offer_price}
+                  />
+                </TouchableHighlight>
+              </View>
+            )}
+          />
+        </View>
+      )}
     </Animated.View>
   );
 }

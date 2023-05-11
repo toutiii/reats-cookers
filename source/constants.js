@@ -279,7 +279,7 @@ export const all_constants = {
   },
 
   offer: {
-    no_offer_found: "Vous n'avez créé aucune promotion.",
+    no_offer_found: "Aucune promotion trouvée.",
     offer_message_start: "Vous proposez",
     offer_message_end: "au prix de",
   },
@@ -496,6 +496,8 @@ export const all_constants = {
   },
   search_bar: {
     placeholder: "Écrivez pour lancer la recherche",
+    search_bar_offer:
+      "Utilisez la barre de recherche ci-dessus pour consulter vos promotions.",
   },
 };
 
