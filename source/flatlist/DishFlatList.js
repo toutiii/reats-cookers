@@ -128,7 +128,9 @@ export default function DishFlatList({ ...props }) {
   };
 
   return (
-    <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
+    <Animated.View
+      style={{ flex: 1, opacity: fadeAnim, backgroundColor: "white" }}
+    >
       {isSearchFilterModalVisible && (
         <SearchFilterModal
           enableActiveFilter={true}
