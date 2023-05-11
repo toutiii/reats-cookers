@@ -9,8 +9,6 @@ import SettingsOrderInformationForm from "../forms/SettingsOrderInformationForm"
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../views/Dashboard";
-import DishFlatList from "../flatlist/DishFlatList";
-import OfferFlatList from "../flatlist/OfferFlatList";
 import all_constants from "../constants";
 import DishFlatlistStackNavigator from "../stack/DishFlatlistStackNavigator";
 import OfferFlatlistStackNavigator from "../stack/OfferFlatlistStackNavigator";
