@@ -87,11 +87,6 @@ export function checkNumericFormat(value, fieldLabel) {
     let regex = null;
     let endMessage = null;
     if (
-      fieldLabel.toLowerCase().includes(all_constants.validators.includes.siren)
-    ) {
-      regex = /^([0-9]{9})$/g;
-      endMessage = all_constants.validators.settings.siren_format_error;
-    } else if (
       fieldLabel.toLowerCase().includes(all_constants.validators.includes.siret)
     ) {
       regex = /^([0-9]{14})$/g;

@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import OrderView from "../views/OrderView";
-import DishFormView from "../forms/DishFormView";
-import OfferFormView from "../forms/OfferFormView";
+import DishForm from "../forms/DishForm";
+import OfferForm from "../forms/OfferForm";
 import SettingsCredentialsForm from "../forms/SettingsCredentialsForm";
 import SettingsPersonalInformationForm from "../forms/SettingsPersonalInformationForm";
 import SettingsAddressForm from "../forms/SettingsAddressForm";
@@ -46,12 +46,12 @@ export default function MainTabNavigator() {
         },
         tabBarButton: [
           "OrderView",
-          "DishFormView",
+          "DishForm",
           "SettingsCredentialsForm",
           "SettingsPersonalInformationForm",
           "SettingsAddressForm",
           "SettingsOrderInformationForm",
-          "OfferFormView",
+          "OfferForm",
         ].includes(route.name)
           ? () => {
               return null;
@@ -77,8 +77,8 @@ export default function MainTabNavigator() {
         component={OfferFlatlistStackNavigator}
       />
       <Tab.Screen name="OrderView" component={OrderView} />
-      <Tab.Screen name="DishFormView" component={DishFormView} />
-      <Tab.Screen name="OfferFormView" component={OfferFormView} />
+      <Tab.Screen name="DishForm" component={DishForm} />
+      <Tab.Screen name="OfferForm" component={OfferForm} />
       <Tab.Screen
         name="SettingsCredentialsForm"
         component={SettingsCredentialsForm}

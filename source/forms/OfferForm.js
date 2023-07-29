@@ -10,7 +10,7 @@ import {
 import { valueIsValidQuantity } from "../validators/offerformview_validators";
 import { callBackEnd } from "../api/fetch";
 
-export default function OfferFormView({ ...props }) {
+export default function OfferForm({ ...props }) {
   const handleResult = async (result) => {
     if (result.ok) {
       props.navigation.goBack(null);

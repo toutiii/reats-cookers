@@ -2,7 +2,6 @@ import React from "react";
 import Form from "./Form";
 import all_constants from "../constants";
 import { View } from "react-native";
-import update_user_settings from "../api/update_settings";
 import {
   checkValueIsDefined,
   checkValueNotContainsSpecialChar,
@@ -35,15 +34,6 @@ export default function SettingsPersonalInformationForm({ ...props }) {
               type: all_constants.field_type.image,
               label: all_constants.label.form.settings.image,
               validators: [checkValueIsDefined],
-            },
-            siren: {
-              fieldIsMandatory: true,
-              type: all_constants.field_type.textinput,
-              label: all_constants.label.form.settings.siren,
-              placeholder: all_constants.placeholders.form.settings.siren,
-              keyboardNumeric: true,
-              validators: [checkValueIsDefined, checkNumericFormat],
-              maxLength: 9,
             },
             siret: {
               fieldIsMandatory: true,

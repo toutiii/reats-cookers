@@ -4,8 +4,6 @@ import {
   Animated,
   KeyboardAvoidingView,
   ScrollView,
-  Text,
-  TextInput,
   View,
 } from "react-native";
 import CustomButton from "../button/CustomButton";
@@ -131,6 +129,9 @@ export default function Form({ ...props }) {
 
   const forgottenPassword = () => {
     props.navigation.navigate("ForgottenPassword");
+  };
+  const signupForm = () => {
+    props.navigation.navigate("SignupForm");
   };
   const onPressForgottenPassword = () => {
     props.navigation.goBack();
@@ -278,17 +279,31 @@ export default function Form({ ...props }) {
               />
             </View>
             {props.login ? (
-              <View style={styles_form.cancel_button}>
-                <CustomButton
-                  label={all_constants.messages.forgotten_password}
-                  height={50}
-                  border_width={3}
-                  border_radius={30}
-                  font_size={18}
-                  backgroundColor={"darkgrey"}
-                  label_color="white"
-                  onPress={forgottenPassword}
-                />
+              <View style={{ flex: 1 }}>
+                <View style={styles_form.cancel_button}>
+                  <CustomButton
+                    label={all_constants.messages.signup}
+                    height={50}
+                    border_width={3}
+                    border_radius={30}
+                    font_size={18}
+                    backgroundColor={"dimgrey"}
+                    label_color="white"
+                    onPress={signupForm}
+                  />
+                </View>
+                <View style={styles_form.cancel_button}>
+                  <CustomButton
+                    label={all_constants.messages.forgotten_password}
+                    height={50}
+                    border_width={3}
+                    border_radius={30}
+                    font_size={18}
+                    backgroundColor={"darkgrey"}
+                    label_color="white"
+                    onPress={forgottenPassword}
+                  />
+                </View>
               </View>
             ) : (
               <View style={styles_form.cancel_button}>

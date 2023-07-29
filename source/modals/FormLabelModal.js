@@ -1,56 +1,55 @@
-import { Modal, Text, View } from "react-native";
+import {
+  Animated,
+  Button,
+  RefreshControl,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+} from "react-native";
 import React from "react";
+import Modal from "react-native-modal";
 import all_constants from "../constants";
 import CustomButton from "../button/CustomButton";
 
 export default function FormLabelModal({ ...props }) {
-  return (
-    <View>
-      <Modal animationType="slide" transparent={false} visible={props.state}>
-        <View style={{ flex: 1, alignItems: "center", marginTop: "10%" }}>
-          <CustomButton
-            label={all_constants.modal.dish_modal.hide}
-            backgroundColor="tomato"
-            label_color="black"
-            height={50}
-            border_width={3}
-            border_radius={30}
-            font_size={17}
-            onPress={props.onPressCloseModal}
-          />
-        </View>
+  console.log(props.state);
 
-        <View style={{ flex: 8, marginBottom: "50%", marginTop: "20%" }}>
+  return (
+    <Animated.View
+      style={{
+        backgroundColor: "white",
+        flex: 1,
+      }}
+    >
+      <Modal
+        testID={"modal"}
+        isVisible={props.state}
+        backdropOpacity={0.8}
+        animationIn="zoomInDown"
+        animationOut="zoomOutUp"
+        animationInTiming={600}
+        animationOutTiming={600}
+        backdropTransitionInTiming={600}
+        backdropTransitionOutTiming={600}
+      >
+        <View style={{ flex: 1, backgroundColor: "white", padding: 10 }}>
+          <View style={{ flex: 1 }}>
+            <Button title="Close" onPress={props.onPressCloseModal} />
+          </View>
+
           <View
             style={{
-              marginLeft: "25%",
-              width: "50%",
-              justifyContent: "center",
-              borderWidth: 2,
-              borderColor: "tomato",
-            }}
-          ></View>
-          <Text
-            style={{
-              flex: 1,
-              fontSize: 18,
-              textAlign: "center",
-              padding: "5%",
+              flex: 2,
+              alignItems: "center",
             }}
           >
-            {props.labelModalText}
-          </Text>
-          <View
-            style={{
-              marginLeft: "25%",
-              width: "50%",
-              justifyContent: "center",
-              borderWidth: 2,
-              borderColor: "tomato",
-            }}
-          ></View>
+            <Text style={{ fontSize: 16, textAlign: "center" }}>
+              {props.labelModalText}
+            </Text>
+          </View>
         </View>
       </Modal>
-    </View>
+    </Animated.View>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import OfferFlatList from "../flatlist/OfferFlatList";
-import OfferFormView from "../forms/OfferFormView";
+import OfferForm from "../forms/OfferForm";
 
 const Stack = createStackNavigator();
 
@@ -17,7 +17,7 @@ export default function OfferFlatlistStackNavigator() {
       />
       <Stack.Screen
         name="OfferFlatlistStackNavigatorOfferFormView"
-        component={OfferFormView}
+        component={OfferForm}
       />
     </Stack.Navigator>
   );

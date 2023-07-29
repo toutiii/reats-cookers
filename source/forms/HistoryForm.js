@@ -5,7 +5,7 @@ import all_constants from "../constants";
 import { checkValueIsDefined } from "../validators/global_validators";
 import fetch_order_history from "../api/fetch_order_history";
 
-export default function HistoryFormView({ ...props }) {
+export default function HistoryForm({ ...props }) {
   const handleResult = async (result) => {
     if (result.ok) {
       if (props.route.params.tag === all_constants.tag.balance.history) {

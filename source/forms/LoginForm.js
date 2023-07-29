@@ -8,13 +8,13 @@ import { setToken } from "../api/token";
 import { CommonActions } from "@react-navigation/native";
 import { callBackEnd } from "../api/fetch";
 
-export default function LoginFormView({ ...props }) {
+export default function LoginForm({ ...props }) {
   const handleResult = async (result) => {
     if (result.ok) {
       await setToken(result.token);
       const resetAction = CommonActions.reset({
         index: 0,
-        routes: [{ name: "MainTabNavigator" }],
+        routes: [{ name: "MainDrawerNavigator" }],
       });
       props.navigation.dispatch(resetAction);
     } else {
@@ -23,17 +23,17 @@ export default function LoginFormView({ ...props }) {
   };
 
   return (
-    <View style={{ flex: 1, marginTop: "25%" }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <View
         style={{
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
           borderWidth: 2,
-          margin: "2%",
+          margin: "5%",
         }}
       >
-        <Text> YOU EXPECTED A LOGO BUT IT WAS ME DIO ! </Text>
+        <Text> LOGO goes here </Text>
       </View>
       <View style={{ flex: 2 }}>
         <Form

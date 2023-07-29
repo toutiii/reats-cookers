@@ -29,6 +29,7 @@ export const all_constants = {
     submit: "VALIDER",
     cancel: "ANNULER",
     forgotten_password: "MOT DE PASSE OUBLIÉ ?",
+    signup: "CRÉER UN COMPTE",
     take_picture: "Prendre une photo",
     upload_picture: "Ouvrir la galerie",
     errors: {
@@ -120,7 +121,6 @@ export const all_constants = {
       town: "Ville",
       change_password: "MODIFIER MON MOT DE PASSE",
       change_settings: "MODIFIER",
-      siren: "SIREN",
       siret: "SIRET",
       order_days: "Prise commande",
       max_order_number: "Nombre max de commandes",
@@ -164,7 +164,6 @@ export const all_constants = {
         new_password: "Nouveau mot de passe",
         new_password_confirmation: "Confirmation nouveau mot de passe",
         siret: "Numéro SIRET",
-        siren: "Numéro SIREN",
         firstname: "Prénom",
         lastname: "Nom",
         phone: "Numéro de téléphone",
@@ -269,7 +268,9 @@ export const all_constants = {
           "Pour modifier uniquement votre email, saisissez votre nouvel email et votre mot de passe actuel.",
         password:
           "Pour modifier votre mot de passe, remplissez tous les champs de ce formulaire. \n \n" +
-          "Le mot de passe doit faire entre 6 et 10 caractères. Il doit contenir au moins une majuscule, un chiffre et un des caractères spéciaux suivants: !, #, *",
+          "Le mot de passe doit faire entre 6 et 20 caractères. Il doit contenir au moins une majuscule, un chiffre et un des caractères spéciaux suivants: !, #, *",
+        signup_password:
+          "Entre 6 et 20 caractères. Doit contenir au moins une majuscule, un chiffre et un des caractères spéciaux suivants: !, #, *",
       },
     },
   },
@@ -330,7 +331,6 @@ export const all_constants = {
     includes: {
       noon: "midi",
       evening: "soir",
-      siren: "siren",
       siret: "siret",
       phone: "téléphone",
       day: "journée",
@@ -381,7 +381,6 @@ export const all_constants = {
         evening_delivery_hours:
           "L'amplitude horaire des livraisons le soir \n Ex: 18-21",
         evening_delivery_days: "Sélectionnez les jours d'expédition en soirée",
-        siren: "Votre numéro SIREN",
         siret: "Un numéro SIRET",
         firstname: "Votre prénom",
         lastname: "Votre nom de famille",

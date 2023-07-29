@@ -9,7 +9,7 @@ import {
 } from "../validators/global_validators";
 import { callBackEnd } from "../api/fetch";
 
-export default function DishFormView({ ...props }) {
+export default function DishForm({ ...props }) {
   const handleResult = async (result) => {
     if (result.ok) {
       props.navigation.goBack(null);

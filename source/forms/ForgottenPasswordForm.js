@@ -6,7 +6,7 @@ import { checkValueIsDefined } from "../validators/global_validators";
 import { checkEmailFormat } from "../validators/settingsform_validators";
 import { callBackEnd } from "../api/fetch";
 
-export default function ForgottenPasswordFormView({ ...props }) {
+export default function ForgottenPasswordForm({ ...props }) {
   const handleResult = async (result) => {
     if (!result.ok) {
       throw new Error("Failed.");

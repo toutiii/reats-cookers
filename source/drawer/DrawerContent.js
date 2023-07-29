@@ -152,7 +152,7 @@ export default function DrawerContent(props) {
                 )}
                 label="Ajouter un plat"
                 onPress={() => {
-                  props.navigation.navigate("DishFormView", {
+                  props.navigation.navigate("DishForm", {
                     item: userData["order_infos_section"]["data"],
                     new_item: true,
                   });
@@ -168,7 +168,7 @@ export default function DrawerContent(props) {
                 )}
                 label="Créer une promotion"
                 onPress={() => {
-                  props.navigation.navigate("OfferFormView", {
+                  props.navigation.navigate("OfferForm", {
                     item: userData["order_infos_section"]["data"],
                     new_item: true,
                   });

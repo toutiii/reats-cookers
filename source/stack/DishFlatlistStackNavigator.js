@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import DishFlatList from "../flatlist/DishFlatList";
-import DishFormView from "../forms/DishFormView";
+import DishForm from "../forms/DishForm";
 
 const Stack = createStackNavigator();
 
@@ -17,7 +17,7 @@ export default function DishFlatlistStackNavigator() {
       />
       <Stack.Screen
         name="DishFlatlistStackNavigatorDishFormView"
-        component={DishFormView}
+        component={DishForm}
       />
     </Stack.Navigator>
   );
