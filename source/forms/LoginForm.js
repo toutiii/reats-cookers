@@ -6,7 +6,7 @@ import { checkValueIsDefined } from "../validators/global_validators";
 import { checkEmailFormat } from "../validators/settingsform_validators";
 import { setToken } from "../api/token";
 import { CommonActions } from "@react-navigation/native";
-import { callBackEnd } from "../api/fetch";
+import { callBackEnd } from "../api/callBackend";
 
 export default function LoginForm({ ...props }) {
   const handleResult = async (result) => {

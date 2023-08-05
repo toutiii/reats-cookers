@@ -4,7 +4,7 @@ import Form from "./Form";
 import all_constants from "../constants";
 import { checkValueIsDefined } from "../validators/global_validators";
 import { checkEmailFormat } from "../validators/settingsform_validators";
-import { callBackEnd } from "../api/fetch";
+import { callBackEnd } from "../api/callBackend";
 
 export default function ForgottenPasswordForm({ ...props }) {
   const handleResult = async (result) => {

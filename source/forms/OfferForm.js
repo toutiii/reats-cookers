@@ -8,7 +8,7 @@ import {
   valueIsValidPrice,
 } from "../validators/global_validators";
 import { valueIsValidQuantity } from "../validators/offerformview_validators";
-import { callBackEnd } from "../api/fetch";
+import { callBackEnd } from "../api/callBackend";
 
 export default function OfferForm({ ...props }) {
   const handleResult = async (result) => {

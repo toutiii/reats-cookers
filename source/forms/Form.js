@@ -80,12 +80,6 @@ export default function Form({ ...props }) {
     }).start();
   };
 
-  //################ USEFUL FOR TESTING ###############
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-  //################ USEFUL FOR TESTING ################
-
   const submit = async () => {
     setSubmitting(true);
     setErrorMessage("");
@@ -101,7 +95,6 @@ export default function Form({ ...props }) {
     try {
       const result = await props.action(newItem, props.url, props.method);
       setApiOkResponse(result.ok);
-      await sleep(1000);
       fadeIn();
       setStateShowAlert(true);
       await props.afterSubmit(result);

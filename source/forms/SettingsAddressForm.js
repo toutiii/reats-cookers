@@ -7,7 +7,7 @@ import {
   checkValueNotContainsSpecialChar,
 } from "../validators/global_validators";
 import { checkPostalCode } from "../validators/settingsform_validators";
-import { callBackEnd } from "../api/fetch";
+import { callBackEnd } from "../api/callBackend";
 
 export default function SettingsAddressForm({ ...props }) {
   const handleResult = async (result) => {

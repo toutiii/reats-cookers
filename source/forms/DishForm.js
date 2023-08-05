@@ -7,7 +7,7 @@ import {
   checkValueNotContainsSpecialChar,
   valueIsValidPrice,
 } from "../validators/global_validators";
-import { callBackEnd } from "../api/fetch";
+import { callBackEnd } from "../api/callBackend";
 
 export default function DishForm({ ...props }) {
   const handleResult = async (result) => {

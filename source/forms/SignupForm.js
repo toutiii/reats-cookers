@@ -13,7 +13,7 @@ import {
   checkPasswordFormat,
   checkPostalCode,
 } from "../validators/settingsform_validators";
-import { callBackEnd } from "../api/fetch";
+import { callBackEnd } from "../api/callBackend";
 
 export default function SignupForm({ ...props }) {
   const handleResult = async (result) => {
@@ -29,7 +29,7 @@ export default function SignupForm({ ...props }) {
       <View style={{ flex: 2 }}>
         <Form
           action={callBackEnd}
-          url={all_constants.uri.api.mock}
+          url={"http://10.0.2.2:8000"}
           method={"POST"}
           navigation={props.navigation}
           afterSubmit={handleResult}
@@ -46,12 +46,11 @@ export default function SignupForm({ ...props }) {
             user_settings_new_password: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
-              label: all_constants.label.form.settings.new_password,
+              label: all_constants.label.form.settings.signup_new_password,
               labelModal: true,
               labelModalText: all_constants.modal.form.settings.signup_password,
               placeholder:
-                all_constants.placeholders.form.settings
-                  .user_settings_new_password,
+                all_constants.placeholders.form.settings.signup_password,
               validators: [checkPasswordFormat],
               maxLength: 12,
             },
@@ -59,10 +58,11 @@ export default function SignupForm({ ...props }) {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               label:
-                all_constants.label.form.settings.new_password_confirmation,
+                all_constants.label.form.settings
+                  .signup_new_password_confirmation,
               placeholder:
                 all_constants.placeholders.form.settings
-                  .user_settings_new_password_confirmation,
+                  .signup_password_confirmation,
               validators: [checkPasswordFormat, checkFormCoherence],
               maxLength: 12,
             },

@@ -8,7 +8,7 @@ import CustomButton from "../button/CustomButton";
 import DishModal from "../modals/DishModal";
 import CustomAlert from "../components/CustomAlert";
 import styles_form from "../styles/styles-form";
-import { callBackEnd } from "../api/fetch";
+import { callBackEnd } from "../api/callBackend";
 import {
   Fontisto,
   AntDesign,

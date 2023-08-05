@@ -1,19 +1,24 @@
-import { getToken } from "./token";
+const sleep = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
 
 export async function callBackEnd(data, url, method) {
+  await sleep(300);
+  let response = "";
   try {
-    let response = fetch(url, {
+    response = await fetch(url, {
       method: method,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "X-CSRFToken": getToken(),
       },
       body: JSON.stringify(data),
     });
-    //return response;
-    return { status: 200, ok: true }; // For now we mock the API response
+    response = await response.json();
+    console.log(response);
+    return response;
   } catch (error) {
     console.log(error);
+    return false;
   }
 }

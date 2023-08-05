@@ -179,6 +179,8 @@ export const all_constants = {
         evening_delivery_hours: "Votre créneau en soirée",
         evening_delivery_days: "Les plats sont livrés en soirée le",
         image: "Photo de profil",
+        signup_new_password: "Mot de passe",
+        signup_new_password_confirmation: "Confirmation mot de passe",
       },
       login: {
         email: "Email",
@@ -307,8 +309,7 @@ export const all_constants = {
         "Le mot de passe doit contenir au moins une majuscule.",
       password_missing_digit:
         "Le mot de passe doit contenir au moins un chiffre.",
-      non_equal_password_error:
-        "Les champs nouveau mot de passe et confirmation nouveau mot de passe doivent être identiques.",
+      non_equal_password_error: "Les mots de passe ne correspondent pas.",
       siren_format_error: " doit contenir exactement 9 chiffres sans espace.",
       siret_format_error: " doit contenir exactement 14 chiffres sans espace.",
       phone_format_error: " doit contenir exactement 10 chiffres sans espace.",
@@ -385,6 +386,8 @@ export const all_constants = {
         firstname: "Votre prénom",
         lastname: "Votre nom de famille",
         phone: "Votre numéro de téléphone",
+        signup_password: "Votre mot de passe",
+        signup_password_confirmation: "Confirmez votre mot de passe",
       },
       login: {
         email: "Votre email",

@@ -11,7 +11,7 @@ import {
   checkEmptyDeliveryHours,
   checkGlobalDeliveryCoherence,
 } from "../validators/settingsform_validators";
-import { callBackEnd } from "../api/fetch";
+import { callBackEnd } from "../api/callBackend";
 
 export default function SettingsOrderInformationForm({ ...props }) {
   const handleResult = async (result) => {
