@@ -68,9 +68,8 @@ export function checkPasswordFormat(value) {
 }
 
 export function checkFormCoherence(value, fieldLabel, objectToValidate) {
-  let userNewPassword = objectToValidate["user_settings_new_password"];
-  let userNewPasswordConfirmation =
-    objectToValidate["user_settings_new_password_confirmation"];
+  let userNewPassword = objectToValidate["password"];
+  let userNewPasswordConfirmation = objectToValidate["password_confirmation"];
   if (
     typeof userNewPassword !== "undefined" ||
     typeof userNewPasswordConfirmation !== "undefined"

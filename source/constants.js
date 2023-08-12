@@ -370,9 +370,8 @@ export const all_constants = {
         town: "Votre ville",
         email: "Votre email",
         user_settings_current_password: "Votre mot de passe actuel",
-        user_settings_new_password: "Votre nouveau mot de passe",
-        user_settings_new_password_confirmation:
-          "Confirmez votre nouveau mot de passe",
+        password: "Votre nouveau mot de passe",
+        password_confirmation: "Confirmez votre nouveau mot de passe",
         order_days: "Sélectionnez les jours où vous acceptez les commandes",
         max_order_number:
           "Le nombre maximum de plats que vous pouvez préparer à la fois",

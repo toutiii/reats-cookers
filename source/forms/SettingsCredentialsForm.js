@@ -52,24 +52,21 @@ export default function SettingsCredentialsForm({ ...props }) {
               validators: [checkValueIsDefined],
               maxLength: 12,
             },
-            user_settings_new_password: {
+            password: {
               type: all_constants.field_type.textinput,
               label: all_constants.label.form.settings.new_password,
               labelModal: true,
               labelModalText: all_constants.modal.form.settings.password,
-              placeholder:
-                all_constants.placeholders.form.settings
-                  .user_settings_new_password,
+              placeholder: all_constants.placeholders.form.settings.password,
               validators: [checkPasswordFormat],
               maxLength: 12,
             },
-            user_settings_new_password_confirmation: {
+            password_confirmation: {
               type: all_constants.field_type.textinput,
               label:
                 all_constants.label.form.settings.new_password_confirmation,
               placeholder:
-                all_constants.placeholders.form.settings
-                  .user_settings_new_password_confirmation,
+                all_constants.placeholders.form.settings.password_confirmation,
               validators: [checkPasswordFormat, checkFormCoherence],
               maxLength: 12,
             },

@@ -29,7 +29,7 @@ export default function SignupForm({ ...props }) {
       <View style={{ flex: 2 }}>
         <Form
           action={callBackEnd}
-          url={"http://10.0.2.2:8000"}
+          url={"http://10.0.2.2:8000/api/v1/cookers/"}
           method={"POST"}
           navigation={props.navigation}
           afterSubmit={handleResult}
@@ -43,7 +43,7 @@ export default function SignupForm({ ...props }) {
               validators: [checkValueIsDefined, checkEmailFormat],
               maxLength: 100,
             },
-            user_settings_new_password: {
+            password: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               label: all_constants.label.form.settings.signup_new_password,
@@ -54,7 +54,7 @@ export default function SignupForm({ ...props }) {
               validators: [checkPasswordFormat],
               maxLength: 12,
             },
-            user_settings_new_password_confirmation: {
+            password_confirmation: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               label:
