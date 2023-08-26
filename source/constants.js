@@ -90,9 +90,7 @@ export const all_constants = {
       accept: "ACCEPTER LA COMMANDE",
       reject: "REJETER LA COMMANDE",
     },
-    offer: {
-      add_offer: "CRÉER UNE PROMOTION",
-    },
+
     dishes: {
       add_dish: "AJOUTER UN PLAT",
       remove_dish: "SUPPRIMER",
@@ -138,12 +136,6 @@ export const all_constants = {
         category: "Catégorie",
         description: "Description",
         country: "Pays d'origine de l'item",
-      },
-      special_offer: {
-        name: "Nom de l'item",
-        quantity: "Quantité",
-        rate: "Taux de réduction",
-        price: "Prix promotionnel",
       },
       settings: {
         email: "Email",
@@ -228,11 +220,6 @@ export const all_constants = {
     no_balance_found: "Aucun item trouvé.",
   },
 
-  offer: {
-    no_offer_found: "Aucune promotion trouvée.",
-    offer_message_start: "Vous proposez",
-    offer_message_end: "au prix de",
-  },
   validators: {
     global: {
       field: "Le champ ",
@@ -273,13 +260,6 @@ export const all_constants = {
         dish_country:
           "Pas obligatoire mais très recommandé, surtout pour les plats",
       },
-      special_offer: {
-        name: "Sélectionnez l'item sur lequel vous voulez créer une promotion",
-        quantity: "Entrez le nombre d'item pour la promotion",
-        price:
-          "Renseignez le prix total TTC de la promotion affiché aux clients",
-        rate: "Ce champ est rempli automatiquement.",
-      },
       settings: {
         street_number: "Numéro de rue",
         street_name: "Ex: rue René Cassin",
@@ -315,7 +295,6 @@ export const all_constants = {
     main_tab_navigator: {
       Home: "Accueil",
       DishFlatList: "Mes plats",
-      OfferFlatList: "Mes promos",
       OrderFlatList: "Commandes",
     },
   },
@@ -403,8 +382,6 @@ export const all_constants = {
   },
   search_bar: {
     placeholder: "Écrivez pour lancer la recherche",
-    search_bar_offer:
-      "Utilisez la barre de recherche ci-dessus pour consulter vos promotions.",
     search_bar_dishes:
       "Utilisez la barre de recherche ci-dessus pour consulter vos plats.",
   },
@@ -415,11 +392,7 @@ export const all_constants = {
       dish_price: 5,
       dish_description: 200,
     },
-    offer_form: {
-      offer_quantity: 5,
-      offer_price: 5,
-      offer_rate: 5,
-    },
+
     order_form: { max_order_number: 2 },
 
     form: {

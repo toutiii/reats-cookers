@@ -141,7 +141,7 @@ export default function DrawerContent(props) {
                 </View>
               </TouchableRipple>
             </Drawer.Section>
-            <Drawer.Section title="Gérer">
+            <Drawer.Section title="Gestion">
               <DrawerItem
                 icon={({ color, size }) => (
                   <MaterialCommunityIcons
@@ -153,22 +153,6 @@ export default function DrawerContent(props) {
                 label="Ajouter un plat"
                 onPress={() => {
                   props.navigation.navigate("DishForm", {
-                    item: userData["order_infos_section"]["data"],
-                    new_item: true,
-                  });
-                }}
-              />
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="percent"
-                    color={color}
-                    size={size}
-                  />
-                )}
-                label="Créer une promotion"
-                onPress={() => {
-                  props.navigation.navigate("OfferForm", {
                     item: userData["order_infos_section"]["data"],
                     new_item: true,
                   });

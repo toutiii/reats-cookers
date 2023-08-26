@@ -1,7 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import OrderView from "../views/OrderView";
 import DishForm from "../forms/DishForm";
-import OfferForm from "../forms/OfferForm";
 import SettingsPersonalInformationForm from "../forms/SettingsPersonalInformationForm";
 import SettingsAddressForm from "../forms/SettingsAddressForm";
 import SettingsOrderInformationForm from "../forms/SettingsOrderInformationForm";
@@ -10,7 +9,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../views/Dashboard";
 import all_constants from "../constants";
 import DishFlatlistStackNavigator from "../stack/DishFlatlistStackNavigator";
-import OfferFlatlistStackNavigator from "../stack/OfferFlatlistStackNavigator";
 import OrderFlatlistStackNavigator from "../stack/OrderFlatlistStackNavigator";
 
 const Tab = createBottomTabNavigator();
@@ -49,7 +47,6 @@ export default function MainTabNavigator() {
           "SettingsPersonalInformationForm",
           "SettingsAddressForm",
           "SettingsOrderInformationForm",
-          "OfferForm",
         ].includes(route.name)
           ? () => {
               return null;
@@ -70,13 +67,9 @@ export default function MainTabNavigator() {
         name={all_constants.tab.main_tab_navigator.DishFlatList}
         component={DishFlatlistStackNavigator}
       />
-      <Tab.Screen
-        name={all_constants.tab.main_tab_navigator.OfferFlatList}
-        component={OfferFlatlistStackNavigator}
-      />
+
       <Tab.Screen name="OrderView" component={OrderView} />
       <Tab.Screen name="DishForm" component={DishForm} />
-      <Tab.Screen name="OfferForm" component={OfferForm} />
 
       <Tab.Screen
         name="SettingsPersonalInformationForm"
