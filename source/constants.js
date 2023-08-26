@@ -121,10 +121,6 @@ export const all_constants = {
       street_name: "Nom de la rue",
       address_complement: "Complément",
       select_days_of_week: "Sélectionnez les jours de la semaine",
-      noon_delivery_hours: "Créneau en journée",
-      noon_delivery_days: "Livraison en journée le",
-      evening_delivery_hours: "Créneau du soir",
-      evening_delivery_days: "Livraison le soir le",
     },
     stats: {
       title: "Mes statistiques",
@@ -162,10 +158,6 @@ export const all_constants = {
         town: "Ville",
         order_days: "Jours de prise de commandes",
         max_order_number: "Votre nombre max de plats",
-        noon_delivery_hours: "Votre créneau en journée",
-        noon_delivery_days: "Les plats sont livrés en journée le",
-        evening_delivery_hours: "Votre créneau en soirée",
-        evening_delivery_days: "Les plats sont livrés en soirée le",
         image: "Photo de profil",
       },
       login: {
@@ -228,28 +220,6 @@ export const all_constants = {
           "Cela signifie que vous ne pourrez jamais avoir plus de 18 plats à préparer par vague de commandes. \n \n " +
           "Veillez à ne pas en mettre trop pour pouvoir être dans les temps pour la collecte des commandes par nos livreurs. \n \n" +
           "Attention, il ne s'agit pas forcément ici du nombre de commandes. En effet une commande peut comporter plusieurs plats.",
-        noon_delivery_hours:
-          "Vous choisissez ici le créneau du midi pour la collecte de vos plats par nos livreurs. \n \n" +
-          "Ex: 11-13 \n \n" +
-          "Cela signifie qu'entre 11h au plus tôt et 13h au plus tard, nos livreurs peuvent venir récupérer les commandes à votre adresse. \n \n " +
-          "Attention, si vous paramétrez des horaires décalées, par exemple 14-16, les clients recevront vos commandes entre 14h30 et 16h30 !",
-        noon_delivery_days:
-          "Vous choisissez les jours où nos livreurs peuvent passer récupérer les commandes en journée. \n \n" +
-          "Ex: Vendredi,Samedi \n \n" +
-          "Cela signifie que les vendredis et samedis, les livreurs pourront passer collecter les commandes pour les livraisons du midi. \n \n " +
-          "Notez que 'midi' dans la phrase ci-dessus fait référence aux horaires de collecte définies dans le champ 'Votre créneau du midi' ",
-        evening_delivery_hours:
-          "Vous choisissez ici le créneau du soir pour la collecte de vos plats par nos livreurs. \n \n" +
-          "Ex: 18-20 \n \n" +
-          "Cela signifie qu'entre 18h au plus tôt et 20h au plus tard, nos livreurs peuvent venir récupérer les commandes à votre adresse. \n \n " +
-          "Attention, si vous paramétrez des horaires décalées, par exemple 20-22, les clients recevront vos commandes entre 20h30 et 22h30 !",
-        evening_delivery_days:
-          "Vous choisissez les jours où nos livreurs peuvent passer récupérer les commandes en soirée. \n \n" +
-          "Ex: Jeudi,Vendredi \n \n" +
-          "Cela signifie que les jeudis et vendredis, les livreurs pourront passer collecter les commandes pour les livraisons en soirée. \n \n " +
-          "Notez que 'soirée' dans la phrase ci-dessus fait référence aux horaires de collecte définies dans le champ 'Votre créneau du soir' ",
-        email:
-          "Pour modifier uniquement votre email, saisissez votre nouvel email et votre mot de passe actuel.",
       },
     },
   },
@@ -279,28 +249,10 @@ export const all_constants = {
       siren_format_error: " doit contenir exactement 9 chiffres sans espace.",
       siret_format_error: " doit contenir exactement 14 chiffres sans espace.",
       phone_format_error: " doit contenir exactement 10 chiffres sans espace.",
-      noon_hours_format_error: " Exemple: 11-13",
-      evening_hours_format_error: " Exemple: 18-20",
-      incorrect: " est incorrect. ",
-      identical_start_hours_end_hours_error:
-        "Les heures de début et de fin ne peuvent être identiques.",
-      start_hour_greater_than_end_hour_error:
-        "L'heure de début ne peut pas être supérieure à l'heure de fin.",
-      delivery_days: "Vous avez spécifié les jours de livraison ",
-      missing_hours_for_delivery_days:
-        " sans préciser de créneau horaire pour ces jours.",
-      hours_range: "Vous avez précisé le créneau ",
-      missing_days_for_delivery_hours:
-        " sans préciser les jours où ce créneau s'applique.",
-      missing_delivery_hours_error:
-        "Vous devez choisir au moins un créneau horaire en journée ou en soirée.",
     },
     includes: {
-      noon: "midi",
-      evening: "soir",
       siret: "siret",
       phone: "téléphone",
-      day: "journée",
     },
   },
   field_type: {
@@ -338,12 +290,6 @@ export const all_constants = {
         order_days: "Sélectionnez les jours où vous acceptez les commandes",
         max_order_number:
           "Le nombre maximum de plats que vous pouvez préparer à la fois",
-        noon_delivery_hours:
-          "L'amplitude horaire des livraisons à midi \n Ex: 11-13",
-        noon_delivery_days: "Sélectionnez les jours d'expédition le midi",
-        evening_delivery_hours:
-          "L'amplitude horaire des livraisons le soir \n Ex: 18-21",
-        evening_delivery_days: "Sélectionnez les jours d'expédition en soirée",
         siret: "Un numéro SIRET",
         firstname: "Votre prénom",
         lastname: "Votre nom de famille",

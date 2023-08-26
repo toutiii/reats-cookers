@@ -4,13 +4,7 @@ import all_constants from "../constants";
 import { View } from "react-native";
 import { getDaysOfWeek } from "../helpers/global_helpers";
 import { checkValueIsDefined } from "../validators/global_validators";
-import {
-  checkMaxDishesNumber,
-  checkHourFormat,
-  checkHourCoherence,
-  checkEmptyDeliveryHours,
-  checkGlobalDeliveryCoherence,
-} from "../validators/settingsform_validators";
+import { checkMaxDishesNumber } from "../validators/settingsform_validators";
 import { callBackEnd } from "../api/callBackend";
 
 export default function SettingsOrderInformationForm({ ...props }) {
@@ -74,57 +68,6 @@ export default function SettingsOrderInformationForm({ ...props }) {
                 all_constants.placeholders.form.settings.max_order_number,
               validators: [checkValueIsDefined, checkMaxDishesNumber],
               maxLength: all_constants.max_length.order_form.max_order_number,
-            },
-            noon_delivery_hours: {
-              type: all_constants.field_type.textinput,
-              label: all_constants.label.form.settings.noon_delivery_hours,
-              labelModal: true,
-              labelModalText:
-                all_constants.modal.form.settings.noon_delivery_hours,
-              placeholder:
-                all_constants.placeholders.form.settings.noon_delivery_hours,
-              keyboardNumeric: true,
-              validators: [checkHourFormat, checkHourCoherence],
-              maxLength: 5,
-            },
-            noon_delivery_days: {
-              type: all_constants.field_type.select_picker,
-              label: all_constants.label.form.settings.noon_delivery_days,
-              labelModal: true,
-              labelModalText:
-                all_constants.modal.form.settings.noon_delivery_days,
-              placeholder:
-                all_constants.placeholders.form.settings.noon_delivery_days,
-              validators: [checkEmptyDeliveryHours],
-              checkedItems: getIndexOfDays("noon_delivery_days"), // Will be used by PickerCheckBox in FormField
-              maxLength: 51,
-            },
-            evening_delivery_hours: {
-              type: all_constants.field_type.textinput,
-              label: all_constants.label.form.settings.evening_delivery_hours,
-              labelModal: true,
-              labelModalText:
-                all_constants.modal.form.settings.evening_delivery_hours,
-              placeholder:
-                all_constants.placeholders.form.settings.evening_delivery_hours,
-              keyboardNumeric: true,
-              validators: [checkHourFormat, checkHourCoherence],
-              maxLength: 5,
-            },
-            evening_delivery_days: {
-              type: all_constants.field_type.select_picker,
-              label: all_constants.label.form.settings.evening_delivery_days,
-              labelModal: true,
-              labelModalText:
-                all_constants.modal.form.settings.evening_delivery_days,
-              placeholder:
-                all_constants.placeholders.form.settings.evening_delivery_days,
-              checkedItems: getIndexOfDays("evening_delivery_days"), // Will be used by PickerCheckBox in FormField
-              validators: [
-                checkEmptyDeliveryHours,
-                checkGlobalDeliveryCoherence,
-              ],
-              maxLength: 51,
             },
           }}
         />
