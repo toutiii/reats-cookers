@@ -41,7 +41,7 @@ export default function OfferForm({ ...props }) {
               fieldIsMandatory: true,
               isReadOnly: !!props.route.params.item["dish_name"],
               type: all_constants.field_type.textinput,
-              maxLength: 50,
+              maxLength: all_constants.max_length.dish_form.dish_name,
               label: all_constants.label.form.special_offer.name,
               placeholder: all_constants.placeholders.form.special_offer.name,
               validators: [
@@ -52,7 +52,7 @@ export default function OfferForm({ ...props }) {
             offer_quantity: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
-              maxLength: 5,
+              maxLength: all_constants.max_length.dish_form.offer_quantity,
               label: all_constants.label.form.special_offer.quantity,
               placeholder:
                 all_constants.placeholders.form.special_offer.quantity,
@@ -62,7 +62,7 @@ export default function OfferForm({ ...props }) {
             offer_price: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
-              maxLength: 5,
+              maxLength: all_constants.max_length.dish_form.offer_price,
               label: all_constants.label.form.special_offer.price,
               placeholder: all_constants.placeholders.form.special_offer.price,
               keyboardNumeric: true,
@@ -70,7 +70,7 @@ export default function OfferForm({ ...props }) {
             },
             offer_rate: {
               type: all_constants.field_type.textinput,
-              maxLength: 5,
+              maxLength: all_constants.max_length.dish_form.offer_rate,
               label: all_constants.label.form.special_offer.rate,
               placeholder: all_constants.placeholders.form.special_offer.rate,
               isReadOnly: true,

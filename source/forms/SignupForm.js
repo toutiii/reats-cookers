@@ -41,7 +41,7 @@ export default function SignupForm({ ...props }) {
               label: all_constants.label.form.settings.email,
               placeholder: all_constants.placeholders.form.settings.email,
               validators: [checkValueIsDefined, checkEmailFormat],
-              maxLength: 100,
+              maxLength: all_constants.max_length.form.email,
             },
             password: {
               fieldIsMandatory: true,
@@ -52,7 +52,7 @@ export default function SignupForm({ ...props }) {
               placeholder:
                 all_constants.placeholders.form.settings.signup_password,
               validators: [checkPasswordFormat],
-              maxLength: 12,
+              maxLength: all_constants.max_length.form.password,
             },
             password_confirmation: {
               fieldIsMandatory: true,
@@ -64,7 +64,7 @@ export default function SignupForm({ ...props }) {
                 all_constants.placeholders.form.settings
                   .signup_password_confirmation,
               validators: [checkPasswordFormat, checkFormCoherence],
-              maxLength: 12,
+              maxLength: all_constants.max_length.form.password,
             },
             siret: {
               fieldIsMandatory: true,
@@ -73,7 +73,7 @@ export default function SignupForm({ ...props }) {
               placeholder: all_constants.placeholders.form.settings.siret,
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkNumericFormat],
-              maxLength: 14,
+              maxLength: all_constants.max_length.form.siret,
             },
             firstname: {
               fieldIsMandatory: true,
@@ -84,7 +84,7 @@ export default function SignupForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 50,
+              maxLength: all_constants.max_length.form.firstname,
             },
             lastname: {
               fieldIsMandatory: true,
@@ -95,7 +95,7 @@ export default function SignupForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 50,
+              maxLength: all_constants.max_length.form.lastname,
             },
             phone: {
               fieldIsMandatory: true,
@@ -104,7 +104,7 @@ export default function SignupForm({ ...props }) {
               placeholder: all_constants.placeholders.form.settings.phone,
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkNumericFormat],
-              maxLength: 10,
+              maxLength: all_constants.max_length.form.phone,
             },
             street_number: {
               fieldIsMandatory: true,
@@ -116,7 +116,7 @@ export default function SignupForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 20,
+              maxLength: all_constants.max_length.form.street_number,
             },
             street_name: {
               fieldIsMandatory: true,
@@ -127,7 +127,7 @@ export default function SignupForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 100,
+              maxLength: all_constants.max_length.form.street_name,
             },
             address_complement: {
               type: all_constants.field_type.textinput,
@@ -135,7 +135,7 @@ export default function SignupForm({ ...props }) {
               placeholder:
                 all_constants.placeholders.form.settings.address_complement,
               validators: [checkValueNotContainsSpecialChar],
-              maxLength: 100,
+              maxLength: all_constants.max_length.form.address_complement,
             },
             postal_code: {
               fieldIsMandatory: true,
@@ -144,7 +144,7 @@ export default function SignupForm({ ...props }) {
               placeholder: all_constants.placeholders.form.settings.postal_code,
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkPostalCode],
-              maxLength: 5,
+              maxLength: all_constants.max_length.form.postal_code,
             },
             town: {
               fieldIsMandatory: true,
@@ -155,7 +155,7 @@ export default function SignupForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 100,
+              maxLength: all_constants.max_length.form.town,
             },
           }}
         />

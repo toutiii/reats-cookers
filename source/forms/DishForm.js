@@ -46,7 +46,7 @@ export default function DishForm({ ...props }) {
             dish_name: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
-              maxLength: 50,
+              maxLength: all_constants.max_length.dish_form.dish_name,
               label: all_constants.label.form.dishes.name,
               placeholder: all_constants.placeholders.form.dishes.dish_name,
               validators: [
@@ -63,7 +63,7 @@ export default function DishForm({ ...props }) {
             dish_price: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
-              maxLength: 5,
+              maxLength: all_constants.max_length.dish_form.dish_price,
               label: all_constants.label.form.dishes.price,
               placeholder: all_constants.placeholders.form.dishes.dish_price,
               keyboardNumeric: true,
@@ -71,7 +71,7 @@ export default function DishForm({ ...props }) {
             },
             dish_description: {
               type: all_constants.field_type.textarea,
-              maxLength: 200,
+              maxLength: all_constants.max_length.dish_form.dish_description,
               label: all_constants.label.form.dishes.description,
               placeholder:
                 all_constants.placeholders.form.dishes.dish_description,
@@ -79,7 +79,7 @@ export default function DishForm({ ...props }) {
             },
             dish_country: {
               type: all_constants.field_type.textinput,
-              maxLength: 50,
+              maxLength: all_constants.max_length.dish_form.dish_country,
               label: all_constants.label.form.dishes.country,
               placeholder: all_constants.placeholders.form.dishes.dish_country,
               validators: [checkValueNotContainsSpecialChar],

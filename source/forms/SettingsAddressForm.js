@@ -39,7 +39,7 @@ export default function SettingsAddressForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 20,
+              maxLength: all_constants.max_length.form.street_number,
             },
             street_name: {
               fieldIsMandatory: true,
@@ -50,7 +50,7 @@ export default function SettingsAddressForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 100,
+              maxLength: all_constants.max_length.form.street_name,
             },
             address_complement: {
               type: all_constants.field_type.textinput,
@@ -58,7 +58,7 @@ export default function SettingsAddressForm({ ...props }) {
               placeholder:
                 all_constants.placeholders.form.settings.address_complement,
               validators: [checkValueNotContainsSpecialChar],
-              maxLength: 100,
+              maxLength: all_constants.max_length.form.address_complement,
             },
             postal_code: {
               fieldIsMandatory: true,
@@ -67,7 +67,7 @@ export default function SettingsAddressForm({ ...props }) {
               placeholder: all_constants.placeholders.form.settings.postal_code,
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkPostalCode],
-              maxLength: 5,
+              maxLength: all_constants.max_length.form.postal_code,
             },
             town: {
               fieldIsMandatory: true,
@@ -78,7 +78,7 @@ export default function SettingsAddressForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 100,
+              maxLength: all_constants.max_length.form.town,
             },
           }}
         />

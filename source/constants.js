@@ -287,8 +287,6 @@ export const all_constants = {
     offer_message_end: "au prix de",
   },
   validators: {
-    max_text_length: 30,
-    max_description_length: 200,
     global: {
       field: "Le champ ",
       is_empty: " est vide.",
@@ -384,7 +382,7 @@ export const all_constants = {
         siret: "Un numéro SIRET",
         firstname: "Votre prénom",
         lastname: "Votre nom de famille",
-        phone: "Votre numéro de téléphone",
+        phone: "Ex: 0601020304",
         signup_password: "Votre mot de passe",
         signup_password_confirmation: "Confirmez votre mot de passe",
       },
@@ -501,6 +499,34 @@ export const all_constants = {
       "Utilisez la barre de recherche ci-dessus pour consulter vos promotions.",
     search_bar_dishes:
       "Utilisez la barre de recherche ci-dessus pour consulter vos plats.",
+  },
+  max_length: {
+    dish_form: {
+      dish_country: 50,
+      dish_name: 50,
+      dish_price: 5,
+      dish_description: 200,
+    },
+    offer_form: {
+      offer_quantity: 5,
+      offer_price: 5,
+      offer_rate: 5,
+    },
+    order_form: { max_order_number: 2 },
+
+    form: {
+      email: 100,
+      password: 20,
+      siret: 14,
+      firstname: 50,
+      lastname: 50,
+      phone: 10,
+      street_number: 20,
+      street_name: 100,
+      address_complement: 100,
+      postal_code: 5,
+      town: 100,
+    },
   },
 };
 

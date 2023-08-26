@@ -61,7 +61,6 @@ export default function SettingsOrderInformationForm({ ...props }) {
               placeholder: all_constants.placeholders.form.settings.order_days,
               validators: [checkValueIsDefined],
               checkedItems: getIndexOfDays("order_days"), // Will be used by PickerCheckBox in FormField
-              maxLength: 10,
             },
             max_order_number: {
               fieldIsMandatory: true,
@@ -74,7 +73,7 @@ export default function SettingsOrderInformationForm({ ...props }) {
               placeholder:
                 all_constants.placeholders.form.settings.max_order_number,
               validators: [checkValueIsDefined, checkMaxDishesNumber],
-              maxLength: 2,
+              maxLength: all_constants.max_length.order_form.max_order_number,
             },
             noon_delivery_hours: {
               type: all_constants.field_type.textinput,

@@ -50,14 +50,14 @@ export default function LoginForm({ ...props }) {
               label: all_constants.label.form.login.email,
               placeholder: all_constants.placeholders.form.login.email,
               validators: [checkValueIsDefined, checkEmailFormat],
-              maxLength: 100,
+              maxLength: all_constants.max_length.form.email,
             },
             password: {
               type: all_constants.field_type.textinput,
               label: all_constants.label.form.login.password,
               placeholder: all_constants.placeholders.form.login.password,
               validators: [checkValueIsDefined],
-              maxLength: 12,
+              maxLength: all_constants.max_length.form.password,
             },
           }}
         />

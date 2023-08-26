@@ -42,7 +42,7 @@ export default function SettingsPersonalInformationForm({ ...props }) {
               placeholder: all_constants.placeholders.form.settings.siret,
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkNumericFormat],
-              maxLength: 14,
+              maxLength: all_constants.max_length.form.siret,
             },
             firstname: {
               fieldIsMandatory: true,
@@ -53,7 +53,7 @@ export default function SettingsPersonalInformationForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 50,
+              maxLength: all_constants.max_length.form.firstname,
             },
             lastname: {
               fieldIsMandatory: true,
@@ -64,7 +64,7 @@ export default function SettingsPersonalInformationForm({ ...props }) {
                 checkValueIsDefined,
                 checkValueNotContainsSpecialChar,
               ],
-              maxLength: 50,
+              maxLength: all_constants.max_length.form.lastname,
             },
             phone: {
               fieldIsMandatory: true,
@@ -73,7 +73,7 @@ export default function SettingsPersonalInformationForm({ ...props }) {
               placeholder: all_constants.placeholders.form.settings.phone,
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkNumericFormat],
-              maxLength: 10,
+              maxLength: all_constants.max_length.form.phone,
             },
           }}
         />
