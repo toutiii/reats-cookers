@@ -37,11 +37,7 @@ export default styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  forgot_password_button: {
-    width: all_constants.screen.width - 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+
   image_style: {
     top: -85,
     left: 15,

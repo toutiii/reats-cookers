@@ -179,21 +179,6 @@ export default function DrawerContent(props) {
               <DrawerItem
                 icon={({ color, size }) => (
                   <MaterialCommunityIcons
-                    name="lock"
-                    color={color}
-                    size={size}
-                  />
-                )}
-                label="Connexion"
-                onPress={() => {
-                  props.navigation.navigate("SettingsCredentialsForm", {
-                    item: userData["credential_infos_section"]["data"],
-                  });
-                }}
-              />
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <MaterialCommunityIcons
                     name="basket"
                     color={color}
                     size={size}

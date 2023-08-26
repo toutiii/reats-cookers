@@ -8,9 +8,7 @@ import {
 } from "../validators/global_validators";
 import {
   checkEmailFormat,
-  checkFormCoherence,
   checkNumericFormat,
-  checkPasswordFormat,
   checkPostalCode,
 } from "../validators/settingsform_validators";
 import { callBackEnd } from "../api/callBackend";
@@ -42,29 +40,6 @@ export default function SignupForm({ ...props }) {
               placeholder: all_constants.placeholders.form.settings.email,
               validators: [checkValueIsDefined, checkEmailFormat],
               maxLength: all_constants.max_length.form.email,
-            },
-            password: {
-              fieldIsMandatory: true,
-              type: all_constants.field_type.textinput,
-              label: all_constants.label.form.settings.signup_new_password,
-              labelModal: true,
-              labelModalText: all_constants.modal.form.settings.signup_password,
-              placeholder:
-                all_constants.placeholders.form.settings.signup_password,
-              validators: [checkPasswordFormat],
-              maxLength: all_constants.max_length.form.password,
-            },
-            password_confirmation: {
-              fieldIsMandatory: true,
-              type: all_constants.field_type.textinput,
-              label:
-                all_constants.label.form.settings
-                  .signup_new_password_confirmation,
-              placeholder:
-                all_constants.placeholders.form.settings
-                  .signup_password_confirmation,
-              validators: [checkPasswordFormat, checkFormCoherence],
-              maxLength: all_constants.max_length.form.password,
             },
             siret: {
               fieldIsMandatory: true,

@@ -98,12 +98,7 @@ export default function FormField({ ...props }) {
   };
 
   return (
-    <View
-      style={[
-        styles_field.container,
-        { padding: props.login || props.reset_password ? "2%" : "10%" },
-      ]}
-    >
+    <View style={[styles_field.container, { padding: "10%" }]}>
       <View style={styles_field.label}>
         {props.field.fieldIsMandatory ? (
           <View style={{ flex: 1, flexDirection: "row" }}>
@@ -189,7 +184,7 @@ export default function FormField({ ...props }) {
               Device.manufacturer.toLowerCase() === "xiaomi"
             }
           />
-          {!props.login && !props.reset_password ? (
+          {!props.login ? (
             <View>
               {props.value ? (
                 <Text style={{ fontSize: 14 }}>

@@ -19,67 +19,6 @@ export function checkEmailFormat(value) {
   }
 }
 
-export function checkPasswordFormat(value) {
-  let expectedSpecialChar = ["!", "#", "*"];
-  let foundSpecialCharCount = 0;
-  let foundUppercaseCharCount = 0;
-  let foundNumericCount = 0;
-  if (typeof value !== "undefined") {
-    value = value.trim();
-    if (value.length < all_constants.password.min_length) {
-      return (
-        all_constants.validators.settings.too_short_password_error +
-        all_constants.password.min_length +
-        all_constants.validators.settings.char
-      );
-    }
-    for (let i = 0; i < expectedSpecialChar.length; i++) {
-      if (value.indexOf(expectedSpecialChar[i]) > -1) {
-        foundSpecialCharCount++;
-      }
-    }
-    if (foundSpecialCharCount === 0) {
-      return (
-        all_constants.validators.settings.password_missing_special_chars +
-        expectedSpecialChar.join(", ") +
-        "."
-      );
-    }
-    for (let i = 0; i < value.length; i++) {
-      let char = value.charAt(i);
-      if (
-        char === char.toUpperCase() &&
-        !expectedSpecialChar.includes(char) &&
-        !/^\d+$/.test(char)
-      ) {
-        foundUppercaseCharCount++;
-      }
-      if (/^\d+$/.test(char)) {
-        foundNumericCount++;
-      }
-    }
-    if (foundUppercaseCharCount === 0) {
-      return all_constants.validators.settings.password_missing_uppercase;
-    }
-    if (foundNumericCount === 0) {
-      return all_constants.validators.settings.password_missing_digit;
-    }
-  }
-}
-
-export function checkFormCoherence(value, fieldLabel, objectToValidate) {
-  let userNewPassword = objectToValidate["password"];
-  let userNewPasswordConfirmation = objectToValidate["password_confirmation"];
-  if (
-    typeof userNewPassword !== "undefined" ||
-    typeof userNewPasswordConfirmation !== "undefined"
-  ) {
-    if (userNewPassword !== userNewPasswordConfirmation) {
-      return all_constants.validators.settings.non_equal_password_error;
-    }
-  }
-}
-
 export function checkNumericFormat(value, fieldLabel) {
   if (typeof value !== "undefined") {
     value = value.toString().trim();

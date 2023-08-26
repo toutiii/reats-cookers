@@ -5,13 +5,6 @@ const sleep = (ms) => {
 export async function getUserSettings() {
   await sleep(3000);
   const userSettingsObject = {
-    credential_infos_section: {
-      title: "credential_infos",
-      data: {
-        email: "toulevi@yahoo.fr",
-        password: "********",
-      },
-    },
     order_infos_section: {
       title: "order_infos",
       data: {

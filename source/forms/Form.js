@@ -120,16 +120,10 @@ export default function Form({ ...props }) {
     setStateShowAlert(true);
   };
 
-  const forgottenPassword = () => {
-    props.navigation.navigate("ForgottenPassword");
-  };
   const signupForm = () => {
     props.navigation.navigate("SignupForm");
   };
-  const onPressForgottenPassword = () => {
-    props.navigation.goBack();
-    setStateShowAlert(false);
-  };
+
   return (
     <KeyboardAvoidingView>
       <ScrollView>
@@ -209,18 +203,7 @@ export default function Form({ ...props }) {
               }}
             />
           )}
-          {props.reset_password &&
-            !isSubmitting &&
-            noErrorsFound &&
-            apiOkResponse && (
-              <CustomAlert
-                show={showAlert}
-                title={all_constants.messages.success.title}
-                message={all_constants.messages.success.reset_password}
-                confirmButtonColor="green"
-                onConfirmPressed={onPressForgottenPassword}
-              />
-            )}
+
           {!isSubmitting &&
             noErrorsFound &&
             !apiOkResponse &&
@@ -242,7 +225,6 @@ export default function Form({ ...props }) {
                 <FormField
                   key={key}
                   login={props.login}
-                  reset_password={props.reset_password}
                   itemObject={props.item}
                   newItem={newItem}
                   fieldName={key}
@@ -283,18 +265,6 @@ export default function Form({ ...props }) {
                     backgroundColor={"dimgrey"}
                     label_color="white"
                     onPress={signupForm}
-                  />
-                </View>
-                <View style={styles_form.cancel_button}>
-                  <CustomButton
-                    label={all_constants.messages.forgotten_password}
-                    height={50}
-                    border_width={3}
-                    border_radius={30}
-                    font_size={18}
-                    backgroundColor={"darkgrey"}
-                    label_color="white"
-                    onPress={forgottenPassword}
                   />
                 </View>
               </View>

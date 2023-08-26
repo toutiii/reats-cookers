@@ -18,9 +18,7 @@ export const all_constants = {
     inputBorderColor: "#ffd700",
     login_background_color: ["red", "yellow", "green"],
   },
-  password: {
-    min_length: 6,
-  },
+
   messages: {
     login: "CONNEXION",
     logout: "DÉCONNEXION",
@@ -28,7 +26,6 @@ export const all_constants = {
     send: "ENVOYER",
     submit: "VALIDER",
     cancel: "ANNULER",
-    forgotten_password: "MOT DE PASSE OUBLIÉ ?",
     signup: "CRÉER UN COMPTE",
     take_picture: "Prendre une photo",
     upload_picture: "Ouvrir la galerie",
@@ -36,14 +33,10 @@ export const all_constants = {
       title: "Erreur",
       empty_email: "Veuillez renseigner votre mail",
       wrong_email_format: "Veuillez entrer un email valide",
-      empty_password: "Veuillez renseigner votre mot de passe",
-      forgot_password: "Mot de passe oublié ?",
     },
     success: {
       title: "Succès",
       email_sent: "Un email a été envoyé à ",
-      reset_password:
-        "Si vous êtes inscrit, vous recevrez un email contenant un nouveau mot de passe. Pensez à regarder vos spams.",
     },
     failed: {
       title: "Échec",
@@ -119,7 +112,6 @@ export const all_constants = {
       address: "Adresse",
       postal_code: "Code postal",
       town: "Ville",
-      change_password: "MODIFIER MON MOT DE PASSE",
       change_settings: "MODIFIER",
       siret: "SIRET",
       order_days: "Prise commande",
@@ -128,7 +120,6 @@ export const all_constants = {
       street_number: "Numéro de rue",
       street_name: "Nom de la rue",
       address_complement: "Complément",
-      password: "Mot de passe",
       select_days_of_week: "Sélectionnez les jours de la semaine",
       noon_delivery_hours: "Créneau en journée",
       noon_delivery_days: "Livraison en journée le",
@@ -160,9 +151,6 @@ export const all_constants = {
       },
       settings: {
         email: "Email",
-        current_password: "Mot de passe actuel",
-        new_password: "Nouveau mot de passe",
-        new_password_confirmation: "Confirmation nouveau mot de passe",
         siret: "Numéro SIRET",
         firstname: "Prénom",
         lastname: "Nom",
@@ -179,15 +167,9 @@ export const all_constants = {
         evening_delivery_hours: "Votre créneau en soirée",
         evening_delivery_days: "Les plats sont livrés en soirée le",
         image: "Photo de profil",
-        signup_new_password: "Mot de passe",
-        signup_new_password_confirmation: "Confirmation mot de passe",
       },
       login: {
         email: "Email",
-        password: "Mot de passe",
-      },
-      forgotten_password: {
-        title: "Mot de passe oublié",
       },
     },
   },
@@ -268,11 +250,6 @@ export const all_constants = {
           "Notez que 'soirée' dans la phrase ci-dessus fait référence aux horaires de collecte définies dans le champ 'Votre créneau du soir' ",
         email:
           "Pour modifier uniquement votre email, saisissez votre nouvel email et votre mot de passe actuel.",
-        password:
-          "Pour modifier votre mot de passe, remplissez tous les champs de ce formulaire. \n \n" +
-          "Le mot de passe doit faire entre 6 et 20 caractères. Il doit contenir au moins une majuscule, un chiffre et un des caractères spéciaux suivants: !, #, *",
-        signup_password:
-          "Entre 6 et 20 caractères. Doit contenir au moins une majuscule, un chiffre et un des caractères spéciaux suivants: !, #, *",
       },
     },
   },
@@ -299,15 +276,6 @@ export const all_constants = {
 
     settings: {
       invalid_email_error: "Veuillez renseigner un email valide.",
-      too_short_password_error: "Le mot de passe doit faire au moins ",
-      char: " caractères.",
-      password_missing_special_chars:
-        "Le mot de passe doit contenir un des caractères suivants: ",
-      password_missing_uppercase:
-        "Le mot de passe doit contenir au moins une majuscule.",
-      password_missing_digit:
-        "Le mot de passe doit contenir au moins un chiffre.",
-      non_equal_password_error: "Les mots de passe ne correspondent pas.",
       siren_format_error: " doit contenir exactement 9 chiffres sans espace.",
       siret_format_error: " doit contenir exactement 14 chiffres sans espace.",
       phone_format_error: " doit contenir exactement 10 chiffres sans espace.",
@@ -367,9 +335,6 @@ export const all_constants = {
         postal_code: "Votre code postal",
         town: "Votre ville",
         email: "Votre email",
-        user_settings_current_password: "Votre mot de passe actuel",
-        password: "Votre nouveau mot de passe",
-        password_confirmation: "Confirmez votre nouveau mot de passe",
         order_days: "Sélectionnez les jours où vous acceptez les commandes",
         max_order_number:
           "Le nombre maximum de plats que vous pouvez préparer à la fois",
@@ -383,12 +348,9 @@ export const all_constants = {
         firstname: "Votre prénom",
         lastname: "Votre nom de famille",
         phone: "Ex: 0601020304",
-        signup_password: "Votre mot de passe",
-        signup_password_confirmation: "Confirmez votre mot de passe",
       },
       login: {
         email: "Votre email",
-        password: "Votre mot de passe",
       },
       order: {
         start_date: "Sélectionnez une date de début",
@@ -516,7 +478,6 @@ export const all_constants = {
 
     form: {
       email: 100,
-      password: 20,
       siret: 14,
       firstname: 50,
       lastname: 50,

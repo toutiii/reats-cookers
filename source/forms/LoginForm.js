@@ -35,7 +35,7 @@ export default function LoginForm({ ...props }) {
       >
         <Text> LOGO goes here </Text>
       </View>
-      <View style={{ flex: 2 }}>
+      <View style={{ flex: 1 }}>
         <Form
           action={callBackEnd}
           url={all_constants.uri.api.mock}
@@ -51,13 +51,6 @@ export default function LoginForm({ ...props }) {
               placeholder: all_constants.placeholders.form.login.email,
               validators: [checkValueIsDefined, checkEmailFormat],
               maxLength: all_constants.max_length.form.email,
-            },
-            password: {
-              type: all_constants.field_type.textinput,
-              label: all_constants.label.form.login.password,
-              placeholder: all_constants.placeholders.form.login.password,
-              validators: [checkValueIsDefined],
-              maxLength: all_constants.max_length.form.password,
             },
           }}
         />
