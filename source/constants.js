@@ -149,7 +149,7 @@ export const all_constants = {
         postal_code: "Code postal",
         town: "Ville",
         order_days: "Jours de prise de commandes",
-        max_order_number: "Votre nombre max de plats",
+        max_order_number: "Nombre max de plats acceptés",
         image: "Photo de profil",
       },
       login: {
@@ -207,11 +207,8 @@ export const all_constants = {
           "Cela signifie que vous acceptez de recevoir uniquement les commandes les mardis et mercredis. \n \n " +
           "En dehors de ces jours, vous ne serez pas visible des clients et vous ne recevrez donc aucune commande.",
         max_order_number:
-          "Vous estimez ici le nombre maximal de plats que vous pensez pouvoir préparer sur une période. \n \n" +
-          "Ex: 18 \n \n" +
-          "Cela signifie que vous ne pourrez jamais avoir plus de 18 plats à préparer par vague de commandes. \n \n " +
-          "Veillez à ne pas en mettre trop pour pouvoir être dans les temps pour la collecte des commandes par nos livreurs. \n \n" +
-          "Attention, il ne s'agit pas forcément ici du nombre de commandes. En effet une commande peut comporter plusieurs plats.",
+          "Il s'agit du nombre maximal de plats que vous aurez à préparer à la fois. \n \n" +
+          "Par exemple, si vous renseignez 10, la somme du nombre de plats sur toutes vos commandes n'excédera jamais 10.",
       },
     },
   },
@@ -367,7 +364,6 @@ export const all_constants = {
       label: {
         history: "Historique commandes",
         create_dish: "Ajouter un plat",
-        orders: "Mes commandes",
         account: "Mon compte",
         localization: "Ma localisation",
       },

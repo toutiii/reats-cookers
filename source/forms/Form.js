@@ -226,6 +226,7 @@ export default function Form({ ...props }) {
                   key={key}
                   login={props.login}
                   itemObject={props.item}
+                  isEditable={props.isEditable ? props.isEditable : true}
                   newItem={newItem}
                   fieldName={key}
                   field={fieldsObject[key]}

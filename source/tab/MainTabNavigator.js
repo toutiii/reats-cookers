@@ -3,7 +3,6 @@ import OrderView from "../views/OrderView";
 import DishForm from "../forms/DishForm";
 import SettingsPersonalInformationForm from "../forms/SettingsPersonalInformationForm";
 import SettingsAddressForm from "../forms/SettingsAddressForm";
-import SettingsOrderInformationForm from "../forms/SettingsOrderInformationForm";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../views/Dashboard";
@@ -47,7 +46,6 @@ export default function MainTabNavigator() {
           "DishForm",
           "SettingsPersonalInformationForm",
           "SettingsAddressForm",
-          "SettingsOrderInformationForm",
           "OrdersHistory",
         ].includes(route.name)
           ? () => {
@@ -78,10 +76,7 @@ export default function MainTabNavigator() {
         component={SettingsPersonalInformationForm}
       />
       <Tab.Screen name="SettingsAddressForm" component={SettingsAddressForm} />
-      <Tab.Screen
-        name="SettingsOrderInformationForm"
-        component={SettingsOrderInformationForm}
-      />
+
       <Tab.Screen
         name="OrdersHistory"
         component={OrdersHistoryStackNavigator}

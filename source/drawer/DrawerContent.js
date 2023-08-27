@@ -159,28 +159,13 @@ export default function DrawerContent(props) {
                 }
                 onPress={() => {
                   props.navigation.navigate("DishForm", {
-                    item: userData["order_infos_section"]["data"],
+                    item: {},
                     new_item: true,
                   });
                 }}
               />
             </Drawer.Section>
             <Drawer.Section title="Préférences">
-              <DrawerItem
-                icon={({ color, size }) => (
-                  <MaterialCommunityIcons
-                    name="basket"
-                    color={color}
-                    size={size}
-                  />
-                )}
-                label={all_constants.drawercontent.drawer_item.label.orders}
-                onPress={() => {
-                  props.navigation.navigate("SettingsOrderInformationForm", {
-                    item: userData["order_infos_section"]["data"],
-                  });
-                }}
-              />
               <DrawerItem
                 icon={({ color, size }) => (
                   <MaterialCommunityIcons

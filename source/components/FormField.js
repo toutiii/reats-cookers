@@ -74,9 +74,9 @@ export default function FormField({ ...props }) {
         setStateShowAlert(true);
       } else {
         let result = await ImagePicker.launchImageLibraryAsync({ options });
-        if (!result.cancelled) {
-          setPicUri(result.uri);
-          props.newItem["photo"] = result.uri;
+        if (!result.canceled) {
+          setPicUri(result.assets.uri);
+          props.newItem["photo"] = result.assets.uri;
         }
       }
     }
@@ -89,9 +89,9 @@ export default function FormField({ ...props }) {
         setStateShowAlert(true);
       } else {
         let result = await ImagePicker.launchCameraAsync({ options });
-        if (!result.cancelled) {
-          setPicUri(result.uri);
-          props.newItem["photo"] = result.uri;
+        if (!result.canceled) {
+          setPicUri(result.assets.uri);
+          props.newItem["photo"] = result.assets.uri;
         }
       }
     }
@@ -124,7 +124,7 @@ export default function FormField({ ...props }) {
             </Text>
           </View>
         )}
-        {props.field.labelModal ? (
+        {props.field.labelModal && (
           <View style={{ alignItems: "center" }}>
             <CustomButton
               label={"?"}
@@ -139,11 +139,9 @@ export default function FormField({ ...props }) {
               }}
             />
           </View>
-        ) : (
-          <View></View>
         )}
       </View>
-      {labelModalState ? (
+      {labelModalState && (
         <FormLabelModal
           state={true}
           labelModalText={props.field.labelModalText}
@@ -151,11 +149,9 @@ export default function FormField({ ...props }) {
             setLabelModalState(false);
           }}
         />
-      ) : (
-        <View></View>
       )}
-      {props.field.type === all_constants.field_type.textinput ||
-      props.field.type === all_constants.field_type.textarea ? (
+      {(props.field.type === all_constants.field_type.textinput ||
+        props.field.type === all_constants.field_type.textarea) && (
         <View
           style={[
             styles_field.textinput_container,
@@ -203,10 +199,8 @@ export default function FormField({ ...props }) {
             <View style={{ height: "30%" }}></View>
           )}
         </View>
-      ) : (
-        <View></View>
       )}
-      {props.field.type === all_constants.field_type.select ? (
+      {props.field.type === all_constants.field_type.select && (
         <View style={styles_field.picker_container}>
           <RNPickerSelect
             useNativeAndroidPickerStyle={false}
@@ -223,8 +217,6 @@ export default function FormField({ ...props }) {
             }}
           />
         </View>
-      ) : (
-        <View></View>
       )}
       {props.field.type === all_constants.field_type.select_picker ? (
         <View style={{ flex: 1 }}>
@@ -249,7 +241,7 @@ export default function FormField({ ...props }) {
       ) : (
         <View></View>
       )}
-      {props.field.type === all_constants.field_type.image ? (
+      {props.field.type === all_constants.field_type.image && (
         <View style={styles_field.button_container}>
           <View style={{ flex: 2 }}>
             {picUri ? (
@@ -282,8 +274,6 @@ export default function FormField({ ...props }) {
             </View>
           </View>
         </View>
-      ) : (
-        <View></View>
       )}
       {props.field.type === all_constants.field_type.date_picker && (
         <TouchableWithoutFeedback>
@@ -306,7 +296,7 @@ export default function FormField({ ...props }) {
           onChange={onChange}
         />
       )}
-      {showAlert ? (
+      {showAlert && (
         <CustomAlert
           show={showAlert}
           title={all_constants.permissions.error}
@@ -314,10 +304,8 @@ export default function FormField({ ...props }) {
           confirmButtonColor="red"
           onConfirmPressed={props.onConfirmPressed}
         />
-      ) : (
-        <View></View>
       )}
-      {props.error ? (
+      {props.error && (
         <CustomAlert
           show={props.showAlert}
           title={all_constants.messages.errors.title}
@@ -325,8 +313,6 @@ export default function FormField({ ...props }) {
           confirmButtonColor="red"
           onConfirmPressed={props.onConfirmPressed}
         />
-      ) : (
-        <View></View>
       )}
     </View>
   );

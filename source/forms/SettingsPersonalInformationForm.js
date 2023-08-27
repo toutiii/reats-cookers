@@ -8,6 +8,7 @@ import {
 } from "../validators/global_validators";
 import { checkNumericFormat } from "../validators/settingsform_validators";
 import { callBackEnd } from "../api/callBackend";
+import { checkMaxDishesNumber } from "../validators/settingsform_validators";
 
 export default function SettingsPersonalInformationForm({ ...props }) {
   const handleResult = async (result) => {
@@ -43,6 +44,7 @@ export default function SettingsPersonalInformationForm({ ...props }) {
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkNumericFormat],
               maxLength: all_constants.max_length.form.siret,
+              isReadOnly: true,
             },
             firstname: {
               fieldIsMandatory: true,
@@ -74,6 +76,20 @@ export default function SettingsPersonalInformationForm({ ...props }) {
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkNumericFormat],
               maxLength: all_constants.max_length.form.phone,
+            },
+
+            max_order_number: {
+              fieldIsMandatory: true,
+              type: all_constants.field_type.textinput,
+              label: all_constants.label.form.settings.max_order_number,
+              keyboardNumeric: true,
+              labelModal: true,
+              labelModalText:
+                all_constants.modal.form.settings.max_order_number,
+              placeholder:
+                all_constants.placeholders.form.settings.max_order_number,
+              validators: [checkValueIsDefined, checkMaxDishesNumber],
+              maxLength: all_constants.max_length.order_form.max_order_number,
             },
           }}
         />
