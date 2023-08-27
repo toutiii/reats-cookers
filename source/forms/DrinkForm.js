@@ -5,19 +5,21 @@ import { View } from "react-native";
 import {
   checkValueIsDefined,
   checkValueNotContainsSpecialChar,
+  valueIsValidCapacity,
   valueIsValidPrice,
 } from "../validators/global_validators";
 import { callBackEnd } from "../api/callBackend";
-import { getCategories } from "../helpers/global_helpers";
+import { getCapacityUnits } from "../helpers/global_helpers";
 
-export default function DishForm({ ...props }) {
+export default function DrinkForm({ ...props }) {
   const handleResult = async (result) => {
     if (result.ok) {
       props.navigation.goBack(null);
     } else {
-      throw new Error("Failed to update the dish.");
+      throw new Error("Failed to update the drink.");
     }
   };
+
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 2, marginTop: "10%" }}>
@@ -36,15 +38,7 @@ export default function DishForm({ ...props }) {
           third_button_label={all_constants.label.dishes.disable_dish}
           fourth_button_label={all_constants.label.dishes.remove_dish}
           fields={{
-            dish_category: {
-              fieldIsMandatory: true,
-              type: all_constants.field_type.select,
-              label: all_constants.label.form.dishes.category,
-              placeholder: all_constants.placeholders.form.dishes.dish_category,
-              validators: [checkValueIsDefined],
-              selectValues: getCategories(),
-            },
-            dish_name: {
+            drink_name: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               maxLength: all_constants.max_length.dish_form.dish_name,
@@ -55,13 +49,7 @@ export default function DishForm({ ...props }) {
                 checkValueNotContainsSpecialChar,
               ],
             },
-            photo: {
-              fieldIsMandatory: true,
-              type: all_constants.field_type.image,
-              label: all_constants.label.form.dishes.image,
-              validators: [checkValueIsDefined],
-            },
-            dish_price: {
+            drink_price: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               maxLength: all_constants.max_length.dish_form.dish_price,
@@ -70,7 +58,28 @@ export default function DishForm({ ...props }) {
               keyboardNumeric: true,
               validators: [checkValueIsDefined, valueIsValidPrice],
             },
-            dish_description: {
+            drink_bottle_capacity: {
+              fieldIsMandatory: true,
+              type: all_constants.field_type.textinput,
+              maxLength:
+                all_constants.max_length.drink_form.drink_bottle_capacity,
+              label: all_constants.label.drinks.drink_bottle_capacity,
+              placeholder:
+                all_constants.placeholders.form.drinks.drink_bottle_capacity,
+              keyboardNumeric: true,
+              validators: [checkValueIsDefined, valueIsValidCapacity],
+            },
+            drink_bottle_capacity_unit: {
+              fieldIsMandatory: true,
+              type: all_constants.field_type.select,
+              label: all_constants.label.drinks.drink_bottle_capacity_unit,
+              placeholder:
+                all_constants.placeholders.form.drinks
+                  .drink_bottle_capacity_unit,
+              validators: [checkValueIsDefined],
+              selectValues: getCapacityUnits(),
+            },
+            drink_description: {
               type: all_constants.field_type.textarea,
               maxLength: all_constants.max_length.dish_form.dish_description,
               label: all_constants.label.form.dishes.description,
@@ -78,7 +87,12 @@ export default function DishForm({ ...props }) {
                 all_constants.placeholders.form.dishes.dish_description,
               validators: [checkValueNotContainsSpecialChar],
             },
-            dish_country: {
+            photo: {
+              fieldIsMandatory: false,
+              type: all_constants.field_type.image,
+              label: all_constants.label.form.dishes.image,
+            },
+            drink_country: {
               type: all_constants.field_type.textinput,
               maxLength: all_constants.max_length.dish_form.dish_country,
               label: all_constants.label.form.dishes.country,

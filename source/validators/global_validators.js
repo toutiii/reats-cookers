@@ -103,3 +103,15 @@ export function valueIsValidPrice(value, fieldLabel, objectToValidate) {
     );
   }
 }
+
+export function valueIsValidCapacity(value, fieldLabel, objectToValidate) {
+  value = value.toString().trim();
+  let priceRegex = /^([0-9]{1,3})$/g;
+  if (!value.match(priceRegex)) {
+    return (
+      all_constants.validators.global.field +
+      fieldLabel +
+      all_constants.validators.global.invalid_bottle_capacity
+    );
+  }
+}

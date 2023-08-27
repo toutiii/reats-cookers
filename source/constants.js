@@ -96,6 +96,10 @@ export const all_constants = {
       remove_dish: "SUPPRIMER",
       disable_dish: "DÉSACTIVER",
     },
+    drinks: {
+      drink_bottle_capacity: "Contenance",
+      drink_bottle_capacity_unit: "Unité",
+    },
     settings: {
       section_title: {
         credential_infos: "Mes informations de connexion",
@@ -225,7 +229,8 @@ export const all_constants = {
       invalid_price: " est invalide. Exemple: 13.90",
       invalid_quantity: " est invalide. Exemple: 2",
       invalid_postal_code: " est invalide. Exemple: 91100.",
-      invalid_max_dishes_number_format: " est invalide. Exemple: 18.",
+      invalid_max_dishes_number_format: " est invalide. Exemple: 18",
+      invalid_bottle_capacity: " est invalid. Exemple: 33",
     },
 
     settings: {
@@ -256,6 +261,11 @@ export const all_constants = {
         dish_description: "Une courte description de votre item",
         dish_country:
           "Pas obligatoire mais très recommandé, surtout pour les plats",
+      },
+      drinks: {
+        drink_bottle_capacity: "Ex: 33",
+        drink_bottle_capacity_unit:
+          "Entrez l'unité de contenance de votre item.",
       },
       settings: {
         street_number: "Numéro de rue",
@@ -364,6 +374,7 @@ export const all_constants = {
       label: {
         history: "Historique commandes",
         create_dish: "Ajouter un plat",
+        create_drink: "Ajouter une boisson",
         account: "Mon compte",
         localization: "Ma localisation",
       },
@@ -400,6 +411,9 @@ export const all_constants = {
       dish_name: 50,
       dish_price: 5,
       dish_description: 200,
+    },
+    drink_form: {
+      drink_bottle_capacity: 3,
     },
 
     order_form: { max_order_number: 2 },

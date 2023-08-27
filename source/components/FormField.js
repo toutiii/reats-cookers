@@ -10,7 +10,6 @@ import {
 import styles_field from "../styles/styles-field";
 import all_constants from "../constants";
 import RNPickerSelect from "react-native-picker-select";
-import { getCategories } from "../helpers/global_helpers";
 import CustomImageButton from "../button/CustomImageButton";
 import * as ImagePicker from "expo-image-picker";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
@@ -210,7 +209,7 @@ export default function FormField({ ...props }) {
             onValueChange={(value) =>
               props.onChangeText(props.fieldName, value)
             }
-            items={getCategories("Dish")}
+            items={props.field.selectValues}
             textInputProps={{
               fontSize: props.value ? 18 : 16,
               color: props.value ? "black" : "gray",

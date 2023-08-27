@@ -1,6 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import OrderView from "../views/OrderView";
 import DishForm from "../forms/DishForm";
+import DrinkForm from "../forms/DrinkForm";
 import SettingsPersonalInformationForm from "../forms/SettingsPersonalInformationForm";
 import SettingsAddressForm from "../forms/SettingsAddressForm";
 import React from "react";
@@ -44,6 +45,7 @@ export default function MainTabNavigator() {
         tabBarButton: [
           "OrderView",
           "DishForm",
+          "DrinkForm",
           "SettingsPersonalInformationForm",
           "SettingsAddressForm",
           "OrdersHistory",
@@ -70,6 +72,7 @@ export default function MainTabNavigator() {
 
       <Tab.Screen name="OrderView" component={OrderView} />
       <Tab.Screen name="DishForm" component={DishForm} />
+      <Tab.Screen name="DrinkForm" component={DrinkForm} />
 
       <Tab.Screen
         name="SettingsPersonalInformationForm"

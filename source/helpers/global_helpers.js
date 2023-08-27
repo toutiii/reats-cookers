@@ -1,14 +1,18 @@
-export function getCategories(itemType) {
-  let categoriesObject = {};
-  if (itemType === "Dish") {
-    categoriesObject = [
-      { label: "Entrée", value: "starter" },
-      { label: "Plat principal", value: "main_dish" },
-      { label: "Boisson", value: "drink" },
-      { label: "Dessert", value: "dessert" },
-    ];
-  }
-  return categoriesObject;
+export function getCategories() {
+  return [
+    { label: "Entrée", value: "starter" },
+    { label: "Plat principal", value: "main_dish" },
+    { label: "Boisson", value: "drink" },
+    { label: "Dessert", value: "dessert" },
+  ];
+}
+
+export function getCapacityUnits() {
+  return [
+    { label: "Litre", value: "L" },
+    { label: "Centilitre", value: "cL" },
+    { label: "Millilitre", value: "mL" },
+  ];
 }
 
 export function getDaysOfWeek() {

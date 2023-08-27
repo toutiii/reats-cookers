@@ -164,6 +164,24 @@ export default function DrawerContent(props) {
                   });
                 }}
               />
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="glass-cocktail"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label={
+                  all_constants.drawercontent.drawer_item.label.create_drink
+                }
+                onPress={() => {
+                  props.navigation.navigate("DrinkForm", {
+                    item: {},
+                    new_item: true,
+                  });
+                }}
+              />
             </Drawer.Section>
             <Drawer.Section title="Préférences">
               <DrawerItem

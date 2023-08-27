@@ -233,6 +233,7 @@ export default function Form({ ...props }) {
                   error={validationErrors[key]}
                   onChangeText={onChangeValue}
                   value={newItem[key]}
+                  customSelectValues={props.customSelectValues}
                   showAlert={showAlert}
                   onConfirmPressed={() => {
                     setStateShowAlert(false);
