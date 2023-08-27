@@ -10,10 +10,6 @@ export const all_constants = {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
   },
-  email: {
-    regex:
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  },
   colors: {
     inputBorderColor: "#ffd700",
     login_background_color: ["red", "yellow", "green"],
@@ -31,12 +27,9 @@ export const all_constants = {
     upload_picture: "Ouvrir la galerie",
     errors: {
       title: "Erreur",
-      empty_email: "Veuillez renseigner votre mail",
-      wrong_email_format: "Veuillez entrer un email valide",
     },
     success: {
       title: "Succès",
-      email_sent: "Un email a été envoyé à ",
     },
     failed: {
       title: "Échec",
@@ -118,7 +111,6 @@ export const all_constants = {
       siret: "SIRET",
       order_days: "Prise commande",
       max_order_number: "Nombre max de commandes",
-      email: "Email",
       street_number: "Numéro de rue",
       street_name: "Nom de la rue",
       address_complement: "Complément",
@@ -142,7 +134,6 @@ export const all_constants = {
         country: "Pays d'origine de l'item",
       },
       settings: {
-        email: "Email",
         siret: "Numéro SIRET",
         firstname: "Prénom",
         lastname: "Nom",
@@ -155,9 +146,6 @@ export const all_constants = {
         order_days: "Jours de prise de commandes",
         max_order_number: "Nombre max de plats acceptés",
         image: "Photo de profil",
-      },
-      login: {
-        email: "Email",
       },
     },
   },
@@ -234,7 +222,6 @@ export const all_constants = {
     },
 
     settings: {
-      invalid_email_error: "Veuillez renseigner un email valide.",
       siren_format_error: " doit contenir exactement 9 chiffres sans espace.",
       siret_format_error: " doit contenir exactement 14 chiffres sans espace.",
       phone_format_error: " doit contenir exactement 10 chiffres sans espace.",
@@ -254,6 +241,9 @@ export const all_constants = {
   },
   placeholders: {
     form: {
+      login: {
+        phone: "Votre numéro de téléphone",
+      },
       dishes: {
         dish_category: "Sélectionnez la catégorie de votre item",
         dish_name: "Le nom de votre item",
@@ -273,7 +263,6 @@ export const all_constants = {
         address_complement: "Complément d'adresse",
         postal_code: "Votre code postal",
         town: "Votre ville",
-        email: "Votre email",
         order_days: "Sélectionnez les jours où vous acceptez les commandes",
         max_order_number:
           "Le nombre maximum de plats que vous pouvez préparer à la fois",
@@ -282,9 +271,7 @@ export const all_constants = {
         lastname: "Votre nom de famille",
         phone: "Ex: 0601020304",
       },
-      login: {
-        email: "Votre email",
-      },
+
       order: {
         start_date: "Sélectionnez une date de début",
         end_date: "Sélectionnez une date de fin",
@@ -419,7 +406,6 @@ export const all_constants = {
     order_form: { max_order_number: 2 },
 
     form: {
-      email: 100,
       siret: 14,
       firstname: 50,
       lastname: 50,

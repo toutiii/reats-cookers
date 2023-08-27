@@ -174,10 +174,6 @@ export default function FormField({ ...props }) {
             placeholder={props.field.placeholder}
             keyboardType={props.field.keyboardNumeric ? "numeric" : "default"}
             editable={!props.field.isReadOnly}
-            caretHidden={
-              props.field.label.toLowerCase() === "email" &&
-              Device.manufacturer.toLowerCase() === "xiaomi"
-            }
           />
           {!props.login ? (
             <View>

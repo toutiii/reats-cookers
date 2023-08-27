@@ -12,13 +12,6 @@ export function checkPostalCode(value, fieldLabel) {
   }
 }
 
-export function checkEmailFormat(value) {
-  let emailRegex = all_constants.email.regex;
-  if (!value.match(emailRegex)) {
-    return all_constants.validators.settings.invalid_email_error;
-  }
-}
-
 export function checkNumericFormat(value, fieldLabel) {
   if (typeof value !== "undefined") {
     value = value.toString().trim();

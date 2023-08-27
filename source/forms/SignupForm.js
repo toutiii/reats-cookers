@@ -33,14 +33,6 @@ export default function SignupForm({ ...props }) {
           afterSubmit={handleResult}
           item={{}}
           fields={{
-            email: {
-              fieldIsMandatory: true,
-              type: all_constants.field_type.textinput,
-              label: all_constants.label.form.settings.email,
-              placeholder: all_constants.placeholders.form.settings.email,
-              validators: [checkValueIsDefined, checkEmailFormat],
-              maxLength: all_constants.max_length.form.email,
-            },
             siret: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,

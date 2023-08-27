@@ -3,7 +3,7 @@ import Form from "./Form";
 import all_constants from "../constants";
 import { Text, View } from "react-native";
 import { checkValueIsDefined } from "../validators/global_validators";
-import { checkEmailFormat } from "../validators/settingsform_validators";
+import { checkNumericFormat } from "../validators/settingsform_validators";
 import { setToken } from "../api/token";
 import { CommonActions } from "@react-navigation/native";
 import { callBackEnd } from "../api/callBackend";
@@ -45,12 +45,12 @@ export default function LoginForm({ ...props }) {
           login={true}
           item={{}}
           fields={{
-            email: {
+            phone: {
               type: all_constants.field_type.textinput,
-              label: all_constants.label.form.login.email,
-              placeholder: all_constants.placeholders.form.login.email,
-              validators: [checkValueIsDefined, checkEmailFormat],
-              maxLength: all_constants.max_length.form.email,
+              placeholder: all_constants.placeholders.form.login.phone,
+              keyboardNumeric: true,
+              validators: [checkValueIsDefined, checkNumericFormat],
+              maxLength: all_constants.max_length.form.phone,
             },
           }}
         />

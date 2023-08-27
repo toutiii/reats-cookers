@@ -13,7 +13,7 @@ export default class App extends Component {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="MainDrawerNavigator">
+          <Stack.Navigator initialRouteName="LoginForm">
             <Stack.Screen
               name="LoginForm"
               component={LoginForm}
