@@ -310,8 +310,7 @@ export const all_constants = {
     },
     form: {
       title: "ATTENTION",
-      message:
-        "Quitter le formulaire et revenir en arrière ? (vos modifications seront toujours présentes tant que vous ne sélectionnez pas un autre formulaire).",
+      message: "Quitter le formulaire et revenir en arrière ?",
       disable_item_message:
         "En désactivant un plat, celui-ci ne sera pas supprimé mais ne sera plus visible des clients.",
       remove_item_message: "Supprimer définitivement cet item ?",
@@ -362,6 +361,20 @@ export const all_constants = {
   },
   drawercontent: {
     logout: "Déconnexion",
+    hello: "Bonjour ",
+
+    drawer_item: {
+      label: {
+        history: "Historique commandes",
+        create_dish: "Ajouter un plat",
+        orders: "Mes commandes",
+        account: "Mon compte",
+        localization: "Ma localisation",
+      },
+      orders_history: {
+        title: "Mes anciennes commandes",
+      },
+    },
   },
   search_modal: {
     default_button_label: "OK",

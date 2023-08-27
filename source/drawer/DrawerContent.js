@@ -47,7 +47,7 @@ export default function DrawerContent(props) {
   return (
     <View style={{ flex: 1 }}>
       {requesting ? (
-        <View style={{ flex: 1, justifyContent: "center" }}>
+        <View style={{ flex: 1 }}>
           <ActivityIndicator animating={true} color="tomato" />
         </View>
       ) : (
@@ -56,7 +56,7 @@ export default function DrawerContent(props) {
             style={[
               styles.drawerContent,
               {
-                backgroundColor: paperTheme.colors.surface,
+                backgroundColor: "white",
               },
             ]}
           >
@@ -102,7 +102,7 @@ export default function DrawerContent(props) {
                 />
               </TouchableOpacity>
               <Title style={styles.title}>
-                Bonjour{" "}
+                {all_constants.drawercontent.hello}
                 {userData["personal_infos_section"]["data"]["firstname"]}
               </Title>
             </View>
@@ -136,7 +136,11 @@ export default function DrawerContent(props) {
                     </Text>
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Switch onValueChange={onToggleSwitch} value={online} />
+                    <Switch
+                      onValueChange={onToggleSwitch}
+                      value={online}
+                      color={"green"}
+                    />
                   </View>
                 </View>
               </TouchableRipple>
@@ -150,7 +154,9 @@ export default function DrawerContent(props) {
                     size={size}
                   />
                 )}
-                label="Ajouter un plat"
+                label={
+                  all_constants.drawercontent.drawer_item.label.create_dish
+                }
                 onPress={() => {
                   props.navigation.navigate("DishForm", {
                     item: userData["order_infos_section"]["data"],
@@ -168,7 +174,7 @@ export default function DrawerContent(props) {
                     size={size}
                   />
                 )}
-                label="Commandes"
+                label={all_constants.drawercontent.drawer_item.label.orders}
                 onPress={() => {
                   props.navigation.navigate("SettingsOrderInformationForm", {
                     item: userData["order_infos_section"]["data"],
@@ -183,7 +189,7 @@ export default function DrawerContent(props) {
                     size={size}
                   />
                 )}
-                label="Compte"
+                label={all_constants.drawercontent.drawer_item.label.account}
                 onPress={() => {
                   props.navigation.navigate("SettingsPersonalInformationForm", {
                     item: userData["personal_infos_section"]["data"],
@@ -198,11 +204,26 @@ export default function DrawerContent(props) {
                     size={size}
                   />
                 )}
-                label="Localisation"
+                label={
+                  all_constants.drawercontent.drawer_item.label.localization
+                }
                 onPress={() => {
                   props.navigation.navigate("SettingsAddressForm", {
                     item: userData["address_section"]["data"],
                   });
+                }}
+              />
+              <DrawerItem
+                icon={({ color, size }) => (
+                  <MaterialCommunityIcons
+                    name="history"
+                    color={color}
+                    size={size}
+                  />
+                )}
+                label={all_constants.drawercontent.drawer_item.label.history}
+                onPress={() => {
+                  props.navigation.navigate("OrdersHistory");
                 }}
               />
             </Drawer.Section>
@@ -236,10 +257,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userInfoSection: {
-    paddingLeft: 20,
+    paddingLeft: "7%",
   },
   title: {
-    marginTop: 10,
+    marginTop: "2%",
     fontWeight: "bold",
   },
 });

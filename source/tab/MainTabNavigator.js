@@ -10,6 +10,7 @@ import Dashboard from "../views/Dashboard";
 import all_constants from "../constants";
 import DishFlatlistStackNavigator from "../stack/DishFlatlistStackNavigator";
 import OrderFlatlistStackNavigator from "../stack/OrderFlatlistStackNavigator";
+import OrdersHistoryStackNavigator from "../stack/OrdersHistoryStackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -47,6 +48,7 @@ export default function MainTabNavigator() {
           "SettingsPersonalInformationForm",
           "SettingsAddressForm",
           "SettingsOrderInformationForm",
+          "OrdersHistory",
         ].includes(route.name)
           ? () => {
               return null;
@@ -79,6 +81,10 @@ export default function MainTabNavigator() {
       <Tab.Screen
         name="SettingsOrderInformationForm"
         component={SettingsOrderInformationForm}
+      />
+      <Tab.Screen
+        name="OrdersHistory"
+        component={OrdersHistoryStackNavigator}
       />
     </Tab.Navigator>
   );

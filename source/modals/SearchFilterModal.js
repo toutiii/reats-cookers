@@ -141,7 +141,7 @@ export default function SearchFilterModal(props) {
                   mode="outlined"
                   value={
                     props.startDate === null
-                      ? "-"
+                      ? all_constants.search_modal.start_date
                       : format(props.startDate, "dd/LL/yyyy")
                   }
                 />
@@ -178,7 +178,7 @@ export default function SearchFilterModal(props) {
                   mode="outlined"
                   value={
                     props.endDate === null
-                      ? "-"
+                      ? all_constants.search_modal.end_date
                       : format(props.endDate, "dd/LL/yyyy")
                   }
                 />
