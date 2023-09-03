@@ -249,8 +249,7 @@ export const all_constants = {
         dish_name: "Le nom de votre item",
         dish_price: "Il s'agit ici du prix TTC affiché aux clients",
         dish_description: "Une courte description de votre item",
-        dish_country:
-          "Pas obligatoire mais très recommandé, surtout pour les plats",
+        dish_country: "Origine du plat",
       },
       drinks: {
         drink_bottle_capacity: "Ex: 33",

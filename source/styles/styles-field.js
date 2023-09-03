@@ -37,6 +37,7 @@ export default styles_field = StyleSheet.create({
   picker_container: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#fff",
     elevation: 20,
     width: "100%",

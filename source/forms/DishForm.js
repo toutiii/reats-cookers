@@ -7,7 +7,7 @@ import {
   checkValueNotContainsSpecialChar,
   valueIsValidPrice,
 } from "../validators/global_validators";
-import { callBackEnd } from "../api/callBackend";
+import { callBackendWithFormDataForDishes } from "../api/callBackend";
 import { getCategories } from "../helpers/global_helpers";
 
 export default function DishForm({ ...props }) {
@@ -22,8 +22,8 @@ export default function DishForm({ ...props }) {
     <View style={{ flex: 1 }}>
       <View style={{ flex: 2, marginTop: "10%" }}>
         <Form
-          action={callBackEnd}
-          url={all_constants.uri.api.mock}
+          action={callBackendWithFormDataForDishes}
+          url={"http://192.168.1.82:8000/api/v1/dishes/"}
           method={"POST"}
           navigation={props.navigation}
           afterSubmit={handleResult}
@@ -36,7 +36,7 @@ export default function DishForm({ ...props }) {
           third_button_label={all_constants.label.dishes.disable_dish}
           fourth_button_label={all_constants.label.dishes.remove_dish}
           fields={{
-            dish_category: {
+            category: {
               fieldIsMandatory: true,
               type: all_constants.field_type.select,
               label: all_constants.label.form.dishes.category,
@@ -44,7 +44,7 @@ export default function DishForm({ ...props }) {
               validators: [checkValueIsDefined],
               selectValues: getCategories(),
             },
-            dish_name: {
+            name: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               maxLength: all_constants.max_length.dish_form.dish_name,
@@ -61,7 +61,7 @@ export default function DishForm({ ...props }) {
               label: all_constants.label.form.dishes.image,
               validators: [checkValueIsDefined],
             },
-            dish_price: {
+            price: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               maxLength: all_constants.max_length.dish_form.dish_price,
@@ -70,7 +70,7 @@ export default function DishForm({ ...props }) {
               keyboardNumeric: true,
               validators: [checkValueIsDefined, valueIsValidPrice],
             },
-            dish_description: {
+            description: {
               type: all_constants.field_type.textarea,
               maxLength: all_constants.max_length.dish_form.dish_description,
               label: all_constants.label.form.dishes.description,
@@ -78,7 +78,8 @@ export default function DishForm({ ...props }) {
                 all_constants.placeholders.form.dishes.dish_description,
               validators: [checkValueNotContainsSpecialChar],
             },
-            dish_country: {
+            country: {
+              fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               maxLength: all_constants.max_length.dish_form.dish_country,
               label: all_constants.label.form.dishes.country,

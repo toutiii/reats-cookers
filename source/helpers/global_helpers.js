@@ -2,7 +2,6 @@ export function getCategories() {
   return [
     { label: "Entrée", value: "starter" },
     { label: "Plat principal", value: "main_dish" },
-    { label: "Boisson", value: "drink" },
     { label: "Dessert", value: "dessert" },
   ];
 }

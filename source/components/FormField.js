@@ -56,7 +56,7 @@ export default function FormField({ ...props }) {
     setPicUri(props.itemObject.photo);
   }, [props.itemObject]);
   useEffect(() => {
-    setCategory(props.newItem.dish_category);
+    setCategory(props.newItem.category);
   }, [props.newItem]);
   const options = {
     allowsEditing: true,
@@ -73,9 +73,10 @@ export default function FormField({ ...props }) {
         setStateShowAlert(true);
       } else {
         let result = await ImagePicker.launchImageLibraryAsync({ options });
+
         if (!result.canceled) {
-          setPicUri(result.assets.uri);
-          props.newItem["photo"] = result.assets.uri;
+          setPicUri(result.assets[0].uri);
+          props.newItem["photo"] = result.assets[0].uri;
         }
       }
     }
@@ -89,8 +90,8 @@ export default function FormField({ ...props }) {
       } else {
         let result = await ImagePicker.launchCameraAsync({ options });
         if (!result.canceled) {
-          setPicUri(result.assets.uri);
-          props.newItem["photo"] = result.assets.uri;
+          setPicUri(result.assets[0].uri);
+          props.newItem["photo"] = result.assets[0].uri;
         }
       }
     }
@@ -207,7 +208,7 @@ export default function FormField({ ...props }) {
             }
             items={props.field.selectValues}
             textInputProps={{
-              fontSize: props.value ? 18 : 16,
+              fontSize: props.value ? 16 : 16,
               color: props.value ? "black" : "gray",
             }}
           />

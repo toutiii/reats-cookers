@@ -22,3 +22,9 @@ export async function callBackEnd(data, url, method) {
     return false;
   }
 }
+
+export async function callBackendWithFormDataForDishes(data, url, method) {
+  data.cooker = 1;
+  console.log(data);
+  return callBackEnd(data, url, method);
+}
