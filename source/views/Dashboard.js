@@ -11,7 +11,6 @@ import {
 import { BarChart, PieChart } from "react-native-gifted-charts";
 import { Divider, TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { getUserSettings } from "../helpers/settings_helpers";
 import Modal from "react-native-modal";
 import all_constants from "../constants";
 
@@ -112,15 +111,10 @@ export default function Dashboard(props) {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    fadeOut();
     setTimeout(() => {
-      async function getData() {
-        await getUserSettings();
-      }
-      getData();
+      console.log("TODO !");
       setRefreshing(false);
-      fadeIn();
-    }, 5000);
+    }, 500);
   }, [refreshing]);
 
   const renderDot = (color) => {

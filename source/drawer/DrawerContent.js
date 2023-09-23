@@ -1,10 +1,9 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import {
   ActivityIndicator,
-  Avatar,
   Drawer,
   Switch,
   Text,
@@ -15,14 +14,14 @@ import {
 import Animated from "react-native-reanimated";
 import CustomAlert from "../components/CustomAlert";
 import all_constants from "../constants";
-import { getUserSettings } from "../helpers/settings_helpers";
+import { callBackEndGET } from "../api/callBackend";
 
 export default function DrawerContent(props) {
   const paperTheme = useTheme();
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
   const [online, isOnline] = React.useState(false); // TODO: this value will come from the back
-  const [userData, getUserData] = React.useState(null);
+  const [userData, setUserData] = React.useState(null);
   const [requesting, isRequesting] = React.useState(true);
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
@@ -33,8 +32,11 @@ export default function DrawerContent(props) {
     if (requesting) {
       console.log("Fetching data to feed drawer content");
       async function getData() {
-        const data = await getUserSettings();
-        getUserData(data);
+        const result = await callBackEndGET(
+          "http://192.168.1.82:8000/api/v1/cookers/1/"
+        );
+        setUserData(result.data);
+        isRequesting(false);
       }
       getData();
     }
@@ -42,12 +44,14 @@ export default function DrawerContent(props) {
     return () => {
       isRequesting(false);
     };
-  }, [userData]);
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
       {requesting ? (
-        <View style={{ flex: 1 }}>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
           <ActivityIndicator animating={true} color="tomato" />
         </View>
       ) : (
@@ -96,14 +100,16 @@ export default function DrawerContent(props) {
                   props.navigation.toggleDrawer();
                 }}
               >
-                <Avatar.Image
-                  source={require("../images/mum_test.jpg")}
-                  size={60}
+                <Image
+                  source={{
+                    uri: userData.personal_infos_section.data.photo,
+                  }}
+                  style={{ width: 70, height: 70, borderRadius: 150 / 2 }}
                 />
               </TouchableOpacity>
               <Title style={styles.title}>
                 {all_constants.drawercontent.hello}
-                {userData["personal_infos_section"]["data"]["firstname"]}
+                {userData.personal_infos_section.data.firstname}
               </Title>
             </View>
 
@@ -195,7 +201,7 @@ export default function DrawerContent(props) {
                 label={all_constants.drawercontent.drawer_item.label.account}
                 onPress={() => {
                   props.navigation.navigate("SettingsPersonalInformationForm", {
-                    item: userData["personal_infos_section"]["data"],
+                    item: userData.personal_infos_section.data,
                   });
                 }}
               />
@@ -212,7 +218,7 @@ export default function DrawerContent(props) {
                 }
                 onPress={() => {
                   props.navigation.navigate("SettingsAddressForm", {
-                    item: userData["address_section"]["data"],
+                    item: userData.address_section.data,
                   });
                 }}
               />

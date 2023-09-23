@@ -1,11 +1,6 @@
-const sleep = (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
-
 export async function callBackEnd(data, url, method, useFormData = false) {
   console.log(data);
   console.log(useFormData);
-  await sleep(300);
 
   let response = "";
   let headers = { Accept: "application/json" };
@@ -27,6 +22,23 @@ export async function callBackEnd(data, url, method, useFormData = false) {
     });
     response = await response.json();
     console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export async function callBackEndGET(url) {
+  let response = "";
+
+  try {
+    response = await fetch(url, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
+    response = await response.json();
+    console.log(response.data);
     return response;
   } catch (error) {
     console.log(error);
