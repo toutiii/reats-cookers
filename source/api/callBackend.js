@@ -66,3 +66,27 @@ export async function callBackendWithFormDataForDishes(data, url, method) {
 
   return callBackEnd(formData, url, method, (useFormData = true));
 }
+
+export async function callBackendWithFormDataForCookers(data, url, method) {
+  let formData = new FormData();
+
+  const fileName = data.photo.split("/").pop();
+  const fileExtension = fileName.split(".").pop();
+
+  formData.append("photo", {
+    uri: data.photo,
+    name: fileName,
+    type: `image/${fileExtension}`,
+  });
+  formData.append("address_complement", data.address_complement);
+  formData.append("firstname", data.firstname);
+  formData.append("lastname", data.lastname);
+  formData.append("phone", data.phone);
+  formData.append("postal_code", data.postal_code);
+  formData.append("siret", data.siret);
+  formData.append("street_name", data.street_name);
+  formData.append("street_number", data.street_number);
+  formData.append("town", data.town);
+
+  return callBackEnd(formData, url, method, (useFormData = true));
+}

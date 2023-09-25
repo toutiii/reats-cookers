@@ -7,11 +7,10 @@ import {
   checkValueNotContainsSpecialChar,
 } from "../validators/global_validators";
 import {
-  checkEmailFormat,
   checkNumericFormat,
   checkPostalCode,
 } from "../validators/settingsform_validators";
-import { callBackEnd } from "../api/callBackend";
+import { callBackendWithFormDataForCookers } from "../api/callBackend";
 
 export default function SignupForm({ ...props }) {
   const handleResult = async (result) => {
@@ -26,8 +25,8 @@ export default function SignupForm({ ...props }) {
     <View style={{ flex: 1 }}>
       <View style={{ flex: 2 }}>
         <Form
-          action={callBackEnd}
-          url={"http://10.0.2.2:8000/api/v1/cookers/"}
+          action={callBackendWithFormDataForCookers}
+          url={"http://192.168.1.82:8000/api/v1/cookers/"}
           method={"POST"}
           navigation={props.navigation}
           afterSubmit={handleResult}
@@ -123,6 +122,10 @@ export default function SignupForm({ ...props }) {
                 checkValueNotContainsSpecialChar,
               ],
               maxLength: all_constants.max_length.form.town,
+            },
+            photo: {
+              type: all_constants.field_type.image,
+              label: all_constants.label.form.settings.image,
             },
           }}
         />
