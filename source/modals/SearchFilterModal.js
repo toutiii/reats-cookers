@@ -1,7 +1,10 @@
 import React from "react";
 import Modal from "react-native-modal";
 import { Button, Platform, View } from "react-native";
-import { MultipleSelectList } from "react-native-dropdown-select-list";
+import {
+  MultipleSelectList,
+  SelectList,
+} from "react-native-dropdown-select-list";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { TextInput } from "react-native-paper";
@@ -12,8 +15,8 @@ import all_constants from "../constants";
 
 export default function SearchFilterModal(props) {
   const activeFilterData = [
-    { key: "1", value: "ACTIFS" },
-    { key: "2", value: "INACTIFS" },
+    { key: true, value: "ACTIFS" },
+    { key: false, value: "INACTIFS" },
   ];
   const orderStateFilterData = [
     { key: "1", value: "ready" },
@@ -24,10 +27,9 @@ export default function SearchFilterModal(props) {
   ];
 
   const dishCategoriesData = [
-    { key: "1", value: "starter" },
-    { key: "2", value: "dish" },
-    { key: "3", value: "dessert" },
-    { key: "4", value: "drink" },
+    { key: "starter", value: "Entrée" },
+    { key: "dish", value: "Plat principal" },
+    { key: "dessert", value: "Dessert" },
   ];
 
   const datePickerMode = "startDate";
@@ -104,11 +106,11 @@ export default function SearchFilterModal(props) {
       <View style={{ flex: 1, backgroundColor: "white", padding: 10 }}>
         <View style={{ flex: 7 }}>
           {props.enableActiveFilter && (
-            <MultipleSelectList
+            <SelectList
               key={keyMultipleSelectActiveFilter}
               setSelected={(val) => props.stateSearchData(val)}
               data={activeFilterData}
-              save="value"
+              save="key"
               placeholder={all_constants.search_modal.state_item}
             />
           )}
@@ -127,7 +129,7 @@ export default function SearchFilterModal(props) {
               key={keyMultipleSelectOrderStateFilter}
               setSelected={(val) => props.dishCategoriesData(val)}
               data={dishCategoriesData}
-              save="value"
+              save="key"
               placeholder={all_constants.search_modal.dish_categories}
             />
           )}

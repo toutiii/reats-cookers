@@ -7,7 +7,12 @@ export default function Dish({ ...props }) {
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 2 }}>
-        <Image source={{ uri: props.dish_photo }} style={styles_dish.images} />
+        <Image
+          source={{
+            uri: props.dish_photo,
+          }}
+          style={styles_dish.images}
+        />
       </View>
       <View style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>

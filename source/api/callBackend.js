@@ -1,5 +1,7 @@
 export async function callBackEnd(data, url, method, useFormData = false) {
   console.log(data);
+  console.log(url);
+  console.log(method);
   console.log(useFormData);
 
   let response = "";

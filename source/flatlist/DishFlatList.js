@@ -10,17 +10,17 @@ import {
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Dish from "../components/Dish";
-import { getDishes } from "../helpers/dish_helpers";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
+import { callBackEndGET } from "../api/callBackend";
 
 export default function DishFlatList({ ...props }) {
   const [isSearchFilterModalVisible, setSearchFilterModalVisible] =
     React.useState(false);
 
-  const [selectedStates, setSelectedStates] = React.useState([]);
+  const [selectedState, setSelectedState] = React.useState(null);
   const [selectedDishCategories, setSelectedDishCategories] = React.useState(
     []
   );
@@ -55,6 +55,7 @@ export default function DishFlatList({ ...props }) {
   };
 
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchURL, setSearchURL] = React.useState("");
 
   const onChangeSearch = (query) => {
     console.log(query);
@@ -62,11 +63,7 @@ export default function DishFlatList({ ...props }) {
       setSearchQuery("");
     }
 
-    if (
-      query.length > 0 &&
-      query.length <= maxInputLength &&
-      query.charCodeAt(query.slice(-1)) <= 127
-    ) {
+    if (query.length > 0 && query.length <= maxInputLength) {
       setSearchQuery(query.replace("  ", ""));
     }
 
@@ -78,52 +75,70 @@ export default function DishFlatList({ ...props }) {
     }
   };
 
-  const updateSearchingStatus = () => {
-    setIsFetchingData(!isFetchingData);
-  };
-
   React.useEffect(() => {
     if (isFetchingData) {
       fadeOut();
-
       setTimeout(() => {
         async function fetchDataFromBackend() {
-          const results = await getDishes();
+          console.log(searchURL);
+          const results = await callBackEndGET(searchURL);
+          console.log(results);
           setData(results.data);
         }
         fetchDataFromBackend();
-        updateSearchingStatus();
+        setIsFetchingData(false);
         resetFilters();
         setRunSearchByTextInput(false);
         setOneSearchHasBeenRun(true);
         fadeIn();
-      }, 5000);
+      }, 200);
     }
-  }, [isFetchingData]);
+  }, [searchURL]);
 
   React.useEffect(() => {
     if (runSearchByTextInput) {
       const delayDebounceFn = setTimeout(() => {
-        updateSearchingStatus();
+        setIsFetchingData(true);
+        buildSearchUrl();
       }, delaySearch);
 
       return () => clearTimeout(delayDebounceFn);
     }
-  }, [runSearchByTextInput]);
+  }, [searchQuery]);
 
   const onPressFilter = () => {
     toggleSearchFilterModal();
 
-    if (selectedStates.length !== 0 || selectedDishCategories.length !== 0) {
-      console.log(selectedStates);
+    if (selectedState !== null || selectedDishCategories.length !== 0) {
+      console.log(selectedState);
       console.log(selectedDishCategories);
       console.log(searchQuery);
-      updateSearchingStatus();
+      setIsFetchingData(true);
+      buildSearchUrl();
     }
   };
 
+  const buildSearchUrl = () => {
+    let queryParams = "";
+    let baseURL = "http://192.168.1.82:8000/api/v1/dishes?";
+
+    if (searchQuery.length > 0) {
+      queryParams += `name=${searchQuery}`;
+    }
+
+    if (selectedDishCategories.length !== 0) {
+      queryParams += `&category=${selectedDishCategories}`;
+    }
+
+    if (selectedState !== null) {
+      queryParams += `&is_enabled=${selectedState}`;
+    }
+    let searchURL = baseURL + queryParams;
+    setSearchURL(searchURL.replace("?&", "?"));
+  };
+
   const resetFilters = () => {
-    setSelectedStates([]);
+    setSelectedState(null);
     setSelectedDishCategories([]);
   };
 
@@ -137,7 +152,7 @@ export default function DishFlatList({ ...props }) {
           enableDishCategories={true}
           isModalVisible={isSearchFilterModalVisible}
           toggleModal={toggleSearchFilterModal}
-          stateSearchData={setSelectedStates}
+          stateSearchData={setSelectedState}
           dishCategoriesData={setSelectedDishCategories}
           onPressFilter={onPressFilter}
           onPressClear={resetFilters}
@@ -244,11 +259,11 @@ export default function DishFlatList({ ...props }) {
                   <Dish
                     key={item.id}
                     dish_photo={item.photo}
-                    dish_name={item.dish_name}
-                    dish_category={item.dish_category}
-                    dish_rating={item.dish_rating}
-                    dish_price={item.dish_price + all_constants.currency_symbol}
-                    dish_description={item.dish_description}
+                    dish_name={item.name}
+                    dish_category={item.category}
+                    dish_rating={item.rating ? item.rating : "-/-"}
+                    dish_price={item.price + all_constants.currency_symbol}
+                    dish_description={item.description}
                     onPress={item.onPress}
                   />
                 </TouchableHighlight>
