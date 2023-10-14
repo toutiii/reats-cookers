@@ -97,7 +97,6 @@ export default function Form({ ...props }) {
       setApiOkResponse(result.ok);
       fadeIn();
       setStateShowAlert(true);
-      await props.afterSubmit(result);
     } catch (e) {
       setErrorMessage(e.message);
       fadeIn();
@@ -140,6 +139,7 @@ export default function Form({ ...props }) {
               confirmButtonColor="green"
               onConfirmPressed={() => {
                 setStateShowAlert(false);
+                props.navigation.goBack(null);
               }}
             />
           )}

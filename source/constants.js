@@ -305,7 +305,8 @@ export const all_constants = {
       title: "ATTENTION",
       message: "Quitter le formulaire et revenir en arrière ?",
       disable_item_message:
-        "En désactivant un plat, celui-ci ne sera pas supprimé mais ne sera plus visible des clients.",
+        "En désactivant un plat, celui-ci ne sera pas supprimé mais ne sera plus visible des clients. \n" +
+        "Notez que vous pourrez toujours le réactiver plus tard.",
       remove_item_message: "Supprimer définitivement cet item ?",
     },
     orderview: {

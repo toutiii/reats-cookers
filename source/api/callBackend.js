@@ -49,22 +49,30 @@ export async function callBackEndGET(url) {
 }
 
 export async function callBackendWithFormDataForDishes(data, url, method) {
+  console.log(data);
   let formData = new FormData();
 
   const fileName = data.photo.split("/").pop();
   const fileExtension = fileName.split(".").pop();
 
-  formData.append("photo", {
-    uri: data.photo,
-    name: fileName,
-    type: `image/${fileExtension}`,
-  });
+  if (data.photo.startsWith("file:///")) {
+    formData.append("photo", {
+      uri: data.photo,
+      name: fileName,
+      type: `image/${fileExtension}`,
+    });
+  }
   formData.append("category", data.category);
   formData.append("name", data.name);
   formData.append("country", data.country);
   formData.append("description", data.description);
   formData.append("price", data.price);
-  formData.append("cooker", 1);
+  formData.append("cooker", 1); //TODO: Fetch from AsyncStorage when authent is OK
+
+  if (data.id !== undefined) {
+    url += data.id + "/";
+    method = "PUT";
+  }
 
   return callBackEnd(formData, url, method, (useFormData = true));
 }
