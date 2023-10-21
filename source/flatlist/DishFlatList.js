@@ -29,10 +29,16 @@ export default function DishFlatList({ ...props }) {
   const [data, setData] = React.useState([]);
   const [runSearchByTextInput, setRunSearchByTextInput] = React.useState(false);
   const [oneSearchHasBeenRun, setOneSearchHasBeenRun] = React.useState(false);
+  const [refreshData, setRefreshData] = React.useState(false);
 
   const minLengthToTriggerSearch = 3;
   const maxInputLength = 100;
   const delaySearch = 2000;
+
+  const changeRefreshDataState = (value) => {
+    setRefreshData(value);
+    setIsFetchingData(value);
+  };
 
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
@@ -90,10 +96,11 @@ export default function DishFlatList({ ...props }) {
         resetFilters();
         setRunSearchByTextInput(false);
         setOneSearchHasBeenRun(true);
+        setRefreshData(false);
         fadeIn();
       }, 200);
     }
-  }, [searchURL]);
+  }, [searchURL, refreshData]);
 
   React.useEffect(() => {
     if (runSearchByTextInput) {
@@ -262,6 +269,7 @@ export default function DishFlatList({ ...props }) {
                       "DishFlatlistStackNavigatorDishFormView",
                       {
                         item: item,
+                        refreshDataStateChanger: changeRefreshDataState,
                       }
                     );
                   }}
@@ -276,6 +284,7 @@ export default function DishFlatList({ ...props }) {
                     dish_rating={item.rating ? item.rating : "-/-"}
                     dish_price={item.price + all_constants.currency_symbol}
                     dish_description={item.description}
+                    is_enabled={item.is_enabled}
                     onPress={item.onPress}
                   />
                 </TouchableHighlight>

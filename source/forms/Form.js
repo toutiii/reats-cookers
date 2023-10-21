@@ -28,6 +28,8 @@ export default function Form({ ...props }) {
 
   const [newItem, setValues] = useState(props.item);
 
+  const [newItemCopy, setNewImteCopy] = useState(props.item);
+
   //To be sure to reset form initial content when we press on a flatlist item.
   useEffect(() => {
     setValues(props.item);
@@ -111,6 +113,7 @@ export default function Form({ ...props }) {
     setErrorMessage("");
     fadeOut();
     try {
+      newItem.is_enabled = false;
       const result = await props.action(
         newItem,
         props.url,
@@ -135,6 +138,7 @@ export default function Form({ ...props }) {
     setErrorMessage("");
     fadeOut();
     try {
+      newItemCopy.to_delete = true;
       const result = await props.action(newItem, props.url, "DELETE");
 
       setApiOkResponse(result.ok);
@@ -182,6 +186,10 @@ export default function Form({ ...props }) {
               confirmButtonColor="green"
               onConfirmPressed={() => {
                 setStateShowAlert(false);
+                if (JSON.stringify(newItem) !== JSON.stringify(newItemCopy)) {
+                  props.refreshDataStateChanger(true);
+                }
+
                 props.navigation.goBack(null);
               }}
             />
