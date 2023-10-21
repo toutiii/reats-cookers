@@ -104,6 +104,30 @@ export default function Form({ ...props }) {
     setSubmitting(false);
   };
 
+  const disableItemAction = async () => {
+    setDisableState(false);
+    setStateShowAlert(false);
+    setSubmitting(true);
+    setErrorMessage("");
+    fadeOut();
+    try {
+      const result = await props.action(
+        newItem,
+        props.url,
+        props.method,
+        (is_enabled = false)
+      );
+
+      setApiOkResponse(result.ok);
+      fadeIn();
+      setStateShowAlert(true);
+    } catch (e) {
+      setErrorMessage(e.message);
+      fadeIn();
+    }
+    setSubmitting(false);
+  };
+
   const cancel = () => {
     setWantToGoBack(true);
     setStateShowAlert(true);
@@ -172,11 +196,7 @@ export default function Form({ ...props }) {
               showCancelButton={true}
               cancelButtonColor="red"
               cancelText={all_constants.custom_alert.homeview.cancel_text}
-              onConfirmPressed={() => {
-                setDisableState(false);
-                setStateShowAlert(false);
-                console.log("TO DO !");
-              }}
+              onConfirmPressed={disableItemAction}
               onCancelPressed={() => {
                 setDisableState(false);
                 setStateShowAlert(false);

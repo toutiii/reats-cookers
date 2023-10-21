@@ -48,30 +48,43 @@ export async function callBackEndGET(url) {
   }
 }
 
-export async function callBackendWithFormDataForDishes(data, url, method) {
+export async function callBackendWithFormDataForDishes(
+  data,
+  url,
+  method,
+  is_enabled = null
+) {
   console.log(data);
   let formData = new FormData();
 
-  const fileName = data.photo.split("/").pop();
-  const fileExtension = fileName.split(".").pop();
+  if (is_enabled !== null) {
+    formData.append("is_enabled", is_enabled);
+  } else {
+    const fileName = data.photo.split("/").pop();
+    const fileExtension = fileName.split(".").pop();
 
-  if (data.photo.startsWith("file:///")) {
-    formData.append("photo", {
-      uri: data.photo,
-      name: fileName,
-      type: `image/${fileExtension}`,
-    });
+    if (data.photo.startsWith("file:///")) {
+      formData.append("photo", {
+        uri: data.photo,
+        name: fileName,
+        type: `image/${fileExtension}`,
+      });
+    }
+    formData.append("category", data.category);
+    formData.append("name", data.name);
+    formData.append("country", data.country);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("cooker", 1); //TODO: Fetch from AsyncStorage when authent is OK
   }
-  formData.append("category", data.category);
-  formData.append("name", data.name);
-  formData.append("country", data.country);
-  formData.append("description", data.description);
-  formData.append("price", data.price);
-  formData.append("cooker", 1); //TODO: Fetch from AsyncStorage when authent is OK
 
   if (data.id !== undefined) {
     url += data.id + "/";
-    method = "PUT";
+    if (is_enabled === null) {
+      method = "PUT";
+    } else {
+      method = "PATCH";
+    }
   }
 
   return callBackEnd(formData, url, method, (useFormData = true));
