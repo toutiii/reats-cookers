@@ -128,6 +128,25 @@ export default function Form({ ...props }) {
     setSubmitting(false);
   };
 
+  const removeItemAction = async () => {
+    setRemoveState(false);
+    setStateShowAlert(false);
+    setSubmitting(true);
+    setErrorMessage("");
+    fadeOut();
+    try {
+      const result = await props.action(newItem, props.url, "DELETE");
+
+      setApiOkResponse(result.ok);
+      fadeIn();
+      setStateShowAlert(true);
+    } catch (e) {
+      setErrorMessage(e.message);
+      fadeIn();
+    }
+    setSubmitting(false);
+  };
+
   const cancel = () => {
     setWantToGoBack(true);
     setStateShowAlert(true);
@@ -212,11 +231,7 @@ export default function Form({ ...props }) {
               showCancelButton={true}
               cancelButtonColor="red"
               cancelText={all_constants.custom_alert.homeview.cancel_text}
-              onConfirmPressed={() => {
-                setRemoveState(false);
-                setStateShowAlert(false);
-                console.log("TO DO REMOVE!");
-              }}
+              onConfirmPressed={removeItemAction}
               onCancelPressed={() => {
                 setRemoveState(false);
                 setStateShowAlert(false);

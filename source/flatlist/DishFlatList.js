@@ -230,6 +230,18 @@ export default function DishFlatList({ ...props }) {
         >
           <FlatList
             data={data}
+            ItemSeparatorComponent={
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#C8C8C8",
+                  height: 2.5,
+                  marginLeft: "10%",
+                  marginRight: "10%",
+                }}
+              />
+            }
             ListEmptyComponent={
               <View
                 style={{

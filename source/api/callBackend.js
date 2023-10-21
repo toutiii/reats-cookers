@@ -57,6 +57,11 @@ export async function callBackendWithFormDataForDishes(
   console.log(data);
   let formData = new FormData();
 
+  if (method === "DELETE") {
+    url += data.id + "/";
+    return callBackEnd(formData, url, method);
+  }
+
   if (is_enabled !== null) {
     formData.append("is_enabled", is_enabled);
   } else {

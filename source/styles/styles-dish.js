@@ -14,9 +14,6 @@ export default styles_dish = StyleSheet.create({
     paddingLeft: "2%",
     paddingRight: "2%",
   },
-  images: {
-    flex: 1,
-  },
   dish_infos: {
     flex: 1,
     alignItems: "flex-end",
@@ -26,18 +23,19 @@ export default styles_dish = StyleSheet.create({
   },
   dish_price: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    justifyContent: "center",
+    alignItems: "flex-start",
   },
   dish_name: {
     flex: 1,
-    justifyContent: "flex-end",
+    justifyContent: "center",
+    alignItems: "center",
   },
   dish_rating: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-end",
-    alignItems: "flex-start",
+    alignItems: "center",
   },
   rating_star: {
     width: 20,
