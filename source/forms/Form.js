@@ -196,7 +196,9 @@ export default function Form({ ...props }) {
               onConfirmPressed={() => {
                 setStateShowAlert(false);
                 if (JSON.stringify(newItem) !== JSON.stringify(newItemCopy)) {
-                  props.refreshDataStateChanger(true);
+                  if (props.refreshDataStateChanger !== undefined) {
+                    props.refreshDataStateChanger(true);
+                  }
                 }
 
                 props.navigation.goBack(null);

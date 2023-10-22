@@ -7,27 +7,19 @@ import {
   checkValueNotContainsSpecialChar,
 } from "../validators/global_validators";
 import { checkNumericFormat } from "../validators/settingsform_validators";
-import { callBackEnd } from "../api/callBackend";
+import { callBackendWithFormDataForCookers } from "../api/callBackend";
 import { checkMaxDishesNumber } from "../validators/settingsform_validators";
 
 export default function SettingsPersonalInformationForm({ ...props }) {
-  const handleResult = async (result) => {
-    if (result.ok) {
-      props.navigation.goBack(null);
-    } else {
-      throw new Error("Failed.");
-    }
-  };
-
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 2, marginTop: "10%" }}>
         <Form
-          action={callBackEnd}
-          url={all_constants.uri.api.mock}
-          method={"POST"}
+          action={callBackendWithFormDataForCookers}
+          url={"http://192.168.1.82:8000/api/v1/cookers/"}
+          method={"PATCH"}
           navigation={props.navigation}
-          afterSubmit={handleResult}
+          refreshDataStateChanger={props.route.params.refreshDataStateChanger}
           item={props.route.params.item}
           fields={{
             photo: {
@@ -76,6 +68,7 @@ export default function SettingsPersonalInformationForm({ ...props }) {
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkNumericFormat],
               maxLength: all_constants.max_length.form.phone,
+              isReadOnly: true,
             },
 
             max_order_number: {

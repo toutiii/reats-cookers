@@ -17,7 +17,6 @@ import all_constants from "../constants";
 import { callBackEndGET } from "../api/callBackend";
 
 export default function DrawerContent(props) {
-  const paperTheme = useTheme();
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
   const [online, isOnline] = React.useState(false); // TODO: this value will come from the back
@@ -26,6 +25,12 @@ export default function DrawerContent(props) {
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
     setShowAlert(!showAlert);
+  };
+  const [refreshData, setRefreshData] = React.useState(false);
+
+  const changeRefreshDataState = () => {
+    setRefreshData(true);
+    isRequesting(true);
   };
 
   React.useEffect(() => {
@@ -37,6 +42,7 @@ export default function DrawerContent(props) {
         );
         setUserData(result.data);
         isRequesting(false);
+        setRefreshData(false);
       }
       getData();
     }
@@ -44,7 +50,7 @@ export default function DrawerContent(props) {
     return () => {
       isRequesting(false);
     };
-  }, []);
+  }, [refreshData]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -202,6 +208,7 @@ export default function DrawerContent(props) {
                 onPress={() => {
                   props.navigation.navigate("SettingsPersonalInformationForm", {
                     item: userData.personal_infos_section.data,
+                    refreshDataStateChanger: changeRefreshDataState,
                   });
                 }}
               />
@@ -219,6 +226,7 @@ export default function DrawerContent(props) {
                 onPress={() => {
                   props.navigation.navigate("SettingsAddressForm", {
                     item: userData.address_section.data,
+                    refreshDataStateChanger: changeRefreshDataState,
                   });
                 }}
               />

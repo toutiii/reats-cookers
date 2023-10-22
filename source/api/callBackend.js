@@ -98,23 +98,50 @@ export async function callBackendWithFormDataForDishes(
 export async function callBackendWithFormDataForCookers(data, url, method) {
   let formData = new FormData();
 
-  const fileName = data.photo.split("/").pop();
-  const fileExtension = fileName.split(".").pop();
+  if (data.photo !== undefined && data.photo.startsWith("file:///")) {
+    const fileName = data.photo.split("/").pop();
+    const fileExtension = fileName.split(".").pop();
+    formData.append("photo", {
+      uri: data.photo,
+      name: fileName,
+      type: `image/${fileExtension}`,
+    });
+  }
 
-  formData.append("photo", {
-    uri: data.photo,
-    name: fileName,
-    type: `image/${fileExtension}`,
-  });
-  formData.append("address_complement", data.address_complement);
-  formData.append("firstname", data.firstname);
-  formData.append("lastname", data.lastname);
-  formData.append("phone", data.phone);
-  formData.append("postal_code", data.postal_code);
-  formData.append("siret", data.siret);
-  formData.append("street_name", data.street_name);
-  formData.append("street_number", data.street_number);
-  formData.append("town", data.town);
+  if (method === "PATCH") {
+    form_keys = [
+      "address_complement",
+      "firstname",
+      "lastname",
+      "max_order_number",
+      "postal_code",
+      "street_name",
+      "street_number",
+      "town",
+    ];
+  } else {
+    form_keys = [
+      "address_complement",
+      "firstname",
+      "lastname",
+      "phone",
+      "postal_code",
+      "siret",
+      "street_name",
+      "street_number",
+      "town",
+    ];
+  }
+
+  for (let i = 0; i < form_keys.length; i++) {
+    if (data[form_keys[i]] !== undefined) {
+      formData.append(form_keys[i], data[form_keys[i]]);
+    }
+  }
+
+  if (method === "PATCH") {
+    url += "1" + "/"; //TODO: Fetch from AsyncStorage when authent is OK
+  }
 
   return callBackEnd(formData, url, method, (useFormData = true));
 }
