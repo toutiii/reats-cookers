@@ -47,15 +47,17 @@ export default function Form({ ...props }) {
 
   const [showAlert, setStateShowAlert] = useState(false);
 
+  const [showAlertCancel, setShowAlertCancel] = useState(false);
+
   const [noErrorsFound, setNoErrorsFound] = useState(true);
 
   const [apiOkResponse, setApiOkResponse] = useState(false);
 
-  const [wantToGoBack, setWantToGoBack] = useState(false);
+  const [showAlertDisable, setShowAlertDisable] = useState(false);
 
-  const [disableState, setDisableState] = useState(false);
+  const [showAlertRemove, setShowAlertRemove] = useState(false);
 
-  const [removeState, setRemoveState] = useState(false);
+  const [showAlertEnable, setShowAlertEnable] = useState(false);
 
   const onChangeValue = (key, value) => {
     const newState = { ...newItem, [key]: value };
@@ -107,8 +109,7 @@ export default function Form({ ...props }) {
   };
 
   const disableItemAction = async () => {
-    setDisableState(false);
-    setStateShowAlert(false);
+    setShowAlertDisable(false);
     setSubmitting(true);
     setErrorMessage("");
     fadeOut();
@@ -131,9 +132,32 @@ export default function Form({ ...props }) {
     setSubmitting(false);
   };
 
+  const enableItemAction = async () => {
+    setShowAlertEnable(false);
+    setSubmitting(true);
+    setErrorMessage("");
+    fadeOut();
+    try {
+      newItem.is_enabled = true;
+      const result = await props.action(
+        newItem,
+        props.url,
+        props.method,
+        (is_enabled = true)
+      );
+
+      setApiOkResponse(result.ok);
+      fadeIn();
+      setStateShowAlert(true);
+    } catch (e) {
+      setErrorMessage(e.message);
+      fadeIn();
+    }
+    setSubmitting(false);
+  };
+
   const removeItemAction = async () => {
-    setRemoveState(false);
-    setStateShowAlert(false);
+    setShowAlertRemove(false);
     setSubmitting(true);
     setErrorMessage("");
     fadeOut();
@@ -149,21 +173,6 @@ export default function Form({ ...props }) {
       fadeIn();
     }
     setSubmitting(false);
-  };
-
-  const cancel = () => {
-    setWantToGoBack(true);
-    setStateShowAlert(true);
-  };
-
-  const disableItem = () => {
-    setDisableState(true);
-    setStateShowAlert(true);
-  };
-
-  const removeItem = () => {
-    setRemoveState(true);
-    setStateShowAlert(true);
   };
 
   const signupForm = () => {
@@ -194,9 +203,19 @@ export default function Form({ ...props }) {
               }}
             />
           )}
-          {showAlert && wantToGoBack && (
+          {!isSubmitting && noErrorsFound && !apiOkResponse && (
             <CustomAlert
               show={showAlert}
+              title={all_constants.messages.failed.title}
+              confirmButtonColor="red"
+              onConfirmPressed={() => {
+                setStateShowAlert(false);
+              }}
+            />
+          )}
+          {showAlertCancel && (
+            <CustomAlert
+              show={showAlertCancel}
               title={all_constants.custom_alert.form.title}
               message={all_constants.custom_alert.form.message}
               confirmButtonColor="green"
@@ -204,19 +223,17 @@ export default function Form({ ...props }) {
               cancelButtonColor="red"
               cancelText={all_constants.custom_alert.homeview.cancel_text}
               onConfirmPressed={() => {
-                setStateShowAlert(false);
-                setWantToGoBack(false);
+                setShowAlertCancel(false);
                 props.navigation.goBack();
               }}
               onCancelPressed={() => {
-                setStateShowAlert(false);
-                setWantToGoBack(false);
+                setShowAlertCancel(false);
               }}
             />
           )}
-          {props.third_button_label && showAlert && disableState && (
+          {showAlertDisable && (
             <CustomAlert
-              show={showAlert}
+              show={showAlertDisable}
               title={all_constants.custom_alert.form.title}
               message={all_constants.custom_alert.form.disable_item_message}
               confirmButtonColor="green"
@@ -225,14 +242,28 @@ export default function Form({ ...props }) {
               cancelText={all_constants.custom_alert.homeview.cancel_text}
               onConfirmPressed={disableItemAction}
               onCancelPressed={() => {
-                setDisableState(false);
-                setStateShowAlert(false);
+                setShowAlertDisable(false);
               }}
             />
           )}
-          {props.fourth_button_label && showAlert && removeState && (
+          {showAlertEnable && (
             <CustomAlert
-              show={showAlert}
+              show={showAlertEnable}
+              title={all_constants.custom_alert.form.title}
+              message={all_constants.custom_alert.form.enable_item_message}
+              confirmButtonColor="green"
+              showCancelButton={true}
+              cancelButtonColor="red"
+              cancelText={all_constants.custom_alert.homeview.cancel_text}
+              onConfirmPressed={enableItemAction}
+              onCancelPressed={() => {
+                setShowAlertEnable(false);
+              }}
+            />
+          )}
+          {showAlertRemove && (
+            <CustomAlert
+              show={showAlertRemove}
               title={all_constants.custom_alert.form.title}
               message={all_constants.custom_alert.form.remove_item_message}
               confirmButtonColor="green"
@@ -241,27 +272,11 @@ export default function Form({ ...props }) {
               cancelText={all_constants.custom_alert.homeview.cancel_text}
               onConfirmPressed={removeItemAction}
               onCancelPressed={() => {
-                setRemoveState(false);
-                setStateShowAlert(false);
+                setShowAlertRemove(false);
               }}
             />
           )}
 
-          {!isSubmitting &&
-            noErrorsFound &&
-            !apiOkResponse &&
-            !wantToGoBack &&
-            !disableState &&
-            !removeState && (
-              <CustomAlert
-                show={showAlert}
-                title={all_constants.messages.failed.title}
-                confirmButtonColor="red"
-                onConfirmPressed={() => {
-                  setStateShowAlert(false);
-                }}
-              />
-            )}
           <Animated.View style={{ flex: 1, opacity, width: "100%" }}>
             {fieldKeys.map((key) => {
               return (
@@ -300,7 +315,7 @@ export default function Form({ ...props }) {
             </View>
             {props.login ? (
               <View style={{ flex: 1 }}>
-                <View style={styles_form.cancel_button}>
+                <View style={styles_form.form_button}>
                   <CustomButton
                     label={all_constants.messages.signup}
                     height={50}
@@ -314,7 +329,7 @@ export default function Form({ ...props }) {
                 </View>
               </View>
             ) : (
-              <View style={styles_form.cancel_button}>
+              <View style={styles_form.form_button}>
                 <CustomButton
                   label={all_constants.messages.cancel}
                   height={50}
@@ -323,14 +338,14 @@ export default function Form({ ...props }) {
                   font_size={18}
                   backgroundColor={"red"}
                   label_color="white"
-                  onPress={cancel}
+                  onPress={() => {
+                    setShowAlertCancel(true);
+                  }}
                 />
               </View>
             )}
-            {Object.keys(props.item).length !== 0 &&
-            !props.is_new_item &&
-            props.third_button_label ? (
-              <View style={styles_form.cancel_button}>
+            {newItem.is_enabled && props.third_button_label && (
+              <View style={styles_form.form_button}>
                 <CustomButton
                   label={props.third_button_label}
                   height={50}
@@ -338,16 +353,31 @@ export default function Form({ ...props }) {
                   font_size={18}
                   backgroundColor={"tomato"}
                   label_color="white"
-                  onPress={disableItem}
+                  onPress={() => {
+                    setShowAlertDisable(true);
+                  }}
                 />
               </View>
-            ) : (
-              <View></View>
             )}
-            {Object.keys(props.item).length !== 0 &&
-            !props.is_new_item &&
-            props.fourth_button_label ? (
-              <View style={styles_form.cancel_button}>
+
+            {!newItem.is_enabled && props.third_bis_button_label && (
+              <View style={styles_form.form_button}>
+                <CustomButton
+                  label={props.third_bis_button_label}
+                  height={50}
+                  border_radius={30}
+                  font_size={18}
+                  backgroundColor={"tomato"}
+                  label_color="white"
+                  onPress={() => {
+                    setShowAlertEnable(true);
+                  }}
+                />
+              </View>
+            )}
+
+            {newItem.id !== undefined && props.fourth_button_label && (
+              <View style={styles_form.form_button}>
                 <CustomButton
                   label={props.fourth_button_label}
                   height={50}
@@ -355,11 +385,11 @@ export default function Form({ ...props }) {
                   font_size={18}
                   backgroundColor={"darkgrey"}
                   label_color="white"
-                  onPress={removeItem}
+                  onPress={() => {
+                    setShowAlertRemove(true);
+                  }}
                 />
               </View>
-            ) : (
-              <View></View>
             )}
           </View>
         </View>

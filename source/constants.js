@@ -88,6 +88,7 @@ export const all_constants = {
       add_dish: "AJOUTER UN PLAT",
       remove_dish: "SUPPRIMER",
       disable_dish: "DÉSACTIVER",
+      enable_dish: "ACTIVER",
     },
     drinks: {
       drink_bottle_capacity: "Contenance",
@@ -308,6 +309,8 @@ export const all_constants = {
         "En désactivant un plat, celui-ci ne sera pas supprimé mais ne sera plus visible des clients. \n" +
         "Notez que vous pourrez toujours le réactiver plus tard.",
       remove_item_message: "Supprimer définitivement cet item ?",
+      enable_item_message:
+        "En réactivant ce plat, celui-ci sera à nouveau visible des clients.",
     },
     orderview: {
       accept_order_title: "Accepter la commande ?",

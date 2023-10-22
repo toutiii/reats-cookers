@@ -22,12 +22,8 @@ export default function DishForm({ ...props }) {
           navigation={props.navigation}
           refreshDataStateChanger={props.route.params.refreshDataStateChanger}
           item={props.route.params.item}
-          is_new_item={
-            props.route.params.hasOwnProperty("new_item")
-              ? props.route.params.new_item
-              : false
-          }
           third_button_label={all_constants.label.dishes.disable_dish}
+          third_bis_button_label={all_constants.label.dishes.enable_dish}
           fourth_button_label={all_constants.label.dishes.remove_dish}
           fields={{
             category: {

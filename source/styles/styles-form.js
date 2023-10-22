@@ -16,7 +16,7 @@ export default styles_form = StyleSheet.create({
     alignItems: "center",
     padding: "4%",
   },
-  cancel_button: {
+  form_button: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
