@@ -23,10 +23,8 @@ export default function SettingsPersonalInformationForm({ ...props }) {
           item={props.route.params.item}
           fields={{
             photo: {
-              fieldIsMandatory: true,
               type: all_constants.field_type.image,
               label: all_constants.label.form.settings.image,
-              validators: [checkValueIsDefined],
             },
             siret: {
               fieldIsMandatory: true,

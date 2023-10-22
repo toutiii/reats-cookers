@@ -123,10 +123,6 @@ export default function SignupForm({ ...props }) {
               ],
               maxLength: all_constants.max_length.form.town,
             },
-            photo: {
-              type: all_constants.field_type.image,
-              label: all_constants.label.form.settings.image,
-            },
           }}
         />
       </View>
