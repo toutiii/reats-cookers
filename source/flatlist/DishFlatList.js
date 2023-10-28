@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Animated,
   FlatList,
+  Image,
   Text,
   TouchableHighlight,
   View,
@@ -12,7 +13,6 @@ import all_constants from "../constants";
 import Dish from "../components/Dish";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
 import { callBackEndGET } from "../api/callBackend";
 
@@ -30,6 +30,12 @@ export default function DishFlatList({ ...props }) {
   const [runSearchByTextInput, setRunSearchByTextInput] = React.useState(false);
   const [oneSearchHasBeenRun, setOneSearchHasBeenRun] = React.useState(false);
   const [refreshData, setRefreshData] = React.useState(false);
+  const [searchURLHasChanged, setSearchURLHasChanged] = React.useState(false);
+  const toggleSearchFilterModal = () => {
+    setSearchFilterModalVisible(!isSearchFilterModalVisible);
+  };
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchURL, setSearchURL] = React.useState("");
 
   const minLengthToTriggerSearch = 3;
   const maxInputLength = 100;
@@ -55,13 +61,6 @@ export default function DishFlatList({ ...props }) {
       useNativeDriver: true,
     }).start();
   };
-
-  const toggleSearchFilterModal = () => {
-    setSearchFilterModalVisible(!isSearchFilterModalVisible);
-  };
-
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const [searchURL, setSearchURL] = React.useState("");
 
   const onChangeSearch = (query) => {
     console.log(query);
@@ -97,6 +96,7 @@ export default function DishFlatList({ ...props }) {
         setRunSearchByTextInput(false);
         setOneSearchHasBeenRun(true);
         setRefreshData(false);
+        setSearchURLHasChanged(false);
         fadeIn();
       }, 200);
     }
@@ -127,9 +127,10 @@ export default function DishFlatList({ ...props }) {
 
   const buildSearchUrl = () => {
     let queryParams = "";
-    let baseURL = "http://192.168.1.82:8000/api/v1/dishes?";
+    let baseURL = "http://192.168.1.85:8000/api/v1/dishes?";
+    let currentSearchURL = searchURL;
 
-    if (searchQuery.length > 0) {
+    if (searchQuery.length >= minLengthToTriggerSearch) {
       queryParams += `name=${searchQuery}`;
     }
 
@@ -140,8 +141,19 @@ export default function DishFlatList({ ...props }) {
     if (selectedState !== null) {
       queryParams += `&is_enabled=${selectedState}`;
     }
-    let searchURL = baseURL + queryParams;
-    setSearchURL(searchURL.replace("?&", "?"));
+
+    let localSearchURL = baseURL + queryParams;
+    localSearchURL = localSearchURL.replace("?&", "?");
+
+    if (currentSearchURL.length === 0) {
+      setSearchURLHasChanged(true);
+      setSearchURL(localSearchURL);
+    }
+
+    if (currentSearchURL.length > 0 && currentSearchURL !== localSearchURL) {
+      setSearchURLHasChanged(true);
+      setSearchURL(localSearchURL);
+    }
   };
 
   const resetFilters = () => {
@@ -190,10 +202,9 @@ export default function DishFlatList({ ...props }) {
             onPress={toggleSearchFilterModal}
             rippleColor="rgba(0, 0, 0, .32)"
           >
-            <MaterialCommunityIcons
-              name="filter-variant"
-              color={"black"}
-              size={40}
+            <Image
+              source={require("../images/filtre.png")}
+              style={{ height: 30, width: 30 }}
             />
           </TouchableRipple>
         </View>
@@ -216,7 +227,7 @@ export default function DishFlatList({ ...props }) {
         </View>
       )}
 
-      {isFetchingData && (
+      {isFetchingData && searchURLHasChanged && (
         <View
           style={{
             backgroundColor: "white",

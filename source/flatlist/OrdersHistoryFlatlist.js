@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Animated,
   FlatList,
+  Image,
   Text,
   TouchableHighlight,
   View,
@@ -13,7 +14,6 @@ import Order from "../components/Order";
 import { getOrders } from "../helpers/order_helpers";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
 import CustomAlert from "../components/CustomAlert.js";
 
@@ -200,10 +200,9 @@ export default function OrdersHistoryFlatList({ ...props }) {
             onPress={toggleSearchFilterModal}
             rippleColor="rgba(0, 0, 0, .32)"
           >
-            <MaterialCommunityIcons
-              name="filter-variant"
-              color={"black"}
-              size={40}
+            <Image
+              source={require("../images/filtre.png")}
+              style={{ height: 30, width: 30 }}
             />
           </TouchableRipple>
         </View>

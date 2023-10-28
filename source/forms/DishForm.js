@@ -9,6 +9,7 @@ import {
 } from "../validators/global_validators";
 import { callBackendWithFormDataForDishes } from "../api/callBackend";
 import { getCategories } from "../helpers/global_helpers";
+import { getCountries } from "../helpers/global_helpers";
 
 export default function DishForm({ ...props }) {
   console.log(props.route.params);
@@ -17,7 +18,7 @@ export default function DishForm({ ...props }) {
       <View style={{ flex: 2, marginTop: "10%" }}>
         <Form
           action={callBackendWithFormDataForDishes}
-          url={"http://192.168.1.82:8000/api/v1/dishes/"}
+          url={"http://192.168.1.85:8000/api/v1/dishes/"}
           method={"POST"}
           navigation={props.navigation}
           refreshDataStateChanger={props.route.params.refreshDataStateChanger}
@@ -70,11 +71,12 @@ export default function DishForm({ ...props }) {
             },
             country: {
               fieldIsMandatory: true,
-              type: all_constants.field_type.textinput,
+              type: all_constants.field_type.autocomplete,
               maxLength: all_constants.max_length.dish_form.dish_country,
               label: all_constants.label.form.dishes.country,
               placeholder: all_constants.placeholders.form.dishes.dish_country,
               validators: [checkValueNotContainsSpecialChar],
+              autoCompleteValues: getCountries(),
             },
           }}
         />

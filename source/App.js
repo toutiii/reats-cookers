@@ -5,34 +5,36 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { MainDrawerNavigator } from "./drawer/MainDrawerNavigator";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SignupForm from "./forms/SignupForm";
-
+import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 const Stack = createStackNavigator();
 
 export default class App extends Component {
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="LoginForm">
-            <Stack.Screen
-              name="LoginForm"
-              component={LoginForm}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignupForm"
-              component={SignupForm}
-              options={{ headerShown: true, headerTitle: "" }}
-            />
+      <AutocompleteDropdownContextProvider>
+        <SafeAreaView style={{ flex: 1 }}>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="LoginForm">
+              <Stack.Screen
+                name="LoginForm"
+                component={LoginForm}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="SignupForm"
+                component={SignupForm}
+                options={{ headerShown: true, headerTitle: "" }}
+              />
 
-            <Stack.Screen
-              name="MainDrawerNavigator"
-              component={MainDrawerNavigator}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaView>
+              <Stack.Screen
+                name="MainDrawerNavigator"
+                component={MainDrawerNavigator}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaView>
+      </AutocompleteDropdownContextProvider>
     );
   }
 }

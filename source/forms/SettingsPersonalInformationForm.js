@@ -16,7 +16,7 @@ export default function SettingsPersonalInformationForm({ ...props }) {
       <View style={{ flex: 2, marginTop: "10%" }}>
         <Form
           action={callBackendWithFormDataForCookers}
-          url={"http://192.168.1.82:8000/api/v1/cookers/"}
+          url={"http://192.168.1.85:8000/api/v1/cookers/"}
           method={"PATCH"}
           navigation={props.navigation}
           refreshDataStateChanger={props.route.params.refreshDataStateChanger}

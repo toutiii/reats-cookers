@@ -233,6 +233,7 @@ export const all_constants = {
     },
   },
   field_type: {
+    autocomplete: "autocomplete",
     textinput: "textinput",
     image: "image",
     textarea: "textarea",

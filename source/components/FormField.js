@@ -6,11 +6,11 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   View,
+  TouchableHighlight,
 } from "react-native";
 import styles_field from "../styles/styles-field";
 import all_constants from "../constants";
 import RNPickerSelect from "react-native-picker-select";
-import CustomImageButton from "../button/CustomImageButton";
 import * as ImagePicker from "expo-image-picker";
 import { MultipleSelectList } from "react-native-dropdown-select-list";
 import { getDaysOfWeek } from "../helpers/global_helpers";
@@ -20,6 +20,9 @@ import CustomAlert from "./CustomAlert";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import * as Device from "expo-device";
+import styles_home_view from "../styles/styles-home-view";
+import { AutocompleteDropdown } from "react-native-autocomplete-dropdown";
+import { getCountryIdByName } from "../helpers/global_helpers";
 
 export default function FormField({ ...props }) {
   const [showAlert, setStateShowAlert] = useState(false);
@@ -30,6 +33,9 @@ export default function FormField({ ...props }) {
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState("date");
   const [selected, setSelected] = useState("");
+  const [countryID, setCountryID] = props.newItem.country
+    ? useState(getCountryIdByName(props.newItem.country))
+    : useState(5);
 
   const showDatepicker = () => {
     showMode("date");
@@ -53,11 +59,10 @@ export default function FormField({ ...props }) {
   };
 
   useEffect(() => {
-    setPicUri(props.itemObject.photo);
-  }, [props.itemObject]);
-  useEffect(() => {
+    setPicUri(props.newItem.photo);
     setCategory(props.newItem.category);
   }, [props.newItem]);
+
   const options = {
     allowsEditing: true,
     aspect: [16, 9],
@@ -214,7 +219,7 @@ export default function FormField({ ...props }) {
           />
         </View>
       )}
-      {props.field.type === all_constants.field_type.select_picker ? (
+      {props.field.type === all_constants.field_type.select_picker && (
         <View style={{ flex: 1 }}>
           <MultipleSelectList
             setSelected={setSelected}
@@ -234,8 +239,6 @@ export default function FormField({ ...props }) {
             }
           />
         </View>
-      ) : (
-        <View></View>
       )}
       {props.field.type === all_constants.field_type.image && (
         <View style={styles_field.button_container}>
@@ -253,20 +256,30 @@ export default function FormField({ ...props }) {
           </View>
           <View style={{ flex: 1 }}>
             <View style={styles_field.button}>
-              <CustomImageButton
+              <TouchableHighlight
                 onPress={launchCamera}
-                uri={
-                  "https://pics.freeicons.io/uploads/icons/png/20607508171555590649-512.png"
-                }
-              />
+                style={[styles_home_view.home_button]}
+              >
+                <View style={{ alignItems: "center" }}>
+                  <Image
+                    source={require("../images/photo.png")}
+                    style={{ height: 30, width: 30 }}
+                  />
+                </View>
+              </TouchableHighlight>
             </View>
             <View style={styles_field.button}>
-              <CustomImageButton
+              <TouchableHighlight
                 onPress={launchGallery}
-                uri={
-                  "https://pics.freeicons.io/uploads/icons/png/6433396501558096324-512.png"
-                }
-              />
+                style={[styles_home_view.home_button]}
+              >
+                <View style={{ alignItems: "center" }}>
+                  <Image
+                    source={require("../images/galerie.png")}
+                    style={{ height: 30, width: 30 }}
+                  />
+                </View>
+              </TouchableHighlight>
             </View>
           </View>
         </View>
@@ -281,6 +294,30 @@ export default function FormField({ ...props }) {
             placeholder={props.field.placeholder}
           />
         </TouchableWithoutFeedback>
+      )}
+      {props.field.type === all_constants.field_type.autocomplete && (
+        <View style={styles_field.textinput}>
+          <AutocompleteDropdown
+            clearOnFocus={false}
+            closeOnBlur={true}
+            closeOnSubmit={false}
+            showChevron={false}
+            showClear={false}
+            initialValue={countryID.toString()}
+            onSelectItem={(countryObject) => {
+              if (countryObject !== null) {
+                props.onChangeText(props.fieldName, countryObject.title);
+              }
+            }}
+            dataSet={props.field.autoCompleteValues}
+            textInputProps={{
+              autoCorrect: false,
+              style: {
+                backgroundColor: "white",
+              },
+            }}
+          />
+        </View>
       )}
       {show && (
         <DateTimePicker

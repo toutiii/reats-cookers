@@ -38,7 +38,7 @@ export default function DrawerContent(props) {
       console.log("Fetching data to feed drawer content");
       async function getData() {
         const result = await callBackEndGET(
-          "http://192.168.1.82:8000/api/v1/cookers/1/"
+          "http://192.168.1.85:8000/api/v1/cookers/1/"
         );
         setUserData(result.data);
         isRequesting(false);

@@ -26,7 +26,7 @@ export default function SignupForm({ ...props }) {
       <View style={{ flex: 2 }}>
         <Form
           action={callBackendWithFormDataForCookers}
-          url={"http://192.168.1.82:8000/api/v1/cookers/"}
+          url={"http://192.168.1.85:8000/api/v1/cookers/"}
           method={"POST"}
           navigation={props.navigation}
           afterSubmit={handleResult}
