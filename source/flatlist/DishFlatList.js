@@ -29,21 +29,20 @@ export default function DishFlatList({ ...props }) {
   const [data, setData] = React.useState([]);
   const [runSearchByTextInput, setRunSearchByTextInput] = React.useState(false);
   const [oneSearchHasBeenRun, setOneSearchHasBeenRun] = React.useState(false);
-  const [refreshData, setRefreshData] = React.useState(false);
-  const [searchURLHasChanged, setSearchURLHasChanged] = React.useState(false);
   const toggleSearchFilterModal = () => {
     setSearchFilterModalVisible(!isSearchFilterModalVisible);
   };
   const [searchQuery, setSearchQuery] = React.useState("");
   const [searchURL, setSearchURL] = React.useState("");
+  const [searchURLCopy, setSearchURLCopy] = React.useState("");
 
   const minLengthToTriggerSearch = 3;
   const maxInputLength = 100;
   const delaySearch = 2000;
 
   const changeRefreshDataState = (value) => {
-    setRefreshData(value);
     setIsFetchingData(value);
+    setSearchURL(searchURLCopy);
   };
 
   const fadeIn = () => {
@@ -95,12 +94,11 @@ export default function DishFlatList({ ...props }) {
         resetFilters();
         setRunSearchByTextInput(false);
         setOneSearchHasBeenRun(true);
-        setRefreshData(false);
-        setSearchURLHasChanged(false);
+        setSearchURL("");
         fadeIn();
       }, 200);
     }
-  }, [searchURL, refreshData]);
+  }, [searchURL]);
 
   React.useEffect(() => {
     if (runSearchByTextInput) {
@@ -128,7 +126,6 @@ export default function DishFlatList({ ...props }) {
   const buildSearchUrl = () => {
     let queryParams = "";
     let baseURL = "http://192.168.1.85:8000/api/v1/dishes?";
-    let currentSearchURL = searchURL;
 
     if (searchQuery.length >= minLengthToTriggerSearch) {
       queryParams += `name=${searchQuery}`;
@@ -144,16 +141,8 @@ export default function DishFlatList({ ...props }) {
 
     let localSearchURL = baseURL + queryParams;
     localSearchURL = localSearchURL.replace("?&", "?");
-
-    if (currentSearchURL.length === 0) {
-      setSearchURLHasChanged(true);
-      setSearchURL(localSearchURL);
-    }
-
-    if (currentSearchURL.length > 0 && currentSearchURL !== localSearchURL) {
-      setSearchURLHasChanged(true);
-      setSearchURL(localSearchURL);
-    }
+    setSearchURL(localSearchURL);
+    setSearchURLCopy(localSearchURL);
   };
 
   const resetFilters = () => {
@@ -227,7 +216,7 @@ export default function DishFlatList({ ...props }) {
         </View>
       )}
 
-      {isFetchingData && searchURLHasChanged && (
+      {isFetchingData && (
         <View
           style={{
             backgroundColor: "white",
