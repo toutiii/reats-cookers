@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../views/Dashboard";
 import all_constants from "../constants";
 import DishFlatlistStackNavigator from "../stack/DishFlatlistStackNavigator";
+import DrinkFlatlistStackNavigator from "../stack/DrinkFlatlistStackNavigator";
 import OrderFlatlistStackNavigator from "../stack/OrderFlatlistStackNavigator";
 import OrdersHistoryStackNavigator from "../stack/OrdersHistoryStackNavigator";
 
@@ -35,9 +36,9 @@ export default function MainTabNavigator() {
           ) {
             iconName = "restaurant-outline";
           } else if (
-            route.name === all_constants.tab.main_tab_navigator.OfferFlatList
+            route.name === all_constants.tab.main_tab_navigator.DrinkFlatList
           ) {
-            iconName = "pricetag-outline";
+            iconName = "wine-sharp";
           }
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -68,6 +69,10 @@ export default function MainTabNavigator() {
       <Tab.Screen
         name={all_constants.tab.main_tab_navigator.DishFlatList}
         component={DishFlatlistStackNavigator}
+      />
+      <Tab.Screen
+        name={all_constants.tab.main_tab_navigator.DrinkFlatList}
+        component={DrinkFlatlistStackNavigator}
       />
 
       <Tab.Screen name="OrderView" component={OrderView} />

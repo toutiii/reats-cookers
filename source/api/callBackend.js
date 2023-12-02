@@ -95,6 +95,54 @@ export async function callBackendWithFormDataForDishes(
   return callBackEnd(formData, url, method, (useFormData = true));
 }
 
+export async function callBackendWithFormDataForDrinks(
+  data,
+  url,
+  method,
+  is_enabled = null
+) {
+  console.log(data);
+  let formData = new FormData();
+
+  if (method === "DELETE") {
+    url += data.id + "/";
+    return callBackEnd(formData, url, method);
+  }
+
+  if (is_enabled !== null) {
+    formData.append("is_enabled", is_enabled);
+  } else {
+    const fileName = data.photo.split("/").pop();
+    const fileExtension = fileName.split(".").pop();
+
+    if (data.photo.startsWith("file:///")) {
+      formData.append("photo", {
+        uri: data.photo,
+        name: fileName,
+        type: `image/${fileExtension}`,
+      });
+    }
+    formData.append("name", data.name);
+    formData.append("country", data.country);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("capacity", data.capacity);
+    formData.append("unit", data.unit);
+    formData.append("cooker", 1); //TODO: Fetch from AsyncStorage when authent is OK
+  }
+
+  if (data.id !== undefined) {
+    url += data.id + "/";
+    if (is_enabled === null) {
+      method = "PUT";
+    } else {
+      method = "PATCH";
+    }
+  }
+
+  return callBackEnd(formData, url, method, (useFormData = true));
+}
+
 export async function callBackendWithFormDataForCookers(data, url, method) {
   let formData = new FormData();
 

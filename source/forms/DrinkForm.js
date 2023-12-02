@@ -8,37 +8,31 @@ import {
   valueIsValidCapacity,
   valueIsValidPrice,
 } from "../validators/global_validators";
-import { callBackEnd } from "../api/callBackend";
+import { callBackendWithFormDataForDrinks } from "../api/callBackend";
 import { getCapacityUnits } from "../helpers/global_helpers";
+import { getCountries } from "../helpers/global_helpers";
 
 export default function DrinkForm({ ...props }) {
-  const handleResult = async (result) => {
-    if (result.ok) {
-      props.navigation.goBack(null);
-    } else {
-      throw new Error("Failed to update the drink.");
-    }
-  };
-
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 2, marginTop: "10%" }}>
         <Form
-          action={callBackEnd}
-          url={all_constants.uri.api.mock}
+          action={callBackendWithFormDataForDrinks}
+          url={"http://192.168.1.85:8000/api/v1/drinks/"}
           method={"POST"}
           navigation={props.navigation}
-          afterSubmit={handleResult}
+          refreshDataStateChanger={props.route.params.refreshDataStateChanger}
           item={props.route.params.item}
-          is_new_item={
+          isNewItem={
             props.route.params.hasOwnProperty("new_item")
               ? props.route.params.new_item
               : false
           }
           third_button_label={all_constants.label.dishes.disable_dish}
+          third_bis_button_label={all_constants.label.dishes.enable_dish}
           fourth_button_label={all_constants.label.dishes.remove_dish}
           fields={{
-            drink_name: {
+            name: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               maxLength: all_constants.max_length.dish_form.dish_name,
@@ -49,7 +43,13 @@ export default function DrinkForm({ ...props }) {
                 checkValueNotContainsSpecialChar,
               ],
             },
-            drink_price: {
+            photo: {
+              fieldIsMandatory: true,
+              type: all_constants.field_type.image,
+              label: all_constants.label.form.dishes.image,
+              validators: [checkValueIsDefined],
+            },
+            price: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               maxLength: all_constants.max_length.dish_form.dish_price,
@@ -58,7 +58,7 @@ export default function DrinkForm({ ...props }) {
               keyboardNumeric: true,
               validators: [checkValueIsDefined, valueIsValidPrice],
             },
-            drink_bottle_capacity: {
+            capacity: {
               fieldIsMandatory: true,
               type: all_constants.field_type.textinput,
               maxLength:
@@ -69,7 +69,7 @@ export default function DrinkForm({ ...props }) {
               keyboardNumeric: true,
               validators: [checkValueIsDefined, valueIsValidCapacity],
             },
-            drink_bottle_capacity_unit: {
+            unit: {
               fieldIsMandatory: true,
               type: all_constants.field_type.select,
               label: all_constants.label.drinks.drink_bottle_capacity_unit,
@@ -79,24 +79,21 @@ export default function DrinkForm({ ...props }) {
               validators: [checkValueIsDefined],
               selectValues: getCapacityUnits(),
             },
-            drink_description: {
+            country: {
+              fieldIsMandatory: true,
+              type: all_constants.field_type.autocomplete,
+              maxLength: all_constants.max_length.dish_form.dish_country,
+              label: all_constants.label.form.dishes.country,
+              placeholder: all_constants.placeholders.form.dishes.dish_country,
+              validators: [checkValueNotContainsSpecialChar],
+              autoCompleteValues: getCountries(),
+            },
+            description: {
               type: all_constants.field_type.textarea,
               maxLength: all_constants.max_length.dish_form.dish_description,
               label: all_constants.label.form.dishes.description,
               placeholder:
                 all_constants.placeholders.form.dishes.dish_description,
-              validators: [checkValueNotContainsSpecialChar],
-            },
-            photo: {
-              fieldIsMandatory: false,
-              type: all_constants.field_type.image,
-              label: all_constants.label.form.dishes.image,
-            },
-            drink_country: {
-              type: all_constants.field_type.textinput,
-              maxLength: all_constants.max_length.dish_form.dish_country,
-              label: all_constants.label.form.dishes.country,
-              placeholder: all_constants.placeholders.form.dishes.dish_country,
               validators: [checkValueNotContainsSpecialChar],
             },
           }}

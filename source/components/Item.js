@@ -3,7 +3,7 @@ import styles_dish from "../styles/styles-dish";
 import all_constants from "../constants";
 import React from "react";
 
-export default function Dish({ ...props }) {
+export default function Item({ ...props }) {
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 5 }}>
@@ -16,7 +16,7 @@ export default function Dish({ ...props }) {
               }}
             >
               {" "}
-              {props.dish_name}{" "}
+              {props.name}{" "}
             </Text>
           ) : (
             <Text
@@ -29,14 +29,14 @@ export default function Dish({ ...props }) {
               }}
             >
               {" "}
-              {props.dish_name}{" "}
+              {props.name}{" "}
             </Text>
           )}
         </View>
         <View style={{ flex: 4 }}>
           <Image
             source={{
-              uri: props.dish_photo,
+              uri: props.photo,
             }}
             style={{ flex: 1 }}
           />
@@ -46,14 +46,14 @@ export default function Dish({ ...props }) {
         <View style={{ flex: 1 }}>
           <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={styles_dish.dish_price}>
-              <Text style={{ fontSize: 20 }}> {props.dish_price} </Text>
+              <Text style={{ fontSize: 20 }}> {props.price} </Text>
             </View>
             <View style={styles_dish.dish_rating}>
               <Image
                 source={{ uri: all_constants.uri.rating_star }}
                 style={styles_dish.rating_star}
               />
-              <Text style={{ fontSize: 14 }}> {props.dish_rating} </Text>
+              <Text style={{ fontSize: 14 }}> {props.rating} </Text>
             </View>
           </View>
         </View>

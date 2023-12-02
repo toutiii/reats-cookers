@@ -9,21 +9,19 @@ import {
   View,
 } from "react-native";
 import styles_order from "../styles/styles-order.js";
-import all_constants from "../constants";
-import Item from "../components/Item";
+import all_constants from "../constants.js";
+import Item from "../components/Item.js";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
-import { callBackEndGET } from "../api/callBackend";
+import { callBackEndGET } from "../api/callBackend.js";
 
-export default function DishFlatList({ ...props }) {
+export default function DrinkFlatlist({ ...props }) {
   const [isSearchFilterModalVisible, setSearchFilterModalVisible] =
     React.useState(false);
 
   const [selectedState, setSelectedState] = React.useState(null);
-  const [selectedDishCategories, setSelectedDishCategories] = React.useState(
-    []
-  );
+
   const fadeAnim = React.useRef(new Animated.Value(1)).current;
   const [isFetchingData, setIsFetchingData] = React.useState(false);
   const [data, setData] = React.useState([]);
@@ -114,9 +112,8 @@ export default function DishFlatList({ ...props }) {
   const onPressFilter = () => {
     toggleSearchFilterModal();
 
-    if (selectedState !== null || selectedDishCategories.length !== 0) {
+    if (selectedState !== null) {
       console.log(selectedState);
-      console.log(selectedDishCategories);
       console.log(searchQuery);
       setIsFetchingData(true);
       buildSearchUrl();
@@ -125,14 +122,10 @@ export default function DishFlatList({ ...props }) {
 
   const buildSearchUrl = () => {
     let queryParams = "";
-    let baseURL = "http://192.168.1.85:8000/api/v1/dishes?";
+    let baseURL = "http://192.168.1.85:8000/api/v1/drinks?";
 
     if (searchQuery.length >= minLengthToTriggerSearch) {
       queryParams += `name=${searchQuery}`;
-    }
-
-    if (selectedDishCategories.length !== 0) {
-      queryParams += `&category=${selectedDishCategories}`;
     }
 
     if (selectedState !== null) {
@@ -147,7 +140,6 @@ export default function DishFlatList({ ...props }) {
 
   const resetFilters = () => {
     setSelectedState(null);
-    setSelectedDishCategories([]);
   };
 
   return (
@@ -157,11 +149,9 @@ export default function DishFlatList({ ...props }) {
       {isSearchFilterModalVisible && (
         <SearchFilterModal
           enableActiveFilter={true}
-          enableDishCategories={true}
           isModalVisible={isSearchFilterModalVisible}
           toggleModal={toggleSearchFilterModal}
           stateSearchData={setSelectedState}
-          dishCategoriesData={setSelectedDishCategories}
           onPressFilter={onPressFilter}
           onPressClear={resetFilters}
         />
@@ -211,7 +201,7 @@ export default function DishFlatList({ ...props }) {
           <Text
             style={{ fontSize: 16, textAlign: "center", fontStyle: "italic" }}
           >
-            {all_constants.search_bar.search_bar_dishes}
+            {all_constants.search_bar.search_bar_drinks}
           </Text>
         </View>
       )}
@@ -257,7 +247,7 @@ export default function DishFlatList({ ...props }) {
                 }}
               >
                 <Text style={{ fontSize: 20 }}>
-                  {all_constants.dishes.no_dishes_found}
+                  {all_constants.dishes.no_drinks_found}
                 </Text>
               </View>
             }
@@ -266,7 +256,7 @@ export default function DishFlatList({ ...props }) {
                 <TouchableHighlight
                   onPress={() => {
                     props.navigation.navigate(
-                      "DishFlatlistStackNavigatorDishFormView",
+                      "DrinkFlatlistStackNavigatorDrinkFormView",
                       {
                         item: item,
                         refreshDataStateChanger: changeRefreshDataState,

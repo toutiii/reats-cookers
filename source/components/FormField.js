@@ -28,6 +28,7 @@ export default function FormField({ ...props }) {
   const [showAlert, setStateShowAlert] = useState(false);
   const [picUri, setPicUri] = useState(null);
   const [category, setCategory] = useState(null);
+  const [unit, setUnit] = useState(null);
   const [labelModalState, setLabelModalState] = useState(false);
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
@@ -61,6 +62,7 @@ export default function FormField({ ...props }) {
   useEffect(() => {
     setPicUri(props.newItem.photo);
     setCategory(props.newItem.category);
+    setUnit(props.newItem.unit);
   }, [props.newItem]);
 
   const options = {
@@ -206,8 +208,8 @@ export default function FormField({ ...props }) {
           <RNPickerSelect
             useNativeAndroidPickerStyle={false}
             placeholder={{ label: props.field.placeholder, value: null }}
-            // Because a picUri is null only when there is no image and there is no image only when we create a Dish.
-            value={category ? category : null}
+            // Because a picUri is null only when there is no image and there is no image only when we create a Item.
+            value={unit ? unit : category ? category : null}
             onValueChange={(value) =>
               props.onChangeText(props.fieldName, value)
             }

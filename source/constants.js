@@ -152,6 +152,7 @@ export const all_constants = {
   },
   dishes: {
     no_dishes_found: "Aucun plat trouvé.",
+    no_drinks_found: "Aucune boisson trouvée.",
   },
   order: {
     infos: {
@@ -165,9 +166,12 @@ export const all_constants = {
       canceled_label: "Commande annulée le",
       approved_label: "Commande acceptée le",
       delivered_label: "Livraison prévue le",
+      delivery_done_label: "Livraison effectuée le",
       picking_label: "Ramassage prévu le",
       dish_unit_price: "Prix unitaire:",
       total: "Total:",
+      dish: "plats",
+      delivery_postal_code: "Code postal",
     },
     status: {
       canceled: "Annulée",
@@ -290,6 +294,7 @@ export const all_constants = {
     main_tab_navigator: {
       Home: "Accueil",
       DishFlatList: "Mes plats",
+      DrinkFlatList: "Mes boissons",
       OrderFlatList: "Commandes",
     },
   },
@@ -307,11 +312,11 @@ export const all_constants = {
       title: "ATTENTION",
       message: "Quitter le formulaire et revenir en arrière ?",
       disable_item_message:
-        "En désactivant un plat, celui-ci ne sera pas supprimé mais ne sera plus visible des clients. \n" +
+        "En désactivant un item, celui-ci ne sera pas supprimé mais ne sera plus visible des clients. \n" +
         "Notez que vous pourrez toujours le réactiver plus tard.",
       remove_item_message: "Supprimer définitivement cet item ?",
       enable_item_message:
-        "En réactivant ce plat, celui-ci sera à nouveau visible des clients.",
+        "En réactivant cet item, celui-ci sera à nouveau visible des clients.",
     },
     orderview: {
       accept_order_title: "Accepter la commande ?",
@@ -395,6 +400,8 @@ export const all_constants = {
     placeholder: "Écrivez pour lancer la recherche",
     search_bar_dishes:
       "Utilisez la barre de recherche ci-dessus pour consulter vos plats.",
+    search_bar_drinks:
+      "Utilisez la barre de recherche ci-dessus pour consulter vos boissons.",
   },
   max_length: {
     dish_form: {

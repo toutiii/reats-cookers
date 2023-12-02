@@ -8,9 +8,8 @@ export function getCategories() {
 
 export function getCapacityUnits() {
   return [
-    { label: "Litre", value: "L" },
-    { label: "Centilitre", value: "cL" },
-    { label: "Millilitre", value: "mL" },
+    { label: "Litre", value: "liter" },
+    { label: "Centilitres", value: "centiliters" },
   ];
 }
 

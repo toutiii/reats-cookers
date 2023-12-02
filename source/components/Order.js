@@ -15,7 +15,10 @@ export default function Order({ ...props }) {
         <Text
           style={{
             fontSize: 20,
-            color: props.order_number_color,
+            color:
+              props.order_status === all_constants.order.status.canceled
+                ? "red"
+                : "green",
           }}
         >
           {all_constants.order.infos.number} {props.order_number}
@@ -55,8 +58,8 @@ export default function Order({ ...props }) {
               <MaterialIcons name="delivery-dining" size={20} color="black" />
             </View>
             <View style={stylesOrder.order_status_text_style}>
-              <Text style={stylesOrder.order_text}>
-                {props.order_delivery_date} à {props.order_delivery_hour}{" "}
+              <Text numberOfLines={1} style={stylesOrder.order_text}>
+                {props.order_delivery_date}
               </Text>
             </View>
           </View>
@@ -104,7 +107,7 @@ export default function Order({ ...props }) {
             </View>
             <View style={stylesOrder.order_status_text_style}>
               <Text style={stylesOrder.order_text}>
-                {props.dishes_number} plats{" "}
+                {props.dishes_number} {all_constants.order.infos.dish}
               </Text>
             </View>
           </View>

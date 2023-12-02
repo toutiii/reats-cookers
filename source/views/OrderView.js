@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { ActivityIndicator, Animated, View, Text, Button } from "react-native";
 import styles_order_view from "../styles/styles-order-view";
-import HorizontalLine from "../components/HorizontalLine";
 import all_constants from "../constants";
-import Order from "../components/Order";
 import CustomButton from "../button/CustomButton";
 import DishModal from "../modals/DishModal";
 import CustomAlert from "../components/CustomAlert";
@@ -12,12 +10,11 @@ import { callBackEnd } from "../api/callBackend";
 import {
   Fontisto,
   AntDesign,
-  Ionicons,
   FontAwesome,
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import Modal from "react-native-modal";
+
 export default class OrderView extends Component {
   constructor(props) {
     super(props);

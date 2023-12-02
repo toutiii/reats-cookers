@@ -23,6 +23,11 @@ export default function DishForm({ ...props }) {
           navigation={props.navigation}
           refreshDataStateChanger={props.route.params.refreshDataStateChanger}
           item={props.route.params.item}
+          isNewItem={
+            props.route.params.hasOwnProperty("new_item")
+              ? props.route.params.new_item
+              : false
+          }
           third_button_label={all_constants.label.dishes.disable_dish}
           third_bis_button_label={all_constants.label.dishes.enable_dish}
           fourth_button_label={all_constants.label.dishes.remove_dish}
@@ -61,14 +66,6 @@ export default function DishForm({ ...props }) {
               keyboardNumeric: true,
               validators: [checkValueIsDefined, valueIsValidPrice],
             },
-            description: {
-              type: all_constants.field_type.textarea,
-              maxLength: all_constants.max_length.dish_form.dish_description,
-              label: all_constants.label.form.dishes.description,
-              placeholder:
-                all_constants.placeholders.form.dishes.dish_description,
-              validators: [checkValueNotContainsSpecialChar],
-            },
             country: {
               fieldIsMandatory: true,
               type: all_constants.field_type.autocomplete,
@@ -77,6 +74,14 @@ export default function DishForm({ ...props }) {
               placeholder: all_constants.placeholders.form.dishes.dish_country,
               validators: [checkValueNotContainsSpecialChar],
               autoCompleteValues: getCountries(),
+            },
+            description: {
+              type: all_constants.field_type.textarea,
+              maxLength: all_constants.max_length.dish_form.dish_description,
+              label: all_constants.label.form.dishes.description,
+              placeholder:
+                all_constants.placeholders.form.dishes.dish_description,
+              validators: [checkValueNotContainsSpecialChar],
             },
           }}
         />

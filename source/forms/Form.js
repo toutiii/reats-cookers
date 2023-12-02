@@ -361,21 +361,23 @@ export default function Form({ ...props }) {
               </View>
             )}
 
-            {!newItem.is_enabled && props.third_bis_button_label && (
-              <View style={styles_form.form_button}>
-                <CustomButton
-                  label={props.third_bis_button_label}
-                  height={50}
-                  border_radius={30}
-                  font_size={18}
-                  backgroundColor={"tomato"}
-                  label_color="white"
-                  onPress={() => {
-                    setShowAlertEnable(true);
-                  }}
-                />
-              </View>
-            )}
+            {!newItem.is_enabled &&
+              props.third_bis_button_label &&
+              !props.isNewItem && (
+                <View style={styles_form.form_button}>
+                  <CustomButton
+                    label={props.third_bis_button_label}
+                    height={50}
+                    border_radius={30}
+                    font_size={18}
+                    backgroundColor={"tomato"}
+                    label_color="white"
+                    onPress={() => {
+                      setShowAlertEnable(true);
+                    }}
+                  />
+                </View>
+              )}
 
             {newItem.id !== undefined && props.fourth_button_label && (
               <View style={styles_form.form_button}>

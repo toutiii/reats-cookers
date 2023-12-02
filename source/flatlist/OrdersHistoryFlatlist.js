@@ -240,10 +240,7 @@ export default function OrdersHistoryFlatList({ ...props }) {
               }}
             >
               <Text style={{ fontSize: 20 }}>
-                {
-                  all_constants.drawercontent.drawer_item.orders_history
-                    .no_results
-                }
+                {all_constants.order.no_results.no_results}
               </Text>
             </View>
           }
@@ -251,7 +248,7 @@ export default function OrdersHistoryFlatList({ ...props }) {
             <View style={styles_order.order_button_container}>
               <TouchableHighlight
                 onPress={() => {
-                  props.navigation.navigate("HistoryOrderDetailView", {
+                  props.navigation.navigate("OrderHistoryiew", {
                     item: item,
                   });
                 }}
@@ -260,11 +257,9 @@ export default function OrdersHistoryFlatList({ ...props }) {
               >
                 <Order
                   order_amount={item.order_amount}
-                  order_number_color={item.order_number_color}
                   order_number={item.order_number}
                   order_status={item.order_status}
-                  order_date={item.order_date}
-                  order_hour={item.order_hour}
+                  order_delivery_date={item.order_delivery_date}
                   dishes_number={item.dishes.length}
                 ></Order>
               </TouchableHighlight>

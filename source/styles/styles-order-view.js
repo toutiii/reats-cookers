@@ -16,13 +16,18 @@ export default styles_order_view = StyleSheet.create({
     width: "95%",
   },
   orderview: {
+    width: "90%",
     flex: 1,
-    margin: "2%",
-    aspectRatio: 5,
     alignItems: "center",
     flexDirection: "row",
+
+    margin: "5%",
   },
   icons: {
-    marginRight: "1%",
+    marginLeft: "3%",
+  },
+  icon_text: {
+    width: "80%",
+    marginLeft: "5%",
   },
 });

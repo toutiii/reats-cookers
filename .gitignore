@@ -6,3 +6,10 @@ source/images/*_test.*
 source/views/*TestView.*
 *2.js
 .idea*
+amplify/*
+.expo/*
+.vscode/*
+source/.expo-shared/*
+source/signup_form_data.txt
+source/yarn-error.log
+src/*
