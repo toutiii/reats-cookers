@@ -9,12 +9,11 @@ import {
   Text,
   Title,
   TouchableRipple,
-  useTheme,
 } from "react-native-paper";
 import Animated from "react-native-reanimated";
 import CustomAlert from "../components/CustomAlert";
 import all_constants from "../constants";
-import { callBackEndGET } from "../api/callBackend";
+import { callBackEnd, callBackEndGET } from "../api/callBackend";
 
 export default function DrawerContent(props) {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
@@ -22,6 +21,24 @@ export default function DrawerContent(props) {
   const [online, isOnline] = React.useState(false); // TODO: this value will come from the back
   const [userData, setUserData] = React.useState(null);
   const [requesting, isRequesting] = React.useState(true);
+
+  async function patchStatus() {
+    console.log("Updating status...");
+    let formData = new FormData();
+    formData.append("is_online", !online);
+    const response = await callBackEnd(
+      formData,
+      "http://192.168.1.85:8000/api/v1/cookers/1/",
+      "PATCH",
+      (useFormData = true)
+    );
+    console.log(response);
+
+    if (response.ok) {
+      isOnline(!online);
+    }
+  }
+
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
     setShowAlert(!showAlert);
@@ -43,6 +60,7 @@ export default function DrawerContent(props) {
         setUserData(result.data);
         isRequesting(false);
         setRefreshData(false);
+        isOnline(result.data.personal_infos_section.data.is_online);
       }
       getData();
     }
@@ -88,11 +106,10 @@ export default function DrawerContent(props) {
                 cancelButtonColor="red"
                 cancelText={all_constants.custom_alert.homeview.cancel_text}
                 onConfirmPressed={() => {
-                  isOnline(!online);
+                  patchStatus();
                   setShowAlert(false);
                 }}
                 onCancelPressed={() => {
-                  isOnline(online);
                   setShowAlert(false);
                 }}
               />
