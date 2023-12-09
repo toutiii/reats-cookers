@@ -30,6 +30,8 @@ export const all_constants = {
     },
     success: {
       title: "Succès",
+      message:
+        "Vous pouvez désormais vous connecter avec votre numéro de téléphone.",
     },
     failed: {
       title: "Échec",

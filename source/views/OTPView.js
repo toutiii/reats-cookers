@@ -4,12 +4,52 @@ import { TextInput, View } from "react-native";
 
 import CustomButton from "../button/CustomButton";
 import all_constants from "../constants";
+import { callBackEnd } from "../api/callBackend";
+import CustomAlert from "../components/CustomAlert";
 
 export default function OTPView({ ...props }) {
   const [OTPValue, setOTPValue] = useState("");
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [isRequestSuccessful, setIsRequestSuccessful] = React.useState(false);
+
+  async function verifyOTP() {
+    let data = new FormData();
+    data.append("otp", OTPValue);
+    data.append("phone", "0649510110");
+
+    const result = await callBackEnd(
+      data,
+      "http://192.168.1.85:8000/api/v1/cookers/otp-verify/",
+      "POST",
+      (useFormData = true)
+    );
+    console.log(result);
+    setIsRequestSuccessful(result.ok);
+    setShowAlert(true);
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
+      <View>
+        <CustomAlert
+          show={showAlert}
+          title={
+            isRequestSuccessful
+              ? all_constants.messages.success.title
+              : all_constants.messages.failed.title
+          }
+          message={
+            isRequestSuccessful && all_constants.messages.success.message
+          }
+          confirmButtonColor={isRequestSuccessful ? "green" : "red"}
+          onConfirmPressed={() => {
+            setShowAlert(false);
+            if (isRequestSuccessful) {
+              props.navigation.navigate("LoginForm");
+            }
+          }}
+        />
+      </View>
       <View
         style={{
           flex: 1,
@@ -22,6 +62,7 @@ export default function OTPView({ ...props }) {
           onChangeText={(value) => {
             setOTPValue(value);
           }}
+          keyboardType="numeric"
         />
       </View>
 
@@ -35,7 +76,7 @@ export default function OTPView({ ...props }) {
           font_size={17}
           label_color="white"
           onPress={() => {
-            console.log("SEND OTP");
+            verifyOTP();
           }}
         />
       </View>
