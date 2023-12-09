@@ -11,18 +11,33 @@ import {
   checkPostalCode,
 } from "../validators/settingsform_validators";
 import { callBackendWithFormDataForCookers } from "../api/callBackend";
+import CustomAlert from "../components/CustomAlert";
 
 export default function SignupForm({ ...props }) {
-  const handleResult = async (result) => {
-    if (result.ok) {
-      props.navigation.goBack(null);
+  const [showAlert, setShowAlert] = React.useState(false);
+
+  const handleResult = (isRequestSuccessful) => {
+    if (isRequestSuccessful) {
+      props.navigation.navigate("OTPView");
     } else {
-      throw new Error("Failed.");
+      setShowAlert(true);
     }
   };
 
   return (
     <View style={{ flex: 1 }}>
+      <View>
+        <CustomAlert
+          show={showAlert}
+          title={all_constants.messages.failed.title}
+          confirmButtonColor="red"
+          onConfirmPressed={() => {
+            setShowAlert(false);
+            props.navigation.goBack(null);
+          }}
+        />
+      </View>
+
       <View style={{ flex: 2 }}>
         <Form
           action={callBackendWithFormDataForCookers}

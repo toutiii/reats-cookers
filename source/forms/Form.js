@@ -85,6 +85,8 @@ export default function Form({ ...props }) {
   };
 
   const submit = async () => {
+    let result = {};
+    result.ok = false;
     setSubmitting(true);
     setErrorMessage("");
     setValidationErrors(getInitialErrorsState(fieldKeys, props));
@@ -97,15 +99,21 @@ export default function Form({ ...props }) {
     }
     fadeOut();
     try {
-      const result = await props.action(newItem, props.url, props.method);
+      result = await props.action(newItem, props.url, props.method);
       setApiOkResponse(result.ok);
       fadeIn();
-      setStateShowAlert(true);
+      if (props.afterSubmit === null) {
+        setStateShowAlert(true);
+      }
     } catch (e) {
       setErrorMessage(e.message);
       fadeIn();
     }
     setSubmitting(false);
+
+    if (props.afterSubmit) {
+      props.afterSubmit(result.ok);
+    }
   };
 
   const disableItemAction = async () => {
@@ -175,7 +183,7 @@ export default function Form({ ...props }) {
     setSubmitting(false);
   };
 
-  const signupForm = () => {
+  const navigateToSignupForm = () => {
     props.navigation.navigate("SignupForm");
   };
 
@@ -325,7 +333,7 @@ export default function Form({ ...props }) {
                     font_size={18}
                     backgroundColor={"dimgrey"}
                     label_color="white"
-                    onPress={signupForm}
+                    onPress={navigateToSignupForm}
                   />
                 </View>
               </View>

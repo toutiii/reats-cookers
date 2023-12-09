@@ -6,6 +6,7 @@ import { MainDrawerNavigator } from "./drawer/MainDrawerNavigator";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SignupForm from "./forms/SignupForm";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
+import OTPView from "./views/OTPView";
 const Stack = createStackNavigator();
 
 export default class App extends Component {
@@ -18,6 +19,11 @@ export default class App extends Component {
               <Stack.Screen
                 name="LoginForm"
                 component={LoginForm}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="OTPView"
+                component={OTPView}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
