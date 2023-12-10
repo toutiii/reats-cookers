@@ -32,6 +32,8 @@ export const all_constants = {
       title: "Succès",
       message:
         "Vous pouvez désormais vous connecter avec votre numéro de téléphone.",
+      otp_message:
+        "Vous allez recevoir dans quelques instants un code par SMS que vous devrez renseigner dans le prochain écran.",
     },
     failed: {
       title: "Échec",

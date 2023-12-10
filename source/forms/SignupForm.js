@@ -15,13 +15,22 @@ import CustomAlert from "../components/CustomAlert";
 
 export default function SignupForm({ ...props }) {
   const [showAlert, setShowAlert] = React.useState(false);
+  const [isRequestOK, setIsRequestOK] = React.useState(false);
+  const [item, setItem] = React.useState(null);
 
-  const handleResult = (isRequestSuccessful) => {
-    if (isRequestSuccessful) {
-      props.navigation.navigate("OTPView");
-    } else {
-      setShowAlert(true);
-    }
+  const handleResult = (isRequestSuccessful, itemObject) => {
+    setIsRequestOK(isRequestSuccessful);
+    setItem(itemObject);
+    setShowAlert(true);
+  };
+
+  const onConfirmPressedRequestSuccess = () => {
+    setShowAlert(false);
+    props.navigation.navigate("OTPView", { item: item });
+  };
+
+  const onConfirmPressedRequestFailed = () => {
+    setShowAlert(false);
   };
 
   return (
@@ -29,11 +38,17 @@ export default function SignupForm({ ...props }) {
       <View>
         <CustomAlert
           show={showAlert}
-          title={all_constants.messages.failed.title}
-          confirmButtonColor="red"
+          title={
+            isRequestOK
+              ? all_constants.messages.success.title
+              : all_constants.messages.failed.title
+          }
+          message={isRequestOK && all_constants.messages.success.otp_message}
+          confirmButtonColor={isRequestOK ? "green" : "red"}
           onConfirmPressed={() => {
-            setShowAlert(false);
-            props.navigation.goBack(null);
+            isRequestOK
+              ? onConfirmPressedRequestSuccess()
+              : onConfirmPressedRequestFailed();
           }}
         />
       </View>

@@ -15,7 +15,7 @@ export default function OTPView({ ...props }) {
   async function verifyOTP() {
     let data = new FormData();
     data.append("otp", OTPValue);
-    data.append("phone", "0649510110");
+    data.append("phone", props.route.params.item.phone);
 
     const result = await callBackEnd(
       data,
