@@ -5,6 +5,7 @@ import { View } from "react-native";
 import {
   checkValueIsDefined,
   checkValueNotContainsSpecialChar,
+  checkPhoneNumbers,
 } from "../validators/global_validators";
 import {
   checkNumericFormat,
@@ -102,6 +103,19 @@ export default function SignupForm({ ...props }) {
               placeholder: all_constants.placeholders.form.settings.phone,
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkNumericFormat],
+              maxLength: all_constants.max_length.form.phone,
+            },
+            phone_confirmation: {
+              fieldIsMandatory: true,
+              type: all_constants.field_type.textinput,
+              label: all_constants.label.form.settings.phone_confirmation,
+              placeholder: all_constants.placeholders.form.settings.phone,
+              keyboardNumeric: true,
+              validators: [
+                checkValueIsDefined,
+                checkNumericFormat,
+                checkPhoneNumbers,
+              ],
               maxLength: all_constants.max_length.form.phone,
             },
             street_number: {

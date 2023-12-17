@@ -9,22 +9,16 @@ import CustomAlert from "../components/CustomAlert";
 
 export default function LoginForm({ ...props }) {
   const [showAlert, setShowAlert] = React.useState(false);
-  const [isRequestOK, setIsRequestOK] = React.useState(false);
   const [item, setItem] = React.useState(null);
 
   const handleResult = (isRequestSuccessful, itemObject) => {
-    setIsRequestOK(isRequestSuccessful);
     setItem(itemObject);
     setShowAlert(true);
   };
 
-  const onConfirmPressedRequestSuccess = () => {
+  const onPressed = () => {
     setShowAlert(false);
     props.navigation.navigate("OTPView", { item: item, auth: true });
-  };
-
-  const onConfirmPressedRequestFailed = () => {
-    setShowAlert(false);
   };
 
   return (
@@ -32,19 +26,11 @@ export default function LoginForm({ ...props }) {
       <View>
         <CustomAlert
           show={showAlert}
-          title={
-            isRequestOK
-              ? all_constants.messages.success.title
-              : all_constants.messages.failed.title
-          }
-          message={
-            isRequestOK && all_constants.messages.success.otp_message_login
-          }
-          confirmButtonColor={isRequestOK ? "green" : "red"}
+          title={all_constants.messages.success.title}
+          message={all_constants.messages.success.otp_message_login}
+          confirmButtonColor={"green"}
           onConfirmPressed={() => {
-            isRequestOK
-              ? onConfirmPressedRequestSuccess()
-              : onConfirmPressedRequestFailed();
+            onPressed();
           }}
         />
       </View>

@@ -115,3 +115,9 @@ export function valueIsValidCapacity(value, fieldLabel, objectToValidate) {
     );
   }
 }
+
+export function checkPhoneNumbers(value, fieldLabel, objectToValidate) {
+  if (objectToValidate.phone !== objectToValidate.phone_confirmation) {
+    return all_constants.validators.global.phone_mismatch;
+  }
+}

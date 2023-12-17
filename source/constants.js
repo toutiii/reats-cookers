@@ -37,7 +37,7 @@ export const all_constants = {
       otp_message_signup:
         "Vous allez recevoir dans quelques instants un code par SMS que vous devrez renseigner dans le prochain écran.",
       otp_message_login:
-        "Vous allez recevoir un code de connexion dans quelques instants.",
+        "Si vous avez déjà créé un compte, un code de connexion vous sera envoyé par SMS dans quelques instants.",
     },
     failed: {
       title: "Échec",
@@ -147,8 +147,9 @@ export const all_constants = {
         firstname: "Prénom",
         lastname: "Nom",
         phone: "Numéro de téléphone",
-        street_number: "Numéro",
-        street_name: "Rue",
+        phone_confirmation: "Confirmation téléphone",
+        street_number: "Numéro de rue",
+        street_name: "Nom de la rue",
         address_complement: "Complément d'adresse",
         postal_code: "Code postal",
         town: "Ville",
@@ -232,6 +233,8 @@ export const all_constants = {
       invalid_postal_code: " est invalide. Exemple: 91100.",
       invalid_max_dishes_number_format: " est invalide. Exemple: 18",
       invalid_bottle_capacity: " est invalid. Exemple: 33",
+      phone_mismatch:
+        "Les deux numéros de téléphone saisis doivent être identiques.",
     },
 
     settings: {
