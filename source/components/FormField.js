@@ -116,7 +116,7 @@ export default function FormField({ ...props }) {
                 fontStyle: props.field.isReadOnly ? "italic" : "normal",
               }}
             >
-              {props.field.label}
+              {props.field.hideLabel ? "" : props.field.label}
             </Text>
           </View>
         ) : (
@@ -127,7 +127,7 @@ export default function FormField({ ...props }) {
                 fontStyle: props.field.isReadOnly ? "italic" : "normal",
               }}
             >
-              {props.field.label}
+              {props.field.hideLabel ? "" : props.field.label}
             </Text>
           </View>
         )}
@@ -183,7 +183,7 @@ export default function FormField({ ...props }) {
             keyboardType={props.field.keyboardNumeric ? "numeric" : "default"}
             editable={!props.field.isReadOnly}
           />
-          {!props.login ? (
+          {!props.login && (
             <View>
               {props.value ? (
                 <Text style={{ fontSize: 14 }}>
@@ -198,8 +198,6 @@ export default function FormField({ ...props }) {
                 </Text>
               )}
             </View>
-          ) : (
-            <View style={{ height: "30%" }}></View>
           )}
         </View>
       )}

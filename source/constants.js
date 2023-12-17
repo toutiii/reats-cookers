@@ -16,6 +16,7 @@ export const all_constants = {
   },
 
   messages: {
+    clear: "EFFACER",
     login: "CONNEXION",
     logout: "DÉCONNEXION",
     settings: "PARAMÈTRES",
@@ -30,10 +31,13 @@ export const all_constants = {
     },
     success: {
       title: "Succès",
-      message:
+      login_message: "Connexion réussie",
+      signup_message:
         "Vous pouvez désormais vous connecter avec votre numéro de téléphone.",
-      otp_message:
+      otp_message_signup:
         "Vous allez recevoir dans quelques instants un code par SMS que vous devrez renseigner dans le prochain écran.",
+      otp_message_login:
+        "Vous allez recevoir un code de connexion dans quelques instants.",
     },
     failed: {
       title: "Échec",

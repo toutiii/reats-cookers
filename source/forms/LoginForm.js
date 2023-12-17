@@ -4,26 +4,50 @@ import all_constants from "../constants";
 import { Text, View } from "react-native";
 import { checkValueIsDefined } from "../validators/global_validators";
 import { checkNumericFormat } from "../validators/settingsform_validators";
-import { setToken } from "../api/token";
-import { CommonActions } from "@react-navigation/native";
-import { callBackEnd } from "../api/callBackend";
+import { callBackEndForAuthentication } from "../api/callBackend";
+import CustomAlert from "../components/CustomAlert";
 
 export default function LoginForm({ ...props }) {
-  const handleResult = async (result) => {
-    if (result.ok) {
-      await setToken(result.token);
-      const resetAction = CommonActions.reset({
-        index: 0,
-        routes: [{ name: "MainDrawerNavigator" }],
-      });
-      props.navigation.dispatch(resetAction);
-    } else {
-      throw new Error("Failed.");
-    }
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [isRequestOK, setIsRequestOK] = React.useState(false);
+  const [item, setItem] = React.useState(null);
+
+  const handleResult = (isRequestSuccessful, itemObject) => {
+    setIsRequestOK(isRequestSuccessful);
+    setItem(itemObject);
+    setShowAlert(true);
+  };
+
+  const onConfirmPressedRequestSuccess = () => {
+    setShowAlert(false);
+    props.navigation.navigate("OTPView", { item: item, auth: true });
+  };
+
+  const onConfirmPressedRequestFailed = () => {
+    setShowAlert(false);
   };
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
+      <View>
+        <CustomAlert
+          show={showAlert}
+          title={
+            isRequestOK
+              ? all_constants.messages.success.title
+              : all_constants.messages.failed.title
+          }
+          message={
+            isRequestOK && all_constants.messages.success.otp_message_login
+          }
+          confirmButtonColor={isRequestOK ? "green" : "red"}
+          onConfirmPressed={() => {
+            isRequestOK
+              ? onConfirmPressedRequestSuccess()
+              : onConfirmPressedRequestFailed();
+          }}
+        />
+      </View>
       <View
         style={{
           flex: 1,
@@ -37,8 +61,8 @@ export default function LoginForm({ ...props }) {
       </View>
       <View style={{ flex: 1 }}>
         <Form
-          action={callBackEnd}
-          url={all_constants.uri.api.mock}
+          action={callBackEndForAuthentication}
+          url={"http://192.168.1.85:8000/api/v1/cookers/auth/"}
           method={"POST"}
           navigation={props.navigation}
           afterSubmit={handleResult}
@@ -47,10 +71,12 @@ export default function LoginForm({ ...props }) {
           fields={{
             phone: {
               type: all_constants.field_type.textinput,
-              placeholder: all_constants.placeholders.form.login.phone,
+              label: all_constants.label.form.settings.phone,
+              placeholder: all_constants.placeholders.form.settings.phone,
               keyboardNumeric: true,
               validators: [checkValueIsDefined, checkNumericFormat],
               maxLength: all_constants.max_length.form.phone,
+              hideLabel: true,
             },
           }}
         />

@@ -95,6 +95,13 @@ export async function callBackendWithFormDataForDishes(
   return callBackEnd(formData, url, method, (useFormData = true));
 }
 
+export async function callBackEndForAuthentication(data, url, method) {
+  console.log(data);
+  let formData = new FormData();
+  formData.append("phone", data.phone);
+  return callBackEnd(formData, url, method, (useFormData = true));
+}
+
 export async function callBackendWithFormDataForDrinks(
   data,
   url,

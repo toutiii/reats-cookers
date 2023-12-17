@@ -43,7 +43,9 @@ export default function SignupForm({ ...props }) {
               ? all_constants.messages.success.title
               : all_constants.messages.failed.title
           }
-          message={isRequestOK && all_constants.messages.success.otp_message}
+          message={
+            isRequestOK && all_constants.messages.success.otp_message_signup
+          }
           confirmButtonColor={isRequestOK ? "green" : "red"}
           onConfirmPressed={() => {
             isRequestOK
