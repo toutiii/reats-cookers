@@ -21,6 +21,7 @@ export const all_constants = {
     logout: "DÉCONNEXION",
     settings: "PARAMÈTRES",
     send: "ENVOYER",
+    send_again: "JE N'AI PAS REÇU DE CODE",
     submit: "VALIDER",
     cancel: "ANNULER",
     signup: "CRÉER UN COMPTE",
@@ -28,6 +29,15 @@ export const all_constants = {
     upload_picture: "Ouvrir la galerie",
     errors: {
       title: "Erreur",
+    },
+    otp: {
+      title: {
+        send_again_title: "Nouvelle demande",
+      },
+      message: {
+        send_again_message:
+          "Un nouveau code vous sera envoyé par SMS dans quelques instants.",
+      },
     },
     success: {
       title: "Succès",
