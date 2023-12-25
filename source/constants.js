@@ -37,6 +37,8 @@ export const all_constants = {
       message: {
         send_again_message:
           "Un nouveau code vous sera envoyé par SMS dans quelques instants.",
+        invalid_code:
+          "Code invalide. Veuillez réessayer ou en demander un nouveau.",
       },
     },
     success: {

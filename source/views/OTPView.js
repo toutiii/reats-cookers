@@ -6,19 +6,26 @@ import CustomButton from "../button/CustomButton";
 import all_constants from "../constants";
 import { callBackEnd } from "../api/callBackend";
 import CustomAlert from "../components/CustomAlert";
-import { setToken } from "../api/token";
 import { CommonActions } from "@react-navigation/native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 export default function OTPView({ ...props }) {
   const [OTPValue, setOTPValue] = useState(["", "", "", "", "", ""]);
   const [showAlert, setShowAlert] = useState(false);
-  const [isRequestSuccessful, setIsRequestSuccessful] = useState(false);
+  const [
+    isOTPValidationRequestSuccessful,
+    setIsOTPValidationRequestSuccessful,
+  ] = useState(false);
+  const [showAlertTokenRequestSuccessful, setShowAlertTokenRequestSuccessful] =
+    useState(false);
+
   const [randomNumber, setRandomNumber] = useState(1);
   const [showResendOTPButton, setShowResendOTpButton] = useState(false);
   const [showCounterCircle, setShowCounterCircle] = useState(true);
   const [showResendOTPAlert, setShowResendOTPAlert] = useState(false);
   const [isResendOTPRequestFailed, setIsResendOTPRequestFailed] =
+    useState(false);
+  const [showAlertTokenRequestFailed, setShowAlertTokenRequestFailed] =
     useState(false);
 
   const OTPLength = 6;
@@ -29,7 +36,6 @@ export default function OTPView({ ...props }) {
   };
 
   const handleLogin = () => {
-    // await setToken(result.token);
     const resetAction = CommonActions.reset({
       index: 0,
       routes: [{ name: "MainDrawerNavigator" }],
@@ -38,6 +44,7 @@ export default function OTPView({ ...props }) {
   };
 
   async function verifyOTP() {
+    setIsOTPValidationRequestSuccessful(false);
     let data = new FormData();
     data.append("otp", OTPValue.join(""));
     data.append("phone", props.route.params.item.phone);
@@ -48,10 +55,30 @@ export default function OTPView({ ...props }) {
       (useFormData = true)
     );
     console.log(result);
-    setIsRequestSuccessful(result.ok);
+    setIsOTPValidationRequestSuccessful(result.ok);
     setShowAlert(true);
   }
 
+  React.useEffect(() => {
+    if (isOTPValidationRequestSuccessful && props.route.params.auth) {
+      console.log("Asking tokens...");
+      async function getTokens() {
+        let data = new FormData();
+        data.append("phone", props.route.params.item.phone);
+        const result = await callBackEnd(
+          data,
+          "http://192.168.1.85:8000/api/v1/token/",
+          "POST",
+          (useFormData = true)
+        );
+        console.log(result);
+        result.ok
+          ? setShowAlertTokenRequestSuccessful(true)
+          : setShowAlertTokenRequestFailed(true);
+      }
+      getTokens();
+    }
+  }, [isOTPValidationRequestSuccessful]);
   const inputs = [];
 
   const handleOtpChange = (value, index) => {
@@ -73,6 +100,7 @@ export default function OTPView({ ...props }) {
       setShowCounterCircle(true);
     }
   };
+
   async function askNewOTP() {
     let data = new FormData();
     data.append("phone", props.route.params.item.phone);
@@ -104,7 +132,6 @@ export default function OTPView({ ...props }) {
             askNewOTP();
           }}
         />
-
         <CustomAlert
           show={isResendOTPRequestFailed}
           title={all_constants.messages.failed.title}
@@ -113,33 +140,63 @@ export default function OTPView({ ...props }) {
             setIsResendOTPRequestFailed(false);
           }}
         />
-
         <CustomAlert
-          show={showAlert}
-          title={
-            isRequestSuccessful
-              ? all_constants.messages.success.title
-              : all_constants.messages.failed.title
-          }
-          message={
-            props.route.params.auth
-              ? isRequestSuccessful
-                ? all_constants.messages.success.login_message
-                : ""
-              : all_constants.messages.success.signup_message
-          }
-          confirmButtonColor={isRequestSuccessful ? "green" : "red"}
+          show={showAlertTokenRequestFailed}
+          title={all_constants.messages.failed.title + " token"}
+          confirmButtonColor={"red"}
           onConfirmPressed={() => {
-            setShowAlert(false);
-            if (isRequestSuccessful) {
-              if (props.route.params.auth) {
-                handleLogin();
-              } else {
-                props.navigation.navigate("LoginForm");
-              }
-            }
+            setShowAlertTokenRequestFailed(false);
           }}
         />
+        <CustomAlert
+          show={showAlertTokenRequestSuccessful}
+          title={all_constants.messages.success.title}
+          message={all_constants.messages.success.login_message}
+          confirmButtonColor={"green"}
+          onConfirmPressed={() => {
+            setShowAlertTokenRequestSuccessful(false);
+            handleLogin();
+          }}
+        />
+        {!props.route.params.auth && isOTPValidationRequestSuccessful && (
+          <CustomAlert
+            show={showAlert}
+            title={all_constants.messages.success.title}
+            message={all_constants.messages.success.signup_message}
+            confirmButtonColor={"green"}
+            onConfirmPressed={() => {
+              setShowAlert(false);
+              if (
+                !props.route.params.auth &&
+                isOTPValidationRequestSuccessful
+              ) {
+                props.navigation.navigate("LoginForm");
+              }
+            }}
+          />
+        )}
+        {!props.route.params.auth && !isOTPValidationRequestSuccessful && (
+          <CustomAlert
+            show={showAlert}
+            title={all_constants.messages.failed.title}
+            message={all_constants.messages.otp.message.invalid_code}
+            confirmButtonColor={"red"}
+            onConfirmPressed={() => {
+              setShowAlert(false);
+            }}
+          />
+        )}
+        {props.route.params.auth && !isOTPValidationRequestSuccessful && (
+          <CustomAlert
+            show={showAlert}
+            title={all_constants.messages.failed.title}
+            message={all_constants.messages.otp.message.invalid_code}
+            confirmButtonColor={"red"}
+            onConfirmPressed={() => {
+              setShowAlert(false);
+            }}
+          />
+        )}
       </View>
       <View style={styles.container} key={randomNumber}>
         {OTPValue.map((digit, index) => (
