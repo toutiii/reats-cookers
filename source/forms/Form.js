@@ -12,6 +12,7 @@ import { validateFields } from "../validators/global_validators";
 import FormField from "../components/FormField";
 import styles_form from "../styles/styles-form";
 import CustomAlert from "../components/CustomAlert";
+import { callBackEndGET } from "../api/callBackend";
 
 const getInitialErrorsState = (fieldKeys) => {
   const errors_state = {};
@@ -186,6 +187,40 @@ export default function Form({ ...props }) {
   const navigateToSignupForm = () => {
     props.navigation.navigate("SignupForm");
   };
+  const [reloadScreen, setReloadScreen] = useState(false);
+  const getTownFromPostalCode = async (postalCode) => {
+    if (postalCode !== null) {
+      let townResults = await callBackEndGET(
+        `https://geo.api.gouv.fr/communes?codePostal=${postalCode}`
+      );
+
+      if (townResults.length === 0) {
+        console.error("No towns for postal code ", postalCode);
+        return;
+      }
+
+      for (let i = 0; i < townResults.length; i++) {
+        let tempObject = townResults[i];
+        fieldsObject["town"].autoCompleteValues.push({
+          id: i.toString(),
+          title: tempObject.nom,
+        });
+      }
+      fieldsObject["town"].hideLabel = false;
+      fieldsObject["town"].fieldIsMandatory = true;
+    } else {
+      fieldsObject["town"].autoCompleteValues = [];
+      fieldsObject["town"].hideLabel = true;
+      fieldsObject["town"].fieldIsMandatory = false;
+    }
+    setReloadScreen(true);
+    console.log(fieldsObject["town"]);
+  };
+
+  useEffect(() => {
+    console.log("Reloading screen");
+    setReloadScreen(false);
+  }, [reloadScreen]);
 
   return (
     <KeyboardAvoidingView>
@@ -302,6 +337,7 @@ export default function Form({ ...props }) {
                   value={newItem[key]}
                   customSelectValues={props.customSelectValues}
                   showAlert={showAlert}
+                  getTownFromPostalCode={getTownFromPostalCode}
                   onConfirmPressed={() => {
                     setStateShowAlert(false);
                   }}

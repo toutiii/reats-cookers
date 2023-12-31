@@ -37,6 +37,7 @@ export default function FormField({ ...props }) {
   const [countryID, setCountryID] = props.newItem.country
     ? useState(getCountryIdByName(props.newItem.country))
     : useState(5);
+  const [postalCode, setPostalCode] = useState(props.newItem.postal_code);
 
   const showDatepicker = () => {
     showMode("date");
@@ -58,6 +59,21 @@ export default function FormField({ ...props }) {
       );
     }
   };
+
+  useEffect(() => {
+    if (
+      postalCode !== undefined &&
+      postalCode.length === all_constants.max_length.form.postal_code
+    ) {
+      props.getTownFromPostalCode(postalCode);
+    }
+    if (
+      postalCode !== undefined &&
+      postalCode.length < all_constants.max_length.form.postal_code
+    ) {
+      props.getTownFromPostalCode(null);
+    }
+  }, [postalCode]);
 
   useEffect(() => {
     setPicUri(props.newItem.photo);
@@ -173,7 +189,10 @@ export default function FormField({ ...props }) {
           <TextInput
             style={styles_field.textinput}
             value={props.value}
-            onChangeText={(text) => props.onChangeText(props.fieldName, text)}
+            onChangeText={(text) => {
+              props.onChangeText(props.fieldName, text),
+                props.fieldName == "postal_code" ? setPostalCode(text) : "";
+            }}
             maxLength={props.field.maxLength}
             multiline={props.field.type === all_constants.field_type.textarea}
             numberOfLines={
@@ -295,30 +314,57 @@ export default function FormField({ ...props }) {
           />
         </TouchableWithoutFeedback>
       )}
-      {props.field.type === all_constants.field_type.autocomplete && (
-        <View style={styles_field.textinput}>
-          <AutocompleteDropdown
-            clearOnFocus={false}
-            closeOnBlur={true}
-            closeOnSubmit={false}
-            showChevron={false}
-            showClear={false}
-            initialValue={countryID.toString()}
-            onSelectItem={(countryObject) => {
-              if (countryObject !== null) {
-                props.onChangeText(props.fieldName, countryObject.title);
-              }
-            }}
-            dataSet={props.field.autoCompleteValues}
-            textInputProps={{
-              autoCorrect: false,
-              style: {
-                backgroundColor: "white",
-              },
-            }}
-          />
-        </View>
-      )}
+      {props.field.type === all_constants.field_type.autocomplete &&
+        props.fieldName == "country" && (
+          <View style={styles_field.textinput}>
+            <AutocompleteDropdown
+              clearOnFocus={false}
+              closeOnBlur={true}
+              closeOnSubmit={false}
+              showChevron={false}
+              showClear={false}
+              initialValue={countryID.toString()}
+              onSelectItem={(countryObject) => {
+                if (countryObject !== null) {
+                  props.onChangeText(props.fieldName, countryObject.title);
+                }
+              }}
+              dataSet={props.field.autoCompleteValues}
+              textInputProps={{
+                autoCorrect: false,
+                style: {
+                  backgroundColor: "white",
+                },
+              }}
+            />
+          </View>
+        )}
+      {props.field.type === all_constants.field_type.autocomplete &&
+        props.fieldName == "town" &&
+        props.field.autoCompleteValues.length > 0 && (
+          <View style={styles_field.textinput}>
+            <AutocompleteDropdown
+              clearOnFocus={false}
+              closeOnBlur={true}
+              closeOnSubmit={false}
+              showChevron={false}
+              showClear={false}
+              initialValue={props.newItem.postal_code}
+              onSelectItem={(townObject) => {
+                if (townObject !== null) {
+                  props.onChangeText(props.fieldName, townObject.title);
+                }
+              }}
+              dataSet={props.field.autoCompleteValues}
+              textInputProps={{
+                autoCorrect: false,
+                style: {
+                  backgroundColor: "white",
+                },
+              }}
+            />
+          </View>
+        )}
       {show && (
         <DateTimePicker
           testID="dateTimePicker"

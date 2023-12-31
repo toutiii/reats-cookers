@@ -247,7 +247,7 @@ export function getCountries() {
 }
 
 export function getCountryIdByName(countryName) {
-  countries = getCountries();
+  let countries = getCountries();
 
   for (let i = 0; i < countries.length; i++) {
     if (countries[i].title === countryName) {

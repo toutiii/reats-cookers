@@ -159,8 +159,8 @@ export default function SignupForm({ ...props }) {
               maxLength: all_constants.max_length.form.postal_code,
             },
             town: {
-              fieldIsMandatory: true,
-              type: all_constants.field_type.textinput,
+              fieldIsMandatory: false,
+              type: all_constants.field_type.autocomplete,
               label: all_constants.label.form.settings.town,
               placeholder: all_constants.placeholders.form.settings.town,
               validators: [
@@ -168,6 +168,8 @@ export default function SignupForm({ ...props }) {
                 checkValueNotContainsSpecialChar,
               ],
               maxLength: all_constants.max_length.form.town,
+              autoCompleteValues: [],
+              hideLabel: true,
             },
           }}
         />
