@@ -8,6 +8,7 @@ import { callBackEnd } from "../api/callBackend";
 import CustomAlert from "../components/CustomAlert";
 import { CommonActions } from "@react-navigation/native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
+import * as SecureStore from "expo-secure-store";
 
 export default function OTPView({ ...props }) {
   const [OTPValue, setOTPValue] = useState(["", "", "", "", "", ""]);
@@ -27,6 +28,7 @@ export default function OTPView({ ...props }) {
     useState(false);
   const [showAlertTokenRequestFailed, setShowAlertTokenRequestFailed] =
     useState(false);
+  const [tokenData, setTokenData] = useState(null);
 
   const OTPLength = 6;
   const OTPAskDelay = 30;
@@ -52,12 +54,33 @@ export default function OTPView({ ...props }) {
       data,
       "http://192.168.1.85:8000/api/v1/cookers/otp-verify/",
       "POST",
+      (accessToken = null),
       (useFormData = true)
     );
     console.log(result);
     setIsOTPValidationRequestSuccessful(result.ok);
     setShowAlert(true);
   }
+
+  React.useEffect(() => {
+    if (tokenData !== null && tokenData.ok) {
+      async function saveTokenData() {
+        await SecureStore.setItemAsync(
+          "userID",
+          JSON.stringify(tokenData.user_id)
+        );
+        await SecureStore.setItemAsync(
+          "refreshToken",
+          JSON.stringify(tokenData.token.refresh)
+        );
+        await SecureStore.setItemAsync(
+          "accessToken",
+          `Bearer ${tokenData.token.access}`
+        );
+      }
+      saveTokenData();
+    }
+  }, [tokenData]);
 
   React.useEffect(() => {
     if (isOTPValidationRequestSuccessful && props.route.params.auth) {
@@ -69,8 +92,10 @@ export default function OTPView({ ...props }) {
           data,
           "http://192.168.1.85:8000/api/v1/token/",
           "POST",
+          (accessToken = null),
           (useFormData = true)
         );
+        setTokenData(result);
         console.log(result);
         result.ok
           ? setShowAlertTokenRequestSuccessful(true)

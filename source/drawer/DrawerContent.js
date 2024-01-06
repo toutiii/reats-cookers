@@ -14,11 +14,12 @@ import Animated from "react-native-reanimated";
 import CustomAlert from "../components/CustomAlert";
 import all_constants from "../constants";
 import { callBackEnd, callBackEndGET } from "../api/callBackend";
+import { getItemFromSecureStore } from "../helpers/global_helpers";
 
 export default function DrawerContent(props) {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(false);
-  const [online, isOnline] = React.useState(false); // TODO: this value will come from the back
+  const [online, isOnline] = React.useState(false);
   const [userData, setUserData] = React.useState(null);
   const [requesting, isRequesting] = React.useState(true);
 
@@ -26,10 +27,13 @@ export default function DrawerContent(props) {
     console.log("Updating status...");
     let formData = new FormData();
     formData.append("is_online", !online);
+    const userID = await getItemFromSecureStore("userID");
+    const access = await getItemFromSecureStore("accessToken");
     const response = await callBackEnd(
       formData,
-      "http://192.168.1.85:8000/api/v1/cookers/1/",
+      `http://192.168.1.85:8000/api/v1/cookers/${userID}/`,
       "PATCH",
+      (accessToken = access),
       (useFormData = true)
     );
     console.log(response);
@@ -54,8 +58,11 @@ export default function DrawerContent(props) {
     if (requesting) {
       console.log("Fetching data to feed drawer content");
       async function getData() {
+        const userID = await getItemFromSecureStore("userID");
+        const access = await getItemFromSecureStore("accessToken");
         const result = await callBackEndGET(
-          "http://192.168.1.85:8000/api/v1/cookers/1/"
+          `http://192.168.1.85:8000/api/v1/cookers/${userID}/`,
+          (accessToken = "access")
         );
         setUserData(result.data);
         isRequesting(false);

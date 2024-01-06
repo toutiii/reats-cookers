@@ -13,6 +13,7 @@ import FormField from "../components/FormField";
 import styles_form from "../styles/styles-form";
 import CustomAlert from "../components/CustomAlert";
 import { callBackEndGET } from "../api/callBackend";
+import { getItemFromSecureStore } from "../helpers/global_helpers";
 
 const getInitialErrorsState = (fieldKeys) => {
   const errors_state = {};
@@ -100,10 +101,19 @@ export default function Form({ ...props }) {
     }
     fadeOut();
     try {
-      result = await props.action(newItem, props.url, props.method);
+      const userID = await getItemFromSecureStore("userID");
+      const accessToken = await getItemFromSecureStore("accessToken");
+
+      const result = await props.action(
+        newItem,
+        props.url,
+        props.method,
+        userID,
+        accessToken
+      );
       setApiOkResponse(result.ok);
       fadeIn();
-      if (props.afterSubmit === null) {
+      if (props.afterSubmit === undefined || props.afterSubmit === null) {
         setStateShowAlert(true);
       }
     } catch (e) {
@@ -124,10 +134,15 @@ export default function Form({ ...props }) {
     fadeOut();
     try {
       newItem.is_enabled = false;
+      const userID = await getItemFromSecureStore("userID");
+      const accessToken = await getItemFromSecureStore("accessToken");
+
       const result = await props.action(
         newItem,
         props.url,
         props.method,
+        userID,
+        accessToken,
         (is_enabled = false)
       );
 
@@ -148,10 +163,14 @@ export default function Form({ ...props }) {
     fadeOut();
     try {
       newItem.is_enabled = true;
+      const userID = await getItemFromSecureStore("userID");
+      const accessToken = await getItemFromSecureStore("accessToken");
       const result = await props.action(
         newItem,
         props.url,
         props.method,
+        userID,
+        accessToken,
         (is_enabled = true)
       );
 

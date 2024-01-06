@@ -1,11 +1,28 @@
-export async function callBackEnd(data, url, method, useFormData = false) {
+export async function callBackEnd(
+  data,
+  url,
+  method,
+  accessToken = null,
+  useFormData = false
+) {
   console.log(data);
   console.log(url);
   console.log(method);
+  console.log(accessToken);
   console.log(useFormData);
 
   let response = "";
-  let headers = { Accept: "application/json" };
+  let headers = {};
+
+  if (accessToken === null) {
+    headers = { Accept: "application/json" };
+  } else {
+    headers = {
+      Accept: "application/json",
+      Authorization: accessToken,
+    };
+  }
+  console.log(headers);
   let body = data;
 
   if (!useFormData) {
@@ -31,13 +48,23 @@ export async function callBackEnd(data, url, method, useFormData = false) {
   }
 }
 
-export async function callBackEndGET(url) {
+export async function callBackEndGET(url, accessToken = null) {
   let response = "";
+  let headers = {};
+
+  if (accessToken === null) {
+    headers = { Accept: "application/json" };
+  } else {
+    headers = {
+      Accept: "application/json",
+      Authorization: accessToken,
+    };
+  }
 
   try {
     response = await fetch(url, {
       method: "GET",
-      headers: { Accept: "application/json" },
+      headers: headers,
     });
     response = await response.json();
     console.log(response.data);
@@ -52,6 +79,8 @@ export async function callBackendWithFormDataForDishes(
   data,
   url,
   method,
+  userID,
+  access,
   is_enabled = null
 ) {
   console.log(data);
@@ -80,7 +109,7 @@ export async function callBackendWithFormDataForDishes(
     formData.append("country", data.country);
     formData.append("description", data.description);
     formData.append("price", data.price);
-    formData.append("cooker", 1); //TODO: Fetch from AsyncStorage when authent is OK
+    formData.append("cooker", userID);
   }
 
   if (data.id !== undefined) {
@@ -92,20 +121,34 @@ export async function callBackendWithFormDataForDishes(
     }
   }
 
-  return callBackEnd(formData, url, method, (useFormData = true));
+  return callBackEnd(
+    formData,
+    url,
+    method,
+    (accessToken = access),
+    (useFormData = true)
+  );
 }
 
 export async function callBackEndForAuthentication(data, url, method) {
   console.log(data);
   let formData = new FormData();
   formData.append("phone", data.phone);
-  return callBackEnd(formData, url, method, (useFormData = true));
+  return callBackEnd(
+    formData,
+    url,
+    method,
+    (accessToken = null),
+    (useFormData = true)
+  );
 }
 
 export async function callBackendWithFormDataForDrinks(
   data,
   url,
   method,
+  userID,
+  access,
   is_enabled = null
 ) {
   console.log(data);
@@ -135,7 +178,7 @@ export async function callBackendWithFormDataForDrinks(
     formData.append("price", data.price);
     formData.append("capacity", data.capacity);
     formData.append("unit", data.unit);
-    formData.append("cooker", 1); //TODO: Fetch from AsyncStorage when authent is OK
+    formData.append("cooker", userID);
   }
 
   if (data.id !== undefined) {
@@ -147,10 +190,22 @@ export async function callBackendWithFormDataForDrinks(
     }
   }
 
-  return callBackEnd(formData, url, method, (useFormData = true));
+  return callBackEnd(
+    formData,
+    url,
+    method,
+    (accessToken = access),
+    (useFormData = true)
+  );
 }
 
-export async function callBackendWithFormDataForCookers(data, url, method) {
+export async function callBackendWithFormDataForCookers(
+  data,
+  url,
+  method,
+  userID,
+  access
+) {
   let formData = new FormData();
 
   if (data.photo !== undefined && data.photo.startsWith("file:///")) {
@@ -195,8 +250,14 @@ export async function callBackendWithFormDataForCookers(data, url, method) {
   }
 
   if (method === "PATCH") {
-    url += "1" + "/"; //TODO: Fetch from AsyncStorage when authent is OK
+    url += userID + "/";
   }
 
-  return callBackEnd(formData, url, method, (useFormData = true));
+  return callBackEnd(
+    formData,
+    url,
+    method,
+    (accessToken = access),
+    (useFormData = true)
+  );
 }

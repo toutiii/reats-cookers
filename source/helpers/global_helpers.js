@@ -1,3 +1,5 @@
+import * as SecureStore from "expo-secure-store";
+
 export function getCategories() {
   return [
     { label: "Entrée", value: "starter" },
@@ -254,4 +256,9 @@ export function getCountryIdByName(countryName) {
       return countries[i].id;
     }
   }
+}
+
+export async function getItemFromSecureStore(key) {
+  let result = await SecureStore.getItemAsync(key);
+  return result;
 }
