@@ -62,7 +62,7 @@ export default function DrawerContent(props) {
         const access = await getItemFromSecureStore("accessToken");
         const result = await callBackEndGET(
           `http://192.168.1.85:8000/api/v1/cookers/${userID}/`,
-          (accessToken = "access")
+          (accessToken = access)
         );
         setUserData(result.data);
         isRequesting(false);

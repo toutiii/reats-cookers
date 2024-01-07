@@ -65,13 +65,10 @@ export default function OTPView({ ...props }) {
   React.useEffect(() => {
     if (tokenData !== null && tokenData.ok) {
       async function saveTokenData() {
-        await SecureStore.setItemAsync(
-          "userID",
-          JSON.stringify(tokenData.user_id)
-        );
+        await SecureStore.setItemAsync("userID", `${tokenData.user_id}`);
         await SecureStore.setItemAsync(
           "refreshToken",
-          JSON.stringify(tokenData.token.refresh)
+          `${tokenData.token.refresh}`
         );
         await SecureStore.setItemAsync(
           "accessToken",

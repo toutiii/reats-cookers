@@ -1,3 +1,5 @@
+import { getItemFromSecureStore } from "../helpers/global_helpers";
+import { setItemAsync } from "expo-secure-store";
 export async function callBackEnd(
   data,
   url,
@@ -40,12 +42,58 @@ export async function callBackEnd(
       body: body,
     });
     response = await response.json();
-    console.log(response);
+    console.log("**************************************");
+    console.log(JSON.stringify(response));
+    console.log("**************************************");
+    if (
+      response.status_code === 401 &&
+      response.error_code === "token_not_valid"
+    ) {
+      await renewAccessToken();
+      const newAccessToken = await getItemFromSecureStore("accessToken");
+      response = await fetch(url, {
+        method: method,
+        headers: {
+          Accept: "application/json",
+          Authorization: newAccessToken,
+        },
+        body: body,
+      });
+      response = await response.json();
+      console.log("-------------------------------------------");
+      console.log(JSON.stringify(response));
+      console.log("-------------------------------------------");
+    }
     return response;
   } catch (error) {
     console.log(error);
     return false;
   }
+}
+
+export async function renewAccessToken() {
+  console.log("=======================================");
+  let url = "http://192.168.1.85:8000/api/v1/token/refresh/";
+  const refreshToken = await getItemFromSecureStore("refreshToken");
+
+  let formData = new FormData();
+  formData.append("refresh", refreshToken);
+
+  console.log(formData);
+  console.log(url);
+
+  let response = await fetch(url, {
+    method: "POST",
+    headers: { Accept: "application/json" },
+    body: formData,
+  });
+  response = await response.json();
+  console.log(JSON.stringify(response));
+
+  if (response.ok) {
+    await setItemAsync("accessToken", `Bearer ${response.access}`);
+  }
+  console.log("=======================================");
 }
 
 export async function callBackEndGET(url, accessToken = null) {
