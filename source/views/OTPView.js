@@ -74,6 +74,10 @@ export default function OTPView({ ...props }) {
           "accessToken",
           `Bearer ${tokenData.token.access}`
         );
+        await SecureStore.setItemAsync(
+          "phoneNumber",
+          `${props.route.params.item.phone}`
+        );
       }
       saveTokenData();
     }

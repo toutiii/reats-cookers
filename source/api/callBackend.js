@@ -43,6 +43,7 @@ export async function callBackEnd(
     });
     response = await response.json();
     console.log("**************************************");
+    console.log("Below initial request's response");
     console.log(JSON.stringify(response));
     console.log("**************************************");
     if (
@@ -61,8 +62,31 @@ export async function callBackEnd(
       });
       response = await response.json();
       console.log("-------------------------------------------");
+      console.log("Below request response after access token renew only");
       console.log(JSON.stringify(response));
       console.log("-------------------------------------------");
+      if (
+        response.status_code === 401 &&
+        response.error_code === "token_not_valid"
+      ) {
+        await renewTokenPair();
+        const accessTokenFromNewPair = await getItemFromSecureStore(
+          "accessToken"
+        );
+        response = await fetch(url, {
+          method: method,
+          headers: {
+            Accept: "application/json",
+            Authorization: accessTokenFromNewPair,
+          },
+          body: body,
+        });
+        response = await response.json();
+        console.log("-------------------------------------------");
+        console.log("Below request response after token pair renew");
+        console.log(JSON.stringify(response));
+        console.log("-------------------------------------------");
+      }
     }
     return response;
   } catch (error) {
@@ -94,6 +118,33 @@ export async function renewAccessToken() {
     await setItemAsync("accessToken", `Bearer ${response.access}`);
   }
   console.log("=======================================");
+}
+
+export async function renewTokenPair() {
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+  console.log("Renewing token pair...");
+  let url = "http://192.168.1.85:8000/api/v1/token/";
+
+  let formData = new FormData();
+  const phoneNumber = await getItemFromSecureStore("phoneNumber");
+  formData.append("phone", phoneNumber); //TODO: Find a better way to fetch the phone number
+
+  console.log(formData);
+  console.log(url);
+
+  let response = await fetch(url, {
+    method: "POST",
+    headers: { Accept: "application/json" },
+    body: formData,
+  });
+  response = await response.json();
+  console.log(JSON.stringify(response));
+
+  if (response.ok) {
+    await setItemAsync("refreshToken", `${response.token.refresh}`);
+    await setItemAsync("accessToken", `Bearer ${response.token.access}`);
+  }
+  console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 }
 
 export async function callBackEndGET(url, accessToken = null) {
