@@ -9,6 +9,7 @@ import CustomAlert from "../components/CustomAlert";
 import { CommonActions } from "@react-navigation/native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import * as SecureStore from "expo-secure-store";
+import { apiBaseUrl, port } from "../env";
 
 export default function OTPView({ ...props }) {
   const [OTPValue, setOTPValue] = useState(["", "", "", "", "", ""]);
@@ -52,7 +53,7 @@ export default function OTPView({ ...props }) {
     data.append("phone", props.route.params.item.phone);
     const result = await callBackEnd(
       data,
-      "http://192.168.1.85:8000/api/v1/cookers/otp-verify/",
+      `${apiBaseUrl}:${port}/api/v1/cookers/otp-verify/`,
       "POST",
       (accessToken = null),
       (useFormData = true)
@@ -91,7 +92,7 @@ export default function OTPView({ ...props }) {
         data.append("phone", props.route.params.item.phone);
         const result = await callBackEnd(
           data,
-          "http://192.168.1.85:8000/api/v1/token/",
+          `${apiBaseUrl}:${port}/api/v1/token/`,
           "POST",
           (accessToken = null),
           (useFormData = true)
@@ -133,8 +134,9 @@ export default function OTPView({ ...props }) {
     await sleep(1000);
     const result = await callBackEnd(
       data,
-      "http://192.168.1.85:8000/api/v1/cookers/otp/ask/",
+      `${apiBaseUrl}:${port}/api/v1/cookers/otp/ask/`,
       "POST",
+      (accessToken = null),
       (useFormData = true)
     );
     console.log(result);

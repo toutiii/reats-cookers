@@ -1,5 +1,7 @@
+import { apiBaseUrl, port } from "../env";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
 import { setItemAsync } from "expo-secure-store";
+
 export async function callBackEnd(
   data,
   url,
@@ -14,33 +16,35 @@ export async function callBackEnd(
   console.log(useFormData);
 
   let response = "";
-  let headers = {};
+  let headers = { Accept: "application/json" };
 
-  if (accessToken === null) {
-    headers = { Accept: "application/json" };
-  } else {
-    headers = {
-      Accept: "application/json",
-      Authorization: accessToken,
-    };
+  if (accessToken !== null) {
+    headers["Authorization"] = accessToken;
   }
-  console.log(headers);
+
   let body = data;
 
   if (!useFormData) {
-    headers = {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
+    headers["Content-Type"] = "application/json";
     body = JSON.stringify(data);
   }
 
+  console.log(headers);
+
   try {
-    response = await fetch(url, {
-      method: method,
-      headers: headers,
-      body: body,
-    });
+    if (method === "GET") {
+      response = await fetch(url, {
+        method: method,
+        headers: headers,
+      });
+    } else {
+      response = await fetch(url, {
+        method: method,
+        headers: headers,
+        body: body,
+      });
+    }
+
     response = await response.json();
     console.log("**************************************");
     console.log("Below initial request's response");
@@ -97,7 +101,7 @@ export async function callBackEnd(
 
 export async function renewAccessToken() {
   console.log("=======================================");
-  let url = "http://192.168.1.85:8000/api/v1/token/refresh/";
+  let url = `${apiBaseUrl}:${port}/api/v1/token/refresh/`;
   const refreshToken = await getItemFromSecureStore("refreshToken");
 
   let formData = new FormData();
@@ -123,7 +127,7 @@ export async function renewAccessToken() {
 export async function renewTokenPair() {
   console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
   console.log("Renewing token pair...");
-  let url = "http://192.168.1.85:8000/api/v1/token/";
+  let url = `${apiBaseUrl}:${port}/api/v1/token/`;
 
   let formData = new FormData();
   const phoneNumber = await getItemFromSecureStore("phoneNumber");
@@ -147,33 +151,6 @@ export async function renewTokenPair() {
   console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 }
 
-export async function callBackEndGET(url, accessToken = null) {
-  let response = "";
-  let headers = {};
-
-  if (accessToken === null) {
-    headers = { Accept: "application/json" };
-  } else {
-    headers = {
-      Accept: "application/json",
-      Authorization: accessToken,
-    };
-  }
-
-  try {
-    response = await fetch(url, {
-      method: "GET",
-      headers: headers,
-    });
-    response = await response.json();
-    console.log(response.data);
-    return response;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
-}
-
 export async function callBackendWithFormDataForDishes(
   data,
   url,
@@ -187,7 +164,7 @@ export async function callBackendWithFormDataForDishes(
 
   if (method === "DELETE") {
     url += data.id + "/";
-    return callBackEnd(formData, url, method);
+    return callBackEnd(formData, url, method, (accessToken = access));
   }
 
   if (is_enabled !== null) {
@@ -255,7 +232,7 @@ export async function callBackendWithFormDataForDrinks(
 
   if (method === "DELETE") {
     url += data.id + "/";
-    return callBackEnd(formData, url, method);
+    return callBackEnd(formData, url, method, (accessToken = access));
   }
 
   if (is_enabled !== null) {

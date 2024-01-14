@@ -10,6 +10,7 @@ import {
 import { callBackendWithFormDataForDishes } from "../api/callBackend";
 import { getCategories } from "../helpers/global_helpers";
 import { getCountries } from "../helpers/global_helpers";
+import { apiBaseUrl, port } from "../env";
 
 export default function DishForm({ ...props }) {
   console.log(props.route.params);
@@ -18,7 +19,7 @@ export default function DishForm({ ...props }) {
       <View style={{ flex: 2, marginTop: "10%" }}>
         <Form
           action={callBackendWithFormDataForDishes}
-          url={"http://192.168.1.85:8000/api/v1/dishes/"}
+          url={`${apiBaseUrl}:${port}/api/v1/dishes/`}
           method={"POST"}
           navigation={props.navigation}
           refreshDataStateChanger={props.route.params.refreshDataStateChanger}

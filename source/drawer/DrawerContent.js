@@ -13,8 +13,9 @@ import {
 import Animated from "react-native-reanimated";
 import CustomAlert from "../components/CustomAlert";
 import all_constants from "../constants";
-import { callBackEnd, callBackEndGET } from "../api/callBackend";
+import { callBackEnd } from "../api/callBackend";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
+import { apiBaseUrl, port } from "../env";
 
 export default function DrawerContent(props) {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
@@ -31,7 +32,7 @@ export default function DrawerContent(props) {
     const access = await getItemFromSecureStore("accessToken");
     const response = await callBackEnd(
       formData,
-      `http://192.168.1.85:8000/api/v1/cookers/${userID}/`,
+      `${apiBaseUrl}:${port}/api/v1/cookers/${userID}/`,
       "PATCH",
       (accessToken = access),
       (useFormData = true)
@@ -60,8 +61,10 @@ export default function DrawerContent(props) {
       async function getData() {
         const userID = await getItemFromSecureStore("userID");
         const access = await getItemFromSecureStore("accessToken");
-        const result = await callBackEndGET(
-          `http://192.168.1.85:8000/api/v1/cookers/${userID}/`,
+        const result = await callBackEnd(
+          new FormData(),
+          `${apiBaseUrl}:${port}/api/v1/cookers/${userID}/`,
+          "GET",
           (accessToken = access)
         );
         setUserData(result.data);

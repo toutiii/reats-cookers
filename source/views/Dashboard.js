@@ -272,7 +272,7 @@ export default function Dashboard(props) {
             </Text>
           </View>
 
-          <View style={{ padding: 20, alignItems: "center" }}>
+          <View style={{ alignItems: "center" }}>
             <PieChart
               data={pieData}
               donut
@@ -301,23 +301,23 @@ export default function Dashboard(props) {
             </Text>
           </View>
 
-          <View style={{ padding: 20, alignItems: "center" }}>
+          <View style={{ alignItems: "center" }}>
             <BarChart
               data={barData}
               barWidth={16}
               initialSpacing={10}
               barBorderRadius={4}
               yAxisThickness={0}
+              xAxisThickness={3}
               xAxisType={"dashed"}
               xAxisColor={"lightgray"}
               yAxisTextStyle={{ color: "lightgray" }}
-              stepValue={0}
-              maxValue={100}
-              minValue={0}
+              stepValue={10}
+              minValue={10}
               noOfSections={5}
-              xAxisLabelTextStyle={{ color: "lightgray", textAlign: "center" }}
-              showScrollIndicator
+              maxValue={10 * 10}
               yAxisLabelSuffix={"€"}
+              spacing={14}
             />
           </View>
         </View>

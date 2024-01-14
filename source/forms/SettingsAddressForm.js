@@ -8,6 +8,7 @@ import {
 } from "../validators/global_validators";
 import { checkPostalCode } from "../validators/settingsform_validators";
 import { callBackendWithFormDataForCookers } from "../api/callBackend";
+import { apiBaseUrl, port } from "../env";
 
 export default function SettingsAddressForm({ ...props }) {
   return (
@@ -15,7 +16,7 @@ export default function SettingsAddressForm({ ...props }) {
       <View style={{ flex: 2, marginTop: "10%" }}>
         <Form
           action={callBackendWithFormDataForCookers}
-          url={"http://192.168.1.85:8000/api/v1/cookers/"}
+          url={`${apiBaseUrl}:${port}/api/v1/cookers/`}
           method={"PATCH"}
           navigation={props.navigation}
           refreshDataStateChanger={props.route.params.refreshDataStateChanger}

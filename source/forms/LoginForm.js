@@ -6,6 +6,7 @@ import { checkValueIsDefined } from "../validators/global_validators";
 import { checkNumericFormat } from "../validators/settingsform_validators";
 import { callBackEndForAuthentication } from "../api/callBackend";
 import CustomAlert from "../components/CustomAlert";
+import { apiBaseUrl, port } from "../env";
 
 export default function LoginForm({ ...props }) {
   const [showAlert, setShowAlert] = React.useState(false);
@@ -48,7 +49,7 @@ export default function LoginForm({ ...props }) {
       <View style={{ flex: 1 }}>
         <Form
           action={callBackEndForAuthentication}
-          url={"http://192.168.1.85:8000/api/v1/cookers/auth/"}
+          url={`${apiBaseUrl}:${port}/api/v1/cookers/auth/`}
           method={"POST"}
           navigation={props.navigation}
           afterSubmit={handleResult}

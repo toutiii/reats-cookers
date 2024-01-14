@@ -14,7 +14,9 @@ import Item from "../components/Item";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
-import { callBackEndGET } from "../api/callBackend";
+import { callBackEnd } from "../api/callBackend";
+import { getItemFromSecureStore } from "../helpers/global_helpers";
+import { apiBaseUrl, port } from "../env";
 
 export default function DishFlatList({ ...props }) {
   const [isSearchFilterModalVisible, setSearchFilterModalVisible] =
@@ -85,7 +87,13 @@ export default function DishFlatList({ ...props }) {
       setTimeout(() => {
         async function fetchDataFromBackend() {
           console.log(searchURL);
-          const results = await callBackEndGET(searchURL);
+          const access = await getItemFromSecureStore("accessToken");
+          const results = await callBackEnd(
+            new FormData(),
+            searchURL,
+            "GET",
+            (accessToken = access)
+          );
           console.log(results);
           setData(results.data);
         }
@@ -125,7 +133,7 @@ export default function DishFlatList({ ...props }) {
 
   const buildSearchUrl = () => {
     let queryParams = "";
-    let baseURL = "http://192.168.1.85:8000/api/v1/dishes?";
+    let baseURL = `${apiBaseUrl}:${port}/api/v1/dishes?`;
 
     if (searchQuery.length >= minLengthToTriggerSearch) {
       queryParams += `name=${searchQuery}`;

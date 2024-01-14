@@ -12,7 +12,7 @@ import { validateFields } from "../validators/global_validators";
 import FormField from "../components/FormField";
 import styles_form from "../styles/styles-form";
 import CustomAlert from "../components/CustomAlert";
-import { callBackEndGET } from "../api/callBackend";
+import { callBackEnd } from "../api/callBackend";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
 
 const getInitialErrorsState = (fieldKeys) => {
@@ -191,7 +191,15 @@ export default function Form({ ...props }) {
     fadeOut();
     try {
       newItemCopy.to_delete = true;
-      const result = await props.action(newItem, props.url, "DELETE");
+      const userID = await getItemFromSecureStore("userID");
+      const accessToken = await getItemFromSecureStore("accessToken");
+      const result = await props.action(
+        newItem,
+        props.url,
+        "DELETE",
+        userID,
+        accessToken
+      );
 
       setApiOkResponse(result.ok);
       fadeIn();
@@ -209,8 +217,10 @@ export default function Form({ ...props }) {
   const [reloadScreen, setReloadScreen] = useState(false);
   const getTownFromPostalCode = async (postalCode) => {
     if (postalCode !== null) {
-      let townResults = await callBackEndGET(
-        `https://geo.api.gouv.fr/communes?codePostal=${postalCode}`
+      let townResults = await callBackEnd(
+        new FormData(),
+        `https://geo.api.gouv.fr/communes?codePostal=${postalCode}`,
+        "GET"
       );
 
       if (townResults.length === 0) {

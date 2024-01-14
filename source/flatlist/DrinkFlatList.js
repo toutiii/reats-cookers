@@ -14,7 +14,9 @@ import Item from "../components/Item.js";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
-import { callBackEndGET } from "../api/callBackend.js";
+import { callBackEnd } from "../api/callBackend.js";
+import { getItemFromSecureStore } from "../helpers/global_helpers";
+import { apiBaseUrl, port } from "../env";
 
 export default function DrinkFlatlist({ ...props }) {
   const [isSearchFilterModalVisible, setSearchFilterModalVisible] =
@@ -83,7 +85,13 @@ export default function DrinkFlatlist({ ...props }) {
       setTimeout(() => {
         async function fetchDataFromBackend() {
           console.log(searchURL);
-          const results = await callBackEndGET(searchURL);
+          const access = await getItemFromSecureStore("accessToken");
+          const results = await callBackEnd(
+            new FormData(),
+            searchURL,
+            "GET",
+            (accessToken = access)
+          );
           console.log(results);
           setData(results.data);
         }
@@ -122,7 +130,7 @@ export default function DrinkFlatlist({ ...props }) {
 
   const buildSearchUrl = () => {
     let queryParams = "";
-    let baseURL = "http://192.168.1.85:8000/api/v1/drinks?";
+    let baseURL = `${apiBaseUrl}:${port}/api/v1/drinks?`;
 
     if (searchQuery.length >= minLengthToTriggerSearch) {
       queryParams += `name=${searchQuery}`;

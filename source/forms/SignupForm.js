@@ -13,6 +13,7 @@ import {
 } from "../validators/settingsform_validators";
 import { callBackendWithFormDataForCookers } from "../api/callBackend";
 import CustomAlert from "../components/CustomAlert";
+import { apiBaseUrl, port } from "../env";
 
 export default function SignupForm({ ...props }) {
   const [showAlert, setShowAlert] = React.useState(false);
@@ -59,7 +60,7 @@ export default function SignupForm({ ...props }) {
       <View style={{ flex: 2 }}>
         <Form
           action={callBackendWithFormDataForCookers}
-          url={"http://192.168.1.85:8000/api/v1/cookers/"}
+          url={`${apiBaseUrl}:${port}/api/v1/cookers/`}
           method={"POST"}
           navigation={props.navigation}
           afterSubmit={handleResult}

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { registerRootComponent } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginForm from "./forms/LoginForm";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -44,3 +45,5 @@ export default class App extends Component {
     );
   }
 }
+
+registerRootComponent(App);

@@ -11,6 +11,7 @@ import {
 import { callBackendWithFormDataForDrinks } from "../api/callBackend";
 import { getCapacityUnits } from "../helpers/global_helpers";
 import { getCountries } from "../helpers/global_helpers";
+import { apiBaseUrl, port } from "../env";
 
 export default function DrinkForm({ ...props }) {
   return (
@@ -18,7 +19,7 @@ export default function DrinkForm({ ...props }) {
       <View style={{ flex: 2, marginTop: "10%" }}>
         <Form
           action={callBackendWithFormDataForDrinks}
-          url={"http://192.168.1.85:8000/api/v1/drinks/"}
+          url={`${apiBaseUrl}:${port}/api/v1/drinks/`}
           method={"POST"}
           navigation={props.navigation}
           refreshDataStateChanger={props.route.params.refreshDataStateChanger}
