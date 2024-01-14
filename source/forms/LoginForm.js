@@ -49,12 +49,13 @@ export default function LoginForm({ ...props }) {
       <View style={{ flex: 1 }}>
         <Form
           action={callBackEndForAuthentication}
+          useApiKey={true}
           url={`${apiBaseUrl}:${port}/api/v1/cookers/auth/`}
           method={"POST"}
           navigation={props.navigation}
           afterSubmit={handleResult}
           login={true}
-          item={{}}
+          item={{ phone: "0649510110" }}
           fields={{
             phone: {
               type: all_constants.field_type.textinput,

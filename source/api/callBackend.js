@@ -1,4 +1,4 @@
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, apiKeyBackend, appOriginHeader, port } from "../env";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
 import { setItemAsync } from "expo-secure-store";
 
@@ -7,19 +7,38 @@ export async function callBackEnd(
   url,
   method,
   accessToken = null,
-  useFormData = false
+  useFormData = false,
+  apiKey = null
 ) {
   console.log(data);
   console.log(url);
   console.log(method);
   console.log(accessToken);
   console.log(useFormData);
+  console.log(apiKey);
+
+  if (apiKey !== null && accessToken !== null) {
+    console.error(
+      "You can't use both APIKey and access token in the same request."
+    );
+    return { ok: false };
+  }
+
+  if (apiKey === null && accessToken === null) {
+    console.error("You need to specify at least an access token or an APIKey.");
+    return { ok: false };
+  }
 
   let response = "";
   let headers = { Accept: "application/json" };
 
   if (accessToken !== null) {
     headers["Authorization"] = accessToken;
+  }
+
+  if (apiKey !== null) {
+    headers["X-Api-Key"] = apiKeyBackend;
+    headers["App-Origin"] = appOriginHeader;
   }
 
   let body = data;
@@ -131,14 +150,17 @@ export async function renewTokenPair() {
 
   let formData = new FormData();
   const phoneNumber = await getItemFromSecureStore("phoneNumber");
-  formData.append("phone", phoneNumber); //TODO: Find a better way to fetch the phone number
-
+  formData.append("phone", phoneNumber);
   console.log(formData);
   console.log(url);
 
   let response = await fetch(url, {
     method: "POST",
-    headers: { Accept: "application/json" },
+    headers: {
+      Accept: "application/json",
+      "X-Api-Key": apiKeyBackend,
+      "App-Origin": appOriginHeader,
+    },
     body: formData,
   });
   response = await response.json();
@@ -206,7 +228,12 @@ export async function callBackendWithFormDataForDishes(
   );
 }
 
-export async function callBackEndForAuthentication(data, url, method) {
+export async function callBackEndForAuthentication(
+  data,
+  url,
+  method,
+  apiKeyBackend
+) {
   console.log(data);
   let formData = new FormData();
   formData.append("phone", data.phone);
@@ -215,7 +242,8 @@ export async function callBackEndForAuthentication(data, url, method) {
     url,
     method,
     (accessToken = null),
-    (useFormData = true)
+    (useFormData = true),
+    (apiKey = apiKeyBackend)
   );
 }
 
@@ -280,7 +308,8 @@ export async function callBackendWithFormDataForCookers(
   url,
   method,
   userID,
-  access
+  access,
+  apiKeyBackend
 ) {
   let formData = new FormData();
 
@@ -334,6 +363,7 @@ export async function callBackendWithFormDataForCookers(
     url,
     method,
     (accessToken = access),
-    (useFormData = true)
+    (useFormData = true),
+    (apiKey = apiKeyBackend)
   );
 }

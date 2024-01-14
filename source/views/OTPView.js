@@ -9,7 +9,7 @@ import CustomAlert from "../components/CustomAlert";
 import { CommonActions } from "@react-navigation/native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import * as SecureStore from "expo-secure-store";
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, apiKeyBackend, port } from "../env";
 
 export default function OTPView({ ...props }) {
   const [OTPValue, setOTPValue] = useState(["", "", "", "", "", ""]);
@@ -56,7 +56,8 @@ export default function OTPView({ ...props }) {
       `${apiBaseUrl}:${port}/api/v1/cookers/otp-verify/`,
       "POST",
       (accessToken = null),
-      (useFormData = true)
+      (useFormData = true),
+      (apiKey = apiKeyBackend)
     );
     console.log(result);
     setIsOTPValidationRequestSuccessful(result.ok);
@@ -95,7 +96,8 @@ export default function OTPView({ ...props }) {
           `${apiBaseUrl}:${port}/api/v1/token/`,
           "POST",
           (accessToken = null),
-          (useFormData = true)
+          (useFormData = true),
+          (apiKey = apiKeyBackend)
         );
         setTokenData(result);
         console.log(result);
@@ -137,7 +139,8 @@ export default function OTPView({ ...props }) {
       `${apiBaseUrl}:${port}/api/v1/cookers/otp/ask/`,
       "POST",
       (accessToken = null),
-      (useFormData = true)
+      (useFormData = true),
+      (apiKey = apiKeyBackend)
     );
     console.log(result);
     result.ok
@@ -170,7 +173,7 @@ export default function OTPView({ ...props }) {
         />
         <CustomAlert
           show={showAlertTokenRequestFailed}
-          title={all_constants.messages.failed.title + " token"}
+          title={all_constants.messages.failed.title}
           confirmButtonColor={"red"}
           onConfirmPressed={() => {
             setShowAlertTokenRequestFailed(false);

@@ -60,6 +60,7 @@ export default function SignupForm({ ...props }) {
       <View style={{ flex: 2 }}>
         <Form
           action={callBackendWithFormDataForCookers}
+          useApiKey={true}
           url={`${apiBaseUrl}:${port}/api/v1/cookers/`}
           method={"POST"}
           navigation={props.navigation}

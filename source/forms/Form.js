@@ -14,6 +14,7 @@ import styles_form from "../styles/styles-form";
 import CustomAlert from "../components/CustomAlert";
 import { callBackEnd } from "../api/callBackend";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
+import { apiKeyBackend } from "../env";
 
 const getInitialErrorsState = (fieldKeys) => {
   const errors_state = {};
@@ -109,7 +110,8 @@ export default function Form({ ...props }) {
         props.url,
         props.method,
         userID,
-        accessToken
+        accessToken,
+        props.useApiKey ? apiKeyBackend : null
       );
       setApiOkResponse(result.ok);
       fadeIn();
