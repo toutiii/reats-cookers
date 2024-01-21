@@ -15,6 +15,7 @@ import CustomAlert from "../components/CustomAlert";
 import { callBackEnd } from "../api/callBackend";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
 import { apiKeyBackend } from "../env";
+import { CommonActions } from "@react-navigation/native";
 
 const getInitialErrorsState = (fieldKeys) => {
   const errors_state = {};
@@ -61,6 +62,21 @@ export default function Form({ ...props }) {
   const [showAlertRemove, setShowAlertRemove] = useState(false);
 
   const [showAlertEnable, setShowAlertEnable] = useState(false);
+
+  const [showAlertDeleteAccount, setShowAlertDeleteAccount] = useState(false);
+
+  const [showAlertDeleteAccountSuccess, setShowAlertDeleteAccountSuccess] =
+    useState(false);
+
+  const [redirectTologinView, setRedirectTologinView] = useState(false);
+
+  const resetNavigationStackToLoginView = () => {
+    const resetAction = CommonActions.reset({
+      index: 0,
+      routes: [{ name: "LoginForm" }],
+    });
+    props.navigation.dispatch(resetAction);
+  };
 
   const onChangeValue = (key, value) => {
     const newState = { ...newItem, [key]: value };
@@ -192,7 +208,6 @@ export default function Form({ ...props }) {
     setErrorMessage("");
     fadeOut();
     try {
-      newItemCopy.to_delete = true;
       const userID = await getItemFromSecureStore("userID");
       const accessToken = await getItemFromSecureStore("accessToken");
       const result = await props.action(
@@ -206,6 +221,34 @@ export default function Form({ ...props }) {
       setApiOkResponse(result.ok);
       fadeIn();
       setStateShowAlert(true);
+    } catch (e) {
+      setErrorMessage(e.message);
+      fadeIn();
+    }
+    setSubmitting(false);
+  };
+
+  const deleteAccountAction = async () => {
+    setShowAlertRemove(false);
+    setSubmitting(true);
+    setErrorMessage("");
+    fadeOut();
+    try {
+      const userID = await getItemFromSecureStore("userID");
+      const accessToken = await getItemFromSecureStore("accessToken");
+      const result = await props.action(
+        newItem,
+        props.url,
+        "DELETE",
+        userID,
+        accessToken
+      );
+      result.ok
+        ? setShowAlertDeleteAccountSuccess(true)
+        : setStateShowAlert(true);
+
+      setApiOkResponse(result.ok);
+      fadeIn();
     } catch (e) {
       setErrorMessage(e.message);
       fadeIn();
@@ -253,6 +296,12 @@ export default function Form({ ...props }) {
     setReloadScreen(false);
   }, [reloadScreen]);
 
+  useEffect(() => {
+    if (redirectTologinView) {
+      console.log("Delete account action success, redirecting to LoginView");
+      resetNavigationStackToLoginView();
+    }
+  }, [redirectTologinView]);
   return (
     <KeyboardAvoidingView>
       <ScrollView>
@@ -349,6 +398,40 @@ export default function Form({ ...props }) {
               onConfirmPressed={removeItemAction}
               onCancelPressed={() => {
                 setShowAlertRemove(false);
+              }}
+            />
+          )}
+
+          {showAlertDeleteAccount && (
+            <CustomAlert
+              show={showAlertDeleteAccount}
+              title={all_constants.custom_alert.form.delete_account_title}
+              message={all_constants.custom_alert.form.delete_account_message}
+              confirmButtonColor="green"
+              showCancelButton={true}
+              cancelButtonColor="red"
+              confirmText={all_constants.custom_alert.homeview.keep_account}
+              cancelText={all_constants.custom_alert.homeview.delete_account}
+              onConfirmPressed={() => {
+                setShowAlertDeleteAccount(false);
+              }}
+              onCancelPressed={() => {
+                setShowAlertDeleteAccount(false);
+                deleteAccountAction();
+              }}
+            />
+          )}
+
+          {showAlertDeleteAccountSuccess && (
+            <CustomAlert
+              show={showAlertDeleteAccountSuccess}
+              title={all_constants.messages.success.title}
+              message={all_constants.custom_alert.form.success}
+              confirmButtonColor="green"
+              cancelText={all_constants.custom_alert.homeview.delete_account}
+              onConfirmPressed={() => {
+                setRedirectTologinView(true);
+                setShowAlertDeleteAccountSuccess(false);
               }}
             />
           )}
@@ -453,7 +536,21 @@ export default function Form({ ...props }) {
                   />
                 </View>
               )}
-
+            {props.deleteAccountButton && (
+              <View style={styles_form.form_button}>
+                <CustomButton
+                  label={props.deleteAccountButtonLabel}
+                  height={50}
+                  border_radius={30}
+                  font_size={18}
+                  backgroundColor={"darkgrey"}
+                  label_color="white"
+                  onPress={() => {
+                    setShowAlertDeleteAccount(true);
+                  }}
+                />
+              </View>
+            )}
             {newItem.id !== undefined && props.fourth_button_label && (
               <View style={styles_form.form_button}>
                 <CustomButton

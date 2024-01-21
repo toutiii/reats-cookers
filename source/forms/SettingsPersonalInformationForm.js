@@ -17,6 +17,8 @@ export default function SettingsPersonalInformationForm({ ...props }) {
       <View style={{ flex: 2, marginTop: "10%" }}>
         <Form
           action={callBackendWithFormDataForCookers}
+          deleteAccountButton={true}
+          deleteAccountButtonLabel={all_constants.label.settings.delete_account}
           url={`${apiBaseUrl}:${port}/api/v1/cookers/`}
           method={"PATCH"}
           navigation={props.navigation}

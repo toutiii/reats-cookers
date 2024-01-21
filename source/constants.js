@@ -136,6 +136,7 @@ export const all_constants = {
       street_name: "Nom de la rue",
       address_complement: "Complément",
       select_days_of_week: "Sélectionnez les jours de la semaine",
+      delete_account: "SUPPRIMER MON COMPTE",
     },
     stats: {
       title: "Mes statistiques",
@@ -330,6 +331,8 @@ export const all_constants = {
       go_offline: "ATTENTION, vous ne pourrez plus recevoir de commandes !",
       logout_title: "DÉCONNEXION",
       logout_message: "Souhaitez-vous vous déconnecter ?",
+      delete_account: "SUPPRIMER",
+      keep_account: "CONSERVER",
     },
     form: {
       title: "ATTENTION",
@@ -340,6 +343,9 @@ export const all_constants = {
       remove_item_message: "Supprimer définitivement cet item ?",
       enable_item_message:
         "En réactivant cet item, celui-ci sera à nouveau visible des clients.",
+      delete_account_title: "ATTENTION SUPPRESSION DU COMPTE !",
+      delete_account_message:
+        "Souhaitez vous vraiment supprimer votre compte ? Attention toutes vos données seront perdues.",
     },
     orderview: {
       accept_order_title: "Accepter la commande ?",

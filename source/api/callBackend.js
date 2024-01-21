@@ -75,14 +75,24 @@ export async function callBackEnd(
     ) {
       await renewAccessToken();
       const newAccessToken = await getItemFromSecureStore("accessToken");
-      response = await fetch(url, {
-        method: method,
-        headers: {
-          Accept: "application/json",
-          Authorization: newAccessToken,
-        },
-        body: body,
-      });
+      if (method === "GET") {
+        response = await fetch(url, {
+          method: method,
+          headers: {
+            Accept: "application/json",
+            Authorization: newAccessToken,
+          },
+        });
+      } else {
+        response = await fetch(url, {
+          method: method,
+          headers: {
+            Accept: "application/json",
+            Authorization: newAccessToken,
+          },
+          body: body,
+        });
+      }
       response = await response.json();
       console.log("-------------------------------------------");
       console.log("Below request response after access token renew only");
@@ -96,14 +106,25 @@ export async function callBackEnd(
         const accessTokenFromNewPair = await getItemFromSecureStore(
           "accessToken"
         );
-        response = await fetch(url, {
-          method: method,
-          headers: {
-            Accept: "application/json",
-            Authorization: accessTokenFromNewPair,
-          },
-          body: body,
-        });
+        if (method === "GET") {
+          response = await fetch(url, {
+            method: method,
+            headers: {
+              Accept: "application/json",
+              Authorization: accessTokenFromNewPair,
+            },
+          });
+        } else {
+          response = await fetch(url, {
+            method: method,
+            headers: {
+              Accept: "application/json",
+              Authorization: accessTokenFromNewPair,
+            },
+            body: body,
+          });
+        }
+
         response = await response.json();
         console.log("-------------------------------------------");
         console.log("Below request response after token pair renew");
@@ -312,6 +333,11 @@ export async function callBackendWithFormDataForCookers(
   apiKeyBackend
 ) {
   let formData = new FormData();
+
+  if (method === "DELETE") {
+    url += userID + "/";
+    return callBackEnd(formData, url, method, (accessToken = access));
+  }
 
   if (data.photo !== undefined && data.photo.startsWith("file:///")) {
     const fileName = data.photo.split("/").pop();

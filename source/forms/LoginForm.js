@@ -55,7 +55,7 @@ export default function LoginForm({ ...props }) {
           navigation={props.navigation}
           afterSubmit={handleResult}
           login={true}
-          item={{ phone: "0649510110" }}
+          item={{}}
           fields={{
             phone: {
               type: all_constants.field_type.textinput,
