@@ -11,39 +11,39 @@ import OTPView from "./views/OTPView";
 const Stack = createStackNavigator();
 
 export default class App extends Component {
-  render() {
-    return (
-      <AutocompleteDropdownContextProvider>
-        <SafeAreaView style={{ flex: 1 }}>
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName="LoginForm">
-              <Stack.Screen
-                name="LoginForm"
-                component={LoginForm}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="OTPView"
-                component={OTPView}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="SignupForm"
-                component={SignupForm}
-                options={{ headerShown: true, headerTitle: "" }}
-              />
+    render() {
+        return (
+            <AutocompleteDropdownContextProvider>
+                <SafeAreaView style={{ flex: 1 }}>
+                    <NavigationContainer>
+                        <Stack.Navigator initialRouteName='LoginForm'>
+                            <Stack.Screen
+                                name='LoginForm'
+                                component={LoginForm}
+                                options={{ headerShown: false }}
+                            />
+                            <Stack.Screen
+                                name='OTPView'
+                                component={OTPView}
+                                options={{ headerShown: false }}
+                            />
+                            <Stack.Screen
+                                name='SignupForm'
+                                component={SignupForm}
+                                options={{ headerShown: true, headerTitle: "" }}
+                            />
 
-              <Stack.Screen
-                name="MainDrawerNavigator"
-                component={MainDrawerNavigator}
-                options={{ headerShown: false }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </SafeAreaView>
-      </AutocompleteDropdownContextProvider>
-    );
-  }
+                            <Stack.Screen
+                                name='MainDrawerNavigator'
+                                component={MainDrawerNavigator}
+                                options={{ headerShown: false }}
+                            />
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                </SafeAreaView>
+            </AutocompleteDropdownContextProvider>
+        );
+    }
 }
 
 registerRootComponent(App);

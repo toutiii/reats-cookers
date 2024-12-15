@@ -31,5 +31,6 @@
         "plugins": [
             "expo-secure-store"
         ]
-    }
+    },
+    "newArchEnabled": true
 }
