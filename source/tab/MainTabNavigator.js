@@ -1,5 +1,5 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import OrderView from "../views/OrderView";
+import OrderView from "../components/OrderView";
 import DishForm from "../forms/DishForm";
 import DrinkForm from "../forms/DrinkForm";
 import SettingsPersonalInformationForm from "../forms/SettingsPersonalInformationForm";
@@ -10,19 +10,26 @@ import Dashboard from "../views/Dashboard";
 import all_constants from "../constants";
 import DishFlatlistStackNavigator from "../stack/DishFlatlistStackNavigator";
 import DrinkFlatlistStackNavigator from "../stack/DrinkFlatlistStackNavigator";
-import OrderFlatlistStackNavigator from "../stack/OrderFlatlistStackNavigator";
 import OrdersHistoryStackNavigator from "../stack/OrdersHistoryStackNavigator";
+import OrdersStack from "../stack/OrdersStack";
 
 const Tab = createBottomTabNavigator();
 
 export default function MainTabNavigator() {
+    console.log("all_constants.screen.width :", all_constants.screen.width);
     return (
         <Tab.Navigator
             initialRouteName={all_constants.tab.main_tab_navigator.Home}
             screenOptions={({ route }) => ({
-                activeTintColor: "tomato",
-                inactiveTintColor: "gray",
+                tabBarActiveTintColor: "tomato",
+                tabBarinactiveTintColor: "gray",
                 headerShown: false,
+                tabBarStyle: {
+                    height: all_constants.screen.height * 0.08,
+                    width: all_constants.screen.width * 2.4,
+                    // Beware; this is a hack to make the tab bar fit the screen
+                    // Check if the tab bar is displayed correctly on devices
+                },
                 tabBarIcon: ({ color, size }) => {
                     let iconName;
                     if (route.name === all_constants.tab.main_tab_navigator.Home) {
@@ -54,7 +61,7 @@ export default function MainTabNavigator() {
             <Tab.Screen name={all_constants.tab.main_tab_navigator.Home} component={Dashboard} />
             <Tab.Screen
                 name={all_constants.tab.main_tab_navigator.OrderFlatList}
-                component={OrderFlatlistStackNavigator}
+                component={OrdersStack}
                 // options={{ tabBarBadge: 3 }}
             />
             <Tab.Screen

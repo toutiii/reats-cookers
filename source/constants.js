@@ -33,6 +33,8 @@ export const all_constants = {
         signup: "CRÉER UN COMPTE",
         take_picture: "Prendre une photo",
         upload_picture: "Ouvrir la galerie",
+        understood: "J'AI COMPRIS",
+        quit: "QUITTER",
         errors: {
             title: "Erreur",
         },
@@ -403,7 +405,6 @@ export const all_constants = {
     drawercontent: {
         logout: "Déconnexion",
         hello: "Bonjour ",
-
         drawer_item: {
             label: {
                 history: "Historique commandes",
@@ -414,6 +415,42 @@ export const all_constants = {
             },
             orders_history: {
                 title: "Mes anciennes commandes",
+                no_results: "Aucune commande trouvée.",
+                infos: {
+                    number: "Commande N°",
+                    status: "Statut:",
+                    owner: "Passée par",
+                    amount: "Total de la commande: ",
+                    quantity: "Nombre d'item(s): ",
+                    content: "Cette commande contient: ",
+                    ordered_label: "le",
+                    canceled_label: "Annulée le",
+                    approved_label: "Commande acceptée le",
+                    delivered_label: "Commande livrée le",
+                    picking_label: "Ramassage prévu le",
+                    price: "Prix à l'unité(€): ",
+                    dish_total: "Total: ",
+                    ordered: "Commandé le ",
+                    item: "item(s)",
+                },
+                status: {
+                    ordered: "Commandée",
+                    canceled: "Annulée",
+                    delivered: "Livrée",
+                    pending: "En attente de prise en charge",
+                    processed: "Acceptée",
+                    cancelled_by_customer: "Annulée par le client ",
+                    cancelled_by_cooker: "Annulée par le cuisinier ",
+                    completed: "Prête pour livraison",
+                },
+                original_status: {
+                    cancelled_by_customer: "cancelled_by_customer",
+                    cancelled_by_cooker: "cancelled_by_cooker",
+                    delivered: "delivered",
+                    pending: "pending",
+                    processed: "processing",
+                    completed: "completed",
+                },
             },
         },
     },
@@ -461,6 +498,41 @@ export const all_constants = {
             address_complement: 100,
             postal_code: 5,
             town: 100,
+        },
+    },
+    pending_orders_view: {
+        main_title: "Commandes",
+        button_label: {
+            cancel_order: "ANNULER LA COMMANDE",
+        },
+        title: {
+            pending: "En attente",
+            processing: "Acceptée(s)",
+            completed: "Préparation terminée",
+        },
+        stack_navigator: {
+            order_item_detail: {
+                title: "Retour",
+            },
+        },
+        cancel: {
+            title: "ANNULER LA COMMANDE ?",
+            pending_message:
+                "Attention cette action est définitive.\n\n" +
+                "Vous serez remboursé uniquement du montant du panier ainsi que des frais de livraison.",
+            message:
+                "Attention cette action est définitive.\n\n" +
+                "Vous pouvez annuler cette commande, mais celle-ci ayant déjà été acceptée par le cuisinier, vous ne serez pas remboursé.",
+            success: {
+                title: "COMMANDE ANNULÉE",
+                message:
+                    "Votre commande a bien été annulée. \n\n" +
+                    "Si votre commande était éligible à un remboursement, celui-ci vous parviendra d'ici quelques jours.",
+            },
+            failure: {
+                title: "ÉCHEC",
+                message: "Impossible d'annuler la commande, veuiillez réessayer plus tard.",
+            },
         },
     },
 };

@@ -11,7 +11,6 @@ let styles_order = StyleSheet.create({
         paddingTop: "3%",
         paddingLeft: "2%",
         paddingRight: "2%",
-        paddingBottom: "2%",
     },
     order_number: {
         flex: 1,
@@ -37,5 +36,4 @@ let styles_order = StyleSheet.create({
         alignItems: "flex-start",
     },
 });
-
 export default styles_order;

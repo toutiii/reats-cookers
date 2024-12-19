@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import OrderFlatList from "../flatlist/OrderFlatList";
-import OrderView from "../views/OrderView";
+import OrderView from "../components/OrderView";
 
 const Stack = createStackNavigator();
 

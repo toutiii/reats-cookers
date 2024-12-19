@@ -30,7 +30,7 @@
         },
         "plugins": [
             "expo-secure-store"
-        ]
-    },
-    "newArchEnabled": true
+        ],
+        "newArchEnabled": true
+    }
 }
