@@ -33,8 +33,10 @@ export const all_constants = {
         signup: "CRÉER UN COMPTE",
         take_picture: "Prendre une photo",
         upload_picture: "Ouvrir la galerie",
-        understood: "J'AI COMPRIS",
-        quit: "QUITTER",
+        decline: "REFUSER LA COMMANDE",
+        cancel_order: "ANNULER LA COMMANDE",
+        accept: "ACCEPTER LA COMMANDE",
+        quit: "ANNULER",
         errors: {
             title: "Erreur",
         },
@@ -504,6 +506,8 @@ export const all_constants = {
         main_title: "Commandes",
         button_label: {
             cancel_order: "ANNULER LA COMMANDE",
+            decline_order: "REFUSER LA COMMANDE",
+            accept_order: "ACCEPTER LA COMMANDE",
         },
         title: {
             pending: "En attente",
@@ -515,23 +519,54 @@ export const all_constants = {
                 title: "Retour",
             },
         },
+        accept: {
+            title: "ACCEPTER LA COMMANDE ?",
+            message:
+                "Vous êtes sur le point d'accepter la commande. \n\n" +
+                "Cette action enverra une confirmation au client.",
+            success: {
+                title: "COMMANDE ACCEPTÉE",
+                message:
+                    "La commande a bien été acceptée. \n\n" +
+                    "Le client sera prévenu de l'acceptation de sa commande.",
+            },
+            failure: {
+                title: "ÉCHEC",
+                message: "Impossible d'accepter la commande, veuillez réessayer plus tard.",
+            },
+        },
         cancel: {
             title: "ANNULER LA COMMANDE ?",
-            pending_message:
-                "Attention cette action est définitive.\n\n" +
-                "Vous serez remboursé uniquement du montant du panier ainsi que des frais de livraison.",
             message:
                 "Attention cette action est définitive.\n\n" +
-                "Vous pouvez annuler cette commande, mais celle-ci ayant déjà été acceptée par le cuisinier, vous ne serez pas remboursé.",
+                "Cette action baissera votre note générale et vous ne pourrez peut-être plus recevoir de nouvelles commandes.\n\n" +
+                "Le client sera prévenu que vous avez annulé sa commande.",
             success: {
                 title: "COMMANDE ANNULÉE",
                 message:
-                    "Votre commande a bien été annulée. \n\n" +
-                    "Si votre commande était éligible à un remboursement, celui-ci vous parviendra d'ici quelques jours.",
+                    "La commande a bien été annulée. \n\n" +
+                    "Le client sera prévenu de l'annulation de sa commande.",
             },
             failure: {
                 title: "ÉCHEC",
                 message: "Impossible d'annuler la commande, veuiillez réessayer plus tard.",
+            },
+        },
+        decline: {
+            title: "REFUSER LA COMMANDE ?",
+            message:
+                "Attention cette action est définitive.\n\n" +
+                "Cette action baissera votre note générale et vous ne pourrez peut-être plus recevoir de nouvelles commandes.\n\n" +
+                "Le client sera prévenu que vous avez rejeté sa commande.",
+            success: {
+                title: "COMMANDE REFUSÉE",
+                message:
+                    "La commande a bien été refusée. \n\n" +
+                    "Le client sera prévenu du refus de sa commande.",
+            },
+            failure: {
+                title: "ÉCHEC",
+                message: "Impossible de refuser la commande, veuillez réessayer plus tard.",
             },
         },
     },

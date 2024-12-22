@@ -37,6 +37,11 @@ export default function OrderView(props) {
     const onPressCloseModal = () => setModalVisible(false);
 
     const [
+        showDeclineOrderAlert,
+        setShowDeclineOrderAlert
+    ] = useState(false);
+
+    const [
         showCancelOrderAlert,
         setShowCancelOrderAlert
     ] = useState(false);
@@ -54,6 +59,26 @@ export default function OrderView(props) {
     const [
         isUpdatingOrder,
         setIsUpdatingOrder
+    ] = useState(false);
+
+    const [
+        orderHasBeenCancelled,
+        setOrderHasBeenCancelled
+    ] = useState(false);
+
+    const [
+        showAcceptOrderAlert,
+        setShowAcceptOrderAlert
+    ] = useState(false);
+
+    const [
+        showAcceptOrderSuccessAlert,
+        setShowAcceptOrderSuccessAlert
+    ] = useState(false);
+
+    const [
+        showAcceptOrderFailureAlert,
+        setShowAcceptOrderFailureAlert
     ] = useState(false);
 
     const fadeIn = () => {
@@ -75,25 +100,60 @@ export default function OrderView(props) {
     // Extracting item data from props
     const { item } = props.route.params;
 
+    async function guessOrderNewStatus() {
+        let newStatus = "";
+        switch (item.status) {
+        case all_constants.drawercontent.drawer_item.orders_history.original_status.pending:
+            newStatus = orderHasBeenCancelled
+                ? all_constants.drawercontent.drawer_item.orders_history.original_status
+                    .cancelled_by_cooker
+                : all_constants.drawercontent.drawer_item.orders_history.original_status
+                    .processed;
+            break;
+
+        case all_constants.drawercontent.drawer_item.orders_history.original_status.processed:
+            newStatus = orderHasBeenCancelled
+                ? all_constants.drawercontent.drawer_item.orders_history.original_status
+                    .cancelled_by_cooker
+                : all_constants.drawercontent.drawer_item.orders_history.original_status
+                    .completed;
+            break;
+
+        default:
+            break;
+        }
+        return newStatus;
+    }
+
     async function updateOrderStatus() {
         const access = await getItemFromSecureStore("accessToken");
         const formData = new FormData();
-        formData.append("status", "cancelled_by_customer");
-        formData.append("cancelled_date", new Date().toISOString());
+        const orderNewStatus = await guessOrderNewStatus();
+        formData.append("status", orderNewStatus);
 
         const result = await callBackEnd(
             formData,
-            `${apiBaseUrl}:${port}/api/v1/customers-orders/${item.id}/`,
+            `${apiBaseUrl}:${port}/api/v1/cookers-orders/${item.id}/`,
             "PATCH",
             access,
             true,
         );
 
         if (result) {
-            setShowCancelOrderSuccessAlert(true);
+            if (orderHasBeenCancelled) {
+                setShowCancelOrderSuccessAlert(true);
+            } else {
+                setShowAcceptOrderSuccessAlert(true);
+            }
         } else {
-            setShowCancelOrderFailureAlert(true);
+            if (orderHasBeenCancelled) {
+                setShowCancelOrderFailureAlert(true);
+            } else {
+                setShowAcceptOrderFailureAlert(true);
+            }
         }
+
+        setOrderHasBeenCancelled(false);
     }
 
     useEffect(() => {
@@ -102,8 +162,9 @@ export default function OrderView(props) {
             setTimeout(() => {
                 updateOrderStatus();
                 setIsUpdatingOrder(false);
+
                 fadeIn();
-            }, 2000);
+            }, 300);
         }
     }, [
         isUpdatingOrder
@@ -131,28 +192,62 @@ export default function OrderView(props) {
                 </View>
             )}
 
+            {showDeclineOrderAlert && (
+                <CustomAlert
+                    show={showDeclineOrderAlert}
+                    title={all_constants.pending_orders_view.decline.title}
+                    message={all_constants.pending_orders_view.decline.message}
+                    showCancelButton={true}
+                    confirmButtonColor={"red"}
+                    cancelButtonColor={"green"}
+                    confirmText={all_constants.messages.decline}
+                    cancelText={all_constants.messages.quit}
+                    onConfirmPressed={() => {
+                        setShowDeclineOrderAlert(false);
+                        setOrderHasBeenCancelled(true);
+                        setIsUpdatingOrder(true);
+                    }}
+                    onCancelPressed={() => {
+                        setShowDeclineOrderAlert(false);
+                    }}
+                />
+            )}
             {showCancelOrderAlert && (
                 <CustomAlert
                     show={showCancelOrderAlert}
                     title={all_constants.pending_orders_view.cancel.title}
-                    message={
-                        item.status ===
-                        all_constants.drawercontent.drawer_item.orders_history.original_status
-                            .pending
-                            ? all_constants.pending_orders_view.cancel.pending_message
-                            : all_constants.pending_orders_view.cancel.message
-                    }
+                    message={all_constants.pending_orders_view.cancel.message}
                     showCancelButton={true}
                     confirmButtonColor={"red"}
                     cancelButtonColor={"green"}
-                    confirmText={all_constants.messages.understood}
+                    confirmText={all_constants.messages.cancel_order}
                     cancelText={all_constants.messages.quit}
                     onConfirmPressed={() => {
                         setShowCancelOrderAlert(false);
+                        setOrderHasBeenCancelled(true);
                         setIsUpdatingOrder(true);
                     }}
                     onCancelPressed={() => {
                         setShowCancelOrderAlert(false);
+                    }}
+                />
+            )}
+            {showAcceptOrderAlert && (
+                <CustomAlert
+                    show={showAcceptOrderAlert}
+                    title={all_constants.pending_orders_view.accept.title}
+                    message={all_constants.pending_orders_view.accept.message}
+                    showCancelButton={true}
+                    confirmButtonColor={"green"}
+                    cancelButtonColor={"red"}
+                    confirmText={all_constants.messages.accept}
+                    cancelText={all_constants.messages.quit}
+                    onConfirmPressed={() => {
+                        setShowAcceptOrderAlert(false);
+                        setIsUpdatingOrder(true);
+                    }}
+                    onCancelPressed={() => {
+                        setShowAcceptOrderAlert(false);
                     }}
                 />
             )}
@@ -180,7 +275,31 @@ export default function OrderView(props) {
                     }}
                 />
             )}
-            <View style={{ flex: 3, backgroundColor: "white" }}>
+            {showAcceptOrderSuccessAlert && (
+                <CustomAlert
+                    show={showAcceptOrderSuccessAlert}
+                    title={all_constants.pending_orders_view.accept.success.title}
+                    message={all_constants.pending_orders_view.accept.success.message}
+                    confirmButtonColor={"green"}
+                    onConfirmPressed={() => {
+                        setShowAcceptOrderSuccessAlert(false);
+                        props.navigation.goBack();
+                    }}
+                />
+            )}
+            {showAcceptOrderFailureAlert && (
+                <CustomAlert
+                    show={showAcceptOrderFailureAlert}
+                    title={all_constants.pending_orders_view.accept.failure.title}
+                    message={all_constants.pending_orders_view.accept.failure.message}
+                    confirmButtonColor={"red"}
+                    onConfirmPressed={() => {
+                        setShowAcceptOrderFailureAlert(false);
+                        props.navigation.goBack();
+                    }}
+                />
+            )}
+            <View style={{ flex: 4, backgroundColor: "white" }}>
                 <View style={{ flex: 1, alignItems: "center" }}>
                     <View style={{ flex: 1 }}>
                         <Text
@@ -357,40 +476,148 @@ export default function OrderView(props) {
                     </View>
                 </View>
             </View>
-            <View style={{ flex: 1, alignItems: "center" }}>
-                <CustomButton
-                    label={all_constants.modal.dish_modal.show}
-                    backgroundColor='darkgrey'
-                    height={50}
-                    border_width={3}
-                    border_radius={30}
-                    font_size={17}
-                    onPress={onPressShowModal}
-                    label_color='white'
-                />
-                <View
-                    style={{
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        bottom: "2%",
-                    }}
-                >
-                    <CustomButton
-                        label={all_constants.pending_orders_view.button_label.cancel_order}
-                        height={50}
-                        border_width={3}
-                        border_radius={30}
-                        font_size={17}
-                        backgroundColor={"red"}
-                        label_color={"white"}
-                        button_width={all_constants.screen.width - 40}
-                        onPress={() => {
-                            setShowCancelOrderAlert(true);
+
+            {item.status ===
+                all_constants.drawercontent.drawer_item.orders_history.original_status.pending && (
+                <View style={{ flex: 2.2, alignItems: "center" }}>
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            bottom: "2%",
                         }}
-                    />
+                    >
+                        <CustomButton
+                            label={all_constants.pending_orders_view.button_label.accept_order}
+                            backgroundColor='green'
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            onPress={() => {
+                                setShowAcceptOrderAlert(true);
+                            }}
+                            label_color='white'
+                        />
+                    </View>
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            bottom: "2%",
+                        }}
+                    >
+                        <CustomButton
+                            label={all_constants.modal.dish_modal.show}
+                            backgroundColor='darkgrey'
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            onPress={onPressShowModal}
+                            label_color='white'
+                        />
+                    </View>
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            bottom: "2%",
+                        }}
+                    >
+                        <CustomButton
+                            label={all_constants.pending_orders_view.button_label.decline_order}
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            backgroundColor={"red"}
+                            label_color={"white"}
+                            button_width={all_constants.screen.width - 40}
+                            onPress={() => {
+                                setShowDeclineOrderAlert(true);
+                            }}
+                        />
+                    </View>
                 </View>
-            </View>
+            )}
+
+            {item.status ===
+                all_constants.drawercontent.drawer_item.orders_history.original_status
+                    .processed && (
+                <View style={{ flex: 1.5, alignItems: "center" }}>
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            bottom: "2%",
+                        }}
+                    >
+                        <CustomButton
+                            label={all_constants.modal.dish_modal.show}
+                            backgroundColor='darkgrey'
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            onPress={onPressShowModal}
+                            label_color='white'
+                        />
+                    </View>
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            bottom: "2%",
+                        }}
+                    >
+                        <CustomButton
+                            label={all_constants.pending_orders_view.button_label.cancel_order}
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            backgroundColor={"red"}
+                            label_color={"white"}
+                            button_width={all_constants.screen.width - 40}
+                            onPress={() => {
+                                setShowCancelOrderAlert(true);
+                            }}
+                        />
+                    </View>
+                </View>
+            )}
+
+            {item.status ===
+                all_constants.drawercontent.drawer_item.orders_history.original_status
+                    .completed && (
+                <View style={{ flex: 1, alignItems: "center" }}>
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            bottom: "2%",
+                        }}
+                    >
+                        <CustomButton
+                            label={all_constants.modal.dish_modal.show}
+                            backgroundColor='darkgrey'
+                            height={50}
+                            border_width={3}
+                            border_radius={30}
+                            font_size={17}
+                            onPress={onPressShowModal}
+                            label_color='white'
+                        />
+                    </View>
+                </View>
+            )}
         </Animated.View>
     );
 }
