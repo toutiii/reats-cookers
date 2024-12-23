@@ -3,11 +3,7 @@
 import { Dimensions } from "react-native";
 
 export const all_constants = {
-    stars_images: {
-        black: require("./images/black-star.png"),
-        green: require("./images/green-star.png"),
-        yellow: require("./images/yellow-star.png"),
-    },
+    go_back: "Retour",
     screen: {
         width: Dimensions.get("window").width,
         height: Dimensions.get("window").height,

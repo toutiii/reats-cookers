@@ -593,9 +593,14 @@ export default function OrderView(props) {
                 </View>
             )}
 
-            {item.status ===
-                all_constants.drawercontent.drawer_item.orders_history.original_status
-                    .completed && (
+            {(item.status ===
+                all_constants.drawercontent.drawer_item.orders_history.original_status.delivered ||
+                item.status ===
+                    all_constants.drawercontent.drawer_item.orders_history.original_status
+                        .cancelled_by_cooker ||
+                item.status ===
+                    all_constants.drawercontent.drawer_item.orders_history.original_status
+                        .cancelled_by_customer) && (
                 <View style={{ flex: 1, alignItems: "center" }}>
                     <View
                         style={{

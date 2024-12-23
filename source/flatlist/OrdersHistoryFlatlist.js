@@ -11,11 +11,13 @@ import {
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Order from "../components/Order";
-import { getOrders } from "../helpers/order_helpers";
 import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
 import CustomAlert from "../components/CustomAlert.js";
+import { apiBaseUrl, port } from "../env";
+import { callBackEnd } from "../api/callBackend";
+import { getItemFromSecureStore } from "../helpers/global_helpers";
 
 export default function OrdersHistoryFlatList({ ...props }) {
     const [
@@ -111,15 +113,24 @@ export default function OrdersHistoryFlatList({ ...props }) {
         setIsFetchingData(!isFetchingData);
     };
 
+    async function fetchDataFromBackend() {
+        const access = await getItemFromSecureStore("accessToken");
+        const result = await callBackEnd(
+            new FormData(),
+            `${apiBaseUrl}:${port}/api/v1/cookers-orders-history/`,
+            "GET",
+            access,
+        );
+
+        setData(result.data);
+        console.log("result.data :", result.data);
+    }
+
     React.useEffect(() => {
         setIsFetchingData(true);
         fadeOut();
 
         setTimeout(() => {
-            async function fetchDataFromBackend() {
-                const results = await getOrders();
-                setData(results.data);
-            }
             fetchDataFromBackend();
             setIsFetchingData(false);
             fadeIn();
@@ -132,16 +143,12 @@ export default function OrdersHistoryFlatList({ ...props }) {
             fadeOut();
 
             setTimeout(() => {
-                async function fetchDataFromBackend() {
-                    const results = await getOrders();
-                    setData(results.data);
-                }
                 fetchDataFromBackend();
                 updateSearchingStatus();
                 resetFilters();
                 setRunSearchByTextInput(false);
                 fadeIn();
-            }, 1000);
+            }, 500);
         }
     }, [
         isFetchingData
@@ -260,15 +267,31 @@ export default function OrdersHistoryFlatList({ ...props }) {
                 )}
                 <FlatList
                     data={data}
+                    onRefresh={() => {
+                        setIsFetchingData(true);
+                    }}
+                    refreshing={isFetchingData}
+                    ItemSeparatorComponent={
+                        <View
+                            style={{
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "#C8C8C8",
+                                height: 2.5,
+                                marginLeft: "10%",
+                                marginRight: "10%",
+                                marginTop: "5%",
+                            }}
+                        />
+                    }
                     ListEmptyComponent={
                         <View
                             style={{
                                 alignItems: "center",
-                                marginTop: "5%",
                             }}
                         >
                             <Text style={{ fontSize: 20 }}>
-                                {all_constants.order.no_results.no_results}
+                                {all_constants.drawercontent.drawer_item.orders_history.no_results}
                             </Text>
                         </View>
                     }
@@ -276,7 +299,7 @@ export default function OrdersHistoryFlatList({ ...props }) {
                         <View style={styles_order.order_button_container}>
                             <TouchableHighlight
                                 onPress={() => {
-                                    props.navigation.navigate("OrderHistoryiew", {
+                                    props.navigation.navigate("OrderDetailView", {
                                         item: item,
                                     });
                                 }}
@@ -284,12 +307,14 @@ export default function OrdersHistoryFlatList({ ...props }) {
                                 underlayColor={all_constants.colors.inputBorderColor}
                             >
                                 <Order
-                                    order_amount={item.order_amount}
-                                    order_number={item.order_number}
-                                    order_status={item.order_status}
-                                    order_delivery_date={item.order_delivery_date}
-                                    dishes_number={item.dishes.length}
-                                ></Order>
+                                    total_amount={item.total_amount}
+                                    order_number={item.id}
+                                    order_status={item.status}
+                                    order_date={item.created}
+                                    order_processing_date={item.processing_date}
+                                    order_final_state_date={item.modified}
+                                    dishes_number={item.items.length}
+                                />
                             </TouchableHighlight>
                         </View>
                     )}
