@@ -38,6 +38,7 @@ export default function OrdersTopTab() {
                 tabBarIndicatorStyle: { backgroundColor: "tomato" },
                 tabBarLabelStyle: { fontSize: 12 },
                 tabBarBounces: true,
+                animationEnabled: false,
             }}
         >
             {tabs.map((tab) => (

@@ -600,7 +600,10 @@ export default function OrderView(props) {
                         .cancelled_by_cooker ||
                 item.status ===
                     all_constants.drawercontent.drawer_item.orders_history.original_status
-                        .cancelled_by_customer) && (
+                        .cancelled_by_customer ||
+                item.status ===
+                    all_constants.drawercontent.drawer_item.orders_history.original_status
+                        .completed) && (
                 <View style={{ flex: 1, alignItems: "center" }}>
                     <View
                         style={{
