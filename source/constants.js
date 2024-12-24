@@ -456,6 +456,7 @@ export const all_constants = {
         default_button_label: "OK",
         search_button_label: "Filtrer",
         clear_filter_button_label: "Réinitialiser",
+        close_filter_button_label: "Fermer",
         state_item: "Items actifs ou inactifs",
         state_order: "État de la commande",
         dish_categories: "Le type de plat",

@@ -1,13 +1,5 @@
 import React from "react";
-import {
-    ActivityIndicator,
-    Animated,
-    FlatList,
-    Image,
-    Text,
-    TouchableHighlight,
-    View,
-} from "react-native";
+import { Animated, FlatList, Image, Text, TouchableHighlight, View } from "react-native";
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Order from "../components/Order";
@@ -56,10 +48,9 @@ export default function OrdersHistoryFlatList({ ...props }) {
         setShowAlert
     ] = React.useState(false);
     const [
-        selectedOrderStates,
-        setSelectedOrderStates
-    ] = React.useState([
-    ]);
+        selectedOrderState,
+        setSelectedOrderState
+    ] = React.useState(null);
 
     const minLengthToTriggerSearch = 3;
     const maxInputLength = 100;
@@ -114,13 +105,22 @@ export default function OrdersHistoryFlatList({ ...props }) {
     };
 
     async function fetchDataFromBackend() {
+        let baseURL = `${apiBaseUrl}:${port}/api/v1/cookers-orders-history/`;
+
+        if (startDate !== null && endDate !== null) {
+            const formattedStartDate =
+                new Date(startDate).toISOString().split("T")[0] + "T00:00:00.000Z";
+            const formattedEndDate =
+                new Date(endDate).toISOString().split("T")[0] + "T00:00:00.000Z";
+            baseURL += `?start_date=${formattedStartDate}&end_date=${formattedEndDate}`;
+        }
+
+        if (selectedOrderState !== null) {
+            baseURL += `?status=${selectedOrderState}`;
+        }
+
         const access = await getItemFromSecureStore("accessToken");
-        const result = await callBackEnd(
-            new FormData(),
-            `${apiBaseUrl}:${port}/api/v1/cookers-orders-history/`,
-            "GET",
-            access,
-        );
+        const result = await callBackEnd(new FormData(), baseURL, "GET", access, true, null);
 
         setData(result.data);
         console.log("result.data :", result.data);
@@ -170,6 +170,8 @@ export default function OrdersHistoryFlatList({ ...props }) {
         if (startDate !== null && endDate !== null && startDate > endDate) {
             setShowAlert(true);
             setIsDateCheckingOk(false);
+        } else {
+            setIsDateCheckingOk(true);
         }
     };
 
@@ -177,17 +179,16 @@ export default function OrdersHistoryFlatList({ ...props }) {
         checkDates();
         toggleSearchFilterModal();
 
-        if (selectedOrderStates.length !== 0 || startDate !== null || endDate !== null) {
+        if (selectedOrderState !== null || startDate !== null || endDate !== null) {
             console.log(startDate);
             console.log(endDate);
-            console.log(selectedOrderStates);
+            console.log(selectedOrderState);
             updateSearchingStatus();
         }
     };
 
     const resetFilters = () => {
-        setSelectedOrderStates([
-        ]);
+        setSelectedOrderState(null);
         setStartDate(null);
         setEndDate(null);
     };
@@ -203,7 +204,7 @@ export default function OrdersHistoryFlatList({ ...props }) {
                     pickEndDate={setEndDate}
                     startDate={startDate}
                     endDate={endDate}
-                    stateOrderData={setSelectedOrderStates}
+                    stateOrderData={setSelectedOrderState}
                     isModalVisible={isSearchFilterModalVisible}
                     toggleModal={toggleSearchFilterModal}
                     onPressFilter={onPressFilter}
@@ -262,9 +263,7 @@ export default function OrdersHistoryFlatList({ ...props }) {
                         }}
                     />
                 )}
-                {isFetchingData && dateCheckingOk && (
-                    <ActivityIndicator size='large' color='tomato' />
-                )}
+
                 <FlatList
                     data={data}
                     onRefresh={() => {

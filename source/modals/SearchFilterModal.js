@@ -16,11 +16,20 @@ export default function SearchFilterModal(props) {
         { key: false, value: "INACTIFS" },
     ];
     const orderStateFilterData = [
-        { key: "1", value: "ready" },
-        { key: "2", value: "cooking" },
-        { key: "3", value: "pending" },
-        { key: "4", value: "canceled" },
-        { key: "5", value: "delivered" },
+        {
+            key: all_constants.drawercontent.drawer_item.orders_history.original_status.delivered,
+            value: "Livrées",
+        },
+        {
+            key: all_constants.drawercontent.drawer_item.orders_history.original_status
+                .cancelled_by_customer,
+            value: "Annulées par le client",
+        },
+        {
+            key: all_constants.drawercontent.drawer_item.orders_history.original_status
+                .cancelled_by_cooker,
+            value: "Annulées par vous",
+        },
     ];
 
     const dishCategoriesData = [
@@ -120,11 +129,11 @@ export default function SearchFilterModal(props) {
                         />
                     )}
                     {props.enableOrderStateFilter && (
-                        <MultipleSelectList
+                        <SelectList
                             key={keyMultipleSelectOrderStateFilter}
                             setSelected={(val) => props.stateOrderData(val)}
                             data={orderStateFilterData}
-                            save='value'
+                            save='key'
                             placeholder={all_constants.search_modal.state_order}
                         />
                     )}
@@ -217,6 +226,7 @@ export default function SearchFilterModal(props) {
                 </View>
                 <View style={{ flex: 1 }}>
                     <Button
+                        color='green'
                         title={all_constants.search_modal.default_button_label}
                         onPress={() => {
                             props.onPressFilter();
@@ -229,11 +239,19 @@ export default function SearchFilterModal(props) {
                         title={all_constants.search_modal.clear_filter_button_label}
                         onPress={() => {
                             props.onPressClear();
-
                             setKeyMultipleSelectActiveFilter(keyMultipleSelectActiveFilter + 1);
                             setKeyMultipleSelectOrderStateFilter(
                                 keyMultipleSelectOrderStateFilter + 1,
                             );
+                        }}
+                    />
+                </View>
+                <View style={{ flex: 1 }}>
+                    <Button
+                        color='darkgrey'
+                        title={all_constants.search_modal.close_filter_button_label}
+                        onPress={() => {
+                            props.toggleModal();
                         }}
                     />
                 </View>
