@@ -66,7 +66,7 @@ export default function OTPView({ ...props }) {
     ] = useState(null);
 
     const OTPLength = 6;
-    const OTPAskDelay = 30;
+    const OTPAskDelay = 60;
 
     const sleep = (ms) => {
         return new Promise((resolve) => setTimeout(resolve, ms));
@@ -412,6 +412,5 @@ const styles = StyleSheet.create({
         height: 50,
         margin: "3%",
         textAlign: "center",
-        fontSize: 20,
     },
 });

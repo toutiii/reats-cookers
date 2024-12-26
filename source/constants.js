@@ -363,6 +363,10 @@ export const all_constants = {
                 "\n" +
                 "Le client sera prévenu que vous avez annulé sa commande.",
         },
+        sign_out_title: "DÉCONNEXION",
+        sign_out_message: "Souhaitez-vous vous déconnecter ?",
+        sign_out_confirm_text: "OUI",
+        sign_out_cancel_text: "NON",
     },
     uri: {
         api: {
