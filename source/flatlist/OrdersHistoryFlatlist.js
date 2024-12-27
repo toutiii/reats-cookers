@@ -3,7 +3,6 @@ import { Animated, FlatList, Image, Text, TouchableHighlight, View } from "react
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Order from "../components/Order";
-import { Searchbar } from "react-native-paper";
 import { TouchableRipple } from "react-native-paper";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
 import CustomAlert from "../components/CustomAlert.js";
@@ -33,8 +32,7 @@ export default function OrdersHistoryFlatList({ ...props }) {
     const [
         data,
         setData
-    ] = React.useState([
-    ]);
+    ] = React.useState(null);
     const [
         runSearchByTextInput,
         setRunSearchByTextInput
@@ -52,8 +50,6 @@ export default function OrdersHistoryFlatList({ ...props }) {
         setSelectedOrderState
     ] = React.useState(null);
 
-    const minLengthToTriggerSearch = 3;
-    const maxInputLength = 100;
     const delaySearch = 2000;
 
     const fadeIn = () => {
@@ -74,30 +70,6 @@ export default function OrdersHistoryFlatList({ ...props }) {
 
     const toggleSearchFilterModal = () => {
         setSearchFilterModalVisible(!isSearchFilterModalVisible);
-    };
-
-    const [
-        searchQuery,
-        setSearchQuery
-    ] = React.useState("");
-
-    const onChangeSearch = (query) => {
-        console.log(query);
-        if (query.length === 0) {
-            setSearchQuery("");
-        }
-
-        if (
-            query.length > 0 &&
-            query.length <= maxInputLength &&
-            query.charCodeAt(query.slice(-1)) <= 127
-        ) {
-            setSearchQuery(query.replace("  ", ""));
-        }
-
-        if (query.replace("  ", "").replace(" ", "").length >= minLengthToTriggerSearch) {
-            setRunSearchByTextInput(true);
-        }
     };
 
     const updateSearchingStatus = () => {
@@ -218,18 +190,13 @@ export default function OrdersHistoryFlatList({ ...props }) {
                     backgroundColor: "white",
                 }}
             >
-                <View style={{ flex: 4 }}>
-                    <Searchbar
-                        placeholder={all_constants.search_bar.placeholder}
-                        onChangeText={onChangeSearch}
-                        value={searchQuery}
-                    />
-                </View>
                 <View
                     style={{
                         flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
+                        justifyContent: "flex-end",
+                        alignItems: "flex-end",
+                        marginRight: "5%",
+                        marginTop: "3%",
                     }}
                 >
                     <TouchableRipple
@@ -238,7 +205,7 @@ export default function OrdersHistoryFlatList({ ...props }) {
                     >
                         <Image
                             source={require("../images/filtre.png")}
-                            style={{ height: 30, width: 30 }}
+                            style={{ height: 35, width: 40 }}
                         />
                     </TouchableRipple>
                 </View>
@@ -284,15 +251,22 @@ export default function OrdersHistoryFlatList({ ...props }) {
                         />
                     }
                     ListEmptyComponent={
-                        <View
-                            style={{
-                                alignItems: "center",
-                            }}
-                        >
-                            <Text style={{ fontSize: 20 }}>
-                                {all_constants.drawercontent.drawer_item.orders_history.no_results}
-                            </Text>
-                        </View>
+                        !isFetchingData &&
+                        data !== null &&
+                        data.length === 0 && (
+                            <View
+                                style={{
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text style={{ fontSize: 20 }}>
+                                    {
+                                        all_constants.drawercontent.drawer_item.orders_history
+                                            .no_results
+                                    }
+                                </Text>
+                            </View>
+                        )
                     }
                     renderItem={({ item }) => (
                         <View style={styles_order.order_button_container}>

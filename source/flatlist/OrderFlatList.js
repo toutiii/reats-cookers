@@ -1,12 +1,5 @@
 import React from "react";
-import {
-    ActivityIndicator,
-    Animated,
-    FlatList,
-    Text,
-    TouchableHighlight,
-    View,
-} from "react-native";
+import { Animated, FlatList, Text, TouchableHighlight, View } from "react-native";
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Order from "../components/Order";
@@ -25,8 +18,7 @@ export default function OrdersFlatlist(props) {
     const [
         data,
         setData
-    ] = React.useState([
-    ]);
+    ] = React.useState(null);
 
     const fadeIn = () => {
         Animated.timing(fadeAnim, {
@@ -87,69 +79,67 @@ export default function OrdersFlatlist(props) {
                     backgroundColor: "white",
                 }}
             >
-                {isFetchingData
-                    ? (
-                        <ActivityIndicator size='large' color='tomato' />
-                    )
-                    : (
-                        <FlatList
-                            data={data}
-                            onRefresh={() => {
-                                setIsFetchingData(true);
+                <FlatList
+                    data={data}
+                    onRefresh={() => {
+                        setIsFetchingData(true);
+                    }}
+                    refreshing={isFetchingData}
+                    ItemSeparatorComponent={
+                        <View
+                            style={{
+                                justifyContent: "center",
+                                alignItems: "center",
+                                backgroundColor: "#C8C8C8",
+                                height: 2.5,
+                                marginLeft: "10%",
+                                marginRight: "10%",
+                                marginTop: "5%",
                             }}
-                            refreshing={isFetchingData}
-                            ItemSeparatorComponent={
-                                <View
-                                    style={{
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        backgroundColor: "#C8C8C8",
-                                        height: 2.5,
-                                        marginLeft: "10%",
-                                        marginRight: "10%",
-                                        marginTop: "5%",
-                                    }}
-                                />
-                            }
-                            ListEmptyComponent={
-                                <View
-                                    style={{
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Text style={{ fontSize: 20 }}>
-                                        {
-                                            all_constants.drawercontent.drawer_item.orders_history
-                                                .no_results
-                                        }
-                                    </Text>
-                                </View>
-                            }
-                            renderItem={({ item }) => (
-                                <View style={styles_order.order_button_container}>
-                                    <TouchableHighlight
-                                        onPress={() => {
-                                            props.navigation.navigate("OrderDetailView", {
-                                                item: item,
-                                            });
-                                        }}
-                                        style={{ flex: 1 }}
-                                        underlayColor={all_constants.colors.inputBorderColor}
-                                    >
-                                        <Order
-                                            total_amount={item.total_amount}
-                                            order_number={item.id}
-                                            order_status={item.status}
-                                            order_date={item.created}
-                                            order_processing_date={item.processing_date}
-                                            order_final_state_date={item.modified}
-                                            dishes_number={item.items.length}
-                                        />
-                                    </TouchableHighlight>
-                                </View>
-                            )}
                         />
+                    }
+                    ListEmptyComponent={
+                        !isFetchingData &&
+                        data !== null &&
+                        data.length === 0 && (
+                            <View
+                                style={{
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text style={{ fontSize: 20 }}>
+                                    {
+                                        all_constants.drawercontent.drawer_item.orders_history
+                                            .no_results
+                                    }
+                                </Text>
+                            </View>
+                        )
+                    }
+                    renderItem={({ item }) => (
+                        <View style={styles_order.order_button_container}>
+                            <TouchableHighlight
+                                onPress={() => {
+                                    props.navigation.navigate("OrderDetailView", {
+                                        item: item,
+                                    });
+                                }}
+                                style={{ flex: 1 }}
+                                underlayColor={all_constants.colors.inputBorderColor}
+                            >
+                                <Order
+                                    total_amount={item.total_amount}
+                                    order_number={item.id}
+                                    order_status={item.status}
+                                    order_date={item.created}
+                                    order_processing_date={item.processing_date}
+                                    order_final_state_date={item.modified}
+                                    dishes_number={item.items.length}
+                                />
+                            </TouchableHighlight>
+                        </View>
                     )}
+                />
             </View>
         </Animated.View>
     );

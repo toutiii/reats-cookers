@@ -1,13 +1,5 @@
 import React from "react";
-import {
-    ActivityIndicator,
-    Animated,
-    FlatList,
-    Image,
-    Text,
-    TouchableHighlight,
-    View,
-} from "react-native";
+import { Animated, FlatList, Image, Text, TouchableHighlight, View } from "react-native";
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants.js";
 import Item from "../components/Item.js";
@@ -37,8 +29,7 @@ export default function DrinkFlatlist({ ...props }) {
     const [
         data,
         setData
-    ] = React.useState([
-    ]);
+    ] = React.useState(null);
     const [
         runSearchByTextInput,
         setRunSearchByTextInput
@@ -112,8 +103,14 @@ export default function DrinkFlatlist({ ...props }) {
                     const access = await getItemFromSecureStore("accessToken");
                     const results = await callBackEnd(new FormData(), searchURL, "GET", access);
                     console.log(results);
-                    setData(results.data);
+                    if (results.status_code === 404) {
+                        setData([
+                        ]);
+                    } else {
+                        setData(results.data);
+                    }
                 }
+
                 fetchDataFromBackend();
                 setIsFetchingData(false);
                 resetFilters();
@@ -121,7 +118,7 @@ export default function DrinkFlatlist({ ...props }) {
                 setOneSearchHasBeenRun(true);
                 setSearchURL("");
                 fadeIn();
-            }, 200);
+            }, 500);
         }
     }, [
         searchURL
@@ -233,18 +230,6 @@ export default function DrinkFlatlist({ ...props }) {
                 </View>
             )}
 
-            {isFetchingData && (
-                <View
-                    style={{
-                        backgroundColor: "white",
-                        alignItems: "center",
-                        marginTop: "5%",
-                    }}
-                >
-                    <ActivityIndicator size='large' color='tomato' />
-                </View>
-            )}
-
             {oneSearchHasBeenRun && (
                 <View
                     style={{
@@ -254,6 +239,10 @@ export default function DrinkFlatlist({ ...props }) {
                 >
                     <FlatList
                         data={data}
+                        onRefresh={() => {
+                            setIsFetchingData(true);
+                        }}
+                        refreshing={isFetchingData}
                         ItemSeparatorComponent={
                             <View
                                 style={{
@@ -268,16 +257,20 @@ export default function DrinkFlatlist({ ...props }) {
                             />
                         }
                         ListEmptyComponent={
-                            <View
-                                style={{
-                                    alignItems: "center",
-                                    marginTop: "5%",
-                                }}
-                            >
-                                <Text style={{ fontSize: 20 }}>
-                                    {all_constants.dishes.no_drinks_found}
-                                </Text>
-                            </View>
+                            !isFetchingData &&
+                            data &&
+                            data.length === 0 && (
+                                <View
+                                    style={{
+                                        alignItems: "center",
+                                        marginTop: "5%",
+                                    }}
+                                >
+                                    <Text style={{ fontSize: 20 }}>
+                                        {all_constants.dishes.no_drinks_found}
+                                    </Text>
+                                </View>
+                            )
                         }
                         renderItem={({ item }) => (
                             <View style={styles_order.order_button_container}>

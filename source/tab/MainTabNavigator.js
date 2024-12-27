@@ -66,10 +66,16 @@ export default function MainTabNavigator() {
                 <Tab.Screen
                     name={all_constants.tab.main_tab_navigator.DishFlatList}
                     component={DishFlatlistStackNavigator}
+                    options={{
+                        headerShown: true,
+                    }}
                 />
                 <Tab.Screen
                     name={all_constants.tab.main_tab_navigator.DrinkFlatList}
                     component={DrinkFlatlistStackNavigator}
+                    options={{
+                        headerShown: true,
+                    }}
                 />
             </Tab.Navigator>
         </View>

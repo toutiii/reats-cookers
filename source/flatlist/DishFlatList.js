@@ -1,13 +1,5 @@
 import React from "react";
-import {
-    ActivityIndicator,
-    Animated,
-    FlatList,
-    Image,
-    Text,
-    TouchableHighlight,
-    View,
-} from "react-native";
+import { Animated, FlatList, Image, Text, TouchableHighlight, View } from "react-native";
 import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Item from "../components/Item";
@@ -41,8 +33,7 @@ export default function DishFlatList({ ...props }) {
     const [
         data,
         setData
-    ] = React.useState([
-    ]);
+    ] = React.useState(null);
     const [
         runSearchByTextInput,
         setRunSearchByTextInput
@@ -116,7 +107,13 @@ export default function DishFlatList({ ...props }) {
                     const access = await getItemFromSecureStore("accessToken");
                     const results = await callBackEnd(new FormData(), searchURL, "GET", access);
                     console.log(results);
-                    setData(results.data);
+
+                    if (results.status_code === 404) {
+                        setData([
+                        ]);
+                    } else {
+                        setData(results.data);
+                    }
                 }
                 fetchDataFromBackend();
                 setIsFetchingData(false);
@@ -125,7 +122,7 @@ export default function DishFlatList({ ...props }) {
                 setOneSearchHasBeenRun(true);
                 setSearchURL("");
                 fadeIn();
-            }, 200);
+            }, 500);
         }
     }, [
         searchURL
@@ -246,18 +243,6 @@ export default function DishFlatList({ ...props }) {
                 </View>
             )}
 
-            {isFetchingData && (
-                <View
-                    style={{
-                        backgroundColor: "white",
-                        alignItems: "center",
-                        marginTop: "5%",
-                    }}
-                >
-                    <ActivityIndicator size='large' color='tomato' />
-                </View>
-            )}
-
             {oneSearchHasBeenRun && (
                 <View
                     style={{
@@ -267,6 +252,10 @@ export default function DishFlatList({ ...props }) {
                 >
                     <FlatList
                         data={data}
+                        onRefresh={() => {
+                            setIsFetchingData(true);
+                        }}
+                        refreshing={isFetchingData}
                         ItemSeparatorComponent={
                             <View
                                 style={{
@@ -281,16 +270,20 @@ export default function DishFlatList({ ...props }) {
                             />
                         }
                         ListEmptyComponent={
-                            <View
-                                style={{
-                                    alignItems: "center",
-                                    marginTop: "5%",
-                                }}
-                            >
-                                <Text style={{ fontSize: 20 }}>
-                                    {all_constants.dishes.no_dishes_found}
-                                </Text>
-                            </View>
+                            !isFetchingData &&
+                            data &&
+                            data.length === 0 && (
+                                <View
+                                    style={{
+                                        alignItems: "center",
+                                        marginTop: "5%",
+                                    }}
+                                >
+                                    <Text style={{ fontSize: 20 }}>
+                                        {all_constants.dishes.no_dishes_found}
+                                    </Text>
+                                </View>
+                            )
                         }
                         renderItem={({ item }) => (
                             <View style={styles_order.order_button_container}>
