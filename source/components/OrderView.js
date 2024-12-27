@@ -5,11 +5,11 @@ import styles_order_view from "../styles/styles-order-view";
 import all_constants from "../constants";
 import CustomButton from "../components/CustomButton";
 import DishModal from "../modals/DishModal";
-import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome, MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import moment from "moment";
 import "moment/locale/fr"; // Import French locale
 import CustomAlert from "./CustomAlert";
-import { buildReadableAddress, getItemFromSecureStore } from "../helpers/global_helpers";
+import { getItemFromSecureStore } from "../helpers/global_helpers";
 import { apiBaseUrl, port } from "../env";
 import { callBackEnd } from "../api/callBackend";
 
@@ -328,6 +328,22 @@ export default function OrderView(props) {
                             </Text>
                         </View>
                     </View>
+
+                    <View style={styles_order_view.order_item_info}>
+                        <View style={{ flex: 1 }}>
+                            <AntDesign name='user' size={iconSize} color='black' />
+                        </View>
+                        <View style={{ flex: 6 }}>
+                            <Text style={{ fontSize: 17 }}>
+                                {
+                                    all_constants.drawercontent.drawer_item.orders_history.infos
+                                        .ordered_by
+                                }{" "}
+                                {item.customer.firstname} {item.customer.lastname.substring(0, 1)}.
+                            </Text>
+                        </View>
+                    </View>
+
                     <View style={styles_order_view.order_item_info}>
                         <View style={{ flex: 1 }}>
                             <FontAwesome name='euro' size={iconSize} color='black' />
@@ -470,7 +486,7 @@ export default function OrderView(props) {
                         </View>
                         <View style={{ flex: 6 }}>
                             <Text style={{ fontSize: 17 }}>
-                                {buildReadableAddress(item.address)}
+                                {item.address.postal_code} {item.address.town}
                             </Text>
                         </View>
                     </View>

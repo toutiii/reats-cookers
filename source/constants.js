@@ -433,6 +433,7 @@ export const all_constants = {
                     price: "Prix à l'unité(€): ",
                     dish_total: "Total: ",
                     ordered: "Commandé le ",
+                    ordered_by: "Commandée par ",
                     item: "item(s)",
                 },
                 status: {

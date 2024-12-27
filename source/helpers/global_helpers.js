@@ -263,22 +263,3 @@ export async function getItemFromSecureStore(key) {
     let result = await SecureStore.getItemAsync(key);
     return result;
 }
-
-export function buildReadableAddress(address) {
-    if (address.length === 0) {
-        return "";
-    }
-    let readableAddress =
-        address.street_number +
-        " " +
-        address.street_name +
-        " " +
-        address.address_complement +
-        " " +
-        address.postal_code +
-        " " +
-        address.town;
-
-    readableAddress = readableAddress.replace("null ", "");
-    return readableAddress;
-}
