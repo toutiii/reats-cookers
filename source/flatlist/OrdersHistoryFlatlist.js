@@ -150,13 +150,10 @@ export default function OrdersHistoryFlatList({ ...props }) {
     const onPressFilter = () => {
         checkDates();
         toggleSearchFilterModal();
-
-        if (selectedOrderState !== null || startDate !== null || endDate !== null) {
-            console.log(startDate);
-            console.log(endDate);
-            console.log(selectedOrderState);
-            updateSearchingStatus();
-        }
+        console.log(startDate);
+        console.log(endDate);
+        console.log(selectedOrderState);
+        updateSearchingStatus();
     };
 
     const resetFilters = () => {
