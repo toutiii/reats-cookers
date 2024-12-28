@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import React from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
@@ -97,6 +97,7 @@ export default function DrawerContent(props) {
             "GET",
             access,
         );
+
         setUserData(result.data);
         isRequesting(false);
         setRefreshData(false);
@@ -125,7 +126,7 @@ export default function DrawerContent(props) {
                     </View>
                 )
                 : (
-                    <DrawerContentScrollView {...props}>
+                    <DrawerContentScrollView {...props} persistentScrollbar={true}>
                         <Animated.View
                             style={[
                                 styles.drawerContent,
@@ -204,14 +205,88 @@ export default function DrawerContent(props) {
                             </View>
 
                             <Drawer.Section
-                                title='Visibilité'
-                                style={{ marginTop: "4%", marginRight: 15 }}
+                                title={all_constants.main_drawer_navigator.titles.acceptance_rate}
+                                style={{ marginTop: "1%", marginRight: 15 }}
                             >
                                 <TouchableRipple
                                     onPress={() => {
-                                        console.log("Hi");
+                                        props.navigation.navigate("AcceptanceRateInfosView");
                                     }}
                                 >
+                                    <View style={{ flexDirection: "row", flex: 1 }}>
+                                        <View
+                                            style={{
+                                                flex: 2,
+                                                justifyContent: "center",
+                                                paddingLeft: 20,
+                                            }}
+                                        >
+                                            <Text>
+                                                {
+                                                    all_constants.drawercontent.drawer_item.label
+                                                        .acceptance_rate
+                                                }
+                                            </Text>
+                                        </View>
+                                        <View
+                                            style={{
+                                                flex: 1,
+                                                justifyContent: "center",
+                                                paddingLeft: 20,
+                                                flexDirection: "row",
+                                            }}
+                                        >
+                                            {userData.personal_infos_section.data.acceptance_rate >=
+                                            75 && (
+                                                <MaterialCommunityIcons
+                                                    name='checkbox-marked-circle'
+                                                    size={24}
+                                                    color='green'
+                                                />
+                                            )}
+                                            {userData.personal_infos_section.data.acceptance_rate >=
+                                            50 &&
+                                            userData.personal_infos_section.data.acceptance_rate <
+                                                75 && (
+                                                <MaterialIcons
+                                                    name='warning-amber'
+                                                    size={24}
+                                                    color='orange'
+                                                />
+                                            )}
+                                            {userData.personal_infos_section.data.acceptance_rate <
+                                            50 && (
+                                                <MaterialIcons name='dangerous' size={24} color='red' />
+                                            )}
+                                            <Text
+                                                style={[
+                                                    {
+                                                        color:
+                                                        userData.personal_infos_section.data
+                                                            .acceptance_rate >= 75
+                                                            ? "green"
+                                                            : userData.personal_infos_section.data
+                                                                .acceptance_rate < 50
+                                                                ? "red"
+                                                                : "orange",
+                                                    },
+                                                    { fontWeight: "bold" },
+                                                    { fontSize: 18 },
+                                                ]}
+                                            >
+                                                {userData.personal_infos_section.data.acceptance_rate +
+                                                "%"}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </TouchableRipple>
+                            </Drawer.Section>
+
+                            <Drawer.Section
+                                title={all_constants.main_drawer_navigator.titles.visibility}
+                                style={{ marginTop: "1%", marginRight: 15 }}
+                            >
+                                <TouchableRipple>
                                     <View style={{ flexDirection: "row", flex: 1 }}>
                                         <View
                                             style={{
@@ -243,7 +318,9 @@ export default function DrawerContent(props) {
                                     </View>
                                 </TouchableRipple>
                             </Drawer.Section>
-                            <Drawer.Section title='Gestion'>
+                            <Drawer.Section
+                                title={all_constants.main_drawer_navigator.titles.dishes_management}
+                            >
                                 <DrawerItem
                                     icon={({ color, size }) => (
                                         <MaterialCommunityIcons
@@ -277,7 +354,7 @@ export default function DrawerContent(props) {
                                     }}
                                 />
                             </Drawer.Section>
-                            <Drawer.Section title='Préférences'>
+                            <Drawer.Section title={all_constants.main_drawer_navigator.titles.settings}>
                                 <DrawerItem
                                     icon={({ color, size }) => (
                                         <MaterialCommunityIcons
@@ -350,6 +427,7 @@ export default function DrawerContent(props) {
 const styles = StyleSheet.create({
     drawerContent: {
         flex: 1,
+        marginBottom: "10%",
     },
     userInfoSection: {
         paddingLeft: "7%",

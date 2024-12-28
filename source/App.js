@@ -15,6 +15,7 @@ import SettingsAddressForm from "./forms/SettingsAddressForm";
 import OrdersHistoryStackNavigator from "./stack/OrdersHistoryStackNavigator";
 import all_constants from "./constants";
 import OrderView from "./components/OrderView";
+import AcceptanceRateInfosView from "./views/AcceptanceRateInfosView";
 
 const Stack = createStackNavigator();
 
@@ -72,6 +73,11 @@ export default class App extends Component {
                                 options={{ headerShown: false, headerTitle: all_constants.go_back }}
                             />
                             <Stack.Screen name='OrderView' component={OrderView} />
+                            <Stack.Screen
+                                name='AcceptanceRateInfosView'
+                                component={AcceptanceRateInfosView}
+                                options={{ headerShown: true, headerTitle: all_constants.go_back }}
+                            />
                         </Stack.Navigator>
                     </NavigationContainer>
                 </SafeAreaView>

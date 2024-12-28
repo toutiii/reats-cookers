@@ -378,16 +378,15 @@ export const all_constants = {
 
     main_drawer_navigator: {
         titles: {
-            home: "Accueil",
-            orders: "Mes commandes",
-            balance: "Mon solde",
-            settings: "Mes paramètres",
-            stats: "Mes statistiques",
+            visibility: "Visibilité",
+            dishes_management: "Gestion",
+            settings: "Préférences",
+            acceptance_rate: "Score",
         },
     },
     dashboard: {
         scroll_update:
-            "Vous pouvez visualiser des statistiques sur vos commandes de la semaine en cours. \n",
+            "Vous pouvez visualiser des statistiques sur vos commandes pour la semaine en cours. \n",
         titles: {
             orders: "Commandes",
             turnover: "Turnover",
@@ -414,6 +413,7 @@ export const all_constants = {
                 create_drink: "Ajouter une boisson",
                 account: "Mon compte",
                 localization: "Ma localisation",
+                acceptance_rate: "Taux d'acceptation",
             },
             orders_history: {
                 title: "Mes anciennes commandes",
@@ -571,6 +571,19 @@ export const all_constants = {
                 message: "Impossible de refuser la commande, veuillez réessayer plus tard.",
             },
         },
+    },
+    acceptance_rate_infos_view: {
+        title: "Taux d'acceptation",
+        explanation:
+            "Chaque commande livrée augmente votre score de 2%. Le maximum est de 100%. \n\n" +
+            "Chaque commande que vous annulez baisse votre score de 10%. Le minimum est de 0%. \n\n" +
+            "Plus vous réussissez de commandes, plus vous serez visible des clients.",
+        green_acceptance_rate:
+            "Votre taux d'acceptation est élevé, vos plats seront proposés en priorité aux clients.",
+        orange_acceptance_rate:
+            "Votre taux d'acceptation est moyen, vos plats seront proposés aux clients.",
+        red_acceptance_rate:
+            "Votre taux d'acceptation est faible, vos plats seront peu ou pas proposés aux clients.",
     },
 };
 
