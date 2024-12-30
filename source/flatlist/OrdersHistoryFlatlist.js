@@ -88,7 +88,11 @@ export default function OrdersHistoryFlatList({ ...props }) {
         }
 
         if (selectedOrderState !== null) {
-            baseURL += `?status=${selectedOrderState}`;
+            if (startDate !== null && endDate !== null) {
+                baseURL += `&status=${selectedOrderState}`;
+            } else {
+                baseURL += `?status=${selectedOrderState}`;
+            }
         }
 
         const access = await getItemFromSecureStore("accessToken");
