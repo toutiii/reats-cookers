@@ -176,7 +176,7 @@ export default function OrderView(props) {
                 <DishModal
                     state={modalVisible}
                     onPressCloseModal={onPressCloseModal}
-                    modal_data={item.items}
+                    modal_data={item.dishes_items.concat(item.drinks_items)}
                 />
             )}
             {isUpdatingOrder && (
