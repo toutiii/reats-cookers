@@ -19,6 +19,7 @@ jobs:
         with:
           node-version: 18
           cache: yarn
+          cache-dependency-path: source/yarn.lock  # Specify correct path for cache
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
