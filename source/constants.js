@@ -3,6 +3,7 @@
 import { Dimensions } from "react-native";
 
 export const all_constants = {
+    test: "test", // To remove
     go_back: "Retour",
     screen: {
         width: Dimensions.get("window").width,
