@@ -12,7 +12,7 @@ export default {
         },
         updates: {
             fallbackToCacheTimeout: 0,
-            url: "https://u.expo.dev/6df1673a-3c4d-4188-b913-b619a786ee34",
+            url: "https://u.expo.dev/5e8c63f9-94eb-4a4f-8125-239918afb898",
         },
         assetBundlePatterns: [
             "**/*"
