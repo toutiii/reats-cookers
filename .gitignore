@@ -1,4 +1,3 @@
-source/assets/*
 source/node_modules/*
 source/.expo/
 source/.idea/
@@ -13,3 +12,4 @@ source/.expo-shared/*
 source/signup_form_data.txt
 source/yarn-error.log
 src/*
+.env*
