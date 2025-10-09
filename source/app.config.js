@@ -32,7 +32,8 @@ export default {
             favicon: "./legacy/assets/favicon.png",
         },
         plugins: [
-            "expo-secure-store"
+            "expo-secure-store",
+            "expo-font"
         ],
         newArchEnabled: true,
         extra: {
