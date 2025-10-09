@@ -1,15 +1,15 @@
 import React from "react";
 import { Animated, FlatList, Image, Text, TouchableHighlight, View } from "react-native";
 import styles_order from "../styles/styles-order.js";
-import all_constants from "../constants.js";
-import Item from "../components/Item.js";
+import all_constants from "../constants";
+import Item from "../components/Item";
 import { TouchableRipple } from "react-native-paper";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
-import { callBackEnd } from "../api/callBackend.js";
+import { callBackEnd } from "../../api/callBackend";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, port } from "../../env";
 
-export default function DrinkFlatlist({ ...props }) {
+export default function DishFlatList({ ...props }) {
     const [
         isSearchFilterModalVisible,
         setSearchFilterModalVisible
@@ -19,7 +19,11 @@ export default function DrinkFlatlist({ ...props }) {
         selectedState,
         setSelectedState
     ] = React.useState(null);
-
+    const [
+        selectedDishCategories,
+        setSelectedDishCategories
+    ] = React.useState([
+    ]);
     const fadeAnim = React.useRef(new Animated.Value(1)).current;
     const [
         isFetchingData,
@@ -73,6 +77,7 @@ export default function DrinkFlatlist({ ...props }) {
                     const access = await getItemFromSecureStore("accessToken");
                     const results = await callBackEnd(new FormData(), searchURL, "GET", access);
                     console.log(results);
+
                     if (results.status_code === 404) {
                         setData([
                         ]);
@@ -80,7 +85,6 @@ export default function DrinkFlatlist({ ...props }) {
                         setData(results.data);
                     }
                 }
-
                 fetchDataFromBackend();
                 setIsFetchingData(false);
                 resetFilters();
@@ -102,13 +106,18 @@ export default function DrinkFlatlist({ ...props }) {
         toggleSearchFilterModal();
 
         console.log(selectedState);
+        console.log(selectedDishCategories);
         setIsFetchingData(true);
         buildSearchUrl();
     };
 
     const buildSearchUrl = () => {
         let queryParams = "";
-        let baseURL = `${apiBaseUrl}:${port}/api/v1/drinks?`;
+        let baseURL = `${apiBaseUrl}:${port}/api/v1/dishes?`;
+
+        if (selectedDishCategories.length !== 0) {
+            queryParams += `&category=${selectedDishCategories}`;
+        }
 
         if (selectedState !== null) {
             queryParams += `&is_enabled=${selectedState}`;
@@ -122,6 +131,8 @@ export default function DrinkFlatlist({ ...props }) {
 
     const resetFilters = () => {
         setSelectedState(null);
+        setSelectedDishCategories([
+        ]);
     };
 
     return (
@@ -129,9 +140,11 @@ export default function DrinkFlatlist({ ...props }) {
             {isSearchFilterModalVisible && (
                 <SearchFilterModal
                     enableActiveFilter={true}
+                    enableDishCategories={true}
                     isModalVisible={isSearchFilterModalVisible}
                     toggleModal={toggleSearchFilterModal}
                     stateSearchData={setSelectedState}
+                    dishCategoriesData={setSelectedDishCategories}
                     onPressFilter={onPressFilter}
                     onPressClear={resetFilters}
                 />
@@ -201,7 +214,7 @@ export default function DrinkFlatlist({ ...props }) {
                                 }}
                             >
                                 <Text style={{ fontSize: 20 }}>
-                                    {all_constants.dishes.no_drinks_found}
+                                    {all_constants.dishes.no_dishes_found}
                                 </Text>
                             </View>
                         )
@@ -211,7 +224,7 @@ export default function DrinkFlatlist({ ...props }) {
                             <TouchableHighlight
                                 onPress={() => {
                                     props.navigation.navigate(
-                                        "DrinkFlatlistStackNavigatorDrinkFormView",
+                                        "DishFlatlistStackNavigatorDishFormView",
                                         {
                                             item: item,
                                             refreshDataStateChanger: changeRefreshDataState,

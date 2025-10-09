@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { registerRootComponent } from "expo";
 import { NavigationContainer } from "@react-navigation/native";
-import LoginForm from "./forms/LoginForm";
+import LoginForm from "./legacy/forms/LoginForm";
 import { createStackNavigator } from "@react-navigation/stack";
-import { MainDrawerNavigator } from "./drawer/MainDrawerNavigator";
+import { MainDrawerNavigator } from "./legacy/drawer/MainDrawerNavigator";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SignupForm from "./forms/SignupForm";
+import SignupForm from "./legacy/forms/SignupForm";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
-import OTPView from "./views/OTPView";
-import DishForm from "./forms/DishForm";
-import DrinkForm from "./forms/DrinkForm";
-import SettingsPersonalInformationForm from "./forms/SettingsPersonalInformationForm";
-import SettingsAddressForm from "./forms/SettingsAddressForm";
-import OrdersHistoryStackNavigator from "./stack/OrdersHistoryStackNavigator";
-import all_constants from "./constants";
-import OrderView from "./components/OrderView";
-import AcceptanceRateInfosView from "./views/AcceptanceRateInfosView";
+import OTPView from "./legacy/views/OTPView";
+import DishForm from "./legacy/forms/DishForm";
+import DrinkForm from "./legacy/forms/DrinkForm";
+import SettingsPersonalInformationForm from "./legacy/forms/SettingsPersonalInformationForm";
+import SettingsAddressForm from "./legacy/forms/SettingsAddressForm";
+import OrdersHistoryStackNavigator from "./legacy/stack/OrdersHistoryStackNavigator";
+import all_constants from "./legacy/constants";
+import OrderView from "./legacy/components/OrderView";
+import AcceptanceRateInfosView from "./legacy/views/AcceptanceRateInfosView";
 
 const Stack = createStackNavigator();
 

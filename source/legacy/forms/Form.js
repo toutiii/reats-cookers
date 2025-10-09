@@ -6,9 +6,9 @@ import { validateFields } from "../validators/global_validators";
 import FormField from "../components/FormField";
 import styles_form from "../styles/styles-form";
 import CustomAlert from "../components/CustomAlert";
-import { callBackEnd } from "../api/callBackend";
+import { callBackEnd } from "../../api/callBackend";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
-import { apiKeyBackend } from "../env";
+import { apiKeyBackend } from "../../env";
 import { CommonActions } from "@react-navigation/native";
 
 const getInitialErrorsState = (fieldKeys) => {

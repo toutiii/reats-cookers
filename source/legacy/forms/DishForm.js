@@ -7,10 +7,10 @@ import {
     checkValueNotContainsSpecialChar,
     valueIsValidPrice,
 } from "../validators/global_validators";
-import { callBackendWithFormDataForDishes } from "../api/callBackend";
+import { callBackendWithFormDataForDishes } from "../../api/callBackend";
 import { getCategories } from "../helpers/global_helpers";
 import { getCountries } from "../helpers/global_helpers";
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, port } from "../../env";
 
 export default function DishForm({ ...props }) {
     console.log(props.route.params);

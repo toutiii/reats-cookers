@@ -6,8 +6,8 @@ import Order from "../components/Order";
 import { TouchableRipple } from "react-native-paper";
 import SearchFilterModal from "../modals/SearchFilterModal.js";
 import CustomAlert from "../components/CustomAlert.js";
-import { apiBaseUrl, port } from "../env";
-import { callBackEnd } from "../api/callBackend";
+import { apiBaseUrl, port } from "../../env";
+import { callBackEnd } from "../../api/callBackend";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
 
 export default function OrdersHistoryFlatList({ ...props }) {

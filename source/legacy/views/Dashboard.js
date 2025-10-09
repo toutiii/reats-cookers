@@ -5,9 +5,9 @@ import { TouchableRipple } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Modal from "react-native-modal";
 import all_constants from "../constants";
-import { callBackEnd } from "../api/callBackend";
+import { callBackEnd } from "../../api/callBackend";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, port } from "../../env";
 import { Divider } from "react-native-paper";
 
 export default function Dashboard() {

@@ -8,10 +8,10 @@ import {
     valueIsValidCapacity,
     valueIsValidPrice,
 } from "../validators/global_validators";
-import { callBackendWithFormDataForDrinks } from "../api/callBackend";
+import { callBackendWithFormDataForDrinks } from "../../api/callBackend";
 import { getCapacityUnits } from "../helpers/global_helpers";
 import { getCountries } from "../helpers/global_helpers";
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, port } from "../../env";
 
 export default function DrinkForm({ ...props }) {
     return (

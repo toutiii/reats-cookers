@@ -10,8 +10,8 @@ import moment from "moment";
 import "moment/locale/fr"; // Import French locale
 import CustomAlert from "./CustomAlert";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
-import { apiBaseUrl, port } from "../env";
-import { callBackEnd } from "../api/callBackend";
+import { apiBaseUrl, port } from "../../env";
+import { callBackEnd } from "../../api/callBackend";
 
 export default function OrderView(props) {
     // State for modal visibility

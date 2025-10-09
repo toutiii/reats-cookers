@@ -13,10 +13,10 @@ import {
 import Animated from "react-native-reanimated";
 import CustomAlert from "../components/CustomAlert";
 import all_constants from "../constants";
-import { callBackEnd } from "../api/callBackend";
+import { callBackEnd } from "../../api/callBackend";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
 import { CommonActions } from "@react-navigation/native";
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, port } from "../../env";
 
 export default function DrawerContent(props) {
     const [
