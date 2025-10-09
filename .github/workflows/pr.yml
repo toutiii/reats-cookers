@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20.x
           cache: yarn
           cache-dependency-path: source/yarn.lock
 
@@ -69,5 +69,5 @@ jobs:
             echo "No title update needed..."
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

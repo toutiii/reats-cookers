@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+.expo/
+.expo-shared/
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Generated files
+yarn.lock
+package-lock.json
+*.d.ts
+
+# Gluestack UI generated components
+components/ui/**
+
+# Config files
+.husky/
