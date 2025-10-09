@@ -25,7 +25,7 @@ const Stack = createStackNavigator();
 export default class App extends Component {
     render() {
         return (
-            
+
     <GluestackUIProvider mode="dark">
       <AutocompleteDropdownContextProvider>
                 <SafeAreaView style={{ flex: 1 }}>
@@ -88,7 +88,7 @@ export default class App extends Component {
                 </SafeAreaView>
             </AutocompleteDropdownContextProvider>
     </GluestackUIProvider>
-  
+
         );
     }
 }
