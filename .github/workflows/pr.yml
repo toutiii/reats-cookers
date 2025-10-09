@@ -69,5 +69,5 @@ jobs:
             echo "No title update needed..."
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
