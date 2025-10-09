@@ -7,9 +7,9 @@ import {
     checkValueNotContainsSpecialChar,
 } from "../validators/global_validators";
 import { checkNumericFormat } from "../validators/settingsform_validators";
-import { callBackendWithFormDataForCookers } from "../api/callBackend";
+import { callBackendWithFormDataForCookers } from "../../api/callBackend";
 import { checkMaxDishesNumber } from "../validators/settingsform_validators";
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, port } from "../../env";
 
 export default function SettingsPersonalInformationForm({ ...props }) {
     return (

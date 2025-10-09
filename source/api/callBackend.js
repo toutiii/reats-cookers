@@ -1,5 +1,5 @@
 import { apiBaseUrl, apiKeyBackend, appOriginHeader, port } from "../env";
-import { getItemFromSecureStore } from "../helpers/global_helpers";
+import { getItemFromSecureStore } from "../legacy/helpers/global_helpers";
 import { setItemAsync } from "expo-secure-store";
 
 export async function callBackEnd(

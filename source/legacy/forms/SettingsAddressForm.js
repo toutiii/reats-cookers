@@ -7,8 +7,8 @@ import {
     checkValueNotContainsSpecialChar,
 } from "../validators/global_validators";
 import { checkPostalCode } from "../validators/settingsform_validators";
-import { callBackendWithFormDataForCookers } from "../api/callBackend";
-import { apiBaseUrl, port } from "../env";
+import { callBackendWithFormDataForCookers } from "../../api/callBackend";
+import { apiBaseUrl, port } from "../../env";
 
 export default function SettingsAddressForm({ ...props }) {
     return (

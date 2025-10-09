@@ -8,9 +8,9 @@ import {
     checkPhoneNumbers,
 } from "../validators/global_validators";
 import { checkNumericFormat, checkPostalCode } from "../validators/settingsform_validators";
-import { callBackendWithFormDataForCookers } from "../api/callBackend";
+import { callBackendWithFormDataForCookers } from "../../api/callBackend";
 import CustomAlert from "../components/CustomAlert";
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, port } from "../../env";
 
 export default function SignupForm({ ...props }) {
     const [

@@ -4,8 +4,8 @@ import styles_order from "../styles/styles-order.js";
 import all_constants from "../constants";
 import Order from "../components/Order";
 import { getItemFromSecureStore } from "../helpers/global_helpers";
-import { apiBaseUrl, port } from "../env";
-import { callBackEnd } from "../api/callBackend";
+import { apiBaseUrl, port } from "../../env";
+import { callBackEnd } from "../../api/callBackend";
 import { useFocusEffect } from "@react-navigation/native";
 
 export default function OrdersFlatlist(props) {

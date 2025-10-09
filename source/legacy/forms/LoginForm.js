@@ -1,12 +1,12 @@
 import React from "react";
 import Form from "./Form";
-import all_constants from "../constants";
 import { Text, View } from "react-native";
 import { checkValueIsDefined } from "../validators/global_validators";
 import { checkNumericFormat } from "../validators/settingsform_validators";
-import { callBackEndForAuthentication } from "../api/callBackend";
+import { callBackEndForAuthentication } from "../../api/callBackend";
 import CustomAlert from "../components/CustomAlert";
-import { apiBaseUrl, port } from "../env";
+import { apiBaseUrl, port } from "../../env";
+import all_constants from "../constants";
 
 export default function LoginForm({ ...props }) {
     const [

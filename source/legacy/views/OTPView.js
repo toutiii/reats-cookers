@@ -4,12 +4,12 @@ import { ActivityIndicator, Platform, Text, StyleSheet, TextInput, View } from "
 
 import CustomButton from "../button/CustomButton";
 import all_constants from "../constants";
-import { callBackEnd } from "../api/callBackend";
+import { callBackEnd } from "../../api/callBackend";
 import CustomAlert from "../components/CustomAlert";
 import { CommonActions } from "@react-navigation/native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import * as SecureStore from "expo-secure-store";
-import { apiBaseUrl, apiKeyBackend, port } from "../env";
+import { apiBaseUrl, apiKeyBackend, port } from "../../env";
 
 export default function OTPView({ ...props }) {
     const [

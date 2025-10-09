@@ -4,9 +4,9 @@ export default {
         slug: "reats-cookers",
         version: "0.1.0",
         orientation: "portrait",
-        icon: "./assets/icon.png",
+        icon: "./legacy/assets/icon.png",
         splash: {
-            image: "./assets/splash.png",
+            image: "./legacy/assets/splash.png",
             resizeMode: "contain",
             backgroundColor: "#ffffff",
         },
@@ -23,13 +23,13 @@ export default {
         },
         android: {
             adaptiveIcon: {
-                foregroundImage: "./assets/adaptive-icon.png",
+                foregroundImage: "./legacy/assets/adaptive-icon.png",
                 backgroundColor: "#FFFFFF",
             },
             package: "com.reats.cookers",
         },
         web: {
-            favicon: "./assets/favicon.png",
+            favicon: "./legacy/assets/favicon.png",
         },
         plugins: [
             "expo-secure-store"
