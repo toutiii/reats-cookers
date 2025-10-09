@@ -17,12 +17,17 @@ import all_constants from "./legacy/constants";
 import OrderView from "./legacy/components/OrderView";
 import AcceptanceRateInfosView from "./legacy/views/AcceptanceRateInfosView";
 
+import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import "@/global.css";
+
 const Stack = createStackNavigator();
 
 export default class App extends Component {
     render() {
         return (
-            <AutocompleteDropdownContextProvider>
+            
+    <GluestackUIProvider mode="dark">
+      <AutocompleteDropdownContextProvider>
                 <SafeAreaView style={{ flex: 1 }}>
                     <NavigationContainer>
                         <Stack.Navigator initialRouteName='LoginForm'>
@@ -82,6 +87,8 @@ export default class App extends Component {
                     </NavigationContainer>
                 </SafeAreaView>
             </AutocompleteDropdownContextProvider>
+    </GluestackUIProvider>
+  
         );
     }
 }
