@@ -4,6 +4,9 @@ module.exports = {
 ? process.env.DARK_MODE
 : "class",
   content: [
+    "./App.{tsx,jsx,ts,js}",
+    "./components/**/*.{tsx,jsx,ts,js}",
+    "./screens/**/*.{tsx,jsx,ts,js}",
     "./app/**/*.{html,js,jsx,ts,tsx,mdx}",
     "./components/**/*.{html,js,jsx,ts,tsx,mdx}",
     "./utils/**/*.{html,js,jsx,ts,tsx,mdx}",
@@ -177,9 +180,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        heading: undefined,
-        body: undefined,
-        mono: undefined,
+        heading: "Montserrat_700Bold",
+        body: "Montserrat_400Regular",
+        mono: "Montserrat_400Regular",
         jakarta: ["var(--font-plus-jakarta-sans)"],
         roboto: ["var(--font-roboto)"],
         code: ["var(--font-source-code-pro)"],
