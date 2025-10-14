@@ -59,7 +59,7 @@ const Onboarding: FC = () => {
    * Skip onboarding and go directly to main app
    */
   const handleSkip = useCallback(() => {
-    navigation.navigate("TermsAndConditions");
+    navigation.navigate("MainNavigator");
   }, [navigation]);
 
 
