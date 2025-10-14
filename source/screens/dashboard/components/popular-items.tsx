@@ -20,7 +20,7 @@ const PopularItemCard: React.FC<PopularItemCardProps> = ({ item }) => (
   <View className="flex-1">
     {/* Item Image */}
     <View
-      className="rounded-2xl h-48 mb-3 items-center justify-center"
+      className="rounded-2xl h-32 mb-3 items-center justify-center"
       style={{ backgroundColor: item.colors[0] }}
     >
       <View
@@ -33,7 +33,7 @@ const PopularItemCard: React.FC<PopularItemCardProps> = ({ item }) => (
           elevation: 3,
         }}
       >
-        <Text className="text-4xl">{item.emoji}</Text>
+        <Text className="text-3xl">{item.emoji}</Text>
       </View>
     </View>
 

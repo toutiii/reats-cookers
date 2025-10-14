@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text } from "@/components/ui/text";
+import { Heading } from "@/components/ui/heading";
 
 interface StatCardProps {
   iconName: string;
@@ -55,7 +56,7 @@ export const StatCard: React.FC<StatCardProps> = ({
       </View>
 
       {/* Value */}
-      <Text className="text-3xl font-bold text-gray-900 mb-1">{value}</Text>
+      <Heading className="text-3xl mb-1">{value}</Heading>
 
       {/* Label */}
       <Text className="text-gray-500 text-sm font-medium">{label}</Text>

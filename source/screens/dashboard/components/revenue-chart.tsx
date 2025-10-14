@@ -59,7 +59,7 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({ selectedPeriod, onPe
       <View className="flex-row justify-between items-center mb-5">
         <View>
           <Heading className="text-sm mb-2">Total Revenue</Heading>
-          <Text className="text-3xl font-bold">€2,241</Text>
+          <Heading className="text-3xl font-bold">€2,241</Heading>
           <View className="flex-row items-center mt-2">
             <Feather name="trending-up" size={14} color="#10b981" />
             <Text className="text-green-600 text-sm font-semibold ml-1">+18% vs yesterday</Text>
