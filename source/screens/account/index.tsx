@@ -3,7 +3,6 @@ import { Avatar, AvatarFallbackText, AvatarImage } from "@/components/ui/avatar"
 import { Box } from "@/components/ui/box";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@/components/ui/divider";
-import { Heading } from "@/components/ui/heading";
 import { HStack } from "@/components/ui/hstack";
 import { Pressable } from "@/components/ui/pressable";
 import { Text } from "@/components/ui/text";
@@ -12,7 +11,10 @@ import { StackNavigation } from "@/types/navigation";
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Alert, SafeAreaView, ScrollView, Switch } from "react-native";
+import { Alert, ScrollView, Switch, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Header } from "@/components/common/header";
+import { Heading } from "@/components/ui/heading";
 
 // Définition correcte du type pour les éléments de menu
 type MenuItem = {
@@ -43,8 +45,8 @@ const MenuItemComponent: React.FC<MenuItem> = ({ icon, label, description, actio
 : "opacity-100"}`}>
         <HStack space="md" className="items-center justify-between">
           <HStack space="md" className="items-center flex-1">
-            <Box className="bg-gray-50 rounded-full flex items-center justify-center w-10 h-10 shadow-sm" style={{ alignItems: "center", justifyContent: "center" }}>
-              <Feather name={icon} color="#FF5A5F" size={20} style={{ textAlign: "center", alignSelf: "center" }} />
+            <Box className="bg-orange-50 rounded-full flex items-center justify-center w-10 h-10 shadow-sm" style={{ alignItems: "center", justifyContent: "center" }}>
+              <Feather name={icon} color="#f97316" size={20} style={{ textAlign: "center", alignSelf: "center" }} />
             </Box>
             <VStack space="xs" className="flex-1">
               <Text size="md" className="font-medium text-gray-800">
@@ -91,10 +93,9 @@ const MenuSectionComponent: React.FC<{ section: MenuSection }> = ({ section }) =
 };
 
 // Switch personnalisé avec animation et style cohérent
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledSwitch: React.FC<{ value: boolean; onValueChange: (value: boolean) => void }> = ({ value: isEnabled, onValueChange }) => {
-  return <Switch value={isEnabled} onValueChange={onValueChange} trackColor={{ false: "#E5E7EB", true: "#FFBFC1" }} thumbColor={isEnabled
-? "#FF5A5F"
+  return <Switch value={isEnabled} onValueChange={onValueChange} trackColor={{ false: "#E5E7EB", true: "#fed7aa" }} thumbColor={isEnabled
+? "#f97316"
 : "#FFFFFF"} ios_backgroundColor="#E5E7EB" style={{ transform: [{ scaleX: 0.85 }, { scaleY: 0.85 }] }} />;
 };
 
@@ -211,15 +212,19 @@ const AccountScreen = () => {
 
   return (
     <ThemedView>
-      <SafeAreaView className="flex-1">
+      <SafeAreaView className="flex-1" edges={["top"]}>
+        <Header
+          title="Profile"
+          subtitle="Manage your account settings"
+          notificationCount={0}
+          onNotificationPress={() => console.log("Notifications pressed")}
+        />
+
         <ScrollView
           showsVerticalScrollIndicator={false}
-          className="flex-1"
-          contentContainerStyle={{
-            paddingBottom: 20,
-          }}
+          className="flex-1 px-5 pt-4"
         >
-          <VStack space="xl" className="px-5 pt-6 pb-4">
+          <VStack space="xl" className="pb-4">
             {/* En-tête avec profil utilisateur */}
             <HStack space="md" className="items-center mb-5">
               <Avatar size="xl" className="shadow-sm border border-gray-100">
@@ -244,31 +249,7 @@ const AccountScreen = () => {
               </VStack>
             </HStack>
 
-            {/* Banner de parrainage avec effet de profondeur */}
-            <Box className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl overflow-hidden border border-blue-100 shadow-sm mb-3">
-              <Box className="absolute right-0 top-0 h-full w-28 opacity-10">
-                <Box className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-blue-200" />
-                <Box className="absolute right-3 bottom-3 h-12 w-12 rounded-full bg-blue-200" />
-              </Box>
-              <HStack className="justify-between items-center p-4">
-                <HStack space="md" className="items-center flex-1">
-                  <Box className="bg-blue-100 rounded-full flex items-center justify-center w-11 h-11 shadow-inner border border-blue-200" style={{ alignItems: "center", justifyContent: "center" }}>
-                    <Feather name="gift" color="#3B82F6" size={20} style={{ textAlign: "center", alignSelf: "center" }} />
-                  </Box>
-                  <VStack>
-                    <Text className="font-semibold text-gray-900">Parrainez un ami</Text>
-                    <HStack space="xs" className="items-center">
-                      <Text className="text-sm text-gray-600">Code:</Text>
-                      <Text className="text-sm font-bold text-blue-700 tracking-wide">{referralCode}</Text>
-                    </HStack>
-                  </VStack>
-                </HStack>
-                <Button variant="solid" size="sm" className="bg-blue-600 shadow-sm" onPress={() => console.log("Referral code copied")}>
-                  <Text className="text-white font-medium px-1">Copier</Text>
-                </Button>
-              </HStack>
-            </Box>
-
+          
             {/* Sections de menu */}
             {menuSections.map((section, index) => (
               <MenuSectionComponent key={`section-${index}`} section={section} />
@@ -277,8 +258,8 @@ const AccountScreen = () => {
             {/* Bouton de déconnexion */}
             <Button size="lg" variant="outline" action="negative" className="mt-1.5 border-red-100 shadow-sm" onPress={handleLogout}>
               <HStack space="sm" className="items-center">
-                <Feather name="log-out" color="#FF5A5F" size={16} style={{ textAlign: "center", alignSelf: "center" }} />
-                <Text className="text-red-500 font-medium">Déconnexion</Text>
+                <Feather name="log-out" color="#ef4444" size={16} style={{ textAlign: "center", alignSelf: "center" }} />
+                <Text className="text-red-500 font-medium">Logout</Text>
               </HStack>
             </Button>
 
