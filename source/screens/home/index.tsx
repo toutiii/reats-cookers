@@ -1,6 +1,6 @@
 import { ThemedView } from "@/components/themed-view";
-import { SafeAreaView } from "react-native";
 import DashboardScreen from "../dashboard";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   return (
