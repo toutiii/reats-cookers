@@ -1,25 +1,31 @@
 import { Avatar, AvatarBadge, AvatarFallbackText, AvatarImage } from "@/components/ui/avatar";
 import AccountScreen from "@/screens/account";
+import DashboardScreen from "@/screens/dashboard";
+import OrdersScreen from "@/screens/orders";
+import MenuScreen from "@/screens/menu";
+import AnalyticsScreen from "@/screens/analytics";
 import Feather from "@expo/vector-icons/Feather";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import HomeScreen from "../screens/home";
 
 type TabParamList = {
-  Home: undefined;
+  Dashboard: undefined;
+  Orders: undefined;
+  Menu: undefined;
+  Analytics: undefined;
   Profile: undefined;
 };
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
 export const MainNavigator = () => {
-  const activeColor = "#FF5A5F";
+  const activeColor = "#f97316";
   const inactiveColor = "#9CA3AF";
   const bgColor = "#FFFFFF";
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Dashboard"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: activeColor,
@@ -32,13 +38,19 @@ export const MainNavigator = () => {
           borderTopColor: "#F3F4F6",
         },
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 11,
           fontFamily: "Montserrat_500Medium",
           paddingBottom: 5,
         },
-        tabBarIcon: ({ color, size }) => {
-          if (route.name === "Home") {
-            return <Feather name="home" size={20} color={color} />;
+        tabBarIcon: ({ color }) => {
+          if (route.name === "Dashboard") {
+            return <Feather name="grid" size={20} color={color} />;
+          } else if (route.name === "Orders") {
+            return <Feather name="shopping-bag" size={20} color={color} />;
+          } else if (route.name === "Menu") {
+            return <Feather name="book-open" size={20} color={color} />;
+          } else if (route.name === "Analytics") {
+            return <Feather name="bar-chart-2" size={20} color={color} />;
           } else if (route.name === "Profile") {
             return (
               <Avatar size="xs">
@@ -57,8 +69,19 @@ export const MainNavigator = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: "Accueil" }} />
-      <Tab.Screen name="Profile" component={AccountScreen} options={{ tabBarLabel: "Mon compte" }} />
+      <Tab.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={{ tabBarLabel: "Dashboard" }}
+      />
+      <Tab.Screen name="Orders" component={OrdersScreen} options={{ tabBarLabel: "Orders" }} />
+      <Tab.Screen name="Menu" component={MenuScreen} options={{ tabBarLabel: "Menu" }} />
+      <Tab.Screen
+        name="Analytics"
+        component={AnalyticsScreen}
+        options={{ tabBarLabel: "Analytics" }}
+      />
+      <Tab.Screen name="Profile" component={AccountScreen} options={{ tabBarLabel: "Profile" }} />
     </Tab.Navigator>
   );
 };
