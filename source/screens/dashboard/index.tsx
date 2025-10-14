@@ -10,12 +10,14 @@ import {
   PopularItems,
   QuickActions,
 } from "./components";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const DashboardScreen: React.FC = () => {
   const [selectedPeriod] = useState("Today");
 
   return (
     <ThemedView>
+      <SafeAreaView className="flex-1">
       <DashboardHeader />
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         <View className="px-5 pt-6">
@@ -62,6 +64,7 @@ const DashboardScreen: React.FC = () => {
           <QuickActions />
         </View>
       </ScrollView>
+      </SafeAreaView>
     </ThemedView>
   );
 };
