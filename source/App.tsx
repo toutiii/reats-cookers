@@ -40,6 +40,7 @@ import InformationVerificationScreen from "./screens/user-infos-collection/infor
 import PersonalDocumentsScreen from "./screens/user-infos-collection/personal-documents";
 import UploadDocumentsScreen from "./screens/user-infos-collection/upload-documents";
 import Onboarding from "./screens/onboarding";
+import OrderDetailsScreen from "./screens/order-details";
 
 const Stack = createStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -123,6 +124,7 @@ export default function App() {
             <Stack.Screen name="DeliveryZoneScreen" component={DeliveryZoneScreen} options={createScreenOptions("Zone de livraison")} />
             <Stack.Screen name="HelpSupportScreen" component={HelpSupportScreen} options={createScreenOptions("Support")} />
             <Stack.Screen name="LanguageScreen" component={LanguageScreen} options={createScreenOptions("Langue")} />
+            <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </AutocompleteDropdownContextProvider>

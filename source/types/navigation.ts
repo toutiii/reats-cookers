@@ -16,7 +16,7 @@ export type RootStackParamList = {
   InformationVerificationScreen: undefined;
   HomeScreen: undefined;
   OrdersScreen: undefined;
-  OrderDetailsScreen: undefined;
+  OrderDetailsScreen: { orderId: string };
   DeliveryMapScreen: { id?: string };
   MainDrawerNavigator: undefined;
   MainNavigator: undefined;
