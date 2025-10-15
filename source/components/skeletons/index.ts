@@ -1,0 +1,1 @@
+export { OrderDetailsSkeleton } from "./orders/order-details-skeleton";

@@ -5,6 +5,8 @@ import { Feather } from "@expo/vector-icons";
 import { ThemedView } from "@/components/themed-view";
 import { Text } from "@/components/ui/text";
 import { Header } from "@/components/common/header";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigation } from "@/types/navigation";
 
 interface Order {
   id: string;
@@ -118,41 +120,51 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => {
 };
 
 const OrdersScreen: React.FC = () => {
+  const navigation = useNavigation<StackNavigation>();
   const [selectedTab, setSelectedTab] = useState<"active" | "completed">("active");
 
   const orders: Order[] = [
     {
-      id: "1",
+      id: "ORD-2024-001",
       orderNumber: "#1234",
       customerName: "John Doe",
-      items: 3,
-      total: "€45.90",
+      items: 4,
+      total: "€51.52",
       status: "preparing",
       time: "10 min",
     },
     {
-      id: "2",
+      id: "ORD-2024-002",
       orderNumber: "#1235",
       customerName: "Jane Smith",
-      items: 2,
-      total: "€28.50",
+      items: 3,
+      total: "€33.00",
       status: "ready",
       time: "5 min",
     },
     {
-      id: "3",
+      id: "ORD-2024-003",
       orderNumber: "#1236",
       customerName: "Bob Wilson",
-      items: 4,
-      total: "€62.00",
+      items: 3,
+      total: "€48.67",
       status: "pending",
       time: "2 min",
+    },
+    {
+      id: "ORD-2024-004",
+      orderNumber: "#1237",
+      customerName: "Alice Johnson",
+      items: 2,
+      total: "€34.84",
+      status: "completed",
+      time: "Delivered",
     },
   ];
 
   return (
     <ThemedView>
-      <SafeAreaView className="flex-1" edges={["top"]}>
+      <SafeAreaView className="flex-1">
         <Header
           title="Orders"
           subtitle="Manage your orders"
@@ -205,7 +217,7 @@ const OrdersScreen: React.FC = () => {
             <OrderCard
               key={order.id}
               order={order}
-              onPress={() => console.log("Order pressed:", order.id)}
+              onPress={() => navigation.navigate("OrderDetailsScreen", { orderId: order.id })}
             />
           ))}
         </ScrollView>

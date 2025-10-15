@@ -33,6 +33,7 @@ export const MainNavigator = () => {
         tabBarStyle: {
           backgroundColor: bgColor,
           paddingVertical: 10,
+          paddingTop: 5,
           borderTopWidth: 1,
           height: 90,
           borderTopColor: "#F3F4F6",
