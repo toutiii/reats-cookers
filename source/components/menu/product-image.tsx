@@ -21,11 +21,11 @@ export const ProductImage: React.FC<ProductImageProps> = React.memo(({ uri, avai
         <Text className="text-white font-semibold text-xs">Indisponible</Text>
       </View>
     )}
-    {isLowStock && available && (
+    {/* {isLowStock && available && (
       <View className="absolute top-2 left-2 px-2 py-1 bg-red-500 rounded-full">
         <Text className="text-xs font-semibold text-white">Stock faible</Text>
       </View>
-    )}
+    )} */}
   </View>
 ));
 
