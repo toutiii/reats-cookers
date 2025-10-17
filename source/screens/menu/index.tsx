@@ -182,9 +182,8 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   }, []);
 
   const handleEditItem = useCallback((item: MenuItem) => {
-    setSelectedItem(item);
-    setShowAddModal(true);
-  }, []);
+    navigation.navigate("FoodDetails", { item });
+  }, [navigation]);
 
   const handleDeleteItem = useCallback((itemId: string) => {
     Alert.alert(
