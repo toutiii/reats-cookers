@@ -91,7 +91,7 @@ const DocumentMenuItem: FC<DocumentMenuItemProps> = ({ title, completed = false 
           }}
         >
           <HStack className="items-center justify-between">
-            <HStack className="items-center space-x-3">
+            <HStack className="items-center gap-3">
               {completed && <Feather name="check-circle" size={24} className="mr-3" color={"#22c55e"} />}
               <Text className="text-gray-800 text-lg font-medium">{title}</Text>
             </HStack>

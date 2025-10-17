@@ -1,175 +1,291 @@
-import React, { useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import React, { useState, useCallback, useMemo } from "react";
+import { 
+  ScrollView, 
+  View, 
+  FlatList,
+  StatusBar,
+  Alert
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Feather } from "@expo/vector-icons";
+import {
+  StatCard,
+  CategoryItem,
+  SearchBar,
+  PageHeader,
+  MenuItemCard,
+  type MenuItem
+} from "../../components/menu";
 import { ThemedView } from "@/components/themed-view";
-import { Text } from "@/components/ui/text";
-import { Header } from "@/components/common/header";
+import { VStack } from "@/components/ui/vstack";
 
-interface MenuItem {
-  id: string;
-  name: string;
-  price: string;
-  category: string;
-  emoji: string;
-  available: boolean;
-  description: string;
-  rating: number;
-  reviewCount: number;
+interface DashboardStats {
+  totalItems: number;
+  availableItems: number;
+  lowStock: number;
+  revenue: number;
+  ordersToday: number;
 }
 
-const MenuScreen: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [showAddModal, setShowAddModal] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
 
-  const categories = ["All", "Burgers", "Pizza", "Salads", "Desserts"];
+  const categories = [
+    { id: "all", name: "Tous", count: 24 },
+    { id: "burgers", name: "Burgers", count: 8 },
+    { id: "pizza", name: "Pizzas", count: 6 },
+    { id: "salads", name: "Salades", count: 5 },
+    { id: "desserts", name: "Desserts", count: 5 },
+  ];
 
   const menuItems: MenuItem[] = [
     {
       id: "1",
-      name: "Classic Burger",
-      price: "€12.90",
-      category: "Burgers",
-      emoji: "🍔",
+      name: "Burger Signature",
+      price: 18.90,
+      cost: 6.30,
+      category: "burgers",
+      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=300&fit=crop",
+      sku: "BRG-001",
+      maxConcurrentOrders: 10,
+      currentOrders: 3,
       available: true,
-      description: "Beef patty, lettuce, tomato, cheese",
-      rating: 4.8,
-      reviewCount: 156,
+      description: "Bœuf premium, sauce maison",
+      allergens: ["gluten", "lactose", "œufs"],
+      preparationTime: 15,
+      lastModified: "2025-01-15T10:30:00",
+      soldToday: 23,
+      revenue: 434.70
     },
     {
       id: "2",
-      name: "Margherita Pizza",
-      price: "€14.50",
-      category: "Pizza",
-      emoji: "🍕",
+      name: "Pizza Margherita",
+      price: 24.50,
+      cost: 7.80,
+      category: "pizza",
+      image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&h=300&fit=crop",
+      sku: "PZA-001",
+      maxConcurrentOrders: 5,
+      currentOrders: 5,
       available: true,
-      description: "Tomato sauce, mozzarella, basil",
-      rating: 4.9,
-      reviewCount: 203,
+      description: "Tomate, mozzarella, basilic",
+      allergens: ["gluten", "lactose"],
+      preparationTime: 20,
+      lastModified: "2025-01-14T15:45:00",
+      soldToday: 18,
+      revenue: 441.00
     },
     {
       id: "3",
-      name: "Caesar Salad",
-      price: "€9.90",
-      category: "Salads",
-      emoji: "🥗",
+      name: "Salade César",
+      price: 14.90,
+      cost: 4.50,
+      category: "salads",
+      image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&h=300&fit=crop",
+      sku: "SLD-001",
+      maxConcurrentOrders: 8,
+      currentOrders: 2,
       available: true,
-      description: "Romaine lettuce, croutons, parmesan",
-      rating: 4.6,
-      reviewCount: 89,
+      description: "Romaine, parmesan, croûtons",
+      allergens: ["gluten", "lactose", "poisson"],
+      preparationTime: 10,
+      lastModified: "2025-01-15T09:00:00",
+      soldToday: 8,
+      revenue: 119.20
     },
     {
       id: "4",
-      name: "Chocolate Cake",
-      price: "€6.50",
-      category: "Desserts",
-      emoji: "🍰",
+      name: "Fondant Chocolat",
+      price: 12.50,
+      cost: 3.20,
+      category: "desserts",
+      image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=300&fit=crop",
+      sku: "DST-001",
+      maxConcurrentOrders: 6,
+      currentOrders: 0,
       available: false,
-      description: "Rich chocolate layer cake",
-      rating: 4.7,
-      reviewCount: 124,
+      description: "Chocolat noir 70%, glace vanille",
+      allergens: ["gluten", "lactose", "œufs"],
+      preparationTime: 8,
+      lastModified: "2025-01-13T14:20:00",
+      soldToday: 0,
+      revenue: 0
+    },
+    {
+      id: "5",
+      name: "Pizza Quattro Formaggi",
+      price: 26.90,
+      cost: 8.40,
+      category: "pizza",
+      image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=300&fit=crop",
+      sku: "PZA-002",
+      maxConcurrentOrders: 8,
+      currentOrders: 4,
+      available: true,
+      description: "4 fromages italiens, crème fraîche",
+      allergens: ["gluten", "lactose"],
+      preparationTime: 22,
+      lastModified: "2025-01-15T11:00:00",
+      soldToday: 12,
+      revenue: 322.80
+    },
+    {
+      id: "6",
+      name: "Burger Végétarien",
+      price: 16.50,
+      cost: 5.20,
+      category: "burgers",
+      image: "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=300&h=300&fit=crop",
+      sku: "BRG-002",
+      maxConcurrentOrders: 12,
+      currentOrders: 1,
+      available: true,
+      description: "Galette de légumes, avocat, fromage",
+      allergens: ["gluten", "lactose", "soja"],
+      preparationTime: 12,
+      lastModified: "2025-01-14T16:30:00",
+      soldToday: 9,
+      revenue: 148.50
     },
   ];
 
-  const filteredItems =
-    selectedCategory === "All"
-      ? menuItems
-      : menuItems.filter((item) => item.category === selectedCategory);
+  // Calcul des statistiques
+  const stats: DashboardStats = useMemo(() => ({
+    totalItems: menuItems.length,
+    availableItems: menuItems.filter(item => item.available).length,
+    lowStock: menuItems.filter(item => item.currentOrders >= item.maxConcurrentOrders).length,
+    revenue: menuItems.reduce((sum, item) => sum + item.revenue, 0),
+    ordersToday: menuItems.reduce((sum, item) => sum + item.soldToday, 0)
+  }), [menuItems]);
+
+  const filteredItems = useMemo(() => {
+    return menuItems.filter(item => {
+      const matchesCategory = selectedCategory === "all" || item.category === selectedCategory;
+      const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           item.sku.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [selectedCategory, searchQuery]);
+
+  const handleToggleAvailability = useCallback((itemId: string) => {
+    Alert.alert(
+      "Modifier la disponibilité",
+      "Voulez-vous vraiment changer la disponibilité de ce plat ?",
+      [
+        { text: "Annuler", style: "cancel" },
+        { text: "Confirmer", onPress: () => console.log("Toggle availability for", itemId) }
+      ]
+    );
+  }, []);
+
+  const handleEditItem = useCallback((item: MenuItem) => {
+    setSelectedItem(item);
+    setShowAddModal(true);
+  }, []);
+
+  const handleDeleteItem = useCallback((itemId: string) => {
+    Alert.alert(
+      "Supprimer le plat",
+      "Cette action est irréversible. Voulez-vous continuer ?",
+      [
+        { text: "Annuler", style: "cancel" },
+        { text: "Supprimer", style: "destructive", onPress: () => console.log("Delete", itemId) }
+      ]
+    );
+  }, []);
+
+
+  const renderMenuItem = useCallback(({ item, index }: any) => (
+    <MenuItemCard
+      item={item}
+      index={index}
+      onToggleAvailability={handleToggleAvailability}
+      onEdit={handleEditItem}
+      onDelete={handleDeleteItem}
+    />
+  ), [handleToggleAvailability, handleEditItem, handleDeleteItem]);
+
+  const handleToggleViewMode = useCallback(() => {
+    setViewMode(prev => prev === "grid" ? "list" : "grid");
+  }, []);
+
+  const handleAddPress = useCallback(() => {
+    navigation.navigate("AddMenuItemScreen");
+  }, [navigation]);
 
   return (
     <ThemedView>
-      <SafeAreaView className="flex-1" edges={["top"]}>
-        <Header
-          title="Menu"
-          subtitle="Manage your menu items"
-          notificationCount={2}
-          rightAction={{
-            icon: "plus",
-            onPress: () => console.log("Add item pressed"),
-          }}
-          onNotificationPress={() => console.log("Notifications pressed")}
-        />
-
-        <View className="px-5 pt-4 pb-4 bg-white border-b border-gray-100">
-
-        {/* Categories */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="gap-2">
-          {categories.map((category) => (
-            <TouchableOpacity
-              key={category}
-              className={`px-5 py-2.5 rounded-xl mr-2 ${
-                selectedCategory === category ? "bg-orange-500" : "bg-gray-100"
-              }`}
-              onPress={() => setSelectedCategory(category)}
-            >
-              <Text
-                className={`font-semibold ${
-                  selectedCategory === category ? "text-white" : "text-gray-600"
-                }`}
-              >
-                {category}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+      <StatusBar barStyle="dark-content" />
+      
+      <SafeAreaView edges={["top"]} className="flex-1">
+        {/* Header */}
+        <View className="bg-white px-5 pt-4 pb-3 border-b border-gray-100">
+          <PageHeader
+            viewMode={viewMode}
+            onToggleViewMode={handleToggleViewMode}
+            onAddPress={handleAddPress}
+          />
+          <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
         </View>
 
-        {/* Menu Items */}
-      <ScrollView className="flex-1 px-5 pt-4" showsVerticalScrollIndicator={false}>
-        {filteredItems.map((item) => (
-          <TouchableOpacity
-            key={item.id}
-            className="bg-white rounded-2xl p-5 mb-4 flex-row"
-            style={{
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.05,
-              shadowRadius: 10,
-              elevation: 2,
-            }}
-          >
-            {/* Item Image */}
-            <View
-              className="w-20 h-20 rounded-xl items-center justify-center mr-4"
-              style={{ backgroundColor: "#fed7aa" }}
-            >
-              <Text className="text-4xl">{item.emoji}</Text>
-            </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <VStack space={"xl"}>
+          {/* Statistics */}
+          <View className="px-5 py-4">
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <StatCard
+                title="Revenus du jour"
+                value={`€${stats.revenue.toFixed(0)}`}
+                subtitle={`${stats.ordersToday} commandes`}
+                color="#FF6347"
+                icon="cash-outline"
+              />
+              <StatCard
+                title="Plats disponibles"
+                value={`${stats.availableItems}/${stats.totalItems}`}
+                subtitle="En service"
+                color="#FF6347"
+                icon="restaurant-outline"
+              />
+              <StatCard
+                title="À capacité max"
+                value={stats.lowStock.toString()}
+                subtitle="Commandes pleines"
+                color="#EF4444"
+                icon="alert-circle-outline"
+              />
+            </ScrollView>
+          </View>
 
-            {/* Item Details */}
-            <View className="flex-1">
-              <View className="flex-row justify-between items-start mb-2">
-                <View className="flex-1">
-                  <Text className="text-base font-bold text-gray-900">{item.name}</Text>
-                  <Text className="text-sm text-gray-500 mt-1">{item.description}</Text>
-
-                  {/* Rating */}
-                  <View className="flex-row items-center mt-2">
-                    <Feather name="star" size={14} color="#f59e0b" fill="#f59e0b" />
-                    <Text className="text-sm font-semibold text-gray-900 ml-1">
-                      {item.rating}
-                    </Text>
-                    <Text className="text-xs text-gray-500 ml-1">
-                      ({item.reviewCount} reviews)
-                    </Text>
-                  </View>
-                </View>
-                <View
-                  className={`ml-2 w-3 h-3 rounded-full ${
-                    item.available ? "bg-green-500" : "bg-red-500"
-                  }`}
+          {/* Categories */}
+          <View className="px-5 mb-4">
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {categories.map((category) => (
+                <CategoryItem
+                  key={category.id}
+                  category={category}
+                  isSelected={selectedCategory === category.id}
+                  onPress={setSelectedCategory}
                 />
-              </View>
+              ))}
+            </ScrollView>
+          </View>
 
-              <View className="flex-row justify-between items-center mt-3">
-                <Text className="text-lg font-bold text-orange-500">{item.price}</Text>
-                <TouchableOpacity className="bg-orange-50 px-4 py-2 rounded-lg">
-                  <Text className="text-orange-500 font-semibold text-sm">Edit</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </TouchableOpacity>
-        ))}
-        </ScrollView>
+          {/* Menu Items */}
+          <FlatList
+            data={filteredItems}
+            renderItem={renderMenuItem}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{ paddingHorizontal: 20 }}
+            scrollEnabled={false}
+          />
+
+          <View className="h-10" />
+          </VStack>
+            </ScrollView>
       </SafeAreaView>
     </ThemedView>
   );

@@ -375,7 +375,7 @@ const InputMultiSelectCity: React.FC<InputMultiSelectCityProps> = ({
               activeOpacity={0.7}
             >
               <HStack className="justify-between items-center">
-                <HStack className="items-center space-x-3">
+                <HStack className="items-center gap-3">
                   <VStack className="space-y-1">
                     <Text className="font-medium text-gray-800">{city.nom}</Text>
                     <Text className="text-xs text-gray-500">
@@ -383,7 +383,7 @@ const InputMultiSelectCity: React.FC<InputMultiSelectCityProps> = ({
                     </Text>
                   </VStack>
                 </HStack>
-                <HStack className="items-center space-x-2">
+                <HStack className="items-center gap-2">
                   <Text className="text-xs font-medium" style={styles.addButtonStyle}>
                     Ajouter
                   </Text>
@@ -441,7 +441,7 @@ const InputMultiSelectCity: React.FC<InputMultiSelectCityProps> = ({
         {/* État de chargement */}
         {isLoading && (
           <FormControlHelper>
-            <HStack className="items-center my-2 space-x-2">
+            <HStack className="items-center my-2 gap-2">
               <ActivityIndicator size="small" color={themeColor} className="mr-2" />
               <FormControlHelperText className="text-gray-500 font-medium">Chargement des suggestions...</FormControlHelperText>
             </HStack>
@@ -486,7 +486,7 @@ const InputMultiSelectCity: React.FC<InputMultiSelectCityProps> = ({
         {/* Message d'erreur */}
         {isInvalid && (
           <FormControlError>
-            <HStack className="items-center space-x-2 mt-2">
+            <HStack className="items-center gap-2 mt-2">
               <FormControlErrorIcon as={AlertCircleIcon} style={styles.errorIconStyle} />
               <FormControlErrorText className="font-medium" style={{ color: "#EF4444" }}>
                 {getErrorMessage()}
@@ -503,7 +503,7 @@ const InputMultiSelectCity: React.FC<InputMultiSelectCityProps> = ({
                 {selectedCities.length} / {maxSelections} villes
               </Text>
               {selectedCities.length >= minSelections && (
-                <HStack className="items-center space-x-1">
+                <HStack className="items-center gap-1">
                   <Feather name="check-circle" size={16} color={selectionColor} />
                   <Text className="text-sm font-medium pl-1" style={styles.validSelectionStyle}>
                     Sélection valide
