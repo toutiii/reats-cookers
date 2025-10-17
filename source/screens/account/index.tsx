@@ -1,112 +1,113 @@
 import { ThemedView } from "@/components/themed-view";
 import { Avatar, AvatarFallbackText, AvatarImage } from "@/components/ui/avatar";
-import { Box } from "@/components/ui/box";
-import { Button } from "@/components/ui/button";
-import { Divider } from "@/components/ui/divider";
-import { HStack } from "@/components/ui/hstack";
-import { Pressable } from "@/components/ui/pressable";
 import { Text } from "@/components/ui/text";
-import { VStack } from "@/components/ui/vstack";
 import { StackNavigation } from "@/types/navigation";
-import Feather from "@expo/vector-icons/Feather";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { Alert, ScrollView, Switch, View } from "react-native";
+import { Alert, ScrollView, View, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "@/components/common/header";
 import { Heading } from "@/components/ui/heading";
 
-// Définition correcte du type pour les éléments de menu
 type MenuItem = {
-  icon: keyof typeof Feather.glyphMap;
+  icon: keyof typeof Ionicons.glyphMap;
   label: string;
   description?: string;
   action?: () => void;
   rightElement?: React.ReactNode;
   showDivider?: boolean;
+  iconColor?: string;
+  iconBg?: string;
 };
 
-// Définition du type pour les sections
 type MenuSection = {
   title: string;
   description?: string;
   items: MenuItem[];
 };
 
-// Composant pour un élément de menu
-const MenuItemComponent: React.FC<MenuItem> = ({ icon, label, description, action, rightElement, showDivider = true }) => {
-  // Effet de pression
-  const [isPressed, setIsPressed] = React.useState(false);
-
+const MenuItemComponent: React.FC<MenuItem> = ({
+  icon,
+  label,
+  description,
+  action,
+  rightElement,
+  showDivider = true,
+  iconColor = "#FF6347",
+  iconBg = "bg-orange-50",
+}) => {
   return (
     <>
-      <Pressable onPress={action} onPressIn={() => setIsPressed(true)} onPressOut={() => setIsPressed(false)} className={`py-3.5 px-1 ${isPressed
-? "opacity-80"
-: "opacity-100"}`}>
-        <HStack space="md" className="items-center justify-between">
-          <HStack space="md" className="items-center flex-1">
-            <Box className="bg-orange-50 rounded-full flex items-center justify-center w-10 h-10 shadow-sm" style={{ alignItems: "center", justifyContent: "center" }}>
-              <Feather name={icon} color="#f97316" size={20} style={{ textAlign: "center", alignSelf: "center" }} />
-            </Box>
-            <VStack space="xs" className="flex-1">
-              <Text size="md" className="font-medium text-gray-800">
-                {label}
+      <TouchableOpacity
+        onPress={action}
+        className="py-4 px-1 flex-row items-center justify-between"
+        activeOpacity={0.7}
+      >
+        <View className="flex-row items-center flex-1">
+          <View
+            className={`${iconBg} rounded-xl w-11 h-11 items-center justify-center mr-3`}
+          >
+            <Ionicons name={icon} color={iconColor} size={22} />
+          </View>
+          <View className="flex-1">
+            <Text className="text-base font-semibold text-gray-900 mb-0.5">
+              {label}
+            </Text>
+            {description && (
+              <Text className="text-xs text-gray-500">
+                {description}
               </Text>
-              {description && (
-                <Text size="xs" className="text-gray-500 pr-4">
-                  {description}
-                </Text>
-              )}
-            </VStack>
-          </HStack>
-          {rightElement || <Feather name="chevron-right" color="#9CA3AF" size={16} style={{ alignSelf: "center" }} />}
-        </HStack>
-      </Pressable>
-      {showDivider && <Divider className="my-0.5 opacity-70" />}
+            )}
+          </View>
+        </View>
+        {rightElement || (
+          <Ionicons name="chevron-forward" color="#9CA3AF" size={20} />
+        )}
+      </TouchableOpacity>
+      {showDivider && <View className="h-px bg-gray-100 ml-14" />}
     </>
   );
 };
 
-// Composant pour une section de menu
 const MenuSectionComponent: React.FC<{ section: MenuSection }> = ({ section }) => {
   return (
-    <VStack space="sm" className="mb-7">
-      <VStack className="px-1">
-        <Text size="sm" className="text-gray-500 font-semibold uppercase tracking-wider">
+    <View className="mb-6">
+      <View className="px-1 mb-3">
+        <Text className="text-xs text-gray-500 font-bold uppercase tracking-wider">
           {section.title}
         </Text>
         {section.description && (
-          <Text size="2xs" className="text-gray-400 mt-0.5">
+          <Text className="text-xs text-gray-400 mt-1">
             {section.description}
           </Text>
         )}
-      </VStack>
-      <Box className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-        <VStack className="px-3">
-          {section.items.map((item, index) => (
-            <MenuItemComponent key={`${section.title}-${index}`} {...item} showDivider={index < section.items.length - 1} />
-          ))}
-        </VStack>
-      </Box>
-    </VStack>
+      </View>
+      <View
+        className="bg-white rounded-2xl overflow-hidden px-4"
+        style={{
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.05,
+          shadowRadius: 8,
+          elevation: 2,
+        }}
+      >
+        {section.items.map((item, index) => (
+          <MenuItemComponent
+            key={`${section.title}-${index}`}
+            {...item}
+            showDivider={index < section.items.length - 1}
+          />
+        ))}
+      </View>
+    </View>
   );
 };
 
-// Switch personnalisé avec animation et style cohérent
-const StyledSwitch: React.FC<{ value: boolean; onValueChange: (value: boolean) => void }> = ({ value: isEnabled, onValueChange }) => {
-  return <Switch value={isEnabled} onValueChange={onValueChange} trackColor={{ false: "#E5E7EB", true: "#fed7aa" }} thumbColor={isEnabled
-? "#f97316"
-: "#FFFFFF"} ios_backgroundColor="#E5E7EB" style={{ transform: [{ scaleX: 0.85 }, { scaleY: 0.85 }] }} />;
-};
-
 const AccountScreen = () => {
-  // États pour les toggles
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
-  const [allowNotifications, setAllowNotifications] = React.useState(true);
-  const [locationServices, setLocationServices] = React.useState(true);
   const navigation = useNavigation<StackNavigation>();
 
-  // Données de l'utilisateur
   const user = {
     name: "Ronald Richards",
     phone: "+111 1234 56 89",
@@ -114,85 +115,59 @@ const AccountScreen = () => {
     avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
   };
 
-  // Configuration des sections de menu
   const menuSections: MenuSection[] = [
     {
       title: "Compte",
       items: [
         {
-          icon: "user",
-          label: "Informations personnelles",
-          description: "Gérez vos données personnelles",
+          icon: "person-outline",
+          label: "Personal Info",
+          description: "Gérez vos informations personnelles",
           action: () => navigation.navigate("PersonalInfoScreen"),
+          iconColor: "#3B82F6",
+          iconBg: "bg-blue-50",
         },
         {
-          icon: "credit-card",
-          label: "Méthodes de paiement",
-          description: "Vos cartes et options de paiement",
-          action: () => navigation.navigate("PaymentMethodsScreen"),
-        },
-        {
-          icon: "map-pin",
-          label: "Ville de livraison",
-          description: "Gérez vos zones de livraison",
-          action: () => navigation.navigate("DeliveryZoneScreen"),
+          icon: "settings-outline",
+          label: "Settings",
+          description: "Préférences et paramètres de l'app",
+          action: () => navigation.navigate("SettingsScreen" as any),
+          iconColor: "#6366F1",
+          iconBg: "bg-indigo-50",
         },
       ],
     },
     {
-      title: "Préférences",
-      description: "Personnalisez votre expérience",
+      title: "Activité",
       items: [
         {
-          icon: "bell",
-          label: "Notifications",
-          description: "Gérez les alertes de l'application",
-          rightElement: <StyledSwitch value={allowNotifications} onValueChange={setAllowNotifications} />,
+          icon: "cash-outline",
+          label: "Withdrawal History",
+          description: "Historique de vos retraits",
+          action: () => navigation.navigate("WithdrawalHistoryScreen" as any),
+          iconColor: "#10B981",
+          iconBg: "bg-green-50",
         },
         {
-          icon: "moon",
-          label: "Mode sombre",
-          description: "Changez l'apparence de l'application",
-          rightElement: <StyledSwitch value={isDarkMode} onValueChange={setIsDarkMode} />,
+          icon: "receipt-outline",
+          label: "Number of Orders",
+          description: "Consultez toutes vos commandes",
+          action: () => navigation.navigate("OrdersScreen" as any),
+          iconColor: "#FF6347",
+          iconBg: "bg-orange-50",
         },
         {
-          icon: "map",
-          label: "Services de localisation",
-          description: "Permet d'améliorer votre expérience",
-          rightElement: <StyledSwitch value={locationServices} onValueChange={setLocationServices} />,
-        },
-        {
-          icon: "globe",
-          label: "Langue",
-          description: "Français (FR)",
-          action: () => navigation.navigate("LanguageScreen"),
-        },
-      ],
-    },
-    {
-      title: "Support & Légal",
-      items: [
-        {
-          icon: "help-circle",
-          label: "Aide & Support",
-          description: "Questions fréquentes et assistance",
-          action: () => navigation.navigate("HelpSupportScreen"),
-        },
-        {
-          icon: "file-text",
-          label: "Conditions d'utilisation",
-          action: () => console.log("Terms"),
-        },
-        {
-          icon: "shield",
-          label: "Politique de confidentialité",
-          action: () => console.log("Privacy"),
+          icon: "star-outline",
+          label: "User Reviews",
+          description: "Avis et évaluations des clients",
+          action: () => navigation.navigate("UserReviewsScreen" as any),
+          iconColor: "#F59E0B",
+          iconBg: "bg-amber-50",
         },
       ],
     },
   ];
 
-  // Gestion de la déconnexion
   const handleLogout = () => {
     Alert.alert("Déconnexion", "Êtes-vous sûr de vouloir vous déconnecter ?", [
       {
@@ -206,9 +181,6 @@ const AccountScreen = () => {
       },
     ]);
   };
-
-  // Affichage du code parrainage
-  const referralCode = "REATS25";
 
   return (
     <ThemedView>
@@ -224,48 +196,113 @@ const AccountScreen = () => {
           showsVerticalScrollIndicator={false}
           className="flex-1 px-5 pt-4"
         >
-          <VStack space="xl" className="pb-4">
+          <View className="pb-6">
             {/* En-tête avec profil utilisateur */}
-            <HStack space="md" className="items-center mb-5">
-              <Avatar size="xl" className="shadow-sm border border-gray-100">
+            <View
+              className="bg-white rounded-2xl p-5 mb-6 flex-row items-center"
+              style={{
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.05,
+                shadowRadius: 8,
+                elevation: 2,
+              }}
+            >
+              <Avatar size="xl" className="shadow-md border-2 border-primary-100">
                 <AvatarFallbackText>
                   {user.name
-                    .split("d")
+                    .split(" ")
                     .map((n) => n[0])
                     .join("")}
                 </AvatarFallbackText>
-                <AvatarImage source={{ uri: user.avatar }} className="opacity-95" />
+                <AvatarImage source={{ uri: user.avatar }} />
               </Avatar>
-              <VStack space="xs">
-                <Heading size="lg" className="font-bold text-gray-900 tracking-tight">
+              <View className="ml-4 flex-1">
+                <Heading className="text-xl font-bold text-gray-900 mb-1">
                   {user.name}
                 </Heading>
-                <Text size="sm" className="text-gray-500 font-medium">
-                  {user.phone}
-                </Text>
-                <Text size="sm" className="text-gray-500">
-                  {user.email}
-                </Text>
-              </VStack>
-            </HStack>
+                <View className="flex-row items-center mb-1">
+                  <Ionicons name="call-outline" size={14} color="#9CA3AF" />
+                  <Text className="text-sm text-gray-600 ml-1.5">
+                    {user.phone}
+                  </Text>
+                </View>
+                <View className="flex-row items-center">
+                  <Ionicons name="mail-outline" size={14} color="#9CA3AF" />
+                  <Text className="text-sm text-gray-600 ml-1.5">
+                    {user.email}
+                  </Text>
+                </View>
+              </View>
+            </View>
 
-          
+            {/* Stats Cards */}
+            <View className="flex-row gap-3 mb-6">
+              <View
+                className="flex-1 bg-white rounded-2xl p-4"
+                style={{
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.05,
+                  shadowRadius: 8,
+                  elevation: 2,
+                }}
+              >
+                <View className="flex-row items-center justify-between mb-2">
+                  <Ionicons name="receipt-outline" size={20} color="#FF6347" />
+                  <Text className="text-2xl font-bold text-primary-500">248</Text>
+                </View>
+                <Text className="text-xs text-gray-600">Total Orders</Text>
+              </View>
+              <View
+                className="flex-1 bg-white rounded-2xl p-4"
+                style={{
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.05,
+                  shadowRadius: 8,
+                  elevation: 2,
+                }}
+              >
+                <View className="flex-row items-center justify-between mb-2">
+                  <Ionicons name="star" size={20} color="#F59E0B" />
+                  <Text className="text-2xl font-bold text-amber-500">4.8</Text>
+                </View>
+                <Text className="text-xs text-gray-600">Rating</Text>
+              </View>
+            </View>
+
             {/* Sections de menu */}
             {menuSections.map((section, index) => (
               <MenuSectionComponent key={`section-${index}`} section={section} />
             ))}
 
             {/* Bouton de déconnexion */}
-            <Button size="lg" variant="outline" action="negative" className="mt-1.5 border-red-100 shadow-sm" onPress={handleLogout}>
-              <HStack space="sm" className="items-center">
-                <Feather name="log-out" color="#ef4444" size={16} style={{ textAlign: "center", alignSelf: "center" }} />
-                <Text className="text-red-500 font-medium">Logout</Text>
-              </HStack>
-            </Button>
+            <TouchableOpacity
+              onPress={handleLogout}
+              className="bg-white rounded-2xl p-4 flex-row items-center justify-center mb-4"
+              style={{
+                shadowColor: "#EF4444",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.1,
+                shadowRadius: 8,
+                elevation: 2,
+                borderWidth: 1,
+                borderColor: "#FEE2E2",
+              }}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="log-out-outline" color="#EF4444" size={20} />
+              <Text className="text-red-500 font-bold ml-2 text-base">
+                Déconnexion
+              </Text>
+            </TouchableOpacity>
 
             {/* Version de l'application */}
-            <Text className="text-center text-gray-400 text-xs mt-3">Version 1.0.3</Text>
-          </VStack>
+            <Text className="text-center text-gray-400 text-xs mt-2 mb-4">
+              Version 1.0.3 • Restaurant Manager
+            </Text>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </ThemedView>
