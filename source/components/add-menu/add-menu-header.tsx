@@ -16,10 +16,11 @@ export const AddMenuHeader: React.FC<AddMenuHeaderProps> = ({
   onReset,
   scrollY,
 }) => {
-  const headerAnimatedStyle = scrollY ? useAnimatedStyle(() => {
+  const headerAnimatedStyle = useAnimatedStyle(() => {
+    if (!scrollY) return { opacity: 1 };
     const opacity = 1 - (scrollY.value / 100) * 0.02;
     return { opacity: Math.max(opacity, 0.98) };
-  }) : {};
+  });
 
   return (
     <Animated.View
