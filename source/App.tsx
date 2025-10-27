@@ -25,9 +25,12 @@ import React, { useEffect } from "react";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 import "react-native-reanimated";
 import "./global.css";
+import "./locales";
+import { LanguageProvider } from "./contexts/language-context";
 import MainNavigator from "./layouts";
 import PersonalInfoScreen from "./screens/account/personal-info";
 import SettingsScreen from "./screens/account/settings";
+import LanguageSettingsScreen from "./screens/account/language-settings";
 import WithdrawalHistoryScreen from "./screens/account/withdrawal-history";
 import UserReviewsScreen from "./screens/account/user-reviews";
 import LoginScreen from "./screens/auth/login";
@@ -106,9 +109,10 @@ export default function App() {
   }
 
   return (
-    <GluestackUIProvider mode="light">
-      <AutocompleteDropdownContextProvider>
-        <NavigationContainer>
+    <LanguageProvider>
+      <GluestackUIProvider mode="light">
+        <AutocompleteDropdownContextProvider>
+          <NavigationContainer>
           <Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Onboarding" component={Onboarding} />
             <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} />
@@ -120,16 +124,18 @@ export default function App() {
             <Stack.Screen name="UploadDocumentsScreen" component={UploadDocumentsScreen} options={createScreenOptions("Upload documents")} />
             <Stack.Screen name="InformationVerificationScreen" component={InformationVerificationScreen} />
             <Stack.Screen name="MainNavigator" component={MainNavigator} />
-            <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen}  />
+            <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen} />
             <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+            <Stack.Screen name="LanguageSettingsScreen" component={LanguageSettingsScreen} />
             <Stack.Screen name="WithdrawalHistoryScreen" component={WithdrawalHistoryScreen} />
             <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
             <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
             <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
             <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
           </Stack.Navigator>
-        </NavigationContainer>
-      </AutocompleteDropdownContextProvider>
-    </GluestackUIProvider>
+          </NavigationContainer>
+        </AutocompleteDropdownContextProvider>
+      </GluestackUIProvider>
+    </LanguageProvider>
   );
 }
