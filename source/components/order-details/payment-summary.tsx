@@ -47,7 +47,9 @@ export const PaymentSummary: React.FC<PaymentSummaryProps> = ({
           <View className="flex-row justify-between items-center">
             <Text className="text-sm text-gray-600">Delivery Fee</Text>
             <Text className="text-sm text-green-600 font-semibold">
-              {deliveryFee === 0 ? "FREE" : `€${deliveryFee.toFixed(2)}`}
+              {deliveryFee === 0
+? "FREE"
+: `€${deliveryFee.toFixed(2)}`}
             </Text>
           </View>
           <View className="h-px bg-gray-200 my-2" />

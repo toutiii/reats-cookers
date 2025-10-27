@@ -9,6 +9,7 @@ import { Alert, ScrollView, View, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "@/components/common/header";
 import { Heading } from "@/components/ui/heading";
+import { useTranslation } from "@/hooks/useTranslation";
 
 type MenuItem = {
   icon: keyof typeof Ionicons.glyphMap;
@@ -106,6 +107,7 @@ const MenuSectionComponent: React.FC<{ section: MenuSection }> = ({ section }) =
 };
 
 const AccountScreen = () => {
+  const { t } = useTranslation("account");
   const navigation = useNavigation<StackNavigation>();
 
   const user = {
@@ -117,20 +119,20 @@ const AccountScreen = () => {
 
   const menuSections: MenuSection[] = [
     {
-      title: "Compte",
+      title: t("sections.account"),
       items: [
         {
           icon: "person-outline",
-          label: "Personal Info",
-          description: "Gérez vos informations personnelles",
+          label: t("menu.personalInfo"),
+          description: t("menu.personalInfoDesc"),
           action: () => navigation.navigate("PersonalInfoScreen"),
           iconColor: "#3B82F6",
           iconBg: "bg-blue-50",
         },
         {
           icon: "settings-outline",
-          label: "Settings",
-          description: "Préférences et paramètres de l'app",
+          label: t("menu.settings"),
+          description: t("menu.settingsDesc"),
           action: () => navigation.navigate("SettingsScreen" as any),
           iconColor: "#6366F1",
           iconBg: "bg-indigo-50",
@@ -138,28 +140,28 @@ const AccountScreen = () => {
       ],
     },
     {
-      title: "Activité",
+      title: t("sections.activity"),
       items: [
         {
           icon: "cash-outline",
-          label: "Withdrawal History",
-          description: "Historique de vos retraits",
+          label: t("menu.withdrawalHistory"),
+          description: t("menu.withdrawalHistoryDesc"),
           action: () => navigation.navigate("WithdrawalHistoryScreen" as any),
           iconColor: "#10B981",
           iconBg: "bg-green-50",
         },
         {
           icon: "receipt-outline",
-          label: "Number of Orders",
-          description: "Consultez toutes vos commandes",
+          label: t("menu.orders"),
+          description: t("menu.ordersDesc"),
           action: () => navigation.navigate("OrdersScreen" as any),
           iconColor: "#FF6347",
           iconBg: "bg-orange-50",
         },
         {
           icon: "star-outline",
-          label: "User Reviews",
-          description: "Avis et évaluations des clients",
+          label: t("menu.reviews"),
+          description: t("menu.reviewsDesc"),
           action: () => navigation.navigate("UserReviewsScreen" as any),
           iconColor: "#F59E0B",
           iconBg: "bg-amber-50",
@@ -169,13 +171,13 @@ const AccountScreen = () => {
   ];
 
   const handleLogout = () => {
-    Alert.alert("Déconnexion", "Êtes-vous sûr de vouloir vous déconnecter ?", [
+    Alert.alert(t("logout.title"), t("logout.message"), [
       {
-        text: "Annuler",
+        text: t("common:buttons.cancel"),
         style: "cancel",
       },
       {
-        text: "Déconnexion",
+        text: t("logout.confirm"),
         onPress: () => console.log("User logged out"),
         style: "destructive",
       },
@@ -186,8 +188,8 @@ const AccountScreen = () => {
     <ThemedView>
       <SafeAreaView className="flex-1" edges={["top"]}>
         <Header
-          title="Profile"
-          subtitle="Manage your account settings"
+          title={t("header.title")}
+          subtitle={t("header.subtitle")}
           notificationCount={0}
           onNotificationPress={() => console.log("Notifications pressed")}
         />
@@ -252,7 +254,7 @@ const AccountScreen = () => {
                   <Ionicons name="receipt-outline" size={20} color="#FF6347" />
                   <Text className="text-2xl font-bold text-primary-500">248</Text>
                 </View>
-                <Text className="text-xs text-gray-600">Total Orders</Text>
+                <Text className="text-xs text-gray-600">{t("stats.totalOrders")}</Text>
               </View>
               <View
                 className="flex-1 bg-white rounded-2xl p-4"
@@ -268,7 +270,7 @@ const AccountScreen = () => {
                   <Ionicons name="star" size={20} color="#F59E0B" />
                   <Text className="text-2xl font-bold text-amber-500">4.8</Text>
                 </View>
-                <Text className="text-xs text-gray-600">Rating</Text>
+                <Text className="text-xs text-gray-600">{t("stats.rating")}</Text>
               </View>
             </View>
 
@@ -294,13 +296,13 @@ const AccountScreen = () => {
             >
               <Ionicons name="log-out-outline" color="#EF4444" size={20} />
               <Text className="text-red-500 font-bold ml-2 text-base">
-                Déconnexion
+                {t("logout.button")}
               </Text>
             </TouchableOpacity>
 
             {/* Version de l'application */}
             <Text className="text-center text-gray-400 text-xs mt-2 mb-4">
-              Version 1.0.3 • Restaurant Manager
+              {t("footer.version")}
             </Text>
           </View>
         </ScrollView>

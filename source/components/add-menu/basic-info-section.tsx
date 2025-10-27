@@ -46,7 +46,7 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
         <View className="w-1 h-4 bg-primary-500 rounded-full mr-2" />
         <Text className="text-base font-bold">Informations de base</Text>
       </View>
-      
+
       <View className="bg-white rounded-2xl p-4 space-y-4">
         {/* Name */}
         <View>
@@ -59,7 +59,9 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
             placeholder="Ex: Burger Signature"
             placeholderTextColor="#9CA3AF"
             className={`bg-gray-50 rounded-xl px-4 py-3 text-gray-900 ${
-              errors.name ? "border border-red-300" : ""
+              errors.name
+? "border border-red-300"
+: ""
             }`}
           />
           {errors.name && (
@@ -86,11 +88,15 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
                 <Ionicons
                   name={cat.icon as any}
                   size={16}
-                  color={category === cat.id ? "#fff" : cat.color}
+                  color={category === cat.id
+? "#fff"
+: cat.color}
                 />
                 <Text
                   className={`ml-2 font-semibold text-sm ${
-                    category === cat.id ? "text-white" : "text-gray-700"
+                    category === cat.id
+? "text-white"
+: "text-gray-700"
                   }`}
                 >
                   {cat.name}
@@ -115,7 +121,9 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
             placeholderTextColor="#9CA3AF"
             autoCapitalize="characters"
             className={`bg-gray-50 rounded-xl px-4 py-3 text-gray-900 ${
-              errors.sku ? "border border-red-300" : ""
+              errors.sku
+? "border border-red-300"
+: ""
             }`}
           />
           {errors.sku && (
@@ -132,14 +140,18 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
           <TouchableOpacity
             onPress={() => onAvailableChange(!available)}
             className={`w-14 h-8 rounded-full p-1 ${
-              available ? "bg-green-500" : "bg-gray-300"
+              available
+? "bg-green-500"
+: "bg-gray-300"
             }`}
           >
             <Animated.View
               className="w-6 h-6 bg-white rounded-full shadow-sm"
               style={useAnimatedStyle(() => ({
                 transform: [{
-                  translateX: withSpring(available ? 22 : 0)
+                  translateX: withSpring(available
+? 22
+: 0)
                 }]
               }))}
             />

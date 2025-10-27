@@ -18,7 +18,7 @@ export const PhotoUploadSection: React.FC<PhotoUploadSectionProps> = ({
 }) => {
   const pickImage = async (index: number) => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    
+
     if (status !== "granted") {
       Alert.alert("Permission refusée", "Nous avons besoin de votre permission pour accéder à la galerie.");
       return;
@@ -51,7 +51,7 @@ export const PhotoUploadSection: React.FC<PhotoUploadSectionProps> = ({
         <Text className="text-base font-bold">Photos du plat</Text>
         <Text className="text-primary-500 ml-1">*</Text>
       </View>
-      
+
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {[0, 1, 2].map((index) => (
           <TouchableOpacity
@@ -59,7 +59,8 @@ export const PhotoUploadSection: React.FC<PhotoUploadSectionProps> = ({
             onPress={() => pickImage(index)}
             className="mr-3"
           >
-            {photos[index] ? (
+            {photos[index]
+? (
               <View className="relative">
                 <Image
                   source={{ uri: photos[index] }}
@@ -73,19 +74,28 @@ export const PhotoUploadSection: React.FC<PhotoUploadSectionProps> = ({
                   <Ionicons name="close" size={16} color="#374151" />
                 </TouchableOpacity>
               </View>
-            ) : (
+            )
+: (
               <View className={`w-32 h-32 rounded-2xl border-2 border-dashed ${
-                index === 0 ? "border-primary-500 bg-orange-50" : "border-gray-300 bg-gray-50"
+                index === 0
+? "border-primary-500 bg-orange-50"
+: "border-gray-300 bg-gray-50"
               } items-center justify-center`}>
                 <Ionicons
                   name="camera-outline"
                   size={32}
-                  color={index === 0 ? "#FF6347" : "#9CA3AF"}
+                  color={index === 0
+? "#FF6347"
+: "#9CA3AF"}
                 />
                 <Text className={`text-xs mt-2 ${
-                  index === 0 ? "text-primary-500 font-semibold" : "text-gray-400"
+                  index === 0
+? "text-primary-500 font-semibold"
+: "text-gray-400"
                 }`}>
-                  {index === 0 ? "Photo principale" : "Ajouter"}
+                  {index === 0
+? "Photo principale"
+: "Ajouter"}
                 </Text>
               </View>
             )}

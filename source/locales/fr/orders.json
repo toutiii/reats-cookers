@@ -1,0 +1,81 @@
+{
+  "header": {
+    "title": "Commandes",
+    "subtitle": "Gérez vos commandes",
+    "manageOrders": "Gérer vos commandes",
+    "activeOrders": "Commandes actives"
+  },
+  "status": {
+    "pending": "En attente",
+    "preparing": "En préparation",
+    "ready": "Prêt",
+    "completed": "Terminé",
+    "cancelled": "Annulé",
+    "delivered": "Livré"
+  },
+  "actions": {
+    "accept": "Accepter",
+    "reject": "Refuser",
+    "startPreparing": "Commencer",
+    "markReady": "Marquer prêt",
+    "markCompleted": "Marquer terminé",
+    "cancel": "Annuler",
+    "viewDetails": "Voir détails"
+  },
+  "details": {
+    "orderNumber": "Commande #{{number}}",
+    "customer": "Client",
+    "items": "Articles",
+    "total": "Total",
+    "time": "Heure",
+    "deliveryAddress": "Adresse de livraison",
+    "paymentMethod": "Mode de paiement",
+    "notes": "Notes",
+    "specialInstructions": "Instructions spéciales"
+  },
+  "card": {
+    "orderNumber": "Commande n°{{number}}",
+    "items": "{{count}} article",
+    "items_plural": "{{count}} articles",
+    "total": "Total",
+    "customer": "Client",
+    "time": "Temps",
+    "viewDetails": "Voir détails",
+    "itemsLabel": "items",
+    "itemsCount": "{{count}} article",
+    "itemsCount_plural": "{{count}} articles",
+    "orderTime": "Commandé à {{time}}"
+  },
+  "filters": {
+    "all": "Toutes",
+    "pending": "En attente",
+    "preparing": "En préparation",
+    "ready": "Prêtes",
+    "completed": "Terminées"
+  },
+  "empty": {
+    "title": "Aucune commande",
+    "message": "Vous n'avez pas encore de commandes",
+    "action": "Rafraîchir"
+  },
+  "stats": {
+    "activeOrders": "Commandes actives",
+    "todayRevenue": "Revenu aujourd'hui"
+  },
+  "payment": {
+    "summary": "Résumé du paiement",
+    "subtotal": "Sous-total",
+    "deliveryFee": "Frais de livraison",
+    "tax": "TVA",
+    "total": "Total",
+    "paid": "Payé",
+    "unpaid": "Non payé"
+  },
+  "customerInfo": {
+    "title": "Informations client",
+    "name": "Nom",
+    "phone": "Téléphone",
+    "email": "Email",
+    "address": "Adresse"
+  }
+}

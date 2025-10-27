@@ -41,9 +41,11 @@ export const StatCard: React.FC<StatCardProps> = ({
       {/* Icon and Trend Badge */}
       <View className="flex-row justify-between items-start mb-3">
         <View className={`w-12 h-12 ${bgColor} rounded-xl items-center justify-center`}>
-          {iconFamily === "MaterialCommunityIcons" ? (
+          {iconFamily === "MaterialCommunityIcons"
+? (
             <MaterialCommunityIcons name={iconName as any} size={22} color={iconColor} />
-          ) : (
+          )
+: (
             <Feather name={iconName as any} size={22} color={iconColor} />
           )}
         </View>

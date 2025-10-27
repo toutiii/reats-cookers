@@ -127,9 +127,13 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         {[1, 2, 3, 4, 5].map((star) => (
           <Ionicons
             key={star}
-            name={star <= review.rating ? "star" : "star-outline"}
+            name={star <= review.rating
+? "star"
+: "star-outline"}
             size={16}
-            color={star <= review.rating ? "#F59E0B" : "#D1D5DB"}
+            color={star <= review.rating
+? "#F59E0B"
+: "#D1D5DB"}
             style={{ marginRight: 4 }}
           />
         ))}
@@ -253,13 +257,17 @@ const UserReviewsScreen: React.FC = () => {
           >
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedFilter === "all" ? "bg-primary-500" : ""
+                selectedFilter === "all"
+? "bg-primary-500"
+: ""
               }`}
               onPress={() => setSelectedFilter("all")}
             >
               <Text
                 className={`text-center font-semibold text-sm ${
-                  selectedFilter === "all" ? "text-white" : "text-gray-600"
+                  selectedFilter === "all"
+? "text-white"
+: "text-gray-600"
                 }`}
               >
                 Tous
@@ -267,13 +275,17 @@ const UserReviewsScreen: React.FC = () => {
             </TouchableOpacity>
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedFilter === "5" ? "bg-primary-500" : ""
+                selectedFilter === "5"
+? "bg-primary-500"
+: ""
               }`}
               onPress={() => setSelectedFilter("5")}
             >
               <Text
                 className={`text-center font-semibold text-sm ${
-                  selectedFilter === "5" ? "text-white" : "text-gray-600"
+                  selectedFilter === "5"
+? "text-white"
+: "text-gray-600"
                 }`}
               >
                 5★
@@ -281,13 +293,17 @@ const UserReviewsScreen: React.FC = () => {
             </TouchableOpacity>
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedFilter === "4" ? "bg-primary-500" : ""
+                selectedFilter === "4"
+? "bg-primary-500"
+: ""
               }`}
               onPress={() => setSelectedFilter("4")}
             >
               <Text
                 className={`text-center font-semibold text-sm ${
-                  selectedFilter === "4" ? "text-white" : "text-gray-600"
+                  selectedFilter === "4"
+? "text-white"
+: "text-gray-600"
                 }`}
               >
                 4★
@@ -295,13 +311,17 @@ const UserReviewsScreen: React.FC = () => {
             </TouchableOpacity>
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedFilter === "3" ? "bg-primary-500" : ""
+                selectedFilter === "3"
+? "bg-primary-500"
+: ""
               }`}
               onPress={() => setSelectedFilter("3")}
             >
               <Text
                 className={`text-center font-semibold text-sm ${
-                  selectedFilter === "3" ? "text-white" : "text-gray-600"
+                  selectedFilter === "3"
+? "text-white"
+: "text-gray-600"
                 }`}
               >
                 3★

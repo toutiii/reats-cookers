@@ -45,7 +45,7 @@ export const IngredientsSection: React.FC<IngredientsSectionProps> = ({
         <View className="w-1 h-4 bg-primary-500 rounded-full mr-2" />
         <Text className="text-base font-bold">Ingrédients</Text>
       </View>
-      
+
       <View className="bg-white rounded-2xl p-4">
         {/* Category Tabs */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-4">
@@ -62,23 +62,31 @@ export const IngredientsSection: React.FC<IngredientsSectionProps> = ({
               <Ionicons
                 name={cat.icon as any}
                 size={16}
-                color={selectedCategory === cat.id ? "#fff" : "#6B7280"}
+                color={selectedCategory === cat.id
+? "#fff"
+: "#6B7280"}
               />
               <Text
                 className={`ml-2 font-semibold text-sm ${
-                  selectedCategory === cat.id ? "text-white" : "text-gray-700"
+                  selectedCategory === cat.id
+? "text-white"
+: "text-gray-700"
                 }`}
               >
                 {cat.name}
               </Text>
               <View
                 className={`ml-2 px-2 py-0.5 rounded-full ${
-                  selectedCategory === cat.id ? "bg-white/20" : "bg-gray-200"
+                  selectedCategory === cat.id
+? "bg-white/20"
+: "bg-gray-200"
                 }`}
               >
                 <Text
                   className={`text-xs font-semibold ${
-                    selectedCategory === cat.id ? "text-white" : "text-gray-600"
+                    selectedCategory === cat.id
+? "text-white"
+: "text-gray-600"
                   }`}
                 >
                   {cat.count}
@@ -87,7 +95,7 @@ export const IngredientsSection: React.FC<IngredientsSectionProps> = ({
             </TouchableOpacity>
           ))}
         </ScrollView>
-        
+
         {/* Ingredients Grid */}
         <View className="flex-row flex-wrap -mx-1">
           {filteredIngredients.map((ingredient) => {
@@ -100,13 +108,17 @@ export const IngredientsSection: React.FC<IngredientsSectionProps> = ({
               >
                 <View
                   className={`items-center py-3 rounded-2xl ${
-                    isSelected ? "bg-orange-100 border-2 border-primary-500" : "bg-gray-50"
+                    isSelected
+? "bg-orange-100 border-2 border-primary-500"
+: "bg-gray-50"
                   }`}
                 >
                   <Text className="text-2xl mb-1">{ingredient.icon}</Text>
                   <Text
                     className={`text-xs text-center ${
-                      isSelected ? "text-primary-500 font-semibold" : "text-gray-600"
+                      isSelected
+? "text-primary-500 font-semibold"
+: "text-gray-600"
                     }`}
                   >
                     {ingredient.name}

@@ -7,6 +7,7 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "@/hooks/useTranslation";
 import CircularButton from "@/components/onboarding/circular-button";
 import OnboardingItem from "@/components/onboarding/onboarding-item";
 import Paginator from "@/components/onboarding/paginator";
@@ -14,17 +15,45 @@ import { Box } from "@/components/ui/box";
 import { VStack } from "@/components/ui/vstack";
 import { Text } from "@/components/ui/text";
 import { SCREEN_WIDTH } from "@/constants/screen";
-import { getOnboardingScreens } from "@/data/onboarding";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigation } from "@/types/navigation";
 
 
-const screens = getOnboardingScreens();
-const TOTAL_SCREENS = screens.length;
-
-
 const Onboarding: FC = () => {
+  const { t, i18n } = useTranslation("onboarding");
   const navigation = useNavigation<StackNavigation>();
+
+  const screens = React.useMemo(() => {
+    const imagePath = "@/assets/images/onboarding";
+    return [
+      {
+        id: 1,
+        title: t("slides.slide1.title"),
+        description: t("slides.slide1.description"),
+        image: require(`${imagePath}/shipping.png`),
+      },
+      {
+        id: 2,
+        title: t("slides.slide2.title"),
+        description: t("slides.slide2.description"),
+        image: require(`${imagePath}/shipping.png`),
+      },
+      {
+        id: 3,
+        title: t("slides.slide3.title"),
+        description: t("slides.slide3.description"),
+        image: require(`${imagePath}/shipping.png`),
+      },
+      {
+        id: 4,
+        title: t("slides.slide4.title"),
+        description: t("slides.slide4.description"),
+        image: require(`${imagePath}/shipping.png`),
+      },
+    ];
+  }, [t, i18n.language]);
+
+  const TOTAL_SCREENS = screens.length;
   const scrollViewRef = useAnimatedRef<Animated.ScrollView>();
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useSharedValue(0);
@@ -73,11 +102,13 @@ const Onboarding: FC = () => {
               {({ pressed }) => (
                 <Box
                   className={`px-5 py-2 rounded-full ${
-                    pressed ? "bg-gray-200" : "bg-gray-100"
+                    pressed
+                      ? "bg-gray-200"
+                      : "bg-gray-100"
                   }`}
                 >
                   <Text className="text-sm font-medium text-gray-700">
-                    Skip
+                    {t("buttons.skip")}
                   </Text>
                 </Box>
               )}

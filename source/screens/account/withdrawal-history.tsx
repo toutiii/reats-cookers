@@ -241,13 +241,17 @@ const WithdrawalHistoryScreen: React.FC = () => {
           >
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedFilter === "all" ? "bg-primary-500" : ""
+                selectedFilter === "all"
+? "bg-primary-500"
+: ""
               }`}
               onPress={() => setSelectedFilter("all")}
             >
               <Text
                 className={`text-center font-semibold text-sm ${
-                  selectedFilter === "all" ? "text-white" : "text-gray-600"
+                  selectedFilter === "all"
+? "text-white"
+: "text-gray-600"
                 }`}
               >
                 Tous
@@ -255,13 +259,17 @@ const WithdrawalHistoryScreen: React.FC = () => {
             </TouchableOpacity>
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedFilter === "completed" ? "bg-primary-500" : ""
+                selectedFilter === "completed"
+? "bg-primary-500"
+: ""
               }`}
               onPress={() => setSelectedFilter("completed")}
             >
               <Text
                 className={`text-center font-semibold text-sm ${
-                  selectedFilter === "completed" ? "text-white" : "text-gray-600"
+                  selectedFilter === "completed"
+? "text-white"
+: "text-gray-600"
                 }`}
               >
                 Terminés
@@ -269,13 +277,17 @@ const WithdrawalHistoryScreen: React.FC = () => {
             </TouchableOpacity>
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedFilter === "pending" ? "bg-primary-500" : ""
+                selectedFilter === "pending"
+? "bg-primary-500"
+: ""
               }`}
               onPress={() => setSelectedFilter("pending")}
             >
               <Text
                 className={`text-center font-semibold text-sm ${
-                  selectedFilter === "pending" ? "text-white" : "text-gray-600"
+                  selectedFilter === "pending"
+? "text-white"
+: "text-gray-600"
                 }`}
               >
                 En attente

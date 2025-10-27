@@ -7,6 +7,7 @@ import { Text } from "@/components/ui/text";
 import { Header } from "@/components/common/header";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigation } from "@/types/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface Order {
   id: string;
@@ -25,35 +26,35 @@ interface StatusStyle {
   label: string;
 }
 
-const getStatusConfig = (status: Order["status"]): StatusStyle => {
+const getStatusConfig = (status: Order["status"], t: any): StatusStyle => {
   switch (status) {
     case "pending":
       return {
         bg: "bg-yellow-50",
         text: "text-yellow-700",
         icon: "#f59e0b",
-        label: "Pending",
+        label: t("orders:status.pending"),
       };
     case "preparing":
       return {
         bg: "bg-blue-50",
         text: "text-blue-700",
         icon: "#3b82f6",
-        label: "Preparing",
+        label: t("orders:status.preparing"),
       };
     case "ready":
       return {
         bg: "bg-green-50",
         text: "text-green-700",
         icon: "#10b981",
-        label: "Ready",
+        label: t("orders:status.ready"),
       };
     case "completed":
       return {
         bg: "bg-gray-50",
         text: "text-gray-700",
         icon: "#6b7280",
-        label: "Completed",
+        label: t("orders:status.completed"),
       };
   }
 };
@@ -64,7 +65,8 @@ interface OrderCardProps {
 }
 
 const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => {
-  const statusConfig = getStatusConfig(order.status);
+  const { t } = useTranslation("orders");
+  const statusConfig = getStatusConfig(order.status, t);
 
   return (
     <TouchableOpacity
@@ -120,7 +122,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => {
             <View className="w-9 h-9 bg-orange-50 rounded-xl items-center justify-center mr-2">
               <Ionicons name="fast-food-outline" size={16} color="#FF6347" />
             </View>
-            <Text className="text-sm font-semibold text-gray-700">{order.items} items</Text>
+            <Text className="text-sm font-semibold text-gray-700">{t("card.itemsCount", { count: order.items })}</Text>
           </View>
           <View className="flex-row items-center">
             <View className="w-9 h-9 bg-blue-50 rounded-xl items-center justify-center mr-2">
@@ -136,6 +138,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => {
 };
 
 const OrdersScreen: React.FC = () => {
+  const { t } = useTranslation("orders");
   const navigation = useNavigation<StackNavigation>();
   const [selectedTab, setSelectedTab] = useState<"active" | "completed">("active");
 
@@ -182,8 +185,8 @@ const OrdersScreen: React.FC = () => {
     <ThemedView>
       <SafeAreaView className="flex-1">
         <Header
-          title="Orders"
-          subtitle="Manage your orders"
+          title={t("header.title")}
+          subtitle={t("header.subtitle")}
           notificationCount={5}
           rightAction={{
             icon: "filter",
@@ -209,7 +212,7 @@ const OrdersScreen: React.FC = () => {
                 <Ionicons name="receipt-outline" size={20} color="#FF6347" />
                 <Text className="text-2xl font-bold text-primary-500">12</Text>
               </View>
-              <Text className="text-xs text-gray-600">Commandes actives</Text>
+              <Text className="text-xs text-gray-600">{t("stats.activeOrders")}</Text>
             </View>
             <View
               className="flex-1 bg-white rounded-2xl p-4"
@@ -225,7 +228,7 @@ const OrdersScreen: React.FC = () => {
                 <Ionicons name="cash-outline" size={20} color="#10B981" />
                 <Text className="text-2xl font-bold text-green-600">€342</Text>
               </View>
-              <Text className="text-xs text-gray-600">Revenu aujourd'hui</Text>
+              <Text className="text-xs text-gray-600">{t("stats.todayRevenue")}</Text>
             </View>
           </View>
         </View>
@@ -244,30 +247,38 @@ const OrdersScreen: React.FC = () => {
           >
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedTab === "active" ? "bg-primary-500" : ""
+                selectedTab === "active"
+? "bg-primary-500"
+: ""
               }`}
               onPress={() => setSelectedTab("active")}
             >
               <Text
                 className={`text-center font-semibold text-sm ${
-                  selectedTab === "active" ? "text-white" : "text-gray-600"
+                  selectedTab === "active"
+? "text-white"
+: "text-gray-600"
                 }`}
               >
-                Actives (3)
+                {t("filters.activeCount", { count: 3 })}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedTab === "completed" ? "bg-primary-500" : ""
+                selectedTab === "completed"
+? "bg-primary-500"
+: ""
               }`}
               onPress={() => setSelectedTab("completed")}
             >
               <Text
                 className={`text-center font-semibold text-sm ${
-                  selectedTab === "completed" ? "text-white" : "text-gray-600"
+                  selectedTab === "completed"
+? "text-white"
+: "text-gray-600"
                 }`}
               >
-                Terminées
+                {t("filters.completed")}
               </Text>
             </TouchableOpacity>
           </View>

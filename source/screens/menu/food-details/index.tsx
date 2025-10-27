@@ -45,7 +45,7 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
       [0, 1],
       Extrapolate.CLAMP
     );
-    
+
     return {
       opacity,
     };
@@ -80,7 +80,7 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
   return (
     <ThemedView>
       <StatusBar barStyle="light-content" />
-      
+
       {/* Animated Header */}
       <Animated.View
         style={[headerAnimatedStyle]}
@@ -198,18 +198,26 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
             className="absolute bottom-12 left-5"
           >
             <View
-              className={`px-4 py-2.5 rounded-full flex-row items-center ${item?.available ? "bg-green-500" : "bg-red-500"}`}
+              className={`px-4 py-2.5 rounded-full flex-row items-center ${item?.available
+? "bg-green-500"
+: "bg-red-500"}`}
               style={{
-                shadowColor: item?.available ? "#10B981" : "#EF4444",
+                shadowColor: item?.available
+? "#10B981"
+: "#EF4444",
                 shadowOffset: { width: 0, height: 4 },
                 shadowOpacity: 0.3,
                 shadowRadius: 8,
                 elevation: 5,
               }}
             >
-              <View className={`w-2 h-2 rounded-full mr-2 ${item?.available ? "bg-white" : "bg-white"}`} />
+              <View className={`w-2 h-2 rounded-full mr-2 ${item?.available
+? "bg-white"
+: "bg-white"}`} />
               <Text className="text-white font-bold text-xs tracking-wide">
-                {item?.available ? "DISPONIBLE" : "INDISPONIBLE"}
+                {item?.available
+? "DISPONIBLE"
+: "INDISPONIBLE"}
               </Text>
             </View>
           </Animated.View>
@@ -305,12 +313,20 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                   <Ionicons
                     name="restaurant-outline"
                     size={20}
-                    color={isAtCapacity ? "#EF4444" : capacityPercentage > 70 ? "#F59E0B" : "#6B7280"}
+                    color={isAtCapacity
+? "#EF4444"
+: capacityPercentage > 70
+? "#F59E0B"
+: "#6B7280"}
                   />
                   <Text
                     className="text-2xl font-bold"
                     style={{
-                      color: isAtCapacity ? "#EF4444" : capacityPercentage > 70 ? "#F59E0B" : "#6B7280"
+                      color: isAtCapacity
+? "#EF4444"
+: capacityPercentage > 70
+? "#F59E0B"
+: "#6B7280"
                     }}
                   >
                     {item?.currentOrders}/{item?.maxConcurrentOrders}
@@ -335,25 +351,37 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
             >
               <TouchableOpacity
                 onPress={() => setSelectedTab("info")}
-                className={`flex-1 py-3 rounded-lg ${selectedTab === "info" ? "bg-primary-500" : ""}`}
+                className={`flex-1 py-3 rounded-lg ${selectedTab === "info"
+? "bg-primary-500"
+: ""}`}
               >
-                <Text className={`text-center font-semibold text-sm ${selectedTab === "info" ? "text-white" : ""}`}>
+                <Text className={`text-center font-semibold text-sm ${selectedTab === "info"
+? "text-white"
+: ""}`}>
                   Informations
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => setSelectedTab("ingredients")}
-                className={`flex-1 py-3 rounded-lg ${selectedTab === "ingredients" ? "bg-primary-500" : ""}`}
+                className={`flex-1 py-3 rounded-lg ${selectedTab === "ingredients"
+? "bg-primary-500"
+: ""}`}
               >
-                <Text className={`text-center font-semibold text-sm ${selectedTab === "ingredients" ? "text-white" : ""}`}>
+                <Text className={`text-center font-semibold text-sm ${selectedTab === "ingredients"
+? "text-white"
+: ""}`}>
                   Ingrédients
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => setSelectedTab("allergens")}
-                className={`flex-1 py-3 rounded-lg ${selectedTab === "allergens" ? "bg-primary-500" : ""}`}
+                className={`flex-1 py-3 rounded-lg ${selectedTab === "allergens"
+? "bg-primary-500"
+: ""}`}
               >
-                <Text className={`text-center font-semibold text-sm ${selectedTab === "allergens" ? "text-white" : ""}`}>
+                <Text className={`text-center font-semibold text-sm ${selectedTab === "allergens"
+? "text-white"
+: ""}`}>
                   Allergènes
                 </Text>
               </TouchableOpacity>
@@ -488,7 +516,7 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                 <Ionicons name="create-outline" size={20} color="#374151" />
                 <Text className="font-bold ml-2">Modifier</Text>
               </TouchableOpacity>
-              
+
               <TouchableOpacity
                 className="flex-1 bg-primary-500 rounded-2xl py-4 flex-row items-center justify-center"
                 style={{

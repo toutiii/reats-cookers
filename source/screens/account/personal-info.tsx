@@ -90,7 +90,9 @@ const PersonalInfoScreen: React.FC = () => {
         </View>
 
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          behavior={Platform.OS === "ios"
+? "padding"
+: "height"}
           className="flex-1"
         >
           <ScrollView className="flex-1 px-5" showsVerticalScrollIndicator={false}>

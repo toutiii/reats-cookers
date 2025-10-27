@@ -24,7 +24,9 @@ export const PageHeader: React.FC<PageHeaderProps> = React.memo(
           onPress={onToggleViewMode}
         >
           <Ionicons
-            name={viewMode === "grid" ? "list-outline" : "grid-outline"}
+            name={viewMode === "grid"
+? "list-outline"
+: "grid-outline"}
             size={20}
             color="#374151"
           />

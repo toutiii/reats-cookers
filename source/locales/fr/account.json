@@ -1,0 +1,100 @@
+{
+  "header": {
+    "title": "Profil",
+    "subtitle": "Gérez les paramètres de votre compte"
+  },
+  "sections": {
+    "account": "Compte",
+    "activity": "Activité"
+  },
+  "menu": {
+    "personalInfo": "Informations personnelles",
+    "personalInfoDesc": "Gérez vos informations personnelles",
+    "settings": "Paramètres",
+    "settingsDesc": "Préférences et paramètres de l'app",
+    "withdrawalHistory": "Historique des retraits",
+    "withdrawalHistoryDesc": "Historique de vos retraits",
+    "orders": "Nombre de commandes",
+    "ordersDesc": "Consultez toutes vos commandes",
+    "reviews": "Avis clients",
+    "reviewsDesc": "Avis et évaluations des clients",
+    "help": "Aide & Support",
+    "about": "À propos",
+    "logout": "Se déconnecter"
+  },
+  "stats": {
+    "totalOrders": "Total Commandes",
+    "rating": "Note"
+  },
+  "personalInfo": {
+    "title": "Informations personnelles",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "address": "Adresse",
+    "city": "Ville",
+    "postalCode": "Code postal",
+    "country": "Pays",
+    "siret": "SIRET",
+    "restaurantName": "Nom du restaurant",
+    "edit": "Modifier",
+    "save": "Enregistrer les modifications"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "general": "Général",
+    "notifications": "Notifications",
+    "language": "Langue",
+    "theme": "Thème",
+    "privacy": "Confidentialité",
+    "security": "Sécurité",
+    "notificationSettings": {
+      "title": "Notifications",
+      "newOrders": "Nouvelles commandes",
+      "orderUpdates": "Mises à jour des commandes",
+      "reviews": "Nouveaux avis",
+      "promotions": "Promotions",
+      "system": "Notifications système"
+    },
+    "languageSettings": {
+      "title": "Langue",
+      "french": "Français",
+      "english": "English",
+      "spanish": "Español"
+    },
+    "themeSettings": {
+      "title": "Thème",
+      "light": "Clair",
+      "dark": "Sombre",
+      "auto": "Automatique"
+    }
+  },
+  "withdrawalHistory": {
+    "title": "Historique des retraits",
+    "amount": "Montant",
+    "date": "Date",
+    "status": "Statut",
+    "pending": "En attente",
+    "completed": "Terminé",
+    "failed": "Échoué",
+    "noHistory": "Aucun retrait pour le moment"
+  },
+  "reviews": {
+    "title": "Avis clients",
+    "rating": "Note",
+    "comment": "Commentaire",
+    "date": "Date",
+    "noReviews": "Aucun avis pour le moment",
+    "averageRating": "Note moyenne"
+  },
+  "logout": {
+    "title": "Déconnexion",
+    "message": "Êtes-vous sûr de vouloir vous déconnecter ?",
+    "confirm": "Déconnexion",
+    "button": "Déconnexion"
+  },
+  "footer": {
+    "version": "Version 1.0.3 • Restaurant Manager"
+  }
+}

@@ -74,7 +74,9 @@ export const Header: React.FC<HeaderProps> = ({
               {notificationCount > 0 && (
                 <View className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full items-center justify-center">
                   <Text className="text-white text-xs font-bold">
-                    {notificationCount > 9 ? "9+" : notificationCount}
+                    {notificationCount > 9
+? "9+"
+: notificationCount}
                   </Text>
                 </View>
               )}

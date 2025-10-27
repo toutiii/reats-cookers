@@ -1,0 +1,51 @@
+{
+  "required": "Ce champ est requis",
+  "email": {
+    "invalid": "Email invalide",
+    "required": "L'email est requis"
+  },
+  "phone": {
+    "invalid": "Numéro de téléphone invalide",
+    "required": "Le numéro de téléphone est requis",
+    "format": "Format invalide"
+  },
+  "password": {
+    "required": "Le mot de passe est requis",
+    "minLength": "Le mot de passe doit contenir au moins {{min}} caractères",
+    "maxLength": "Le mot de passe ne peut pas dépasser {{max}} caractères",
+    "weak": "Mot de passe trop faible",
+    "mismatch": "Les mots de passe ne correspondent pas"
+  },
+  "name": {
+    "required": "Le nom est requis",
+    "minLength": "Le nom doit contenir au moins {{min}} caractères",
+    "maxLength": "Le nom ne peut pas dépasser {{max}} caractères"
+  },
+  "siret": {
+    "required": "Le numéro SIRET est requis",
+    "invalid": "Numéro SIRET invalide",
+    "length": "Le SIRET doit contenir 14 chiffres"
+  },
+  "price": {
+    "required": "Le prix est requis",
+    "invalid": "Prix invalide",
+    "min": "Le prix doit être supérieur à {{min}}",
+    "max": "Le prix ne peut pas dépasser {{max}}"
+  },
+  "number": {
+    "required": "Ce champ est requis",
+    "invalid": "Nombre invalide",
+    "min": "La valeur doit être supérieure à {{min}}",
+    "max": "La valeur ne peut pas dépasser {{max}}"
+  },
+  "text": {
+    "required": "Ce champ est requis",
+    "minLength": "Le texte doit contenir au moins {{min}} caractères",
+    "maxLength": "Le texte ne peut pas dépasser {{max}} caractères"
+  },
+  "file": {
+    "required": "Un fichier est requis",
+    "invalidType": "Type de fichier invalide",
+    "tooLarge": "Le fichier est trop volumineux (max: {{max}})"
+  }
+}
