@@ -1,0 +1,35 @@
+{
+  "welcome": {
+    "title": "Welcome to Reats Cookers",
+    "subtitle": "Manage your restaurant with ease"
+  },
+  "slides": {
+    "slide1": {
+      "title": "Discover Professional Chefs",
+      "description": "Browse through hundreds of talented chefs in your area. From home cooking to gourmet cuisine, find the perfect chef for any occasion."
+    },
+    "slide2": {
+      "title": "Book Your Culinary Experience",
+      "description": "Schedule private cooking sessions, catering services, or cooking classes. Choose your menu, date, and let our chefs handle the rest."
+    },
+    "slide3": {
+      "title": "Live Cooking at Your Place",
+      "description": "Experience restaurant-quality meals in the comfort of your home. Watch professional chefs prepare delicious dishes with fresh ingredients."
+    },
+    "slide4": {
+      "title": "Rate & Share Your Experience",
+      "description": "Leave reviews, share photos of your meals, and help others discover amazing chefs. Build your culinary community today."
+    }
+  },
+  "buttons": {
+    "next": "Next",
+    "skip": "Skip",
+    "getStarted": "Get started"
+  },
+  "termsAndConditions": {
+    "title": "Terms and conditions",
+    "accept": "I accept the terms and conditions",
+    "read": "Read terms",
+    "continue": "Continue"
+  }
+}

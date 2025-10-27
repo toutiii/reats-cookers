@@ -1,0 +1,51 @@
+{
+  "required": "This field is required",
+  "email": {
+    "invalid": "Invalid email",
+    "required": "Email is required"
+  },
+  "phone": {
+    "invalid": "Invalid phone number",
+    "required": "Phone number is required",
+    "format": "Invalid format"
+  },
+  "password": {
+    "required": "Password is required",
+    "minLength": "Password must be at least {{min}} characters",
+    "maxLength": "Password cannot exceed {{max}} characters",
+    "weak": "Password is too weak",
+    "mismatch": "Passwords do not match"
+  },
+  "name": {
+    "required": "Name is required",
+    "minLength": "Name must be at least {{min}} characters",
+    "maxLength": "Name cannot exceed {{max}} characters"
+  },
+  "siret": {
+    "required": "SIRET number is required",
+    "invalid": "Invalid SIRET number",
+    "length": "SIRET must contain 14 digits"
+  },
+  "price": {
+    "required": "Price is required",
+    "invalid": "Invalid price",
+    "min": "Price must be greater than {{min}}",
+    "max": "Price cannot exceed {{max}}"
+  },
+  "number": {
+    "required": "This field is required",
+    "invalid": "Invalid number",
+    "min": "Value must be greater than {{min}}",
+    "max": "Value cannot exceed {{max}}"
+  },
+  "text": {
+    "required": "This field is required",
+    "minLength": "Text must be at least {{min}} characters",
+    "maxLength": "Text cannot exceed {{max}} characters"
+  },
+  "file": {
+    "required": "A file is required",
+    "invalidType": "Invalid file type",
+    "tooLarge": "File is too large (max: {{max}})"
+  }
+}

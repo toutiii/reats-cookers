@@ -17,8 +17,10 @@ import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { TouchableOpacity, View } from "react-native";
 import { FormInputControlPhone } from "../../common/form-input-control-phone";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const RegisterForm = () => {
+  const { t } = useTranslation("auth");
   const navigation = useNavigation<StackNavigation>();
   const [country, setCountry] = useState<ICountry>({
     calling_codes: [242],
@@ -72,10 +74,10 @@ const RegisterForm = () => {
           render={({ field: { onChange, onBlur, value } }) => (
             <FormControl isInvalid={!!errors.firstName} size="md" isDisabled={isSubmitting} isReadOnly={false} isRequired={true}>
               <FormControlLabel>
-                <FormControlLabelText>Prénom</FormControlLabelText>
+                <FormControlLabelText>{t("register.firstNameLabel")}</FormControlLabelText>
               </FormControlLabel>
               <Input className="my-1" size={"lg"} variant="rounded">
-                <InputField type="text" placeholder="Entrez votre prénom" value={value} onChangeText={onChange} onBlur={onBlur} />
+                <InputField type="text" placeholder={t("register.firstNamePlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} />
               </Input>
               {errors.firstName && (
                 <FormControlError>
@@ -96,10 +98,10 @@ const RegisterForm = () => {
           render={({ field: { onChange, onBlur, value } }) => (
             <FormControl isInvalid={!!errors.lastName} size="md" isDisabled={isSubmitting} isReadOnly={false} isRequired={true}>
               <FormControlLabel>
-                <FormControlLabelText>Nom</FormControlLabelText>
+                <FormControlLabelText>{t("register.lastNameLabel")}</FormControlLabelText>
               </FormControlLabel>
               <Input className="my-1" size={"lg"} variant="rounded">
-                <InputField type="text" placeholder="Entrez votre nom" value={value} onChangeText={onChange} onBlur={onBlur} />
+                <InputField type="text" placeholder={t("register.lastNamePlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} />
               </Input>
               {errors.lastName && (
                 <FormControlError>
@@ -120,10 +122,10 @@ const RegisterForm = () => {
           render={({ field: { onChange, onBlur, value } }) => (
             <FormControl isInvalid={!!errors.siret} size="md" isDisabled={isSubmitting} isReadOnly={false} isRequired={true}>
               <FormControlLabel>
-                <FormControlLabelText>SIRET (Professionnel)</FormControlLabelText>
+                <FormControlLabelText>{t("register.siretLabel")}</FormControlLabelText>
               </FormControlLabel>
               <Input className="my-1" size={"lg"} variant="rounded">
-                <InputField type="text" placeholder="Entrez votre numéro SIRET" value={value} onChangeText={onChange} onBlur={onBlur} keyboardType="numeric" maxLength={14} />
+                <InputField type="text" placeholder={t("register.siretPlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} keyboardType="numeric" maxLength={14} />
               </Input>
               {errors.siret && (
                 <FormControlError>
@@ -137,18 +139,18 @@ const RegisterForm = () => {
       </View>
 
       {/* Zone d'intervention Input */}
-      <InputMultiSelectCity label="Zone(s) d'intervention" placeholder="Rechercher une commune..." helperText="Ex: Paris, Lyon, Marseille - Où proposez-vous vos services ?" />
+      <InputMultiSelectCity label={t("register.cityLabel")} placeholder={t("register.cityPlaceholder")} helperText={t("register.cityHelper")} />
 
       <FormInputControlPhone
         control={control}
         name="phone"
         error={errors.phone?.message}
         defaultValue={watch("phone")}
-        label="Numéro de téléphone"
-        placeholder="Entrez votre numéro de téléphone"
+        label={t("register.phoneLabel")}
+        placeholder={t("register.phonePlaceholder")}
         country={country}
         setCountry={setCountry}
-        textInfo="Format: +33 X XX XX XX XX"
+        textInfo={t("register.phoneFormat")}
         isRequired={true}
         isDisabled={isSubmitting}
       />
@@ -163,22 +165,22 @@ const RegisterForm = () => {
       {/* Register Button */}
       <Button size="xl" className="my-2" onPress={handleSubmit(onSubmit)} isDisabled={isSubmitting}>
         <ButtonText size="lg">{isSubmitting
-          ? "Création du compte..."
-          : "Créer mon compte chef"}</ButtonText>
+          ? t("register.submittingButton")
+          : t("register.submitButton")}</ButtonText>
       </Button>
 
       {/* Divider */}
       <View className="flex-row items-center my-2">
         <View className="flex-1 h-px bg-gray-300" />
-        <Text className="mx-4 text-gray-500">Ou</Text>
+        <Text className="mx-4 text-gray-500">{t("common:labels.or")}</Text>
         <View className="flex-1 h-px bg-gray-300" />
       </View>
 
       {/* Login Link */}
       <View className="flex-row justify-center mb-4">
-        <Text className="text-base text-gray-500">Déjà chef partenaire? </Text>
+        <Text className="text-base text-gray-500">{t("register.hasAccount")} </Text>
         <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")} disabled={isSubmitting}>
-          <Text className="text-base text-primary-500 font-semibold">Se connecter</Text>
+          <Text className="text-base text-primary-500 font-semibold">{t("register.loginLink")}</Text>
         </TouchableOpacity>
       </View>
     </VStack>
