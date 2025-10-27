@@ -171,7 +171,7 @@ const OTPScreen = () => {
             </Center>
 
             {/* Progress indicator */}
-            <HStack className="justify-center space-x-2 mb-4">
+            <HStack className="justify-center gap-2 mb-4">
               {[1, 2, 3].map((step) => (
                 <View key={`step-${step}`} className={`h-1 rounded-full ${step === 2
 ? "bg-primary-500 w-16"

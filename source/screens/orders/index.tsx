@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/themed-view";
 import { Text } from "@/components/ui/text";
 import { Header } from "@/components/common/header";
@@ -69,26 +69,42 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="bg-white rounded-2xl p-4 mb-3"
+      className="bg-white rounded-2xl p-5 mb-4"
       style={{
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.05,
-        shadowRadius: 10,
-        elevation: 2,
+        shadowOpacity: 0.08,
+        shadowRadius: 12,
+        elevation: 3,
       }}
       activeOpacity={0.7}
     >
       {/* Header */}
-      <View className="flex-row justify-between items-center mb-3">
+      <View className="flex-row justify-between items-center mb-4">
         <View className="flex-1">
-          <Text className="text-lg font-bold text-gray-900 mb-1">
+          <Text className="text-xl font-bold text-gray-900 mb-1.5">
             {order.orderNumber}
           </Text>
-          <Text className="text-sm text-gray-500">{order.customerName}</Text>
+          <View className="flex-row items-center">
+            <Ionicons name="person-outline" size={14} color="#9CA3AF" />
+            <Text className="text-sm text-gray-500 ml-1">{order.customerName}</Text>
+          </View>
         </View>
-        <View className={`${statusConfig.bg} px-3 py-1.5 rounded-full`}>
-          <Text className={`text-xs font-semibold ${statusConfig.text}`}>
+        <View
+          className={`${statusConfig.bg} px-4 py-2 rounded-full flex-row items-center`}
+          style={{
+            shadowColor: statusConfig.icon,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+            elevation: 2,
+          }}
+        >
+          <View
+            className="w-2 h-2 rounded-full mr-2"
+            style={{ backgroundColor: statusConfig.icon }}
+          />
+          <Text className={`text-xs font-bold ${statusConfig.text} uppercase tracking-wide`}>
             {statusConfig.label}
           </Text>
         </View>
@@ -99,21 +115,21 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => {
 
       {/* Footer */}
       <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center gap-3">
+        <View className="flex-row items-center gap-4">
           <View className="flex-row items-center">
-            <View className="w-8 h-8 bg-gray-50 rounded-lg items-center justify-center mr-2">
-              <Feather name="shopping-bag" size={14} color="#6b7280" />
+            <View className="w-9 h-9 bg-orange-50 rounded-xl items-center justify-center mr-2">
+              <Ionicons name="fast-food-outline" size={16} color="#FF6347" />
             </View>
-            <Text className="text-sm text-gray-600">{order.items}</Text>
+            <Text className="text-sm font-semibold text-gray-700">{order.items} items</Text>
           </View>
           <View className="flex-row items-center">
-            <View className="w-8 h-8 bg-gray-50 rounded-lg items-center justify-center mr-2">
-              <Feather name="clock" size={14} color="#6b7280" />
+            <View className="w-9 h-9 bg-blue-50 rounded-xl items-center justify-center mr-2">
+              <Ionicons name="time-outline" size={16} color="#3B82F6" />
             </View>
-            <Text className="text-sm text-gray-600">{order.time}</Text>
+            <Text className="text-sm font-semibold text-gray-700">{order.time}</Text>
           </View>
         </View>
-        <Text className="text-xl font-bold text-orange-500">{order.total}</Text>
+        <Text className="text-2xl font-bold text-primary-500">{order.total}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -176,43 +192,89 @@ const OrdersScreen: React.FC = () => {
           onNotificationPress={() => console.log("Notifications pressed")}
         />
 
-        <View className="px-5 pt-4 pb-4 bg-white border-b border-gray-100">
+        {/* Stats Cards */}
+        <View className="px-5 pt-4 pb-2">
+          <View className="flex-row gap-3 mb-4">
+            <View
+              className="flex-1 bg-white rounded-2xl p-4"
+              style={{
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.05,
+                shadowRadius: 8,
+                elevation: 2,
+              }}
+            >
+              <View className="flex-row items-center justify-between mb-2">
+                <Ionicons name="receipt-outline" size={20} color="#FF6347" />
+                <Text className="text-2xl font-bold text-primary-500">12</Text>
+              </View>
+              <Text className="text-xs text-gray-600">Commandes actives</Text>
+            </View>
+            <View
+              className="flex-1 bg-white rounded-2xl p-4"
+              style={{
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.05,
+                shadowRadius: 8,
+                elevation: 2,
+              }}
+            >
+              <View className="flex-row items-center justify-between mb-2">
+                <Ionicons name="cash-outline" size={20} color="#10B981" />
+                <Text className="text-2xl font-bold text-green-600">€342</Text>
+              </View>
+              <Text className="text-xs text-gray-600">Revenu aujourd'hui</Text>
+            </View>
+          </View>
+        </View>
 
+        <View className="px-5 pb-4">
           {/* Tabs */}
-          <View className="flex-row gap-3">
+          <View
+            className="bg-white rounded-2xl p-1.5 flex-row"
+            style={{
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.05,
+              shadowRadius: 8,
+              elevation: 2,
+            }}
+          >
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedTab === "active" ? "bg-orange-500" : "bg-gray-100"
+                selectedTab === "active" ? "bg-primary-500" : ""
               }`}
               onPress={() => setSelectedTab("active")}
             >
               <Text
-                className={`text-center font-semibold ${
+                className={`text-center font-semibold text-sm ${
                   selectedTab === "active" ? "text-white" : "text-gray-600"
                 }`}
               >
-                Active (3)
+                Actives (3)
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               className={`flex-1 py-3 rounded-xl ${
-                selectedTab === "completed" ? "bg-orange-500" : "bg-gray-100"
+                selectedTab === "completed" ? "bg-primary-500" : ""
               }`}
               onPress={() => setSelectedTab("completed")}
             >
               <Text
-                className={`text-center font-semibold ${
+                className={`text-center font-semibold text-sm ${
                   selectedTab === "completed" ? "text-white" : "text-gray-600"
                 }`}
               >
-                Completed
+                Terminées
               </Text>
             </TouchableOpacity>
           </View>
         </View>
 
         {/* Orders List */}
-        <ScrollView className="flex-1 px-5 pt-4" showsVerticalScrollIndicator={false}>
+        <ScrollView className="flex-1 px-5 pt-5" showsVerticalScrollIndicator={false}>
           {orders.map((order) => (
             <OrderCard
               key={order.id}

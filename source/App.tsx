@@ -26,11 +26,10 @@ import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-d
 import "react-native-reanimated";
 import "./global.css";
 import MainNavigator from "./layouts";
-import DeliveryZoneScreen from "./screens/account/delivery-zone";
-import HelpSupportScreen from "./screens/account/help-support";
-import LanguageScreen from "./screens/account/language";
-import PaymentMethodsScreen from "./screens/account/payment-methods";
 import PersonalInfoScreen from "./screens/account/personal-info";
+import SettingsScreen from "./screens/account/settings";
+import WithdrawalHistoryScreen from "./screens/account/withdrawal-history";
+import UserReviewsScreen from "./screens/account/user-reviews";
 import LoginScreen from "./screens/auth/login";
 import OTPScreen from "./screens/auth/otp";
 import RegisterScreen from "./screens/auth/register";
@@ -41,6 +40,8 @@ import PersonalDocumentsScreen from "./screens/user-infos-collection/personal-do
 import UploadDocumentsScreen from "./screens/user-infos-collection/upload-documents";
 import Onboarding from "./screens/onboarding";
 import OrderDetailsScreen from "./screens/order-details";
+import AddMenuItemScreen from "./screens/menu/add";
+import FoodDetailsScreen from "./screens/menu/food-details";
 
 const Stack = createStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -119,12 +120,13 @@ export default function App() {
             <Stack.Screen name="UploadDocumentsScreen" component={UploadDocumentsScreen} options={createScreenOptions("Upload documents")} />
             <Stack.Screen name="InformationVerificationScreen" component={InformationVerificationScreen} />
             <Stack.Screen name="MainNavigator" component={MainNavigator} />
-            <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen} options={createScreenOptions("Informations personnelles")} />
-            <Stack.Screen name="PaymentMethodsScreen" component={PaymentMethodsScreen} options={createScreenOptions("Méthodes de paiement")} />
-            <Stack.Screen name="DeliveryZoneScreen" component={DeliveryZoneScreen} options={createScreenOptions("Zone de livraison")} />
-            <Stack.Screen name="HelpSupportScreen" component={HelpSupportScreen} options={createScreenOptions("Support")} />
-            <Stack.Screen name="LanguageScreen" component={LanguageScreen} options={createScreenOptions("Langue")} />
+            <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen}  />
+            <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+            <Stack.Screen name="WithdrawalHistoryScreen" component={WithdrawalHistoryScreen} />
+            <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
             <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
+            <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
+            <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </AutocompleteDropdownContextProvider>

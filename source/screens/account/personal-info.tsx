@@ -1,36 +1,42 @@
+import React, { useState } from "react";
+import {
+  ScrollView,
+  View,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/themed-view";
-import { Avatar, AvatarFallbackText, AvatarImage } from "@/components/ui/avatar";
-import { Box } from "@/components/ui/box";
-import { Button } from "@/components/ui/button";
-import { Heading } from "@/components/ui/heading";
-import { HStack } from "@/components/ui/hstack";
-import { Input, InputField } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
-import { VStack } from "@/components/ui/vstack";
-import Feather from "@expo/vector-icons/Feather";
+import { Avatar, AvatarFallbackText, AvatarImage } from "@/components/ui/avatar";
+import {
+  FormControl,
+  FormControlLabel,
+  FormControlLabelText,
+} from "@/components/ui/form-control";
+import { Input, InputField, InputSlot } from "@/components/ui/input";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigation } from "@/types/navigation";
 import * as ImagePicker from "expo-image-picker";
-import React from "react";
-import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 
-const PersonalInfoScreen = () => {
-  // État pour stocker les données du formulaire
-  const [formData, setFormData] = React.useState({
+const PersonalInfoScreen: React.FC = () => {
+  const navigation = useNavigation<StackNavigation>();
+
+  const [formData, setFormData] = useState({
     firstName: "Ronald",
     lastName: "Richards",
     email: "ronaldrichards@example.com",
     phone: "+111 1234 56 89",
-    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    address: "123 Restaurant Street",
+    city: "Paris",
+    country: "France",
+    avatar:
+      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
   });
 
-  // État pour les champs d'entrée modifiés
-  const [modified, setModified] = React.useState({
-    firstName: false,
-    lastName: false,
-    email: false,
-    phone: false,
-  });
-
-  // Pour choisir une nouvelle image de profil
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -47,156 +53,324 @@ const PersonalInfoScreen = () => {
     }
   };
 
-  // Pour gérer les changements dans le formulaire
-  const handleChange = (field: keyof typeof formData, value: string) => {
-    setFormData({
-      ...formData,
-      [field]: value,
-    });
-    setModified({
-      ...modified,
-      [field]: true,
-    });
+  const handleSave = () => {
+    Alert.alert(
+      "Modifications enregistrées",
+      "Vos informations ont été mises à jour avec succès.",
+      [{ text: "OK" }]
+    );
   };
 
-  // Pour sauvegarder les modifications
-  const handleSave = () => {
-    Alert.alert("Modifications enregistrées", "Vos informations personnelles ont été mises à jour avec succès.", [{ text: "OK" }]);
+  const handleDeleteAccount = () => {
+    Alert.alert(
+      "Supprimer le compte",
+      "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+      [
+        { text: "Annuler", style: "cancel" },
+        { text: "Supprimer", style: "destructive", onPress: () => console.log("Account deleted") },
+      ]
+    );
   };
 
   return (
     <ThemedView>
-      <SafeAreaView className="flex-1">
-        <KeyboardAvoidingView behavior={Platform.OS === "ios"
-? "padding"
-: "height"} className="flex-1">
-          <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }} className="flex-1">
-            <VStack space="xl" className="px-5 py-6">
-              {/* En-tête */}
-              <Heading size="xl" className="text-gray-800 mb-2">
-                Informations personnelles
-              </Heading>
+      <SafeAreaView className="flex-1" edges={["top"]}>
+        {/* Header */}
+        <View className="px-5 pt-4 pb-4 flex-row items-center">
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            className="w-10 h-10 items-center justify-center mr-3"
+          >
+            <Ionicons name="arrow-back" size={24} color="#1F2937" />
+          </TouchableOpacity>
+          <View className="flex-1">
+            <Text className="text-2xl font-bold text-gray-900">Personal Info</Text>
+            <Text className="text-sm text-gray-500">Gérez vos informations</Text>
+          </View>
+        </View>
 
-              {/* Photo de profil */}
-              <VStack className="items-center mb-4">
-                <Box className="relative">
-                  <Avatar size="2xl" className="border-2 border-white shadow-md">
-                    <AvatarFallbackText>{formData.firstName[0] + formData.lastName[0]}</AvatarFallbackText>
-                    <AvatarImage source={{ uri: formData.avatar }} />
-                  </Avatar>
-                  <TouchableOpacity onPress={pickImage} className="absolute bottom-0 right-0 bg-primary-500 rounded-full p-2 shadow-md border-2 border-white" style={{ elevation: 3 }}>
-                    <Feather name="camera" size={18} color="#FFFFFF" />
-                  </TouchableOpacity>
-                </Box>
-                <Text className="text-gray-500 mt-2">Appuyez pour changer la photo</Text>
-              </VStack>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          className="flex-1"
+        >
+          <ScrollView className="flex-1 px-5" showsVerticalScrollIndicator={false}>
+            {/* Avatar Section */}
+            <View
+              className="bg-white rounded-2xl p-6 mb-5 items-center"
+              style={{
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.05,
+                shadowRadius: 8,
+                elevation: 2,
+              }}
+            >
+              <View className="relative mb-3">
+                <Avatar size="2xl" className="border-4 border-primary-100">
+                  <AvatarFallbackText>
+                    {formData.firstName[0] + formData.lastName[0]}
+                  </AvatarFallbackText>
+                  <AvatarImage source={{ uri: formData.avatar }} />
+                </Avatar>
+                <TouchableOpacity
+                  onPress={pickImage}
+                  className="absolute bottom-0 right-0 bg-primary-500 rounded-full p-3"
+                  style={{
+                    shadowColor: "#FF6347",
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 8,
+                    elevation: 5,
+                  }}
+                  activeOpacity={0.8}
+                >
+                  <Ionicons name="camera" size={18} color="#FFFFFF" />
+                </TouchableOpacity>
+              </View>
+              <Text className="text-xl font-bold text-gray-900 mb-1">
+                {formData.firstName} {formData.lastName}
+              </Text>
+              <Text className="text-sm text-gray-500">Appuyez sur l'icône pour changer</Text>
+            </View>
 
-              {/* Formulaire */}
-              <Box className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-                <VStack space="md">
-                  {/* Prénom */}
-                  <VStack space="xs">
-                    <Text size="sm" className="text-gray-600 font-medium ml-1">
+            {/* Personal Information Section */}
+            <View className="mb-5">
+              <View className="px-1 mb-3">
+                <Text className="text-xs text-gray-500 font-bold uppercase tracking-wider">
+                  Informations personnelles
+                </Text>
+              </View>
+              <View
+                className="bg-white rounded-2xl p-5"
+                style={{
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.05,
+                  shadowRadius: 8,
+                  elevation: 2,
+                }}
+              >
+                {/* First Name */}
+                <FormControl className="mb-4">
+                  <FormControlLabel>
+                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
                       Prénom
-                    </Text>
-                    <Input size="lg" variant="rounded" className={modified.firstName
-? "border-blue-400"
-: ""}>
-                      <InputField placeholder="Prénom" value={formData.firstName} onChangeText={(text) => handleChange("firstName", text)} />
-                    </Input>
-                  </VStack>
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Input variant="outline" size="lg" className="rounded-2xl">
+                    <InputSlot className="pl-4">
+                      <Ionicons name="person-outline" size={18} color="#3B82F6" />
+                    </InputSlot>
+                    <InputField
+                      value={formData.firstName}
+                      onChangeText={(text) => setFormData({ ...formData, firstName: text })}
+                      placeholder="Entrez votre prénom"
+                      className="text-base"
+                    />
+                  </Input>
+                </FormControl>
 
-                  {/* Nom */}
-                  <VStack space="xs">
-                    <Text size="sm" className="text-gray-600 font-medium ml-1">
+                {/* Last Name */}
+                <FormControl className="mb-4">
+                  <FormControlLabel>
+                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
                       Nom
-                    </Text>
-                    <Input size="lg" variant="rounded" className={modified.lastName
-? "border-blue-400"
-: ""}>
-                      <InputField placeholder="Nom" value={formData.lastName} onChangeText={(text) => handleChange("lastName", text)} />
-                    </Input>
-                  </VStack>
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Input variant="outline" size="lg" className="rounded-2xl">
+                    <InputSlot className="pl-4">
+                      <Ionicons name="person-outline" size={18} color="#3B82F6" />
+                    </InputSlot>
+                    <InputField
+                      value={formData.lastName}
+                      onChangeText={(text) => setFormData({ ...formData, lastName: text })}
+                      placeholder="Entrez votre nom"
+                      className="text-base"
+                    />
+                  </Input>
+                </FormControl>
 
-                  {/* Email */}
-                  <VStack space="xs">
-                    <Text size="sm" className="text-gray-600 font-medium ml-1">
+                {/* Email */}
+                <FormControl className="mb-4">
+                  <FormControlLabel>
+                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
                       Email
-                    </Text>
-                    <Input size="lg" variant="rounded" className={modified.email
-? "border-blue-400"
-: ""}>
-                      <InputField placeholder="Email" value={formData.email} onChangeText={(text) => handleChange("email", text)} keyboardType="email-address" />
-                    </Input>
-                  </VStack>
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Input variant="outline" size="lg" className="rounded-2xl">
+                    <InputSlot className="pl-4">
+                      <Ionicons name="mail-outline" size={18} color="#8B5CF6" />
+                    </InputSlot>
+                    <InputField
+                      value={formData.email}
+                      onChangeText={(text) => setFormData({ ...formData, email: text })}
+                      placeholder="exemple@email.com"
+                      keyboardType="email-address"
+                      autoCapitalize="none"
+                      className="text-base"
+                    />
+                  </Input>
+                </FormControl>
 
-                  {/* Téléphone */}
-                  <VStack space="xs">
-                    <Text size="sm" className="text-gray-600 font-medium ml-1">
+                {/* Phone */}
+                <FormControl>
+                  <FormControlLabel>
+                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
                       Téléphone
-                    </Text>
-                    <Input size="lg" variant="rounded" className={modified.phone
-? "border-blue-400"
-: ""}>
-                      <InputField placeholder="Téléphone" value={formData.phone} onChangeText={(text) => handleChange("phone", text)} keyboardType="phone-pad" />
-                    </Input>
-                  </VStack>
-                </VStack>
-              </Box>
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Input variant="outline" size="lg" className="rounded-2xl">
+                    <InputSlot className="pl-4">
+                      <Ionicons name="call-outline" size={18} color="#10B981" />
+                    </InputSlot>
+                    <InputField
+                      value={formData.phone}
+                      onChangeText={(text) => setFormData({ ...formData, phone: text })}
+                      placeholder="+33 6 12 34 56 78"
+                      keyboardType="phone-pad"
+                      className="text-base"
+                    />
+                  </Input>
+                </FormControl>
+              </View>
+            </View>
 
-              {/* Sécurité et mot de passe */}
-              {/* <Box className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-                <VStack space="md">
-                  <Text className="text-gray-800 font-semibold">Sécurité</Text>
-                  <TouchableOpacity>
-                    <HStack className="justify-between py-3" space="md">
-                      <HStack space="md">
-                        <Box className="bg-gray-50 rounded-full flex items-center justify-center w-9 h-9" style={{ alignItems: "center", justifyContent: "center" }}>
-                          <Feather name="shield" size={16} color="#4B5563" style={{ textAlign: "center", alignSelf: "center" }} />
-                        </Box>
-                        <VStack>
-                          <Text className="text-gray-800">Authentification à deux facteurs</Text>
-                          <Text size="xs" className="text-gray-500">
-                            Améliorer la sécurité de votre compte
-                          </Text>
-                        </VStack>
-                      </HStack>
-                      <Feather name="chevron-right" size={16} color="#9CA3AF" />
-                    </HStack>
-                  </TouchableOpacity>
-                </VStack>
-              </Box> */}
+            {/* Address Section */}
+            <View className="mb-5">
+              <View className="px-1 mb-3">
+                <Text className="text-xs text-gray-500 font-bold uppercase tracking-wider">
+                  Adresse
+                </Text>
+              </View>
+              <View
+                className="bg-white rounded-2xl p-5"
+                style={{
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.05,
+                  shadowRadius: 8,
+                  elevation: 2,
+                }}
+              >
+                {/* Address */}
+                <FormControl className="mb-4">
+                  <FormControlLabel>
+                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
+                      Adresse
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Input variant="outline" size="lg" className="rounded-2xl">
+                    <InputSlot className="pl-4">
+                      <Ionicons name="home-outline" size={18} color="#FF6347" />
+                    </InputSlot>
+                    <InputField
+                      value={formData.address}
+                      onChangeText={(text) => setFormData({ ...formData, address: text })}
+                      placeholder="123 Rue de la Paix"
+                      className="text-base"
+                    />
+                  </Input>
+                </FormControl>
 
-              {/* Actions sur le compte */}
-              <Box className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
-                <VStack space="md">
-                  <Text className="text-gray-800 font-semibold">Actions sur le compte</Text>
+                {/* City */}
+                <FormControl className="mb-4">
+                  <FormControlLabel>
+                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
+                      Ville
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Input variant="outline" size="lg" className="rounded-2xl">
+                    <InputSlot className="pl-4">
+                      <Ionicons name="location-outline" size={18} color="#F59E0B" />
+                    </InputSlot>
+                    <InputField
+                      value={formData.city}
+                      onChangeText={(text) => setFormData({ ...formData, city: text })}
+                      placeholder="Paris"
+                      className="text-base"
+                    />
+                  </Input>
+                </FormControl>
 
-                  <TouchableOpacity>
-                    <HStack className="justify-between py-3" space="md">
-                      <HStack space="md">
-                        <Box className="bg-red-50 rounded-full flex items-center justify-center w-9 h-9" style={{ alignItems: "center", justifyContent: "center" }}>
-                          <Feather name="trash-2" size={16} color="#EF4444" style={{ textAlign: "center", alignSelf: "center" }} />
-                        </Box>
-                        <VStack>
-                          <Text className="text-red-500">Supprimer le compte</Text>
-                          <Text size="xs" className="text-gray-500">
-                            Effacer toutes vos données
-                          </Text>
-                        </VStack>
-                      </HStack>
-                      <Feather name="chevron-right" size={16} color="#9CA3AF" />
-                    </HStack>
-                  </TouchableOpacity>
-                </VStack>
-              </Box>
+                {/* Country */}
+                <FormControl>
+                  <FormControlLabel>
+                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
+                      Pays
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Input variant="outline" size="lg" className="rounded-2xl">
+                    <InputSlot className="pl-4">
+                      <Ionicons name="globe-outline" size={18} color="#14B8A6" />
+                    </InputSlot>
+                    <InputField
+                      value={formData.country}
+                      onChangeText={(text) => setFormData({ ...formData, country: text })}
+                      placeholder="France"
+                      className="text-base"
+                    />
+                  </Input>
+                </FormControl>
+              </View>
+            </View>
 
-              {/* Bouton de sauvegarde */}
-              <Button size="lg" variant="solid" className="mt-4 shadow-sm" onPress={handleSave}>
-                <Text className="text-white font-medium">Enregistrer les modifications</Text>
-              </Button>
-            </VStack>
+            {/* Danger Zone */}
+            <View className="mb-8">
+              <View className="px-1 mb-3">
+                <Text className="text-xs text-gray-500 font-bold uppercase tracking-wider">
+                  Zone de danger
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={handleDeleteAccount}
+                className="bg-white rounded-2xl p-5 flex-row items-center"
+                style={{
+                  shadowColor: "#EF4444",
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.1,
+                  shadowRadius: 8,
+                  elevation: 2,
+                  borderWidth: 1,
+                  borderColor: "#FEE2E2",
+                }}
+                activeOpacity={0.7}
+              >
+                <View className="w-11 h-11 bg-red-50 rounded-xl items-center justify-center mr-3">
+                  <Ionicons name="trash-outline" size={22} color="#EF4444" />
+                </View>
+                <View className="flex-1">
+                  <Text className="text-base font-bold text-red-500 mb-0.5">
+                    Supprimer le compte
+                  </Text>
+                  <Text className="text-xs text-gray-500">
+                    Effacer toutes vos données définitivement
+                  </Text>
+                </View>
+                <Ionicons name="chevron-forward" color="#EF4444" size={18} />
+              </TouchableOpacity>
+            </View>
           </ScrollView>
+
+          {/* Save Button */}
+          <View className="px-5 pb-4 mb-6">
+            <TouchableOpacity
+              onPress={handleSave}
+              className="bg-primary-500 rounded-2xl py-4 flex-row items-center justify-center"
+              style={{
+                shadowColor: "#FF6347",
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                shadowRadius: 8,
+                elevation: 5,
+              }}
+              activeOpacity={0.8}
+            >
+              <Ionicons name="checkmark-circle" size={22} color="#FFFFFF" />
+              <Text className="text-white font-bold text-base ml-2">
+                Enregistrer les modifications
+              </Text>
+            </TouchableOpacity>
+          </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </ThemedView>

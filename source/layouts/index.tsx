@@ -2,7 +2,7 @@ import { Avatar, AvatarBadge, AvatarFallbackText, AvatarImage } from "@/componen
 import AccountScreen from "@/screens/account";
 import DashboardScreen from "@/screens/dashboard";
 import OrdersScreen from "@/screens/orders";
-import MenuScreen from "@/screens/menu";
+import MenuScreen from "../screens/menu";
 import AnalyticsScreen from "@/screens/analytics";
 import Feather from "@expo/vector-icons/Feather";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
