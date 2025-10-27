@@ -1,0 +1,57 @@
+{
+  "buttons": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "reset": "Réinitialiser",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer",
+    "submit": "Soumettre",
+    "continue": "Continuer",
+    "skip": "Passer",
+    "done": "Terminé",
+    "ok": "OK",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "labels": {
+    "or": "Ou",
+    "required": "Requis",
+    "optional": "Optionnel",
+    "loading": "Chargement...",
+    "noData": "Aucune donnée disponible",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Attention",
+    "info": "Information"
+  },
+  "time": {
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "tomorrow": "Demain",
+    "thisWeek": "Cette semaine",
+    "thisMonth": "Ce mois-ci",
+    "thisYear": "Cette année",
+    "minutes": "{{count}} min",
+    "hours": "{{count}}h",
+    "days": "{{count}}j"
+  },
+  "currency": {
+    "symbol": "€",
+    "format": "{{amount}} €"
+  },
+  "status": {
+    "active": "Actif",
+    "inactive": "Inactif",
+    "pending": "En attente",
+    "completed": "Terminé",
+    "cancelled": "Annulé"
+  }
+}
