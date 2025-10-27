@@ -7,6 +7,7 @@ import { VStack } from "@/components/ui/vstack";
 import { StackNavigation } from "@/types/navigation";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "@/hooks/useTranslation";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Keyboard, Pressable, SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
@@ -19,6 +20,7 @@ type ResendStatus = "idle" | "sending" | "sent" | "failed";
 const RESEND_TIMEOUT: number = 60; // 60 seconds for resend timeout
 
 const OTPScreen = () => {
+  const { t } = useTranslation("auth");
   const navigation = useNavigation<StackNavigation>();
   const [otp, setOtp] = useState<string>("");
   const [timeLeft, setTimeLeft] = useState<number>(RESEND_TIMEOUT);
@@ -181,8 +183,8 @@ const OTPScreen = () => {
 
             {/* Header Text */}
             <View>
-              <Text className="text-xl font-bold text-center mb-2">Vérification par code</Text>
-              <Text className="text-center text-gray-600 mb-6">Entrez le code à 6 chiffres envoyé sur votre téléphone pour activer votre compte chef.</Text>
+              <Text className="text-xl font-bold text-center mb-2">{t("otp.title")}</Text>
+              <Text className="text-center text-gray-600 mb-6">{t("otp.subtitle")}</Text>
             </View>
 
             {/* OTP Input Fields */}
@@ -230,8 +232,8 @@ const OTPScreen = () => {
                   <Text className={`${verificationStatus === "success"
 ? "text-green-600"
 : "text-red-500"}`}>{verificationStatus === "success"
-? "Code vérifié avec succès"
-: "Code incorrect, veuillez réessayer"}</Text>
+? t("otp.success")
+: t("otp.error")}</Text>
                 </HStack>
               </Animated.View>
             )}
@@ -241,7 +243,7 @@ const OTPScreen = () => {
               <Animated.View entering={SlideInRight.duration(400)} className="items-center my-1">
                 <HStack className="items-center" space="xs">
                   <Feather name="check-circle" size={16} color="#10B981" />
-                  <Text className="text-green-600 text-sm">Nouveau code envoyé avec succès</Text>
+                  <Text className="text-green-600 text-sm">{t("otp.resendSuccess")}</Text>
                 </HStack>
               </Animated.View>
             )}
@@ -250,13 +252,13 @@ const OTPScreen = () => {
               <Animated.View entering={SlideInRight.duration(400)} className="items-center my-1">
                 <HStack className="items-center" space="xs">
                   <Feather name="alert-circle" size={16} color="#EF4444" />
-                  <Text className="text-red-500 text-sm">Échec de l'envoi, réessayez plus tard</Text>
+                  <Text className="text-red-500 text-sm">{t("otp.resendError")}</Text>
                 </HStack>
               </Animated.View>
             )}
 
             {/* "A code has been sent" Text */}
-            <Text style={styles.subText}>Un code de vérification a été envoyé à votre numéro</Text>
+            <Text style={styles.subText}>{t("otp.codeSent")}</Text>
 
             {/* Resend Timer */}
             <Pressable onPress={handleResendOtp} disabled={timeLeft > 0 || isResending || verificationStatus === "success"} className={`items-center py-2 ${timeLeft === 0
@@ -267,7 +269,7 @@ const OTPScreen = () => {
                 <HStack space="sm" className="items-center">
                   <ActivityIndicator size="small" color="#FF6347" />
                   <Text size="md" className="font-medium">
-                    Envoi en cours...
+                    {t("otp.sending")}
                   </Text>
                 </HStack>
               )
@@ -276,8 +278,8 @@ const OTPScreen = () => {
 ? "text-primary-500"
 : "text-gray-500"}`}>
                   {timeLeft === 0
-? "Renvoyer le code"
-: `Renvoyer dans ${formatTime(timeLeft)}`}
+? t("otp.resend")
+: t("otp.resendIn", { time: formatTime(timeLeft) })}
                 </Text>
               )}
             </Pressable>
@@ -289,15 +291,15 @@ const OTPScreen = () => {
 : ""}`} onPress={handleVerify} disabled={!isConfirmEnabled}>
                 {isVerifying
 ? <ActivityIndicator size="small" color="white" />
-: <ButtonText size="lg">Vérifier</ButtonText>}
+: <ButtonText size="lg">{t("otp.verify")}</ButtonText>}
               </Button>
             </Animated.View>
 
             {/* Back link */}
             <View className="flex-row justify-center mt-2">
-              <Text className="text-base text-gray-500">Problème avec le code ? </Text>
+              <Text className="text-base text-gray-500">{t("otp.problem")} </Text>
               <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Text className="text-base text-primary-500 font-bold">Modifier le numéro</Text>
+                <Text className="text-base text-primary-500 font-bold">{t("otp.changeNumber")}</Text>
               </TouchableOpacity>
             </View>
 

@@ -8,8 +8,10 @@ import { ICountry } from "@/types";
 import { FormInputControlPhone } from "@/components/common/form-input-control-phone";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigation } from "@/types/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const LoginForm = () => {
+  const { t } = useTranslation("auth");
   const navigation = useNavigation<StackNavigation>();
   const [country, setCountry] = useState<ICountry>({
     calling_codes: [242],
@@ -36,31 +38,31 @@ const LoginForm = () => {
         name="phone"
         error={errors.phone?.message}
         defaultValue={watch("phone")}
-        label="Numéro de téléphone"
-        placeholder="Entrez votre numéro de téléphone"
+        label={t("login.phoneLabel")}
+        placeholder={t("login.phonePlaceholder")}
         country={country}
         setCountry={setCountry}
-        textInfo="Format: +33 6 XX XX XX XX"
+        textInfo={t("login.phoneFormat")}
         isRequired={true}
       />
       <Button size="xl" className="my-2" onPress={() => null}>
-        <ButtonText size="lg">Se connecter</ButtonText>
+        <ButtonText size="lg">{t("login.submitButton")}</ButtonText>
       </Button>
 
       {/* Divider */}
       <View className="flex-row items-center my-2">
         <View className="flex-1 h-px bg-gray-300" />
-        <Text className="mx-4 text-gray-500">Ou</Text>
+        <Text className="mx-4 text-gray-500">{t("common:labels.or")}</Text>
         <View className="flex-1 h-px bg-gray-300" />
       </View>
 
       {/* Register Link */}
       <View className="flex-row justify-center mt-4">
         <Text className="text-base text-gray-500">
-          Vous n&lsquo;avez pas de compte ?
+          {t("login.noAccount")}
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
-          <Text className="text-base text-blue-500">S&lsquo;inscrire</Text>
+          <Text className="text-base text-blue-500">{t("login.signupLink")}</Text>
         </TouchableOpacity>
       </View>
     </VStack>
