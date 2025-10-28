@@ -104,7 +104,11 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = React.memo(
                   label="En cours"
                   value={`${item.currentOrders}/${item.maxConcurrentOrders}`}
                   highlight={isAtCapacity}
-                  valueColor={isAtCapacity ? "#EF4444" : capacityPercentage > 70 ? "#F59E0B" : "#6B7280"}
+                  valueColor={isAtCapacity
+? "#EF4444"
+: capacityPercentage > 70
+? "#F59E0B"
+: "#6B7280"}
                 />
                 <MetricItem
                   label="Vendus"

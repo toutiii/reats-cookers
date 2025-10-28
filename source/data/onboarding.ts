@@ -1,30 +1,31 @@
 import type { OnboardingScreens } from "../types/onboarding";
+import i18n from "@/locales";
 
 const imagePath = "@/assets/images/onboarding";
 
 export const getOnboardingScreens = (): OnboardingScreens => [
   {
     id: 1,
-    title: "Discover Professional Chefs",
-    description: "Browse through hundreds of talented chefs in your area. From home cooking to gourmet cuisine, find the perfect chef for any occasion.",
+    title: i18n.t("onboarding:slides.slide1.title"),
+    description: i18n.t("onboarding:slides.slide1.description"),
     image: require(`${imagePath}/shipping.png`),
   },
   {
     id: 2,
-    title: "Book Your Culinary Experience",
-    description: "Schedule private cooking sessions, catering services, or cooking classes. Choose your menu, date, and let our chefs handle the rest.",
+    title: i18n.t("onboarding:slides.slide2.title"),
+    description: i18n.t("onboarding:slides.slide2.description"),
     image: require(`${imagePath}/shipping.png`),
   },
   {
     id: 3,
-    title: "Live Cooking at Your Place",
-    description: "Experience restaurant-quality meals in the comfort of your home. Watch professional chefs prepare delicious dishes with fresh ingredients.",
+    title: i18n.t("onboarding:slides.slide3.title"),
+    description: i18n.t("onboarding:slides.slide3.description"),
     image: require(`${imagePath}/shipping.png`),
   },
   {
     id: 4,
-    title: "Rate & Share Your Experience",
-    description: "Leave reviews, share photos of your meals, and help others discover amazing chefs. Build your culinary community today.",
+    title: i18n.t("onboarding:slides.slide4.title"),
+    description: i18n.t("onboarding:slides.slide4.description"),
     image: require(`${imagePath}/shipping.png`),
   },
 ];

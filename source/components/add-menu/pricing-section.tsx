@@ -43,7 +43,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
         <View className="w-1 h-4 bg-primary-500 rounded-full mr-2" />
         <Text className="text-base font-bold">Tarification</Text>
       </View>
-      
+
       <View className="bg-white rounded-2xl p-4">
         <View className="flex-row gap-3">
           <View className="flex-1">
@@ -57,11 +57,13 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               placeholderTextColor="#9CA3AF"
               keyboardType="decimal-pad"
               className={`bg-gray-50 rounded-xl px-4 py-3 text-center font-semibold text-lg ${
-                errors.price ? "border border-red-300" : ""
+                errors.price
+? "border border-red-300"
+: ""
               }`}
             />
           </View>
-          
+
           <View className="flex-1">
             <Text className="text-xs font-semibold mb-2 uppercase tracking-wide">
               Coût (€) *
@@ -73,12 +75,14 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               placeholderTextColor="#9CA3AF"
               keyboardType="decimal-pad"
               className={`bg-gray-50 rounded-xl px-4 py-3 text-center font-semibold text-lg ${
-                errors.cost ? "border border-red-300" : ""
+                errors.cost
+? "border border-red-300"
+: ""
               }`}
             />
           </View>
         </View>
-        
+
         {/* Margin Calculation */}
         {margin && (
           <View className="mt-4 bg-green-50 rounded-xl p-3">
@@ -90,7 +94,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
             </View>
           </View>
         )}
-        
+
         {/* Delivery Options */}
         <View className="mt-4">
           <Text className="text-xs font-semibold mb-2 uppercase tracking-wide">
@@ -108,17 +112,21 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               <Ionicons
                 name="storefront-outline"
                 size={18}
-                color={deliveryType === "pickup" ? "#fff" : "#6B7280"}
+                color={deliveryType === "pickup"
+? "#fff"
+: "#6B7280"}
               />
               <Text
                 className={`ml-2 font-semibold text-sm ${
-                  deliveryType === "pickup" ? "text-white" : "text-gray-700"
+                  deliveryType === "pickup"
+? "text-white"
+: "text-gray-700"
                 }`}
               >
                 Sur place
               </Text>
             </TouchableOpacity>
-            
+
             <TouchableOpacity
               onPress={() => onDeliveryTypeChange("delivery")}
               className={`flex-1 py-3 rounded-xl flex-row items-center justify-center ${
@@ -130,11 +138,15 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               <Ionicons
                 name="bicycle-outline"
                 size={18}
-                color={deliveryType === "delivery" ? "#fff" : "#6B7280"}
+                color={deliveryType === "delivery"
+? "#fff"
+: "#6B7280"}
               />
               <Text
                 className={`ml-2 font-semibold text-sm ${
-                  deliveryType === "delivery" ? "text-white" : "text-gray-700"
+                  deliveryType === "delivery"
+? "text-white"
+: "text-gray-700"
                 }`}
               >
                 Livraison

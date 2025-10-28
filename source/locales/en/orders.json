@@ -1,0 +1,78 @@
+{
+  "header": {
+    "title": "Orders",
+    "subtitle": "Manage your orders",
+    "manageOrders": "Manage your orders",
+    "activeOrders": "Active orders"
+  },
+  "status": {
+    "pending": "Pending",
+    "preparing": "Preparing",
+    "ready": "Ready",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "delivered": "Delivered"
+  },
+  "filters": {
+    "all": "All",
+    "active": "Active",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "activeCount": "Active ({{count}})"
+  },
+  "actions": {
+    "accept": "Accept",
+    "reject": "Reject",
+    "startPreparing": "Start",
+    "markReady": "Mark ready",
+    "markCompleted": "Mark completed",
+    "cancel": "Cancel",
+    "viewDetails": "View details"
+  },
+  "details": {
+    "orderNumber": "Order #{{number}}",
+    "customer": "Customer",
+    "items": "Items",
+    "total": "Total",
+    "time": "Time",
+    "deliveryAddress": "Delivery address",
+    "paymentMethod": "Payment method",
+    "notes": "Notes",
+    "specialInstructions": "Special instructions"
+  },
+  "card": {
+    "orderNumber": "Order #{{number}}",
+    "items": "{{count}} item",
+    "items_plural": "{{count}} items",
+    "total": "Total",
+    "customer": "Customer",
+    "time": "Time",
+    "viewDetails": "View details",
+    "itemsLabel": "items"
+  },
+  "empty": {
+    "title": "No orders",
+    "message": "You don't have any orders yet",
+    "action": "Refresh"
+  },
+  "stats": {
+    "activeOrders": "Active orders",
+    "todayRevenue": "Today's revenue"
+  },
+  "payment": {
+    "summary": "Payment summary",
+    "subtotal": "Subtotal",
+    "deliveryFee": "Delivery fee",
+    "tax": "Tax",
+    "total": "Total",
+    "paid": "Paid",
+    "unpaid": "Unpaid"
+  },
+  "customerInfo": {
+    "title": "Customer information",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address"
+  }
+}

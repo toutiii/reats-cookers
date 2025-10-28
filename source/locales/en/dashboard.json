@@ -1,0 +1,62 @@
+{
+  "header": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your restaurant",
+    "dashboard": "Dashboard",
+    "overview": "Overview of your restaurant"
+  },
+  "welcome": {
+    "greeting": "Hello, {{name}}",
+    "message": "Here's an overview of your activity"
+  },
+  "stats": {
+    "activeOrders": "Active Orders",
+    "pending": "Pending",
+    "todayRevenue": "Today's Revenue",
+    "customersServed": "Customers Served",
+    "totalRevenue": "Total Revenue",
+    "averageOrderValue": "Average Order Value",
+    "completedOrders": "Completed Orders",
+    "trend": "+{{value}}%"
+  },
+  "chart": {
+    "title": "Revenue",
+    "today": "Today",
+    "week": "This week",
+    "month": "This month",
+    "year": "This year"
+  },
+  "reviews": {
+    "title": "Recent reviews",
+    "viewAll": "View all reviews",
+    "rating": "Average rating",
+    "totalReviews": "{{count}} reviews",
+    "noReviews": "No reviews yet"
+  },
+  "popularItems": {
+    "title": "Popular dishes",
+    "viewAll": "View full menu",
+    "soldToday": "{{count}} sold today",
+    "revenue": "{{amount}} revenue"
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "addDish": "Add Dish",
+    "viewOrders": "View Orders",
+    "viewMenu": "View Menu",
+    "viewAnalytics": "View Analytics",
+    "manageMenu": "Manage Menu",
+    "viewReports": "View Reports"
+  },
+  "periods": {
+    "today": "Today",
+    "week": "This week",
+    "month": "This month",
+    "year": "This year"
+  },
+  "trends": {
+    "up": "+{{value}}%",
+    "down": "-{{value}}%",
+    "stable": "Stable"
+  }
+}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { ThemedView } from "@/components/themed-view";
 import { Header } from "@/components/common/header";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
   StatCard,
   WelcomeSection,
@@ -13,14 +14,15 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const DashboardScreen: React.FC = () => {
+  const { t } = useTranslation("dashboard");
   const [selectedPeriod] = useState("Today");
 
   return (
     <ThemedView>
       <SafeAreaView className="flex-1" edges={["top"]}>
         <Header
-          title="Dashboard"
-          subtitle="Overview of your restaurant"
+          title={t("header.title")}
+          subtitle={t("header.subtitle")}
           notificationCount={3}
           onNotificationPress={() => console.log("Notifications pressed")}
         />
@@ -31,7 +33,7 @@ const DashboardScreen: React.FC = () => {
               <StatCard
                 iconName="shopping-bag"
                 value="20"
-                label="Active Orders"
+                label={t("stats.activeOrders")}
                 trend="+12%"
                 bgColor="bg-orange-50"
                 iconColor="#f97316"
@@ -39,7 +41,7 @@ const DashboardScreen: React.FC = () => {
               <StatCard
                 iconName="clock"
                 value="5"
-                label="Pending"
+                label={t("stats.pending")}
                 bgColor="bg-blue-50"
                 iconColor="#3b82f6"
               />
@@ -50,7 +52,7 @@ const DashboardScreen: React.FC = () => {
               <StatCard
                 iconName="dollar-sign"
                 value="€2,241"
-                label="Today's Revenue"
+                label={t("stats.todayRevenue")}
                 trend="+8%"
                 bgColor="bg-green-50"
                 iconColor="#10b981"
@@ -58,7 +60,7 @@ const DashboardScreen: React.FC = () => {
               <StatCard
                 iconName="users"
                 value="142"
-                label="Customers Served"
+                label={t("stats.customersServed")}
                 bgColor="bg-purple-50"
                 iconColor="#8b5cf6"
               />

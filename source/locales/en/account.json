@@ -1,0 +1,100 @@
+{
+  "header": {
+    "title": "Profile",
+    "subtitle": "Manage your account settings"
+  },
+  "sections": {
+    "account": "Account",
+    "activity": "Activity"
+  },
+  "menu": {
+    "personalInfo": "Personal Info",
+    "personalInfoDesc": "Manage your personal information",
+    "settings": "Settings",
+    "settingsDesc": "App preferences and settings",
+    "withdrawalHistory": "Withdrawal History",
+    "withdrawalHistoryDesc": "History of your withdrawals",
+    "orders": "Number of Orders",
+    "ordersDesc": "View all your orders",
+    "reviews": "User Reviews",
+    "reviewsDesc": "Customer reviews and ratings",
+    "help": "Help & Support",
+    "about": "About",
+    "logout": "Logout"
+  },
+  "stats": {
+    "totalOrders": "Total Orders",
+    "rating": "Rating"
+  },
+  "personalInfo": {
+    "title": "Personal information",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "postalCode": "Postal code",
+    "country": "Country",
+    "siret": "SIRET",
+    "restaurantName": "Restaurant name",
+    "edit": "Edit",
+    "save": "Save changes"
+  },
+  "settings": {
+    "title": "Settings",
+    "general": "General",
+    "notifications": "Notifications",
+    "language": "Language",
+    "theme": "Theme",
+    "privacy": "Privacy",
+    "security": "Security",
+    "notificationSettings": {
+      "title": "Notifications",
+      "newOrders": "New orders",
+      "orderUpdates": "Order updates",
+      "reviews": "New reviews",
+      "promotions": "Promotions",
+      "system": "System notifications"
+    },
+    "languageSettings": {
+      "title": "Language",
+      "french": "Français",
+      "english": "English",
+      "spanish": "Español"
+    },
+    "themeSettings": {
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "auto": "Auto"
+    }
+  },
+  "withdrawalHistory": {
+    "title": "Withdrawal history",
+    "amount": "Amount",
+    "date": "Date",
+    "status": "Status",
+    "pending": "Pending",
+    "completed": "Completed",
+    "failed": "Failed",
+    "noHistory": "No withdrawals yet"
+  },
+  "reviews": {
+    "title": "Customer reviews",
+    "rating": "Rating",
+    "comment": "Comment",
+    "date": "Date",
+    "noReviews": "No reviews yet",
+    "averageRating": "Average rating"
+  },
+  "logout": {
+    "title": "Logout",
+    "message": "Are you sure you want to logout?",
+    "confirm": "Logout",
+    "button": "Logout"
+  },
+  "footer": {
+    "version": "Version 1.0.3 • Restaurant Manager"
+  }
+}

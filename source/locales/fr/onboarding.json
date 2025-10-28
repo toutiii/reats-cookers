@@ -1,0 +1,35 @@
+{
+  "welcome": {
+    "title": "Bienvenue sur Reats Cookers",
+    "subtitle": "Gérez votre restaurant en toute simplicité"
+  },
+  "slides": {
+    "slide1": {
+      "title": "Découvrez des Chefs Professionnels",
+      "description": "Parcourez des centaines de chefs talentueux dans votre région. De la cuisine maison à la gastronomie, trouvez le chef parfait pour toute occasion."
+    },
+    "slide2": {
+      "title": "Réservez Votre Expérience Culinaire",
+      "description": "Planifiez des sessions de cuisine privées, des services traiteur ou des cours de cuisine. Choisissez votre menu, date, et laissez nos chefs s'occuper du reste."
+    },
+    "slide3": {
+      "title": "Cuisine en Direct Chez Vous",
+      "description": "Vivez des repas de qualité restaurant dans le confort de votre maison. Regardez des chefs professionnels préparer de délicieux plats avec des ingrédients frais."
+    },
+    "slide4": {
+      "title": "Notez & Partagez Votre Expérience",
+      "description": "Laissez des avis, partagez des photos de vos repas, et aidez les autres à découvrir des chefs incroyables. Construisez votre communauté culinaire dès aujourd'hui."
+    }
+  },
+  "buttons": {
+    "next": "Suivant",
+    "skip": "Passer",
+    "getStarted": "Commencer"
+  },
+  "termsAndConditions": {
+    "title": "Conditions d'utilisation",
+    "accept": "J'accepte les conditions d'utilisation",
+    "read": "Lire les conditions",
+    "continue": "Continuer"
+  }
+}

@@ -14,8 +14,12 @@ export const MetricItem: React.FC<MetricItemProps> = React.memo(
     <View>
       <Text className="text-xs text-gray-500">{label}</Text>
       <Text
-        className={`text-sm font-semibold ${!valueColor && (highlight ? "text-red-600" : "text-gray-900")}`}
-        style={valueColor ? { color: valueColor } : {}}
+        className={`text-sm font-semibold ${!valueColor && (highlight
+? "text-red-600"
+: "text-gray-900")}`}
+        style={valueColor
+? { color: valueColor }
+: {}}
       >
         {value}
       </Text>

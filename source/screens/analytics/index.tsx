@@ -30,8 +30,12 @@ const StatCard: React.FC<StatCardProps> = ({ icon, label, value, change, isPosit
       <View className="w-12 h-12 bg-orange-50 rounded-xl items-center justify-center">
         <Feather name={icon as any} size={20} color="#f97316" />
       </View>
-      <View className={`px-3 py-1 rounded-full ${isPositive ? "bg-green-50" : "bg-red-50"}`}>
-        <Text className={`text-xs font-semibold ${isPositive ? "text-green-600" : "text-red-600"}`}>
+      <View className={`px-3 py-1 rounded-full ${isPositive
+? "bg-green-50"
+: "bg-red-50"}`}>
+        <Text className={`text-xs font-semibold ${isPositive
+? "text-green-600"
+: "text-red-600"}`}>
           {change}
         </Text>
       </View>
@@ -143,7 +147,9 @@ const AnalyticsScreen: React.FC = () => {
             <View
               key={index}
               className={`flex-row items-center justify-between ${
-                index < 2 ? "pb-4 mb-4 border-b border-gray-100" : ""
+                index < 2
+? "pb-4 mb-4 border-b border-gray-100"
+: ""
               }`}
             >
               <View className="flex-1">

@@ -1,0 +1,162 @@
+{
+  "header": {
+    "title": "Menu",
+    "subtitle": "Gérez vos plats",
+    "addNew": "Nouveau Plat",
+    "addToMenu": "Ajouter au menu"
+  },
+  "categories": {
+    "all": "Tous",
+    "burgers": "Burgers",
+    "pizza": "Pizzas",
+    "salads": "Salades",
+    "desserts": "Desserts",
+    "drinks": "Boissons",
+    "appetizers": "Entrées",
+    "mains": "Plats principaux",
+    "basic": "Basiques",
+    "protein": "Protéines",
+    "dairy": "Laitiers",
+    "fruit": "Légumes"
+  },
+  "stats": {
+    "totalItems": "Articles totaux",
+    "availableItems": "Disponibles",
+    "lowStock": "Stock faible",
+    "revenue": "Revenu",
+    "ordersToday": "Commandes aujourd'hui"
+  },
+  "actions": {
+    "edit": "Modifier",
+    "duplicate": "Dupliquer",
+    "delete": "Supprimer",
+    "toggleAvailability": "Changer disponibilité",
+    "viewDetails": "Voir détails"
+  },
+  "status": {
+    "available": "Disponible",
+    "unavailable": "Indisponible",
+    "lowStock": "Stock faible",
+    "outOfStock": "Rupture de stock"
+  },
+  "form": {
+    "basicInfo": {
+      "title": "Informations de base",
+      "nameLabel": "Nom du plat",
+      "namePlaceholder": "Ex: Burger Signature",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Décrivez votre plat...",
+      "categoryLabel": "Catégorie",
+      "categoryPlaceholder": "Sélectionnez une catégorie",
+      "availableLabel": "Disponible",
+      "featuredLabel": "Plat vedette"
+    },
+    "pricing": {
+      "title": "Tarification",
+      "sellingPriceLabel": "Prix de vente",
+      "sellingPricePlaceholder": "0.00",
+      "costPriceLabel": "Coût de revient",
+      "costPricePlaceholder": "0.00",
+      "marginLabel": "Marge",
+      "marginValue": "{{value}}%",
+      "deliveryTypeLabel": "Type de livraison",
+      "pickup": "À emporter",
+      "delivery": "Livraison"
+    },
+    "details": {
+      "title": "Détails",
+      "preparationTimeLabel": "Temps de préparation",
+      "preparationTimePlaceholder": "En minutes",
+      "maxOrdersLabel": "Commandes simultanées max",
+      "maxOrdersPlaceholder": "Ex: 10",
+      "skuLabel": "SKU",
+      "skuPlaceholder": "Code produit"
+    },
+    "ingredients": {
+      "title": "Ingrédients",
+      "addIngredient": "Ajouter un ingrédient",
+      "ingredientPlaceholder": "Nom de l'ingrédient",
+      "quantityPlaceholder": "Quantité",
+      "unitPlaceholder": "Unité",
+      "selected": "{{count}} sélectionné",
+      "selected_plural": "{{count}} sélectionnés"
+    },
+    "allergens": {
+      "title": "Allergènes",
+      "gluten": "Gluten",
+      "lactose": "Lactose",
+      "eggs": "Œufs",
+      "fish": "Poisson",
+      "nuts": "Fruits à coque",
+      "soy": "Soja",
+      "celery": "Céleri",
+      "mustard": "Moutarde",
+      "sesame": "Sésame",
+      "sulfites": "Sulfites"
+    },
+    "photo": {
+      "title": "Photo du plat",
+      "upload": "Télécharger une photo",
+      "change": "Changer la photo",
+      "remove": "Supprimer la photo",
+      "addMore": "Ajouter plus de photos",
+      "maxPhotos": "Maximum {{max}} photos"
+    },
+    "saveButton": "Enregistrer le plat",
+    "resetButton": "Réinitialiser"
+  },
+  "search": {
+    "placeholder": "Rechercher un plat...",
+    "noResults": "Aucun plat trouvé"
+  },
+  "deleteConfirm": {
+    "title": "Supprimer le plat",
+    "message": "Êtes-vous sûr de vouloir supprimer ce plat ? Cette action est irréversible.",
+    "confirm": "Supprimer",
+    "cancel": "Annuler"
+  },
+  "validation": {
+    "nameRequired": "Le nom est requis",
+    "categoryRequired": "La catégorie est requise",
+    "priceRequired": "Le prix est requis",
+    "costRequired": "Le coût est requis",
+    "skuRequired": "Le SKU est requis",
+    "preparationTimeRequired": "Le temps de préparation est requis",
+    "maxOrdersRequired": "Le nombre max de commandes est requis",
+    "photoRequired": "Au moins une photo est requise",
+    "formIncomplete": "Formulaire incomplet",
+    "fillAllFields": "Veuillez remplir tous les champs obligatoires."
+  },
+  "alerts": {
+    "saveConfirmTitle": "Confirmation",
+    "saveConfirmMessage": "Voulez-vous ajouter ce plat au menu ?",
+    "resetConfirmTitle": "Réinitialiser le formulaire",
+    "resetConfirmMessage": "Toutes les données seront perdues. Continuer ?",
+    "add": "Ajouter",
+    "reset": "Réinitialiser"
+  },
+  "ingredientsList": {
+    "salt": "Sel",
+    "pepper": "Poivre",
+    "oil": "Huile",
+    "garlic": "Ail",
+    "onion": "Oignon",
+    "herbs": "Herbes",
+    "chicken": "Poulet",
+    "beef": "Bœuf",
+    "fish": "Poisson",
+    "egg": "Œuf",
+    "shrimp": "Crevette",
+    "tofu": "Tofu",
+    "milk": "Lait",
+    "cheese": "Fromage",
+    "butter": "Beurre",
+    "cream": "Crème",
+    "tomato": "Tomate",
+    "avocado": "Avocat",
+    "lettuce": "Laitue",
+    "carrot": "Carotte",
+    "mushroom": "Champignon",
+    "corn": "Maïs"
+  }
+}

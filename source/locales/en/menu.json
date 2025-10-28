@@ -1,0 +1,162 @@
+{
+  "header": {
+    "title": "Menu",
+    "subtitle": "Manage your dishes",
+    "addNew": "New Dish",
+    "addToMenu": "Add to menu"
+  },
+  "categories": {
+    "all": "All",
+    "burgers": "Burgers",
+    "pizza": "Pizzas",
+    "salads": "Salads",
+    "desserts": "Desserts",
+    "drinks": "Drinks",
+    "appetizers": "Appetizers",
+    "mains": "Main Courses",
+    "basic": "Basics",
+    "protein": "Proteins",
+    "dairy": "Dairy",
+    "fruit": "Vegetables"
+  },
+  "stats": {
+    "totalItems": "Total items",
+    "availableItems": "Available",
+    "lowStock": "Low stock",
+    "revenue": "Revenue",
+    "ordersToday": "Orders today"
+  },
+  "actions": {
+    "edit": "Edit",
+    "duplicate": "Duplicate",
+    "delete": "Delete",
+    "toggleAvailability": "Toggle availability",
+    "viewDetails": "View details"
+  },
+  "status": {
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "lowStock": "Low stock",
+    "outOfStock": "Out of stock"
+  },
+  "form": {
+    "basicInfo": {
+      "title": "Basic Information",
+      "nameLabel": "Dish Name",
+      "namePlaceholder": "Ex: Signature Burger",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Describe your dish...",
+      "categoryLabel": "Category",
+      "categoryPlaceholder": "Select a category",
+      "availableLabel": "Available",
+      "featuredLabel": "Featured Dish"
+    },
+    "pricing": {
+      "title": "Pricing",
+      "sellingPriceLabel": "Selling Price",
+      "sellingPricePlaceholder": "0.00",
+      "costPriceLabel": "Cost Price",
+      "costPricePlaceholder": "0.00",
+      "marginLabel": "Margin",
+      "marginValue": "{{value}}%",
+      "deliveryTypeLabel": "Delivery Type",
+      "pickup": "Pickup",
+      "delivery": "Delivery"
+    },
+    "details": {
+      "title": "Details",
+      "preparationTimeLabel": "Preparation time",
+      "preparationTimePlaceholder": "In minutes",
+      "maxOrdersLabel": "Max concurrent orders",
+      "maxOrdersPlaceholder": "E.g: 10",
+      "skuLabel": "SKU",
+      "skuPlaceholder": "Product code"
+    },
+    "ingredients": {
+      "title": "Ingredients",
+      "addIngredient": "Add Ingredient",
+      "ingredientPlaceholder": "Ingredient name",
+      "quantityPlaceholder": "Quantity",
+      "unitPlaceholder": "Unit",
+      "selected": "{{count}} selected",
+      "selected_plural": "{{count}} selected"
+    },
+    "allergens": {
+      "title": "Allergens",
+      "gluten": "Gluten",
+      "lactose": "Lactose",
+      "eggs": "Eggs",
+      "fish": "Fish",
+      "nuts": "Nuts",
+      "soy": "Soy",
+      "celery": "Celery",
+      "mustard": "Mustard",
+      "sesame": "Sesame",
+      "sulfites": "Sulfites"
+    },
+    "photo": {
+      "title": "Dish Photo",
+      "upload": "Upload Photo",
+      "change": "Change Photo",
+      "remove": "Remove Photo",
+      "addMore": "Add More Photos",
+      "maxPhotos": "Maximum {{max}} photos"
+    },
+    "saveButton": "Save dish",
+    "resetButton": "Reset"
+  },
+  "search": {
+    "placeholder": "Search for a dish...",
+    "noResults": "No dishes found"
+  },
+  "deleteConfirm": {
+    "title": "Delete Dish",
+    "message": "Are you sure you want to delete this dish? This action cannot be undone.",
+    "confirm": "Delete",
+    "cancel": "Cancel"
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "categoryRequired": "Category is required",
+    "priceRequired": "Price is required",
+    "costRequired": "Cost is required",
+    "skuRequired": "SKU is required",
+    "preparationTimeRequired": "Preparation time is required",
+    "maxOrdersRequired": "Max concurrent orders is required",
+    "photoRequired": "At least one photo is required",
+    "formIncomplete": "Incomplete Form",
+    "fillAllFields": "Please fill in all required fields."
+  },
+  "alerts": {
+    "saveConfirmTitle": "Confirmation",
+    "saveConfirmMessage": "Do you want to add this dish to the menu?",
+    "resetConfirmTitle": "Reset Form",
+    "resetConfirmMessage": "All data will be lost. Continue?",
+    "add": "Add",
+    "reset": "Reset"
+  },
+  "ingredientsList": {
+    "salt": "Salt",
+    "pepper": "Pepper",
+    "oil": "Oil",
+    "garlic": "Garlic",
+    "onion": "Onion",
+    "herbs": "Herbs",
+    "chicken": "Chicken",
+    "beef": "Beef",
+    "fish": "Fish",
+    "egg": "Egg",
+    "shrimp": "Shrimp",
+    "tofu": "Tofu",
+    "milk": "Milk",
+    "cheese": "Cheese",
+    "butter": "Butter",
+    "cream": "Cream",
+    "tomato": "Tomato",
+    "avocado": "Avocado",
+    "lettuce": "Lettuce",
+    "carrot": "Carrot",
+    "mushroom": "Mushroom",
+    "corn": "Corn"
+  }
+}

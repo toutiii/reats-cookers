@@ -67,7 +67,9 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
         {(status === "completed" || status === "cancelled") && (
           <View className="flex-1 bg-gray-100 rounded-xl py-4 items-center">
             <Text className="text-gray-500 font-semibold">
-              Order {status === "completed" ? "Completed" : "Cancelled"}
+              Order {status === "completed"
+? "Completed"
+: "Cancelled"}
             </Text>
           </View>
         )}

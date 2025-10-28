@@ -1,12 +1,13 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { 
-  ScrollView, 
-  View, 
+import {
+  ScrollView,
+  View,
   FlatList,
   StatusBar,
   Alert
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "@/hooks/useTranslation";
 import {
   StatCard,
   CategoryItem,
@@ -27,6 +28,7 @@ interface DashboardStats {
 }
 
 const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+  const { t } = useTranslation("menu");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
@@ -34,11 +36,11 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("list");
 
   const categories = [
-    { id: "all", name: "Tous", count: 24 },
-    { id: "burgers", name: "Burgers", count: 8 },
-    { id: "pizza", name: "Pizzas", count: 6 },
-    { id: "salads", name: "Salades", count: 5 },
-    { id: "desserts", name: "Desserts", count: 5 },
+    { id: "all", name: t("categories.all"), count: 24 },
+    { id: "burgers", name: t("categories.burgers"), count: 8 },
+    { id: "pizza", name: t("categories.pizza"), count: 6 },
+    { id: "salads", name: t("categories.salads"), count: 5 },
+    { id: "desserts", name: t("categories.desserts"), count: 5 },
   ];
 
   const menuItems: MenuItem[] = [
@@ -172,14 +174,14 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const handleToggleAvailability = useCallback((itemId: string) => {
     Alert.alert(
-      "Modifier la disponibilité",
-      "Voulez-vous vraiment changer la disponibilité de ce plat ?",
+      t("actions.toggleAvailability"),
+      t("deleteConfirm.message"),
       [
-        { text: "Annuler", style: "cancel" },
-        { text: "Confirmer", onPress: () => console.log("Toggle availability for", itemId) }
+        { text: t("common:buttons.cancel"), style: "cancel" },
+        { text: t("common:buttons.confirm"), onPress: () => console.log("Toggle availability for", itemId) }
       ]
     );
-  }, []);
+  }, [t]);
 
   const handleEditItem = useCallback((item: MenuItem) => {
     navigation.navigate("FoodDetails", { item });
@@ -187,14 +189,14 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const handleDeleteItem = useCallback((itemId: string) => {
     Alert.alert(
-      "Supprimer le plat",
-      "Cette action est irréversible. Voulez-vous continuer ?",
+      t("deleteConfirm.title"),
+      t("deleteConfirm.message"),
       [
-        { text: "Annuler", style: "cancel" },
-        { text: "Supprimer", style: "destructive", onPress: () => console.log("Delete", itemId) }
+        { text: t("deleteConfirm.cancel"), style: "cancel" },
+        { text: t("deleteConfirm.confirm"), style: "destructive", onPress: () => console.log("Delete", itemId) }
       ]
     );
-  }, []);
+  }, [t]);
 
 
   const renderMenuItem = useCallback(({ item, index }: any) => (
@@ -208,7 +210,9 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   ), [handleToggleAvailability, handleEditItem, handleDeleteItem]);
 
   const handleToggleViewMode = useCallback(() => {
-    setViewMode(prev => prev === "grid" ? "list" : "grid");
+    setViewMode(prev => (prev === "grid"
+? "list"
+: "grid"));
   }, []);
 
   const handleAddPress = useCallback(() => {
@@ -218,7 +222,7 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   return (
     <ThemedView>
       <StatusBar barStyle="dark-content" />
-      
+
       <SafeAreaView edges={["top"]} className="flex-1">
         {/* Header */}
         <View className="bg-white px-5 pt-4 pb-3 border-b border-gray-100">
@@ -236,23 +240,23 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           <View className="px-5 py-4">
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <StatCard
-                title="Revenus du jour"
+                title={t("stats.revenue")}
                 value={`€${stats.revenue.toFixed(0)}`}
-                subtitle={`${stats.ordersToday} commandes`}
+                subtitle={t("stats.ordersToday")}
                 color="#FF6347"
                 icon="cash-outline"
               />
               <StatCard
-                title="Plats disponibles"
+                title={t("stats.availableItems")}
                 value={`${stats.availableItems}/${stats.totalItems}`}
-                subtitle="En service"
+                subtitle={t("status.available")}
                 color="#FF6347"
                 icon="restaurant-outline"
               />
               <StatCard
-                title="À capacité max"
+                title={t("stats.lowStock")}
                 value={stats.lowStock.toString()}
-                subtitle="Commandes pleines"
+                subtitle={t("status.lowStock")}
                 color="#EF4444"
                 icon="alert-circle-outline"
               />

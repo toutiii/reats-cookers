@@ -58,27 +58,37 @@ export const StatusCard: React.FC<StatusCardProps> = ({
         <View className="flex-row justify-between mt-4 pt-4 border-t border-gray-200">
           {statusOrder.map((status, index) => {
             const isActive = currentIndex >= index;
-            const iconName = 
-              status === "pending" ? "clock" :
-              status === "preparing" ? "loader" :
-              status === "ready" ? "check-circle" : "check";
+            const iconName =
+              status === "pending"
+? "clock" :
+              status === "preparing"
+? "loader" :
+              status === "ready"
+? "check-circle"
+: "check";
 
             return (
               <View key={status} className="flex-1 items-center">
                 <View
                   className={`w-8 h-8 rounded-full items-center justify-center ${
-                    isActive ? "bg-orange-500" : "bg-gray-200"
+                    isActive
+? "bg-orange-500"
+: "bg-gray-200"
                   }`}
                 >
                   <Feather
                     name={iconName}
                     size={16}
-                    color={isActive ? "#ffffff" : "#9ca3af"}
+                    color={isActive
+? "#ffffff"
+: "#9ca3af"}
                   />
                 </View>
                 <Text
                   className={`text-xs mt-2 ${
-                    isActive ? "font-semibold" : "text-gray-400"
+                    isActive
+? "font-semibold"
+: "text-gray-400"
                   }`}
                 >
                   {status.charAt(0).toUpperCase() + status.slice(1)}

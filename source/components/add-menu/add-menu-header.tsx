@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { Text } from "@/components/ui/text";
 import { Heading } from "../ui/heading";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface AddMenuHeaderProps {
   onBack: () => void;
@@ -16,6 +17,8 @@ export const AddMenuHeader: React.FC<AddMenuHeaderProps> = ({
   onReset,
   scrollY,
 }) => {
+  const { t } = useTranslation("menu");
+
   const headerAnimatedStyle = useAnimatedStyle(() => {
     if (!scrollY) return { opacity: 1 };
     const opacity = 1 - (scrollY.value / 100) * 0.02;
@@ -36,15 +39,15 @@ export const AddMenuHeader: React.FC<AddMenuHeaderProps> = ({
             <Ionicons name="arrow-back" size={20} color="#374151" />
           </TouchableOpacity>
           <View>
-            <Heading className="text-xl font-bold">Nouveau Plat</Heading>
-            <Text className="text-xs mt-0.5">Ajouter au menu</Text>
+            <Heading className="text-xl font-bold">{t("header.addNew")}</Heading>
+            <Text className="text-xs mt-0.5">{t("header.addToMenu")}</Text>
           </View>
         </View>
         <TouchableOpacity
           onPress={onReset}
           className="bg-gray-100 px-4 py-2 rounded-xl"
         >
-          <Text className="font-semibold text-sm">Réinitialiser</Text>
+          <Text className="font-semibold text-sm">{t("form.resetButton")}</Text>
         </TouchableOpacity>
       </View>
     </Animated.View>

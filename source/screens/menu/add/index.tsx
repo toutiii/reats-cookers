@@ -7,6 +7,7 @@ import {
   Platform,
   Alert,
 } from "react-native";
+import { useTranslation } from "@/hooks/useTranslation";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSharedValue } from "react-native-reanimated";
 import { ThemedView } from "@/components/themed-view";
@@ -54,7 +55,7 @@ const INGREDIENTS: Ingredient[] = [
   { id: "garlic", name: "Ail", icon: "🧄", category: "basic" },
   { id: "onion", name: "Oignon", icon: "🧅", category: "basic" },
   { id: "herbs", name: "Herbes", icon: "🌿", category: "basic" },
-  
+
   // Protein
   { id: "chicken", name: "Poulet", icon: "🍗", category: "protein" },
   { id: "beef", name: "Bœuf", icon: "🥩", category: "protein" },
@@ -62,13 +63,13 @@ const INGREDIENTS: Ingredient[] = [
   { id: "egg", name: "Œuf", icon: "🥚", category: "protein" },
   { id: "shrimp", name: "Crevette", icon: "🦐", category: "protein" },
   { id: "tofu", name: "Tofu", icon: "🧈", category: "protein" },
-  
+
   // Dairy
   { id: "milk", name: "Lait", icon: "🥛", category: "dairy" },
   { id: "cheese", name: "Fromage", icon: "🧀", category: "dairy" },
   { id: "butter", name: "Beurre", icon: "🧈", category: "dairy" },
   { id: "cream", name: "Crème", icon: "🥛", category: "dairy" },
-  
+
   // Fruits & Vegetables
   { id: "tomato", name: "Tomate", icon: "🍅", category: "fruit" },
   { id: "avocado", name: "Avocat", icon: "🥑", category: "fruit" },
@@ -88,6 +89,7 @@ const ALLERGENS = [
 ];
 
 const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+  const { t } = useTranslation("menu");
   const [formData, setFormData] = useState<FormData>({
     name: "",
     category: "",
@@ -134,16 +136,16 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const validateForm = useCallback(() => {
     const newErrors: Partial<FormData> = {};
-    
-    if (!formData.name.trim()) newErrors.name = "Le nom est requis";
-    if (!formData.category) newErrors.category = "La catégorie est requise";
-    if (!formData.price.trim()) newErrors.price = "Le prix est requis";
-    if (!formData.cost.trim()) newErrors.cost = "Le coût est requis";
-    if (!formData.sku.trim()) newErrors.sku = "Le SKU est requis";
-    if (!formData.preparationTime.trim()) newErrors.preparationTime = "Le temps de préparation est requis";
-    if (!formData.maxConcurrentOrders.trim()) newErrors.maxConcurrentOrders = "Le nombre max de commandes est requis";
-    if (formData.photos.length === 0) newErrors.photos = ["Au moins une photo est requise"];
-    
+
+    if (!formData.name.trim()) newErrors.name = t("validation.nameRequired");
+    if (!formData.category) newErrors.category = t("validation.categoryRequired");
+    if (!formData.price.trim()) newErrors.price = t("validation.priceRequired");
+    if (!formData.cost.trim()) newErrors.cost = t("validation.costRequired");
+    if (!formData.sku.trim()) newErrors.sku = t("validation.skuRequired");
+    if (!formData.preparationTime.trim()) newErrors.preparationTime = t("validation.preparationTimeRequired");
+    if (!formData.maxConcurrentOrders.trim()) newErrors.maxConcurrentOrders = t("validation.maxOrdersRequired");
+    if (formData.photos.length === 0) newErrors.photos = [t("validation.photoRequired")];
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [formData]);
@@ -151,12 +153,12 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const handleSave = useCallback(() => {
     if (validateForm()) {
       Alert.alert(
-        "Confirmation",
-        "Voulez-vous ajouter ce plat au menu ?",
+        t("alerts.saveConfirmTitle"),
+        t("alerts.saveConfirmMessage"),
         [
-          { text: "Annuler", style: "cancel" },
+          { text: t("common:buttons.cancel"), style: "cancel" },
           {
-            text: "Ajouter",
+            text: t("alerts.add"),
             onPress: () => {
               console.log("Save:", formData);
               navigation.goBack();
@@ -165,18 +167,22 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         ]
       );
     } else {
-      Alert.alert("Formulaire incomplet", "Veuillez remplir tous les champs obligatoires.");
+      Alert.alert(
+        t("validation.formIncomplete"),
+        t("validation.fillAllFields"),
+        [{ text: t("common:buttons.ok") }]
+      );
     }
   }, [formData, navigation, validateForm]);
 
   const handleReset = useCallback(() => {
     Alert.alert(
-      "Réinitialiser le formulaire",
-      "Toutes les données seront perdues. Continuer ?",
+      t("alerts.resetConfirmTitle"),
+      t("alerts.resetConfirmMessage"),
       [
-        { text: "Annuler", style: "cancel" },
+        { text: t("common:buttons.cancel"), style: "cancel" },
         {
-          text: "Réinitialiser",
+          text: t("alerts.reset"),
           style: "destructive",
           onPress: () => {
             setFormData({
@@ -212,9 +218,11 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   return (
     <ThemedView>
       <StatusBar barStyle="dark-content" />
-      
+
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios"
+? "padding"
+: "height"}
         className="flex-1"
       >
         <SafeAreaView edges={["top"]} className="flex-1 bg-gray-50">

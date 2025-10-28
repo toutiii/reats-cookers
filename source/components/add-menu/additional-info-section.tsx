@@ -48,7 +48,7 @@ export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
         <View className="w-1 h-4 bg-primary-500 rounded-full mr-2" />
         <Text className="text-base font-bold">Informations complémentaires</Text>
       </View>
-      
+
       <View className="bg-white rounded-2xl p-4 space-y-4">
         {/* Preparation Time & Max Orders */}
         <View className="flex-row gap-3">
@@ -63,14 +63,16 @@ export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
               placeholderTextColor="#9CA3AF"
               keyboardType="number-pad"
               className={`bg-gray-50 rounded-xl px-4 py-3 ${
-                errors.preparationTime ? "border border-red-300" : ""
+                errors.preparationTime
+? "border border-red-300"
+: ""
               }`}
             />
             {errors.preparationTime && (
               <Text className="text-red-500 text-xs mt-1">{errors.preparationTime}</Text>
             )}
           </View>
-          
+
           <View className="flex-1">
             <Text className="text-xs font-semibold mb-2 uppercase tracking-wide">
               Commandes max en cours *
@@ -82,7 +84,9 @@ export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
               placeholderTextColor="#9CA3AF"
               keyboardType="number-pad"
               className={`bg-gray-50 rounded-xl px-4 py-3 ${
-                errors.maxConcurrentOrders ? "border border-red-300" : ""
+                errors.maxConcurrentOrders
+? "border border-red-300"
+: ""
               }`}
             />
             {errors.maxConcurrentOrders && (
@@ -90,7 +94,7 @@ export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
             )}
           </View>
         </View>
-        
+
         {/* Allergens */}
         <View>
           <Text className="text-xs font-semibold mb-2 uppercase tracking-wide">
@@ -107,17 +111,23 @@ export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
                 >
                   <View
                     className={`px-4 py-2 rounded-xl flex-row items-center ${
-                      isSelected ? "bg-red-100 border border-red-300" : "bg-gray-50 border border-gray-200"
+                      isSelected
+? "bg-red-100 border border-red-300"
+: "bg-gray-50 border border-gray-200"
                     }`}
                   >
                     <MaterialIcons
                       name={allergen.icon as any}
                       size={16}
-                      color={isSelected ? "#DC2626" : "#6B7280"}
+                      color={isSelected
+? "#DC2626"
+: "#6B7280"}
                     />
                     <Text
                       className={`ml-2 text-sm ${
-                        isSelected ? "text-red-700 font-semibold" : "text-gray-600"
+                        isSelected
+? "text-red-700 font-semibold"
+: "text-gray-600"
                       }`}
                     >
                       {allergen.name}
@@ -128,7 +138,7 @@ export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
             })}
           </View>
         </View>
-        
+
         {/* Description */}
         <View>
           <Text className="text-xs font-semibold mb-2 uppercase tracking-wide">
@@ -145,7 +155,7 @@ export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
             style={{ textAlignVertical: "top", minHeight: 100 }}
           />
         </View>
-        
+
         {/* Featured Toggle */}
         <View className="flex-row items-center justify-between py-2">
           <View>
@@ -155,14 +165,18 @@ export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
           <TouchableOpacity
             onPress={() => onFeaturedChange(!featured)}
             className={`w-14 h-8 rounded-full p-1 ${
-              featured ? "bg-yellow-500" : "bg-gray-300"
+              featured
+? "bg-yellow-500"
+: "bg-gray-300"
             }`}
           >
             <Animated.View
               className="w-6 h-6 bg-white rounded-full shadow-sm"
               style={useAnimatedStyle(() => ({
                 transform: [{
-                  translateX: withSpring(featured ? 22 : 0)
+                  translateX: withSpring(featured
+? 22
+: 0)
                 }]
               }))}
             />

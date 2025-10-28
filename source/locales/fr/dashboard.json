@@ -1,0 +1,62 @@
+{
+  "header": {
+    "title": "Tableau de bord",
+    "subtitle": "Aperçu de votre restaurant",
+    "dashboard": "Dashboard",
+    "overview": "Overview of your restaurant"
+  },
+  "welcome": {
+    "greeting": "Bonjour, {{name}}",
+    "message": "Voici un aperçu de votre activité"
+  },
+  "stats": {
+    "activeOrders": "Commandes actives",
+    "pending": "En attente",
+    "todayRevenue": "Revenu du jour",
+    "customersServed": "Clients servis",
+    "totalRevenue": "Revenu total",
+    "averageOrderValue": "Valeur moyenne",
+    "completedOrders": "Commandes terminées",
+    "trend": "+{{value}}%"
+  },
+  "chart": {
+    "title": "Revenus",
+    "today": "Aujourd'hui",
+    "week": "Cette semaine",
+    "month": "Ce mois-ci",
+    "year": "Cette année"
+  },
+  "reviews": {
+    "title": "Avis récents",
+    "viewAll": "Voir tous les avis",
+    "rating": "Note moyenne",
+    "totalReviews": "{{count}} avis",
+    "noReviews": "Aucun avis pour le moment"
+  },
+  "popularItems": {
+    "title": "Plats populaires",
+    "viewAll": "Voir tout le menu",
+    "soldToday": "{{count}} vendus aujourd'hui",
+    "revenue": "{{amount}} de revenu"
+  },
+  "quickActions": {
+    "title": "Actions rapides",
+    "addDish": "Ajouter un plat",
+    "viewOrders": "Voir les commandes",
+    "viewMenu": "Voir le menu",
+    "viewAnalytics": "Voir les statistiques",
+    "manageMenu": "Gérer le menu",
+    "viewReports": "Voir les rapports"
+  },
+  "periods": {
+    "today": "Aujourd'hui",
+    "week": "Cette semaine",
+    "month": "Ce mois-ci",
+    "year": "Cette année"
+  },
+  "trends": {
+    "up": "+{{value}}%",
+    "down": "-{{value}}%",
+    "stable": "Stable"
+  }
+}
