@@ -232,8 +232,12 @@ const SettingsScreen: React.FC = () => {
             >
               <SettingItem
                 icon="volume-high-outline"
-                label={language === "fr" ? "Effets sonores" : "Sound Effects"}
-                description={language === "fr" ? "Sons de l'application" : "App sounds"}
+                label={language === "fr"
+? "Effets sonores"
+: "Sound Effects"}
+                description={language === "fr"
+? "Sons de l'application"
+: "App sounds"}
                 iconColor="#F59E0B"
                 iconBg="bg-amber-50"
                 rightElement={
@@ -242,8 +246,12 @@ const SettingsScreen: React.FC = () => {
               />
               <SettingItem
                 icon="navigate-outline"
-                label={language === "fr" ? "Services de localisation" : "Location Services"}
-                description={language === "fr" ? "Autoriser la localisation" : "Allow location"}
+                label={language === "fr"
+? "Services de localisation"
+: "Location Services"}
+                description={language === "fr"
+? "Autoriser la localisation"
+: "Allow location"}
                 iconColor="#EC4899"
                 iconBg="bg-pink-50"
                 onPress={() => console.log("Location settings")}
@@ -256,7 +264,9 @@ const SettingsScreen: React.FC = () => {
           <View className="mb-8">
             <View className="px-1 mb-3">
               <Text className="text-xs text-gray-500 font-bold uppercase tracking-wider">
-                {language === "fr" ? "À propos" : "About"}
+                {language === "fr"
+? "À propos"
+: "About"}
               </Text>
             </View>
             <View
@@ -271,21 +281,27 @@ const SettingsScreen: React.FC = () => {
             >
               <SettingItem
                 icon="information-circle-outline"
-                label={language === "fr" ? "Version de l'app" : "App Version"}
+                label={language === "fr"
+? "Version de l'app"
+: "App Version"}
                 description="1.0.3 • Restaurant Manager"
                 iconColor="#64748B"
                 iconBg="bg-slate-50"
               />
               <SettingItem
                 icon="document-text-outline"
-                label={language === "fr" ? "Conditions d'utilisation" : "Terms & Conditions"}
+                label={language === "fr"
+? "Conditions d'utilisation"
+: "Terms & Conditions"}
                 iconColor="#64748B"
                 iconBg="bg-slate-50"
                 onPress={() => console.log("Terms")}
               />
               <SettingItem
                 icon="shield-checkmark-outline"
-                label={language === "fr" ? "Politique de confidentialité" : "Privacy Policy"}
+                label={language === "fr"
+? "Politique de confidentialité"
+: "Privacy Policy"}
                 iconColor="#64748B"
                 iconBg="bg-slate-50"
                 onPress={() => console.log("Privacy")}

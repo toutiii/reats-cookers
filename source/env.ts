@@ -15,3 +15,5 @@ export const apiKeyBackend =
             : process.env.EXPO_PUBLIC_DEVELOPMENT_API_KEY;
 
 export const appOriginHeader = "cooker";
+
+export const ingredientImageBaseUrl = "https://www.themealdb.com/images/ingredients";
