@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -6,11 +6,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { useTranslation } from "@/hooks/useTranslation";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSharedValue } from "react-native-reanimated";
 import { ThemedView } from "@/components/themed-view";
+import { Text } from "@/components/ui/text";
 import {
   PhotoUploadSection,
   BasicInfoSection,
@@ -19,8 +21,12 @@ import {
   AdditionalInfoSection,
   AddMenuHeader,
   SaveButton,
-  type Ingredient,
 } from "@/components/add-menu";
+import {
+  fetchIngredients,
+  getIngredientCategories,
+  type Ingredient,
+} from "@/api/ingredients";
 
 interface FormData {
   name: string;
@@ -47,37 +53,8 @@ const CATEGORIES = [
   { id: "drinks", name: "Boissons", icon: "cafe", color: "#9B59B6" },
 ];
 
-const INGREDIENTS: Ingredient[] = [
-  // Basic
-  { id: "salt", name: "Sel", icon: "🧂", category: "basic" },
-  { id: "pepper", name: "Poivre", icon: "🌶️", category: "basic" },
-  { id: "oil", name: "Huile", icon: "🫒", category: "basic" },
-  { id: "garlic", name: "Ail", icon: "🧄", category: "basic" },
-  { id: "onion", name: "Oignon", icon: "🧅", category: "basic" },
-  { id: "herbs", name: "Herbes", icon: "🌿", category: "basic" },
-
-  // Protein
-  { id: "chicken", name: "Poulet", icon: "🍗", category: "protein" },
-  { id: "beef", name: "Bœuf", icon: "🥩", category: "protein" },
-  { id: "fish", name: "Poisson", icon: "🐟", category: "protein" },
-  { id: "egg", name: "Œuf", icon: "🥚", category: "protein" },
-  { id: "shrimp", name: "Crevette", icon: "🦐", category: "protein" },
-  { id: "tofu", name: "Tofu", icon: "🧈", category: "protein" },
-
-  // Dairy
-  { id: "milk", name: "Lait", icon: "🥛", category: "dairy" },
-  { id: "cheese", name: "Fromage", icon: "🧀", category: "dairy" },
-  { id: "butter", name: "Beurre", icon: "🧈", category: "dairy" },
-  { id: "cream", name: "Crème", icon: "🥛", category: "dairy" },
-
-  // Fruits & Vegetables
-  { id: "tomato", name: "Tomate", icon: "🍅", category: "fruit" },
-  { id: "avocado", name: "Avocat", icon: "🥑", category: "fruit" },
-  { id: "lettuce", name: "Laitue", icon: "🥬", category: "fruit" },
-  { id: "carrot", name: "Carotte", icon: "🥕", category: "fruit" },
-  { id: "mushroom", name: "Champignon", icon: "🍄", category: "fruit" },
-  { id: "corn", name: "Maïs", icon: "🌽", category: "fruit" },
-];
+// Ingredients are now loaded from API
+// See @/api/ingredients.js for the implementation
 
 const ALLERGENS = [
   { id: "gluten", name: "Gluten", icon: "grain" },
@@ -109,7 +86,31 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const [selectedIngredientCategory, setSelectedIngredientCategory] = useState<string>("basic");
   const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [isLoadingIngredients, setIsLoadingIngredients] = useState(true);
   const scrollY = useSharedValue(0);
+
+  // Load ingredients from API on component mount
+  useEffect(() => {
+    const loadIngredients = async () => {
+      try {
+        setIsLoadingIngredients(true);
+        const fetchedIngredients = await fetchIngredients();
+        setIngredients(fetchedIngredients);
+      } catch (error) {
+        console.error("Error loading ingredients:", error);
+        Alert.alert(
+          "Erreur",
+          "Impossible de charger les ingrédients. Veuillez réessayer.",
+          [{ text: "OK" }]
+        );
+      } finally {
+        setIsLoadingIngredients(false);
+      }
+    };
+
+    loadIngredients();
+  }, []);
 
   const updateField = useCallback((field: keyof FormData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -208,12 +209,36 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     );
   }, []);
 
-  const ingredientCategories = [
-    { id: "basic", name: "Basiques", icon: "nutrition-outline", count: INGREDIENTS.filter(i => i.category === "basic").length },
-    { id: "protein", name: "Protéines", icon: "fish-outline", count: INGREDIENTS.filter(i => i.category === "protein").length },
-    { id: "dairy", name: "Laitiers", icon: "ice-cream-outline", count: INGREDIENTS.filter(i => i.category === "dairy").length },
-    { id: "fruit", name: "Légumes", icon: "leaf-outline", count: INGREDIENTS.filter(i => i.category === "fruit").length },
-  ];
+  // Generate ingredient categories dynamically from loaded ingredients
+  // Memoized for performance - only recalculates when ingredients change
+  const ingredientCategories = React.useMemo(() => {
+    if (ingredients.length === 0) return [];
+
+    const categoryNames: Record<string, { name: string; icon: string }> = {
+      basic: { name: "Basiques", icon: "nutrition-outline" },
+      protein: { name: "Protéines", icon: "fish-outline" },
+      dairy: { name: "Laitiers", icon: "ice-cream-outline" },
+      fruit: { name: "Fruits", icon: "leaf-outline" },
+      vegetable: { name: "Légumes", icon: "leaf-outline" },
+      grain: { name: "Céréales", icon: "nutrition-outline" },
+      spice: { name: "Épices", icon: "flame-outline" },
+    };
+
+    const categories = getIngredientCategories(ingredients);
+    return categories.map((catId) => ({
+      id: catId,
+      name: categoryNames[catId]?.name || catId,
+      icon: categoryNames[catId]?.icon || "nutrition-outline",
+      count: ingredients.filter((i) => i.category === catId).length,
+    }));
+  }, [ingredients]);
+
+  // Auto-select first category when ingredients load
+  React.useEffect(() => {
+    if (ingredientCategories.length > 0 && !selectedIngredientCategory) {
+      setSelectedIngredientCategory(ingredientCategories[0].id);
+    }
+  }, [ingredientCategories, selectedIngredientCategory]);
 
   return (
     <ThemedView>
@@ -225,7 +250,7 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 : "height"}
         className="flex-1"
       >
-        <SafeAreaView edges={["top"]} className="flex-1 bg-gray-50">
+        <SafeAreaView  className="flex-1 bg-gray-50">
           {/* Header */}
           <AddMenuHeader
             onBack={() => navigation.goBack()}
@@ -242,6 +267,14 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             scrollEventThrottle={16}
           >
             <View className="px-5 py-6">
+              {/* Loading Indicator */}
+              {isLoadingIngredients && (
+                <View className="bg-white rounded-2xl p-6 mb-6 items-center">
+                  <ActivityIndicator size="large" color="#FF6B35" />
+                  <Text className="mt-3 text-gray-600">Chargement des ingrédients...</Text>
+                </View>
+              )}
+
               {/* Photos Section */}
               <PhotoUploadSection
                 photos={formData.photos}
@@ -282,14 +315,16 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
               />
 
               {/* Ingredients */}
-              <IngredientsSection
-                ingredients={INGREDIENTS}
-                selectedIngredients={formData.ingredients}
-                selectedCategory={selectedIngredientCategory}
-                categories={ingredientCategories}
-                onCategoryChange={setSelectedIngredientCategory}
-                onToggleIngredient={toggleIngredient}
-              />
+              {!isLoadingIngredients && (
+                <IngredientsSection
+                  ingredients={ingredients}
+                  selectedIngredients={formData.ingredients}
+                  selectedCategory={selectedIngredientCategory}
+                  categories={ingredientCategories}
+                  onCategoryChange={setSelectedIngredientCategory}
+                  onToggleIngredient={toggleIngredient}
+                />
+              )}
 
               {/* Additional Info */}
               <AdditionalInfoSection
@@ -309,11 +344,13 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 onToggleAllergen={toggleAllergen}
                 onFeaturedChange={(value) => updateField("featured", value)}
               />
-
-              {/* Save Button */}
-              <SaveButton onSave={handleSave} />
             </View>
           </ScrollView>
+
+          {/* Save Button - Always at bottom in normal flow */}
+          <View className="px-5 pt-4 bg-white border-t border-gray-100">
+            <SaveButton onSave={handleSave} />
+          </View>
         </SafeAreaView>
       </KeyboardAvoidingView>
     </ThemedView>
