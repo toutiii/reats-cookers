@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ingredientImageBaseUrl } from "@/env";
+import { ingredientApiBaseUrl, ingredientImageBaseUrl } from "@/env";
+import { translateIngredient } from "@/utils/translation-ingredients";
 
 // Cache configuration
 const CACHE_KEY = "@ingredients_cache";
@@ -25,7 +26,7 @@ const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
  */
 async function fetchFromTheMealDB() {
   try {
-    const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?i=list");
+    const response = await fetch(ingredientApiBaseUrl);
     const data = await response.json();
 
     if (!data.meals) {
@@ -107,62 +108,6 @@ function getLocalIngredients() {
   ];
 }
 
-/**
- * Translate ingredient name to French
- * Basic translation mapping for common ingredients
- * @param {string} englishName
- * @returns {string}
- */
-function translateIngredient(englishName) {
-  const translations = {
-    "Salt": "Sel",
-    "Pepper": "Poivre",
-    "Oil": "Huile",
-    "Olive Oil": "Huile d'olive",
-    "Garlic": "Ail",
-    "Onion": "Oignon",
-    "Tomato": "Tomate",
-    "Potato": "Pomme de terre",
-    "Carrot": "Carotte",
-    "Chicken": "Poulet",
-    "Beef": "Bœuf",
-    "Fish": "Poisson",
-    "Egg": "Œuf",
-    "Milk": "Lait",
-    "Cheese": "Fromage",
-    "Butter": "Beurre",
-    "Cream": "Crème",
-    "Rice": "Riz",
-    "Pasta": "Pâtes",
-    "Bread": "Pain",
-    "Flour": "Farine",
-    "Sugar": "Sucre",
-    "Honey": "Miel",
-    "Lemon": "Citron",
-    "Lime": "Citron vert",
-    "Orange": "Orange",
-    "Apple": "Pomme",
-    "Banana": "Banane",
-    "Strawberry": "Fraise",
-    "Mushroom": "Champignon",
-    "Lettuce": "Laitue",
-    "Cucumber": "Concombre",
-    "Avocado": "Avocat",
-    "Corn": "Maïs",
-    "Broccoli": "Brocoli",
-    "Spinach": "Épinards",
-    "Basil": "Basilic",
-    "Parsley": "Persil",
-    "Thyme": "Thym",
-    "Rosemary": "Romarin",
-    "Cinnamon": "Cannelle",
-    "Ginger": "Gingembre",
-    "Paprika": "Paprika",
-    "Cumin": "Cumin",
-  };
-
-  return translations[englishName] || englishName;
-}
 
 /**
  * Get emoji icon for ingredient

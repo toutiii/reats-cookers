@@ -17,3 +17,4 @@ export const apiKeyBackend =
 export const appOriginHeader = "cooker";
 
 export const ingredientImageBaseUrl = "https://www.themealdb.com/images/ingredients";
+export const ingredientApiBaseUrl = "https://www.themealdb.com/api/json/v1/1/list.php?i=list";
