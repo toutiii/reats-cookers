@@ -3,6 +3,7 @@ import { View, TextInput, TouchableOpacity, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Animated, { FadeIn, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { Text } from "@/components/ui/text";
+import { VStack } from "../ui/vstack";
 
 interface Category {
   id: string;
@@ -47,7 +48,7 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
         <Text className="text-base font-bold">Informations de base</Text>
       </View>
 
-      <View className="bg-white rounded-2xl p-4 space-y-4">
+      <VStack className="bg-white rounded-2xl p-4" space="xl">
         {/* Name */}
         <View>
           <Text className="text-xs font-semibold mb-2 uppercase tracking-wide">
@@ -157,7 +158,7 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </VStack>
     </Animated.View>
   );
 };
