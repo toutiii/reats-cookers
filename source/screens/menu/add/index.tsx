@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import {
   ScrollView,
   View,
@@ -28,6 +28,11 @@ import {
   getIngredientCategories,
   type Ingredient,
 } from "@/api/ingredients";
+import {
+  detectAllergensFromIngredients,
+  getAllergenSuggestions,
+  autoApplyHighConfidenceAllergens,
+} from "@/services/allergen-detector";
 
 interface FormData {
   name: string;
@@ -100,6 +105,19 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [isLoadingIngredients, setIsLoadingIngredients] = useState(true);
   const scrollY = useSharedValue(0);
 
+  // AI-powered allergen detection based on selected ingredients
+  const detectedAllergens = useMemo(() => {
+    if (formData.ingredients.length === 0 || ingredients.length === 0) {
+      return [];
+    }
+    return detectAllergensFromIngredients(formData.ingredients, ingredients);
+  }, [formData.ingredients, ingredients]);
+
+  // Get allergen suggestions (detected but not yet selected)
+  const allergenSuggestions = useMemo(() => {
+    return getAllergenSuggestions(detectedAllergens, formData.allergens);
+  }, [detectedAllergens, formData.allergens]);
+
   // Load ingredients from API on component mount
   useEffect(() => {
     const loadIngredients = async () => {
@@ -144,6 +162,14 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         : [...prev.allergens, allergenId],
     }));
   }, []);
+
+  // Auto-apply all high-confidence allergen suggestions
+  const applyAllAllergenSuggestions = useCallback(() => {
+    setFormData((prev) => ({
+      ...prev,
+      allergens: autoApplyHighConfidenceAllergens(detectedAllergens, prev.allergens),
+    }));
+  }, [detectedAllergens]);
 
   const validateForm = useCallback(() => {
     const newErrors: Partial<FormData> = {};
@@ -336,11 +362,13 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 />
               )}
 
-              {/* Allergens */}
+              {/* Allergens - AI-powered detection */}
               <AllergensSection
                 allergens={ALLERGENS}
                 selectedAllergens={formData.allergens}
+                suggestedAllergens={allergenSuggestions}
                 onToggleAllergen={toggleAllergen}
+                onApplyAllSuggestions={applyAllAllergenSuggestions}
               />
 
               {/* Additional Info */}

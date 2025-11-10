@@ -79,14 +79,14 @@ function getLocalIngredients() {
     { id: "beef", name: "Bœuf", nameEn: "Beef", icon: "🥩", category: "protein", allergens: [] },
     { id: "fish", name: "Poisson", nameEn: "Fish", icon: "🐟", category: "protein", allergens: ["fish"] },
     { id: "egg", name: "Œuf", nameEn: "Egg", icon: "🥚", category: "protein", allergens: ["eggs"] },
-    { id: "shrimp", name: "Crevette", nameEn: "Shrimp", icon: "🦐", category: "protein", allergens: ["shellfish"] },
+    { id: "shrimp", name: "Crevette", nameEn: "Shrimp", icon: "🦐", category: "protein", allergens: ["crustaceans"] },
     { id: "tofu", name: "Tofu", nameEn: "Tofu", icon: "🧈", category: "protein", allergens: ["soy"] },
 
     // Dairy
-    { id: "milk", name: "Lait", nameEn: "Milk", icon: "🥛", category: "dairy", allergens: ["lactose"] },
-    { id: "cheese", name: "Fromage", nameEn: "Cheese", icon: "🧀", category: "dairy", allergens: ["lactose"] },
-    { id: "butter", name: "Beurre", nameEn: "Butter", icon: "🧈", category: "dairy", allergens: ["lactose"] },
-    { id: "cream", name: "Crème", nameEn: "Cream", icon: "🥛", category: "dairy", allergens: ["lactose"] },
+    { id: "milk", name: "Lait", nameEn: "Milk", icon: "🥛", category: "dairy", allergens: ["milk"] },
+    { id: "cheese", name: "Fromage", nameEn: "Cheese", icon: "🧀", category: "dairy", allergens: ["milk"] },
+    { id: "butter", name: "Beurre", nameEn: "Butter", icon: "🧈", category: "dairy", allergens: ["milk"] },
+    { id: "cream", name: "Crème", nameEn: "Cream", icon: "🥛", category: "dairy", allergens: ["milk"] },
 
     // Fruits & Vegetables
     { id: "tomato", name: "Tomate", nameEn: "Tomato", icon: "🍅", category: "vegetable", allergens: [] },
@@ -224,6 +224,7 @@ function categorizeIngredient(ingredientName) {
 
 /**
  * Detect potential allergens in ingredient
+ * Aligned with EU INCO regulation (14 major allergens)
  * @param {string} ingredientName
  * @returns {string[]}
  */
@@ -231,32 +232,74 @@ function detectAllergens(ingredientName) {
   const name = ingredientName.toLowerCase();
   const allergens = [];
 
-  if (/(milk|cheese|butter|cream|yogurt|dairy|lactose)/i.test(name)) {
-    allergens.push("lactose");
+  // Gluten (cereals)
+  if (/(wheat|flour|bread|pasta|gluten|cereal|rye|barley|oat|spelt|kamut)/i.test(name)) {
+    allergens.push("gluten");
   }
 
-  if (/(egg)/i.test(name)) {
+  // Crustaceans
+  if (/(crab|lobster|shrimp|prawn|crayfish|langoustine|scampi|crustacean)/i.test(name)) {
+    allergens.push("crustaceans");
+  }
+
+  // Eggs
+  if (/(egg|mayonnaise|meringue)/i.test(name)) {
     allergens.push("eggs");
   }
 
-  if (/(fish|salmon|tuna|cod)/i.test(name)) {
+  // Fish
+  if (/(fish|salmon|tuna|cod|haddock|trout|mackerel|sardine|anchovy|herring)/i.test(name)) {
     allergens.push("fish");
   }
 
-  if (/(shrimp|lobster|crab|shellfish|seafood)/i.test(name)) {
-    allergens.push("shellfish");
+  // Peanuts
+  if (/(peanut|groundnut|arachis)/i.test(name)) {
+    allergens.push("peanuts");
   }
 
-  if (/(peanut|almond|walnut|cashew|nut)/i.test(name)) {
-    allergens.push("nuts");
-  }
-
-  if (/(soy|tofu)/i.test(name)) {
+  // Soy
+  if (/(soy|soya|tofu|tempeh|edamame|miso)/i.test(name)) {
     allergens.push("soy");
   }
 
-  if (/(wheat|flour|bread|pasta|gluten)/i.test(name)) {
-    allergens.push("gluten");
+  // Milk (dairy)
+  if (/(milk|cheese|butter|cream|yogurt|dairy|lactose|whey|casein)/i.test(name)) {
+    allergens.push("milk");
+  }
+
+  // Nuts (tree nuts)
+  if (/(almond|hazelnut|walnut|cashew|pecan|pistachio|macadamia|brazil nut|pine nut)/i.test(name)) {
+    allergens.push("nuts");
+  }
+
+  // Celery
+  if (/(celery|celeriac)/i.test(name)) {
+    allergens.push("celery");
+  }
+
+  // Mustard
+  if (/(mustard|dijon)/i.test(name)) {
+    allergens.push("mustard");
+  }
+
+  // Sesame
+  if (/(sesame|tahini)/i.test(name)) {
+    allergens.push("sesame");
+  }
+
+  // Sulfites
+  if (/(sulfite|sulphite|wine|vinegar)/i.test(name)) {
+    allergens.push("sulfites");
+  }
+
+  // Lupin
+  if (/(lupin|lupine)/i.test(name)) {
+    allergens.push("lupin");
+  }
+
+  // Molluscs
+  if (/(mussel|oyster|clam|scallop|snail|squid|octopus|calamari|mollusc)/i.test(name)) {
+    allergens.push("molluscs");
   }
 
   return allergens;
