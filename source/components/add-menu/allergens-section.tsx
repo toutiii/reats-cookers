@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Text } from "@/components/ui/text";
-import type { AllergenDetectionResult } from "@/services/allergen-detector";
+import type { AllergenDetectionResult } from "@/api/ingredients/allergen-detector";
 
 interface Allergen {
   id: string;

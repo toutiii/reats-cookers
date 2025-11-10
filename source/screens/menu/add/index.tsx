@@ -32,7 +32,7 @@ import {
   detectAllergensFromIngredients,
   getAllergenSuggestions,
   autoApplyHighConfidenceAllergens,
-} from "@/services/allergen-detector";
+} from "@/api/ingredients/allergen-detector";
 
 interface FormData {
   name: string;
