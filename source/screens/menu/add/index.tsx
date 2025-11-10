@@ -18,6 +18,7 @@ import {
   BasicInfoSection,
   PricingSection,
   IngredientsSection,
+  AllergensSection,
   AdditionalInfoSection,
   AddMenuHeader,
   SaveButton,
@@ -56,13 +57,22 @@ const CATEGORIES = [
 // Ingredients are now loaded from API
 // See @/api/ingredients.js for the implementation
 
+// Liste exhaustive des 14 allergènes majeurs selon la réglementation européenne (INCO)
 const ALLERGENS = [
-  { id: "gluten", name: "Gluten", icon: "grain" },
-  { id: "lactose", name: "Lactose", icon: "water-drop" },
+  { id: "gluten", name: "Gluten (céréales)", icon: "grain" },
+  { id: "crustaceans", name: "Crustacés", icon: "set-meal" },
   { id: "eggs", name: "Œufs", icon: "egg" },
-  { id: "nuts", name: "Fruits à coque", icon: "nutrition" },
+  { id: "fish", name: "Poissons", icon: "sailing" },
+  { id: "peanuts", name: "Arachides", icon: "eco" },
   { id: "soy", name: "Soja", icon: "grass" },
-  { id: "fish", name: "Poisson", icon: "sailing" },
+  { id: "milk", name: "Lait", icon: "water-drop" },
+  { id: "nuts", name: "Fruits à coque", icon: "nutrition" },
+  { id: "celery", name: "Céleri", icon: "local-florist" },
+  { id: "mustard", name: "Moutarde", icon: "circle" },
+  { id: "sesame", name: "Graines de sésame", icon: "blur-circular" },
+  { id: "sulfites", name: "Sulfites", icon: "science" },
+  { id: "lupin", name: "Lupin", icon: "local-florist" },
+  { id: "molluscs", name: "Mollusques", icon: "waves" },
 ];
 
 const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
@@ -326,13 +336,18 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 />
               )}
 
+              {/* Allergens */}
+              <AllergensSection
+                allergens={ALLERGENS}
+                selectedAllergens={formData.allergens}
+                onToggleAllergen={toggleAllergen}
+              />
+
               {/* Additional Info */}
               <AdditionalInfoSection
                 preparationTime={formData.preparationTime}
                 maxConcurrentOrders={formData.maxConcurrentOrders}
                 description={formData.description}
-                allergens={ALLERGENS}
-                selectedAllergens={formData.allergens}
                 featured={formData.featured}
                 errors={{
                   preparationTime: errors.preparationTime,
@@ -341,7 +356,6 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 onPreparationTimeChange={(text) => updateField("preparationTime", text)}
                 onMaxConcurrentOrdersChange={(text) => updateField("maxConcurrentOrders", text)}
                 onDescriptionChange={(text) => updateField("description", text)}
-                onToggleAllergen={toggleAllergen}
                 onFeaturedChange={(value) => updateField("featured", value)}
               />
             </View>
