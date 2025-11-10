@@ -118,6 +118,34 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     return getAllergenSuggestions(detectedAllergens, formData.allergens);
   }, [detectedAllergens, formData.allergens]);
 
+  // Auto-sync allergens: Remove auto-detected allergens when ingredients are deselected
+  // Keep track of which allergens were auto-applied vs manually selected
+  const [manuallyAddedAllergens, setManuallyAddedAllergens] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (detectedAllergens.length === 0 && formData.allergens.length > 0) {
+      // No ingredients selected, keep only manually added allergens
+      const manualOnly = formData.allergens.filter((a) => manuallyAddedAllergens.has(a));
+      if (manualOnly.length !== formData.allergens.length) {
+        setFormData((prev) => ({ ...prev, allergens: manualOnly }));
+      }
+      return;
+    }
+
+    // Get list of currently detected allergen IDs
+    const detectedIds = new Set(detectedAllergens.map((d) => d.allergenId));
+
+    // Keep allergens that are either detected OR manually added
+    const stillValid = formData.allergens.filter((allergenId) => {
+      return detectedIds.has(allergenId) || manuallyAddedAllergens.has(allergenId);
+    });
+
+    // Only update if something changed
+    if (stillValid.length !== formData.allergens.length) {
+      setFormData((prev) => ({ ...prev, allergens: stillValid }));
+    }
+  }, [detectedAllergens, formData.allergens, manuallyAddedAllergens]);
+
   // Load ingredients from API on component mount
   useEffect(() => {
     const loadIngredients = async () => {
@@ -155,13 +183,34 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   }, []);
 
   const toggleAllergen = useCallback((allergenId: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      allergens: prev.allergens.includes(allergenId)
-        ? prev.allergens.filter((a) => a !== allergenId)
-        : [...prev.allergens, allergenId],
-    }));
-  }, []);
+    setFormData((prev) => {
+      const isCurrentlySelected = prev.allergens.includes(allergenId);
+
+      if (isCurrentlySelected) {
+        // Removing allergen - also remove from manual tracking
+        setManuallyAddedAllergens((manual) => {
+          const newManual = new Set(manual);
+          newManual.delete(allergenId);
+          return newManual;
+        });
+        return {
+          ...prev,
+          allergens: prev.allergens.filter((a) => a !== allergenId),
+        };
+      } else {
+        // Adding allergen - check if it's manual (not detected)
+        const isDetected = detectedAllergens.some((d) => d.allergenId === allergenId);
+        if (!isDetected) {
+          // Mark as manually added
+          setManuallyAddedAllergens((manual) => new Set(manual).add(allergenId));
+        }
+        return {
+          ...prev,
+          allergens: [...prev.allergens, allergenId],
+        };
+      }
+    });
+  }, [detectedAllergens]);
 
   // Auto-apply all high-confidence allergen suggestions
   const applyAllAllergenSuggestions = useCallback(() => {
