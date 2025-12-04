@@ -1,112 +1,112 @@
 # Reats Cookers
 
-Application mobile destinée aux restaurateurs pour la gestion de leurs plats, menus et établissements.
+Mobile application for restaurant owners to manage their dishes, menus, and establishments.
 
 ---
 
-## 📋 Table des matières
+## 📋 Table of Contents
 
-- [Prérequis](#-prérequis)
-- [Installation sur macOS](#-installation-sur-macos)
-- [Installation sur Windows](#-installation-sur-windows)
-- [Configuration du projet](#-configuration-du-projet)
-- [Lancement du projet](#-lancement-du-projet)
-- [Scripts disponibles](#-scripts-disponibles)
-- [Structure du projet](#-structure-du-projet)
-- [Build et déploiement](#-build-et-déploiement)
-- [Dépannage](#-dépannage)
+- [Prerequisites](#-prerequisites)
+- [Installation on macOS](#-installation-on-macos)
+- [Installation on Windows](#-installation-on-windows)
+- [Project Configuration](#-project-configuration)
+- [Running the Project](#-running-the-project)
+- [Available Scripts](#-available-scripts)
+- [Project Structure](#-project-structure)
+- [Build and Deployment](#-build-and-deployment)
+- [Troubleshooting](#-troubleshooting)
 
 ---
 
-## 🔧 Prérequis
+## 🔧 Prerequisites
 
-| Outil | Version minimale |
-|-------|------------------|
-| Node.js | 18.x ou supérieur |
-| Yarn | 1.22.x ou supérieur |
-| Expo CLI | Dernière version |
+| Tool | Minimum Version |
+|------|-----------------|
+| Node.js | 18.x or higher |
+| Yarn | 1.22.x or higher |
+| Expo CLI | Latest version |
 | EAS CLI | >= 16.2.1 |
-| Git | 2.x ou supérieur |
+| Git | 2.x or higher |
 
-### Outils optionnels (pour le développement natif)
+### Optional Tools (for native development)
 
-| Outil | Plateforme | Usage |
-|-------|------------|-------|
-| Xcode | macOS uniquement | Build iOS |
-| Android Studio | macOS / Windows | Build Android |
-| Watchman | macOS (recommandé) | File watching |
+| Tool | Platform | Usage |
+|------|----------|-------|
+| Xcode | macOS only | iOS Build |
+| Android Studio | macOS / Windows | Android Build |
+| Watchman | macOS (recommended) | File watching |
 
 ---
 
-## 🍎 Installation sur macOS
+## 🍎 Installation on macOS
 
-### 1. Installer Homebrew (si non installé)
+### 1. Install Homebrew (if not installed)
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### 2. Installer Node.js
+### 2. Install Node.js
 
 ```bash
 # Via Homebrew
 brew install node
 
-# Ou via nvm (recommandé pour gérer plusieurs versions)
+# Or via nvm (recommended for managing multiple versions)
 brew install nvm
 nvm install 18
 nvm use 18
 ```
 
-### 3. Installer Yarn
+### 3. Install Yarn
 
 ```bash
 # Via npm
 npm install -g yarn
 
-# Ou via Homebrew
+# Or via Homebrew
 brew install yarn
 ```
 
-### 4. Installer Watchman (recommandé)
+### 4. Install Watchman (recommended)
 
 ```bash
 brew install watchman
 ```
 
-### 5. Installer Expo CLI et EAS CLI
+### 5. Install Expo CLI and EAS CLI
 
 ```bash
 npm install -g expo-cli eas-cli
 ```
 
-### 6. Configuration iOS (optionnel - pour build natif)
+### 6. iOS Configuration (optional - for native build)
 
-1. Installer **Xcode** depuis l'App Store
-2. Ouvrir Xcode et accepter la licence
-3. Installer les outils en ligne de commande :
+1. Install **Xcode** from the App Store
+2. Open Xcode and accept the license
+3. Install command line tools:
 
 ```bash
 xcode-select --install
 ```
 
-4. Installer CocoaPods :
+4. Install CocoaPods:
 
 ```bash
 sudo gem install cocoapods
 ```
 
-### 7. Configuration Android (optionnel - pour build natif)
+### 7. Android Configuration (optional - for native build)
 
-1. Télécharger et installer [Android Studio](https://developer.android.com/studio)
-2. Ouvrir Android Studio > Preferences > Appearance & Behavior > System Settings > Android SDK
-3. Installer les composants suivants :
+1. Download and install [Android Studio](https://developer.android.com/studio)
+2. Open Android Studio > Preferences > Appearance & Behavior > System Settings > Android SDK
+3. Install the following components:
    - Android SDK Platform 34
    - Android SDK Build-Tools 34.0.0
    - Android Emulator
    - Android SDK Platform-Tools
 
-4. Configurer les variables d'environnement dans `~/.zshrc` ou `~/.bash_profile` :
+4. Configure environment variables in `~/.zshrc` or `~/.bash_profile`:
 
 ```bash
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -114,7 +114,7 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 ```
 
-5. Recharger le terminal :
+5. Reload the terminal:
 
 ```bash
 source ~/.zshrc
@@ -122,109 +122,109 @@ source ~/.zshrc
 
 ---
 
-## 🪟 Installation sur Windows
+## 🪟 Installation on Windows
 
-### 1. Installer Node.js
+### 1. Install Node.js
 
-1. Télécharger l'installateur depuis [nodejs.org](https://nodejs.org/)
-2. Exécuter l'installateur et suivre les instructions
-3. Vérifier l'installation :
+1. Download the installer from [nodejs.org](https://nodejs.org/)
+2. Run the installer and follow the instructions
+3. Verify the installation:
 
 ```powershell
 node --version
 npm --version
 ```
 
-**Alternative avec nvm-windows (recommandé) :**
+**Alternative with nvm-windows (recommended):**
 
-1. Télécharger [nvm-windows](https://github.com/coreybutler/nvm-windows/releases)
-2. Installer et redémarrer le terminal
-3. Installer Node.js :
+1. Download [nvm-windows](https://github.com/coreybutler/nvm-windows/releases)
+2. Install and restart the terminal
+3. Install Node.js:
 
 ```powershell
 nvm install 18
 nvm use 18
 ```
 
-### 2. Installer Yarn
+### 2. Install Yarn
 
 ```powershell
 npm install -g yarn
 ```
 
-### 3. Installer Expo CLI et EAS CLI
+### 3. Install Expo CLI and EAS CLI
 
 ```powershell
 npm install -g expo-cli eas-cli
 ```
 
-### 4. Configuration Android (optionnel - pour build natif)
+### 4. Android Configuration (optional - for native build)
 
-1. Télécharger et installer [Android Studio](https://developer.android.com/studio)
-2. Pendant l'installation, cocher :
+1. Download and install [Android Studio](https://developer.android.com/studio)
+2. During installation, check:
    - Android SDK
    - Android SDK Platform
    - Android Virtual Device
 
-3. Ouvrir Android Studio > File > Settings > Appearance & Behavior > System Settings > Android SDK
-4. Installer les composants suivants :
+3. Open Android Studio > File > Settings > Appearance & Behavior > System Settings > Android SDK
+4. Install the following components:
    - Android SDK Platform 34
    - Android SDK Build-Tools 34.0.0
    - Android Emulator
    - Android SDK Platform-Tools
 
-5. Configurer les variables d'environnement :
-   - Ouvrir "Paramètres système avancés" > "Variables d'environnement"
-   - Ajouter une nouvelle variable système :
-     - Nom : `ANDROID_HOME`
-     - Valeur : `C:\Users\<VotreNom>\AppData\Local\Android\Sdk`
-   - Modifier la variable `Path` et ajouter :
+5. Configure environment variables:
+   - Open "Advanced System Settings" > "Environment Variables"
+   - Add a new system variable:
+     - Name: `ANDROID_HOME`
+     - Value: `C:\Users\<YourName>\AppData\Local\Android\Sdk`
+   - Edit the `Path` variable and add:
      - `%ANDROID_HOME%\emulator`
      - `%ANDROID_HOME%\platform-tools`
 
-6. Redémarrer le terminal
+6. Restart the terminal
 
 ---
 
-## ⚙️ Configuration du projet
+## ⚙️ Project Configuration
 
-### 1. Cloner le repository
+### 1. Clone the repository
 
 ```bash
-git clone <url-du-repository>
+git clone <repository-url>
 cd reats-cookers
 ```
 
-### 2. Installer les dépendances
+### 2. Install dependencies
 
 ```bash
 cd source
 yarn install
 ```
 
-### 3. Configurer les variables d'environnement
+### 3. Configure environment variables
 
-Créer un fichier `.env` à la racine du projet (au même niveau que `source/`) :
+Create a `.env` file at the project root (at the same level as `source/`):
 
 ```bash
-# Environnement (development | staging | production)
+# Environment (development | staging | production)
 ENV=development
 
-# URLs de l'API selon l'environnement
+# API URLs per environment
 EXPO_PUBLIC_DEVELOPMENT_API_BASE_URL=https://dev-api.reats.com
 EXPO_PUBLIC_STAGING_API_BASE_URL=https://staging-api.reats.com
 EXPO_PUBLIC_PRODUCTION_API_BASE_URL=https://api.reats.com
 
-# Clés API
+# API Keys
 EXPO_PUBLIC_DEVELOPMENT_API_KEY=your_dev_api_key
 EXPO_PUBLIC_STAGING_API_KEY=your_staging_api_key
 EXPO_PUBLIC_PRODUCTION_API_KEY=your_prod_api_key
 
-# Header d'origine de l'application
+# Application origin header
 EXPO_PUBLIC_APP_ORIGIN=cooker
 ```
 
-### 4. Se connecter à Expo (optionnel - pour EAS Build)
+### 4. Log in to Expo (optional - for EAS Build)
 
 ```bash
 eas login
@@ -232,19 +232,19 @@ eas login
 
 ---
 
-## 🚀 Lancement du projet
+## 🚀 Running the Project
 
-### Démarrer le serveur de développement
+### Start the development server
 
 ```bash
 cd source
 yarn start
 ```
 
-### Lancer sur un appareil/émulateur spécifique
+### Run on a specific device/emulator
 
 ```bash
-# iOS (macOS uniquement)
+# iOS (macOS only)
 yarn ios
 
 # Android
@@ -254,94 +254,94 @@ yarn android
 yarn web
 ```
 
-### Utiliser Expo Go
+### Using Expo Go
 
-1. Installer l'application **Expo Go** sur votre appareil mobile :
+1. Install the **Expo Go** app on your mobile device:
    - [iOS App Store](https://apps.apple.com/app/expo-go/id982107779)
    - [Google Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent)
 
-2. Scanner le QR code affiché dans le terminal avec :
-   - iOS : Caméra native
-   - Android : Application Expo Go
+2. Scan the QR code displayed in the terminal with:
+   - iOS: Native Camera
+   - Android: Expo Go app
 
 ---
 
-## 📜 Scripts disponibles
+## 📜 Available Scripts
 
 | Script | Description |
 |--------|-------------|
-| `yarn start` | Démarre le serveur de développement Expo |
-| `yarn ios` | Lance l'app sur simulateur iOS |
-| `yarn android` | Lance l'app sur émulateur Android |
-| `yarn web` | Lance l'app dans le navigateur |
-| `yarn lint` | Vérifie le code avec ESLint |
-| `yarn lint:fix` | Corrige automatiquement les erreurs ESLint |
-| `yarn format` | Formate le code avec Prettier |
-| `yarn format:check` | Vérifie le formatage du code |
-| `yarn lint:all` | Exécute lint:fix et format |
+| `yarn start` | Starts the Expo development server |
+| `yarn ios` | Runs the app on iOS simulator |
+| `yarn android` | Runs the app on Android emulator |
+| `yarn web` | Runs the app in the browser |
+| `yarn lint` | Checks code with ESLint |
+| `yarn lint:fix` | Automatically fixes ESLint errors |
+| `yarn format` | Formats code with Prettier |
+| `yarn format:check` | Checks code formatting |
+| `yarn lint:all` | Runs lint:fix and format |
 
 ---
 
-## 📁 Structure du projet
+## 📁 Project Structure
 
 ```
 reats-cookers/
-├── .github/              # Configuration GitHub (CI/CD, workflows)
-├── docs/                 # Documentation additionnelle
-├── source/               # Code source de l'application
-│   ├── api/              # Services et appels API
-│   ├── assets/           # Ressources statiques (images, fonts)
-│   ├── components/       # Composants React réutilisables
-│   ├── constants/        # Constantes de l'application
-│   ├── contexts/         # Contextes React (state global)
-│   ├── core/             # Logique métier centrale
-│   ├── data/             # Données statiques
-│   ├── hooks/            # Custom hooks React
-│   ├── layouts/          # Layouts de l'application
-│   ├── legacy/           # Code legacy (à migrer)
-│   ├── locales/          # Fichiers de traduction (i18n)
-│   ├── mocks/            # Données mockées pour les tests
-│   ├── screens/          # Écrans de l'application
-│   ├── types/            # Types TypeScript
-│   ├── utils/            # Fonctions utilitaires
-│   ├── App.tsx           # Point d'entrée de l'application
-│   ├── app.config.ts     # Configuration Expo
-│   ├── env.ts            # Gestion des variables d'environnement
-│   ├── eas.json          # Configuration EAS Build
-│   ├── package.json      # Dépendances et scripts
-│   └── tailwind.config.js # Configuration TailwindCSS/NativeWind
-└── README.md             # Ce fichier
+├── .github/              # GitHub configuration (CI/CD, workflows)
+├── docs/                 # Additional documentation
+├── source/               # Application source code
+│   ├── api/              # API services and calls
+│   ├── assets/           # Static resources (images, fonts)
+│   ├── components/       # Reusable React components
+│   ├── constants/        # Application constants
+│   ├── contexts/         # React contexts (global state)
+│   ├── core/             # Core business logic
+│   ├── data/             # Static data
+│   ├── hooks/            # Custom React hooks
+│   ├── layouts/          # Application layouts
+│   ├── legacy/           # Legacy code (to be migrated)
+│   ├── locales/          # Translation files (i18n)
+│   ├── mocks/            # Mock data for testing
+│   ├── screens/          # Application screens
+│   ├── types/            # TypeScript types
+│   ├── utils/            # Utility functions
+│   ├── App.tsx           # Application entry point
+│   ├── app.config.ts     # Expo configuration
+│   ├── env.ts            # Environment variables management
+│   ├── eas.json          # EAS Build configuration
+│   ├── package.json      # Dependencies and scripts
+│   └── tailwind.config.js # TailwindCSS/NativeWind configuration
+└── README.md             # This file
 ```
 
 ---
 
-## 🏗️ Build et déploiement
+## 🏗️ Build and Deployment
 
-### Build de développement (preview)
+### Development build (preview)
 
 ```bash
 cd source
 
-# Build Android
+# Android Build
 eas build --profile preview --platform android
 
-# Build iOS
+# iOS Build
 eas build --profile preview --platform ios
 ```
 
-### Build de production
+### Production build
 
 ```bash
 cd source
 
-# Build Android
+# Android Build
 eas build --profile production --platform android
 
-# Build iOS
+# iOS Build
 eas build --profile production --platform ios
 ```
 
-### Soumission aux stores
+### Store submission
 
 ```bash
 # Google Play Store
@@ -356,89 +356,89 @@ eas submit --platform ios --profile production
 
 ---
 
-## 🔍 Dépannage
+## 🔍 Troubleshooting
 
-### Problèmes courants
+### Common Issues
 
-#### Metro bundler ne démarre pas
+#### Metro bundler won't start
 
 ```bash
-# Nettoyer le cache
+# Clear the cache
 cd source
 yarn start --clear
 ```
 
-#### Erreur "Unable to resolve module"
+#### "Unable to resolve module" error
 
 ```bash
-# Réinstaller les dépendances
+# Reinstall dependencies
 cd source
 rm -rf node_modules
 yarn install
 ```
 
-#### Erreur watchman sur Linux/WSL
+#### Watchman error on Linux/WSL
 
 ```bash
-# Augmenter les limites inotify
+# Increase inotify limits
 echo fs.inotify.max_user_instances=524288 | sudo tee -a /etc/sysctl.conf
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf
 echo fs.inotify.max_queued_events=524288 | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-#### Problèmes de cache Expo
+#### Expo cache issues
 
 ```bash
-# Nettoyer tous les caches
+# Clear all caches
 cd source
 expo start -c
-# ou
+# or
 npx expo start --clear
 ```
 
-#### Erreur de build iOS (CocoaPods)
+#### iOS build error (CocoaPods)
 
 ```bash
 cd source/ios
 pod install --repo-update
 ```
 
-#### Erreur de build Android (Gradle)
+#### Android build error (Gradle)
 
 ```bash
 cd source/android
 ./gradlew clean
 ```
 
-### Réinitialisation complète
+### Full Reset
 
-Si rien ne fonctionne, effectuer une réinitialisation complète :
+If nothing works, perform a full reset:
 
 ```bash
 cd source
 
-# Supprimer les caches et dépendances
+# Remove caches and dependencies
 rm -rf node_modules
 rm -rf .expo
 rm -rf ios/Pods
 rm -rf android/.gradle
 
-# Réinstaller
+# Reinstall
 yarn install
 
-# Relancer
+# Restart
 yarn start --clear
 ```
 
 ---
 
-## 📚 Ressources utiles
+## 📚 Useful Resources
 
-- [Documentation Expo](https://docs.expo.dev/)
-- [Documentation React Native](https://reactnative.dev/docs/getting-started)
-- [Documentation EAS Build](https://docs.expo.dev/build/introduction/)
-- [Documentation NativeWind](https://www.nativewind.dev/)
-- [Documentation React Navigation](https://reactnavigation.org/docs/getting-started)
+- [Expo Documentation](https://docs.expo.dev/)
+- [React Native Documentation](https://reactnative.dev/docs/getting-started)
+- [EAS Build Documentation](https://docs.expo.dev/build/introduction/)
+- [NativeWind Documentation](https://www.nativewind.dev/)
+- [React Navigation Documentation](https://reactnavigation.org/docs/getting-started)
 
 ---
