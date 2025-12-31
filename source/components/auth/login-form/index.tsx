@@ -1,35 +1,58 @@
 import { Button, ButtonText } from "@/components/ui/button";
 import { VStack } from "@/components/ui/vstack";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { Text } from "@/components/ui/text";
 import { ICountry } from "@/types";
 import { FormInputControlPhone } from "@/components/common/form-input-control-phone";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigation } from "@/types/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginValidationSchema, LoginFormData } from "@/utils/validation";
+import { useSendAuthOtpMutation } from "@/store/api/authApi";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { Alert, AlertIcon, AlertText } from "@/components/ui/alert";
+import { InfoIcon } from "@/components/ui/icon";
 
 const LoginForm = () => {
   const { t } = useTranslation("auth");
   const navigation = useNavigation<StackNavigation>();
   const [country, setCountry] = useState<ICountry>({
-    calling_codes: [242],
+    calling_codes: [33],
     key: "FR",
     emoji: "🇫🇷",
     value: "France",
   });
 
+  const [sendAuthOtp, { isLoading }] = useSendAuthOtpMutation();
+  const { error: authError, status } = useSelector((state: RootState) => state.auth);
+
   const {
     control,
     watch,
+    handleSubmit,
     formState: { errors },
-  } = useForm({
-    // resolver: yupResolver(loginValidationSchema),
+  } = useForm<LoginFormData>({
+    resolver: yupResolver(loginValidationSchema),
     defaultValues: {
       phone: "",
     },
   });
+
+  // Navigate to OTP screen when OTP is sent successfully
+  useEffect(() => {
+    if (status === "otp_pending") {
+      navigation.navigate("OTPScreen");
+    }
+  }, [status, navigation]);
+
+  const onSubmit = async (data: LoginFormData) => {
+    const fullPhone = `+${country.calling_codes[0]}${data.phone}`;
+    await sendAuthOtp({ phone: fullPhone });
+  };
 
   return (
     <VStack className="px-6 flex-1 mt-4" space="lg">
@@ -44,9 +67,22 @@ const LoginForm = () => {
         setCountry={setCountry}
         textInfo={t("login.phoneFormat")}
         isRequired={true}
+        isDisabled={isLoading}
       />
-      <Button size="xl" className="my-2" onPress={() => null}>
-        <ButtonText size="lg">{t("login.submitButton")}</ButtonText>
+
+      {authError && (
+        <Alert action="error" variant="solid">
+          <AlertIcon as={InfoIcon} />
+          <AlertText>{authError}</AlertText>
+        </Alert>
+      )}
+
+      <Button size="xl" className="my-2" onPress={handleSubmit(onSubmit)} isDisabled={isLoading}>
+        {isLoading ? (
+          <ActivityIndicator size="small" color="white" />
+        ) : (
+          <ButtonText size="lg">{t("login.submitButton")}</ButtonText>
+        )}
       </Button>
 
       {/* Divider */}
@@ -61,7 +97,7 @@ const LoginForm = () => {
         <Text className="text-base text-gray-500">
           {t("login.noAccount")}
         </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate("RegisterScreen")} disabled={isLoading}>
           <Text className="text-base text-blue-500">{t("login.signupLink")}</Text>
         </TouchableOpacity>
       </View>
