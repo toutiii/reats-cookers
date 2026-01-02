@@ -50,7 +50,11 @@ const LoginForm = () => {
   }, [status, navigation]);
 
   const onSubmit = async (data: LoginFormData) => {
-    const fullPhone = `+${country.calling_codes[0]}${data.phone}`;
+    // Clean phone: remove spaces and check if already has country code
+    const cleanPhone = data.phone.replace(/\s/g, "");
+    const fullPhone = cleanPhone.startsWith("+")
+      ? cleanPhone
+      : `+${country.calling_codes[0]}${cleanPhone.replace(/^0/, "")}`;
     await sendAuthOtp({ phone: fullPhone });
   };
 
