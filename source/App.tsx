@@ -45,6 +45,9 @@ import Onboarding from "./screens/onboarding";
 import OrderDetailsScreen from "./screens/order-details";
 import AddMenuItemScreen from "./screens/menu/add";
 import FoodDetailsScreen from "./screens/menu/food-details";
+import { Provider } from "react-redux";
+import { store } from "./store";
+
 
 const Stack = createStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -109,6 +112,7 @@ export default function App() {
   }
 
   return (
+    <Provider store={store}>
     <LanguageProvider>
       <GluestackUIProvider mode="light">
         <AutocompleteDropdownContextProvider>
@@ -137,5 +141,6 @@ export default function App() {
         </AutocompleteDropdownContextProvider>
       </GluestackUIProvider>
     </LanguageProvider>
+    </Provider>
   );
 }
