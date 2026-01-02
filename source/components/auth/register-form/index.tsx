@@ -42,15 +42,15 @@ const RegisterForm = () => {
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerValidationSchema) as any,
     defaultValues: {
-      firstname: "",
-      lastname: "",
-      siret: "",
-      phone: "",
-      postal_code: "",
-      street_name: "",
-      street_number: "",
-      town: "",
-      address_complement: "",
+      firstname: "Jean",
+      lastname: "Dupont",
+      siret: "12345678901234",
+      phone: "753790506",
+      postal_code: "75001",
+      street_name: "Rue de Rivoli",
+      street_number: "10",
+      town: "Paris",
+      address_complement: "Bâtiment A",
     },
   });
 
@@ -62,7 +62,11 @@ const RegisterForm = () => {
   }, [status, navigation]);
 
   const onSubmit = async (data: RegisterFormData) => {
-    const fullPhone = `+${country.calling_codes[0]}${data.phone}`;
+    // Clean phone: remove spaces and check if already has country code
+    const cleanPhone = data.phone.replace(/\s/g, "");
+    const fullPhone = cleanPhone.startsWith("+")
+      ? cleanPhone
+      : `+${country.calling_codes[0]}${cleanPhone.replace(/^0/, "")}`;
     await registerCooker({
       ...data,
       phone: fullPhone,
