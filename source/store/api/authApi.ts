@@ -17,7 +17,7 @@ export const authApi = baseApi.injectEndpoints({
     // POST /token/ - Get JWT tokens with phone number
     getToken: builder.mutation<ApiResponse<TokenResponse>, TokenRequest>({
       query: (body) => ({
-        url: "/token/",
+        url: "/token",
         method: "POST",
         body,
       }),
@@ -26,7 +26,7 @@ export const authApi = baseApi.injectEndpoints({
     // POST /token/refresh/ - Refresh JWT access token
     refreshToken: builder.mutation<ApiResponse<RefreshTokenResponse>, RefreshTokenRequest>({
       query: (body) => ({
-        url: "/token/refresh/",
+        url: "/token/refresh",
         method: "POST",
         body,
       }),
@@ -42,7 +42,7 @@ export const authApi = baseApi.injectEndpoints({
           }
         });
         return {
-          url: "/cookers/",
+          url: "/cookers",
           method: "POST",
           body: formData,
         };
@@ -56,7 +56,7 @@ export const authApi = baseApi.injectEndpoints({
         const formData = new FormData();
         formData.append("phone", data.phone);
         return {
-          url: "/cookers/auth/",
+          url: "/cookers/auth",
           method: "POST",
           body: formData,
         };
@@ -70,7 +70,7 @@ export const authApi = baseApi.injectEndpoints({
         formData.append("phone", data.phone);
         formData.append("otp", data.otp);
         return {
-          url: "/cookers/otp-verify/",
+          url: "/cookers/otp-verify",
           method: "POST",
           body: formData,
         };
@@ -83,7 +83,7 @@ export const authApi = baseApi.injectEndpoints({
         const formData = new FormData();
         formData.append("phone", data.phone);
         return {
-          url: "/cookers/otp/ask/",
+          url: "/cookers/otp/ask",
           method: "POST",
           body: formData,
         };
