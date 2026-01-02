@@ -5,7 +5,12 @@ export const loginValidationSchema = yup.object().shape({
   phone: yup
     .string()
     .required("Phone number is required")
-    .matches(/^\+?[0-9]{10,17}$/, "Invalid phone format (10-17 digits)"),
+    .matches(/^[+0-9\s]{6,}$/, "Invalid phone format")
+    .test("min-digits", "Phone must have at least 9 digits", (value) => {
+      if (!value) return false;
+      const digitsOnly = value.replace(/[\s+]/g, "");
+      return digitsOnly.length >= 9;
+    }),
 });
 
 // Register validation schema (matches API CookerCreateRequest)
@@ -25,7 +30,12 @@ export const registerValidationSchema = yup.object().shape({
   phone: yup
     .string()
     .required("Phone number is required")
-    .matches(/^\+?[0-9]{10,17}$/, "Invalid phone format (10-17 digits)"),
+    .matches(/^[+0-9\s]{6,}$/, "Invalid phone format")
+    .test("min-digits", "Phone must have at least 9 digits", (value) => {
+      if (!value) return false;
+      const digitsOnly = value.replace(/[\s+]/g, "");
+      return digitsOnly.length >= 9;
+    }),
   postal_code: yup
     .string()
     .required("Postal code is required")
