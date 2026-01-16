@@ -42,7 +42,7 @@ export const authApi = baseApi.injectEndpoints({
           }
         });
         return {
-          url: "/cookers",
+          url: "/cookers/",
           method: "POST",
           body: formData,
         };
