@@ -103,3 +103,36 @@ export interface CookerCreateResponse {
   is_activated: boolean;
   acceptance_rate: number;
 }
+
+// Document types for attestation sur l'honneur
+export type BusinessDocumentType = "kbis" | "insee";
+
+export type DocumentStatus = "pending" | "submitted" | "approved" | "rejected";
+
+export interface AttestationDocument {
+  id: number;
+  type: BusinessDocumentType | "rc_insurance";
+  file_url: string;
+  status: DocumentStatus;
+  submitted_at: string;
+  reviewed_at: string | null;
+  rejection_reason: string | null;
+}
+
+export interface AttestationSubmitRequest {
+  cooker_id: number;
+  business_document_type: BusinessDocumentType;
+  business_document: File | Blob;
+  rc_insurance_document: File | Blob;
+  attestation_accepted: boolean;
+}
+
+export interface AttestationSubmitResponse {
+  id: number;
+  cooker_id: number;
+  business_document: AttestationDocument;
+  rc_insurance_document: AttestationDocument;
+  attestation_accepted: boolean;
+  submitted_at: string;
+  status: DocumentStatus;
+}

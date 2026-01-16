@@ -13,6 +13,7 @@ export type RootStackParamList = {
   DocumentsScreen: undefined;
   PersonalDocumentsScreen: undefined;
   UploadDocumentsScreen: undefined;
+  SwornStatementScreen: undefined;
   InformationVerificationScreen: undefined;
   HomeScreen: undefined;
   OrdersScreen: undefined;

@@ -5,7 +5,7 @@ import { Heading } from "@/components/ui/heading";
 import { HStack } from "@/components/ui/hstack";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
-import type { StackNavigation } from "@/types/navigation";
+import type { RootStackParamList, StackNavigation } from "@/types/navigation";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -34,13 +34,13 @@ const DocumentsScreen = () => {
         <Heading className="mb-4">Documents en attente</Heading>
 
         <VStack space="xl">
-          <DocumentMenuItem title="Documents personnels" />
+          <DocumentMenuItem title="Documents personnels" screen="PersonalDocumentsScreen" />
 
-          <DocumentMenuItem title="Certificat d'hygiène alimentaire" />
+          <DocumentMenuItem title="Attestation sur l'honneur" screen="SwornStatementScreen" />
 
-          <DocumentMenuItem title="Coordonnées bancaires" />
+          <DocumentMenuItem title="Certificat d'hygiène alimentaire" screen="UploadDocumentsScreen" />
 
-          <DocumentMenuItem title="Assurance professionnelle" />
+          <DocumentMenuItem title="Coordonnées bancaires" screen="PersonalDocumentsScreen" />
         </VStack>
       </View>
       <View className="px-6 pt-6">
@@ -70,12 +70,13 @@ const DocumentsScreen = () => {
 
 type DocumentMenuItemProps = {
   title: string;
+  screen?: keyof RootStackParamList;
   completed?: boolean;
 };
-const DocumentMenuItem: FC<DocumentMenuItemProps> = ({ title, completed = false }) => {
+const DocumentMenuItem: FC<DocumentMenuItemProps> = ({ title, screen = "PersonalDocumentsScreen", completed = false }) => {
   const navigation = useNavigation<StackNavigation>();
   return (
-    <Pressable onPress={() => navigation.push("PersonalDocumentsScreen")}>
+    <Pressable onPress={() => navigation.push(screen as any)}>
       {({ pressed }) => (
         <Box
           className={`bg-white rounded-xl p-4 shadow-sm border border-gray-100

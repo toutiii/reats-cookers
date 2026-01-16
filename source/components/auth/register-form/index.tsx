@@ -192,6 +192,13 @@ const RegisterForm = () => {
           <Text className="text-base text-primary-500 font-semibold">{t("register.loginLink")}</Text>
         </TouchableOpacity>
       </View>
+
+      {/* DEV: Attestation Link */}
+      <TouchableOpacity onPress={() => navigation.navigate("SwornStatementScreen")} className="mb-4">
+        <Text className="text-base text-center text-blue-500 underline">
+          [DEV] Voir Attestation sur l'honneur
+        </Text>
+      </TouchableOpacity>
     </VStack>
   );
 };

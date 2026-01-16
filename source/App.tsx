@@ -41,6 +41,7 @@ import DocumentsScreen from "./screens/user-infos-collection";
 import InformationVerificationScreen from "./screens/user-infos-collection/information-verification";
 import PersonalDocumentsScreen from "./screens/user-infos-collection/personal-documents";
 import UploadDocumentsScreen from "./screens/user-infos-collection/upload-documents";
+import SwornStatementScreen from "./screens/user-infos-collection/sworn-statement";
 import Onboarding from "./screens/onboarding";
 import OrderDetailsScreen from "./screens/order-details";
 import AddMenuItemScreen from "./screens/menu/add";
@@ -126,6 +127,7 @@ export default function App() {
             <Stack.Screen name="DocumentsScreen" component={DocumentsScreen} />
             <Stack.Screen name="PersonalDocumentsScreen" component={PersonalDocumentsScreen} options={createScreenOptions("Documents")} />
             <Stack.Screen name="UploadDocumentsScreen" component={UploadDocumentsScreen} options={createScreenOptions("Upload documents")} />
+            <Stack.Screen name="SwornStatementScreen" component={SwornStatementScreen} />
             <Stack.Screen name="InformationVerificationScreen" component={InformationVerificationScreen} />
             <Stack.Screen name="MainNavigator" component={MainNavigator} />
             <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen} />
