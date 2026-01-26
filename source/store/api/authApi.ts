@@ -34,60 +34,39 @@ export const authApi = baseApi.injectEndpoints({
 
     // POST /cookers/ - Create new cooker account (sends OTP as side effect)
     registerCooker: builder.mutation<ApiResponse<CookerCreateResponse>, CookerCreateRequest>({
-      query: (data) => {
-        const formData = new FormData();
-        Object.entries(data).forEach(([key, value]) => {
-          if (value !== undefined) {
-            formData.append(key, String(value));
-          }
-        });
-        return {
-          url: "/cookers/",
-          method: "POST",
-          body: formData,
-        };
-      },
+      query: (data) => ({
+        url: "/cookers/",
+        method: "POST",
+        body: data,
+      }),
       invalidatesTags: ["Cooker"],
     }),
 
     // POST /cookers/auth/ - Initialize authentication by sending OTP
     sendAuthOtp: builder.mutation<ApiResponse<Record<string, never>>, AuthRequest>({
-      query: (data) => {
-        const formData = new FormData();
-        formData.append("phone", data.phone);
-        return {
-          url: "/cookers/auth",
-          method: "POST",
-          body: formData,
-        };
-      },
+      query: (data) => ({
+        url: "/cookers/auth",
+        method: "POST",
+        body: { phone: data.phone },
+      }),
     }),
 
     // POST /cookers/otp-verify/ - Verify OTP code to activate account
     verifyOtp: builder.mutation<ApiResponse<Record<string, never>>, OtpVerifyRequest>({
-      query: (data) => {
-        const formData = new FormData();
-        formData.append("phone", data.phone);
-        formData.append("otp", data.otp);
-        return {
-          url: "/cookers/otp-verify",
-          method: "POST",
-          body: formData,
-        };
-      },
+      query: (data) => ({
+        url: "/cookers/otp-verify",
+        method: "POST",
+        body: { phone: data.phone, otp: data.otp },
+      }),
     }),
 
     // POST /cookers/otp/ask/ - Request new OTP code
     resendOtp: builder.mutation<ApiResponse<Record<string, never>>, OtpAskRequest>({
-      query: (data) => {
-        const formData = new FormData();
-        formData.append("phone", data.phone);
-        return {
-          url: "/cookers/otp/ask",
-          method: "POST",
-          body: formData,
-        };
-      },
+      query: (data) => ({
+        url: "/cookers/otp/ask",
+        method: "POST",
+        body: { phone: data.phone },
+      }),
     }),
   }),
   overrideExisting: false,
