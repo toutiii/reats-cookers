@@ -22,6 +22,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
+import { ActivityIndicator, View } from "react-native";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 import "react-native-reanimated";
 import "./global.css";
@@ -46,8 +47,10 @@ import Onboarding from "./screens/onboarding";
 import OrderDetailsScreen from "./screens/order-details";
 import AddMenuItemScreen from "./screens/menu/add";
 import FoodDetailsScreen from "./screens/menu/food-details";
-import { Provider } from "react-redux";
-import { store } from "./store";
+import { Provider, useSelector, useDispatch } from "react-redux";
+import { store, RootState } from "./store";
+import { hydrateAuth, setHydrated, logout } from "./store/slices/auth";
+import { loadPersistedAuth, persistAuth, clearPersistedAuth } from "./store/authPersistence";
 
 
 const Stack = createStackNavigator();
@@ -71,6 +74,90 @@ const createScreenOptions = (title: string, additionalOptions = {}) => ({
   title,
   ...additionalOptions,
 });
+
+// Auth Stack - screens for unauthenticated users
+const AuthStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Onboarding" component={Onboarding} />
+    <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} />
+    <Stack.Screen name="LoginScreen" component={LoginScreen} options={createScreenOptions("Connexion", { headerBackTitle: " " })} />
+    <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={createScreenOptions("Créer un compte")} />
+    <Stack.Screen name="OTPScreen" component={OTPScreen} options={createScreenOptions("Code de vérification")} />
+    <Stack.Screen name="SwornStatementScreen" component={SwornStatementScreen} />
+    <Stack.Screen name="DocumentsScreen" component={DocumentsScreen} />
+    <Stack.Screen name="PersonalDocumentsScreen" component={PersonalDocumentsScreen} options={createScreenOptions("Documents")} />
+    <Stack.Screen name="UploadDocumentsScreen" component={UploadDocumentsScreen} options={createScreenOptions("Upload documents")} />
+    <Stack.Screen name="InformationVerificationScreen" component={InformationVerificationScreen} />
+  </Stack.Navigator>
+);
+
+// App Stack - screens for authenticated users
+const AppStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="MainNavigator" component={MainNavigator} />
+    <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen} />
+    <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+    <Stack.Screen name="LanguageSettingsScreen" component={LanguageSettingsScreen} />
+    <Stack.Screen name="WithdrawalHistoryScreen" component={WithdrawalHistoryScreen} />
+    <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
+    <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
+    <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
+    <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
+  </Stack.Navigator>
+);
+
+// Root Navigator - handles auth state
+const RootNavigator = () => {
+  const dispatch = useDispatch();
+  const { isAuthenticated, isHydrated, status } = useSelector((state: RootState) => state.auth);
+  const authState = useSelector((state: RootState) => state.auth);
+
+  console.log("isAuthenticated", isAuthenticated);
+  console.log("isHydrated", isHydrated);
+  console.log("status", status);
+  console.log("authState", authState);
+
+  // Load persisted auth state on mount
+  useEffect(() => {
+    const loadAuth = async () => {
+      try {
+        const persistedState = await loadPersistedAuth();
+        if (persistedState && persistedState.accessToken) {
+          dispatch(hydrateAuth(persistedState));
+        } else {
+          dispatch(setHydrated());
+        }
+      } catch (error) {
+        console.error("Failed to load auth state:", error);
+        dispatch(setHydrated());
+      }
+    };
+
+    loadAuth();
+  }, [dispatch]);
+
+  // Persist auth state when it changes
+  useEffect(() => {
+    if (isHydrated) {
+      if (isAuthenticated) {
+        persistAuth(authState);
+      } else if (status === "unauthenticated") {
+        clearPersistedAuth();
+      }
+    }
+  }, [isAuthenticated, isHydrated, status, authState]);
+
+  // Show loading while hydrating
+  if (!isHydrated) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff" }}>
+        <ActivityIndicator size="large" color="#FF6347" />
+      </View>
+    );
+  }
+
+  return isAuthenticated ? <AppStack /> : <AuthStack />;
+};
 
 export default function App() {
   const [loaded] = useFonts({
@@ -118,27 +205,7 @@ export default function App() {
       <GluestackUIProvider mode="light">
         <AutocompleteDropdownContextProvider>
           <NavigationContainer>
-          <Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Onboarding" component={Onboarding} />
-            <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} />
-            <Stack.Screen name="LoginScreen" component={LoginScreen} options={createScreenOptions("Connexion", { headerBackTitle: " " })} />
-            <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={createScreenOptions("Créer un compte")} />
-            <Stack.Screen name="OTPScreen" component={OTPScreen} options={createScreenOptions("Code de vérification")} />
-            <Stack.Screen name="DocumentsScreen" component={DocumentsScreen} />
-            <Stack.Screen name="PersonalDocumentsScreen" component={PersonalDocumentsScreen} options={createScreenOptions("Documents")} />
-            <Stack.Screen name="UploadDocumentsScreen" component={UploadDocumentsScreen} options={createScreenOptions("Upload documents")} />
-            <Stack.Screen name="SwornStatementScreen" component={SwornStatementScreen} />
-            <Stack.Screen name="InformationVerificationScreen" component={InformationVerificationScreen} />
-            <Stack.Screen name="MainNavigator" component={MainNavigator} />
-            <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen} />
-            <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
-            <Stack.Screen name="LanguageSettingsScreen" component={LanguageSettingsScreen} />
-            <Stack.Screen name="WithdrawalHistoryScreen" component={WithdrawalHistoryScreen} />
-            <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
-            <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
-            <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
-            <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
-          </Stack.Navigator>
+            <RootNavigator />
           </NavigationContainer>
         </AutocompleteDropdownContextProvider>
       </GluestackUIProvider>
