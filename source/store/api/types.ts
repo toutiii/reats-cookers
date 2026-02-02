@@ -77,6 +77,7 @@ export interface CookerCreateRequest {
   firstname: string;
   lastname: string;
   phone: string;
+  email: string;
   postal_code: string;
   siret: string;
   street_name: string;
@@ -85,6 +86,7 @@ export interface CookerCreateRequest {
   address_complement?: string;
   max_order_number?: number;
   is_online?: boolean;
+
 }
 
 export interface CookerCreateResponse {
@@ -92,6 +94,7 @@ export interface CookerCreateResponse {
   firstname: string;
   lastname: string;
   phone: string;
+  email: string;
   postal_code: string;
   siret: string;
   street_name: string;

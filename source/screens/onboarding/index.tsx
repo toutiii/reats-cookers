@@ -85,10 +85,10 @@ const Onboarding: FC = () => {
   }, [currentIndex, scrollViewRef, navigation]);
 
   /**
-   * Skip onboarding and go directly to main app
+   * Skip onboarding and go directly to login
    */
   const handleSkip = useCallback(() => {
-    navigation.navigate("MainNavigator");
+    navigation.navigate("LoginScreen");
   }, [navigation]);
 
 

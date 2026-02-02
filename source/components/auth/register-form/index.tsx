@@ -17,13 +17,16 @@ import { Controller, useForm } from "react-hook-form";
 import { ActivityIndicator, TouchableOpacity, View } from "react-native";
 import { FormInputControlPhone } from "../../common/form-input-control-phone";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useRegisterCookerMutation } from "@/store/api/authApi";
-import { useSelector } from "react-redux";
+import { useRegisterCookerMutation, useResendOtpMutation } from "@/store/api/authApi";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store";
+import { otpSent, setAuthFlow } from "@/store/slices/auth";
+import type { ApiErrorResponse } from "@/store/api/types";
 
 const RegisterForm = () => {
   const { t } = useTranslation("auth");
   const navigation = useNavigation<StackNavigation>();
+  const dispatch = useDispatch();
   const [country, setCountry] = useState<ICountry>({
     calling_codes: [33],
     key: "FR",
@@ -32,6 +35,7 @@ const RegisterForm = () => {
   });
 
   const [registerCooker, { isLoading }] = useRegisterCookerMutation();
+  const [resendOtp, { isLoading: isResendingOtp }] = useResendOtpMutation();
   const { error: authError, status } = useSelector((state: RootState) => state.auth);
 
   const {
@@ -67,10 +71,39 @@ const RegisterForm = () => {
     const fullPhone = cleanPhone.startsWith("+")
       ? cleanPhone
       : `+${country.calling_codes[0]}${cleanPhone.replace(/^0/, "")}`;
-    await registerCooker({
-      ...data,
-      phone: fullPhone,
-    });
+    try {
+      await registerCooker({
+        ...data,
+        email: "test@example.com",
+        phone: fullPhone,
+      }).unwrap();
+    } catch (error) {
+      const apiError = error as { data?: ApiErrorResponse };
+
+      // Check if phone already exists
+      if (apiError?.data?.error?.details?.phone) {
+        const phoneErrors = apiError.data.error.details.phone as string[];
+        const phoneAlreadyExists = phoneErrors.some(
+          (msg) => msg.toLowerCase().includes("already exists")
+        );
+
+        if (phoneAlreadyExists) {
+          try {
+            // Resend OTP for existing account
+            await resendOtp({ phone: fullPhone }).unwrap();
+            // Update Redux state and navigate to OTP screen
+            dispatch(setAuthFlow("register"));
+            dispatch(otpSent({ phone: fullPhone }));
+            navigation.navigate("OTPScreen");
+          } catch (resendError) {
+            console.error("Failed to resend OTP:", resendError);
+          }
+          return;
+        }
+      }
+
+      console.error("Register error:", error);
+    }
   };
 
   return (
@@ -172,8 +205,8 @@ const RegisterForm = () => {
       )}
 
       {/* Register Button */}
-      <Button size="xl" className="my-2" onPress={handleSubmit(onSubmit)} isDisabled={isLoading}>
-        {isLoading
+      <Button size="xl" className="my-2" onPress={handleSubmit(onSubmit)} isDisabled={isLoading || isResendingOtp}>
+        {isLoading || isResendingOtp
           ? <ActivityIndicator size="small" color="white" />
           : <ButtonText size="lg">{t("register.submitButton")}</ButtonText>}
       </Button>
@@ -188,7 +221,7 @@ const RegisterForm = () => {
       {/* Login Link */}
       <View className="flex-row justify-center mb-4">
         <Text className="text-base text-gray-500">{t("register.hasAccount")} </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")} disabled={isLoading}>
+        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")} disabled={isLoading || isResendingOtp}>
           <Text className="text-base text-primary-500 font-semibold">{t("register.loginLink")}</Text>
         </TouchableOpacity>
       </View>
