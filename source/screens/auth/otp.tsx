@@ -12,7 +12,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Keyboard, Pressable, SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import Animated, { FadeIn, SlideInRight, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
-import { useVerifyOtpMutation, useResendOtpMutation, useGetTokenMutation } from "@/store/api/authApi";
+import { useVerifyOtpMutation, useResendOtpMutation, useVerifyAuthOtpMutation, useSendAuthOtpMutation } from "@/store/api/authApi";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store";
 import { clearError } from "@/store/slices/auth";
@@ -29,12 +29,16 @@ const OTPScreen = () => {
   const dispatch = useDispatch();
 
   // Redux state
-  const { otpPhone } = useSelector((state: RootState) => state.auth);
+  const { otpPhone, authFlow } = useSelector((state: RootState) => state.auth);
 
-  // RTK Query mutations
-  const [verifyOtp, { isLoading: isVerifying }] = useVerifyOtpMutation();
-  const [resendOtp, { isLoading: isResendingOtp }] = useResendOtpMutation();
-  const [getToken] = useGetTokenMutation();
+  // RTK Query mutations - use different endpoints based on flow
+  const [verifyOtp, { isLoading: isVerifyingRegister }] = useVerifyOtpMutation();
+  const [verifyAuthOtp, { isLoading: isVerifyingLogin }] = useVerifyAuthOtpMutation();
+  const [resendOtp, { isLoading: isResendingRegisterOtp }] = useResendOtpMutation();
+  const [sendAuthOtp, { isLoading: isResendingLoginOtp }] = useSendAuthOtpMutation();
+
+  const isVerifying = authFlow === "login" ? isVerifyingLogin : isVerifyingRegister;
+  const isResendingOtp = authFlow === "login" ? isResendingLoginOtp : isResendingRegisterOtp;
 
   const [otp, setOtp] = useState<string>("");
   const [timeLeft, setTimeLeft] = useState<number>(RESEND_TIMEOUT);
@@ -106,7 +110,12 @@ const OTPScreen = () => {
     setResendStatus("sending");
 
     try {
-      await resendOtp({ phone: otpPhone }).unwrap();
+      // Use different endpoint based on flow
+      if (authFlow === "login") {
+        await sendAuthOtp({ phone: otpPhone }).unwrap();
+      } else {
+        await resendOtp({ phone: otpPhone }).unwrap();
+      }
 
       // Start the timer again
       startTimer();
@@ -144,17 +153,22 @@ const OTPScreen = () => {
     });
 
     try {
-      // Verify OTP
-      await verifyOtp({ phone: otpPhone, otp }).unwrap();
-      setVerificationStatus("success");
+      if (authFlow === "login") {
+        // Login flow: verify OTP and get tokens
+        // RootNavigator will automatically switch to AppStack when isAuthenticated becomes true
+        await verifyAuthOtp({ phone: otpPhone, otp }).unwrap();
+        setVerificationStatus("success");
+        // No manual navigation needed - RootNavigator handles it
+      } else {
+        // Register flow: verify OTP to activate account, then go to documents
+        await verifyOtp({ phone: otpPhone, otp }).unwrap();
+        setVerificationStatus("success");
 
-      // Get JWT tokens after successful OTP verification
-      await getToken({ phone: otpPhone }).unwrap();
-
-      // Navigate to next screen after successful verification
-      setTimeout(() => {
-        navigation.navigate("DocumentsScreen");
-      }, 1000);
+        // Navigate to sworn statement screen after successful registration OTP
+        setTimeout(() => {
+          navigation.navigate("SwornStatementScreen");
+        }, 1000);
+      }
     } catch (error) {
       console.error("OTP verification failed:", error);
       setVerificationStatus("error");
@@ -177,14 +191,16 @@ const OTPScreen = () => {
               </Animated.Text>
             </Center>
 
-            {/* Progress indicator */}
-            <HStack className="justify-center gap-2 mb-4">
-              {[1, 2, 3].map((step) => (
-                <View key={`step-${step}`} className={`h-1 rounded-full ${step === 2
+            {/* Progress indicator - only show for register flow */}
+            {authFlow === "register" && (
+              <HStack className="justify-center gap-2 mb-4">
+                {[1, 2, 3].map((step) => (
+                  <View key={`step-${step}`} className={`h-1 rounded-full ${step === 2
 ? "bg-primary-500 w-16"
 : "bg-gray-200 w-8"}`} />
-              ))}
-            </HStack>
+                ))}
+              </HStack>
+            )}
 
             {/* Header Text */}
             <View>
