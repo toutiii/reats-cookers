@@ -12,7 +12,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Keyboard, Pressable, SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import Animated, { FadeIn, SlideInRight, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
-import { useVerifyOtpMutation, useResendOtpMutation, useVerifyAuthOtpMutation, useSendAuthOtpMutation } from "@/store/api/authApi";
+import { useVerifyOtpMutation, useResendOtpMutation, useGetTokenMutation, useSendAuthOtpMutation } from "@/store/api/authApi";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store";
 import { clearError } from "@/store/slices/auth";
@@ -33,7 +33,7 @@ const OTPScreen = () => {
 
   // RTK Query mutations - use different endpoints based on flow
   const [verifyOtp, { isLoading: isVerifyingRegister }] = useVerifyOtpMutation();
-  const [verifyAuthOtp, { isLoading: isVerifyingLogin }] = useVerifyAuthOtpMutation();
+  const [getToken, { isLoading: isVerifyingLogin }] = useGetTokenMutation();
   const [resendOtp, { isLoading: isResendingRegisterOtp }] = useResendOtpMutation();
   const [sendAuthOtp, { isLoading: isResendingLoginOtp }] = useSendAuthOtpMutation();
 
@@ -156,7 +156,7 @@ const OTPScreen = () => {
       if (authFlow === "login") {
         // Login flow: verify OTP and get tokens
         // RootNavigator will automatically switch to AppStack when isAuthenticated becomes true
-        await verifyAuthOtp({ phone: otpPhone, otp }).unwrap();
+        await getToken({ phone: otpPhone, otp }).unwrap();
         setVerificationStatus("success");
         // No manual navigation needed - RootNavigator handles it
       } else {

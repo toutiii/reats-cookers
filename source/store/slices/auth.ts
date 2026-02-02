@@ -346,14 +346,14 @@ const authSlice = createSlice({
         state.errorCode = code;
       });
 
-    // Verify auth OTP and get tokens (final login step)
+    // Get tokens (final login step)
     builder
-      .addMatcher(authApi.endpoints.verifyAuthOtp.matchPending, (state) => {
+      .addMatcher(authApi.endpoints.getToken.matchPending, (state) => {
         state.isLoading = true;
         state.error = null;
         state.errorCode = null;
       })
-      .addMatcher(authApi.endpoints.verifyAuthOtp.matchFulfilled, (state, action) => {
+      .addMatcher(authApi.endpoints.getToken.matchFulfilled, (state, action) => {
         state.isLoading = false;
         state.accessToken = action.payload.data.token.access;
         state.refreshToken = action.payload.data.token.refresh;
@@ -363,7 +363,7 @@ const authSlice = createSlice({
         state.lastLoginAt = Date.now();
         state.registrationStep = "complete";
       })
-      .addMatcher(authApi.endpoints.verifyAuthOtp.matchRejected, (state, action) => {
+      .addMatcher(authApi.endpoints.getToken.matchRejected, (state, action) => {
         state.isLoading = false;
         const { message, code } = extractApiError(action.payload);
         state.error = message;

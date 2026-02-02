@@ -39,6 +39,7 @@ export type ApiErrorCode =
 // Token endpoints
 export interface TokenRequest {
   phone: string;
+  otp: string;
 }
 
 export interface TokenResponse {
