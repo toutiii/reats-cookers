@@ -55,7 +55,11 @@ const LoginForm = () => {
     const fullPhone = cleanPhone.startsWith("+")
       ? cleanPhone
       : `+${country.calling_codes[0]}${cleanPhone.replace(/^0/, "")}`;
-    await sendAuthOtp({ phone: fullPhone });
+    try {
+      await sendAuthOtp({ phone: fullPhone }).unwrap();
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (
