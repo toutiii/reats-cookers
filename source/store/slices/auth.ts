@@ -58,11 +58,17 @@ export type AuthStatus =
   | "documents_rejected"
   | "error";
 
+// Auth flow type (login vs register)
+export type AuthFlow = "login" | "register" | null;
+
 // Complete auth slice state
 export interface AuthState {
   // Global status
   status: AuthStatus;
   isAuthenticated: boolean;
+
+  // Current auth flow (login vs register)
+  authFlow: AuthFlow;
 
   // Cooker data
   cooker: Cooker | null;
@@ -91,11 +97,14 @@ export interface AuthState {
   isRefreshing: boolean;
   isFirstLaunch: boolean;
   isLoading: boolean;
+  isHydrated: boolean;
 }
 
 const initialState: AuthState = {
   status: "idle",
   isAuthenticated: false,
+
+  authFlow: null,
 
   cooker: null,
   userId: null,
@@ -118,6 +127,7 @@ const initialState: AuthState = {
   isRefreshing: false,
   isFirstLaunch: true,
   isLoading: false,
+  isHydrated: false,
 };
 
 // Helper to extract error from API response
@@ -246,6 +256,25 @@ const authSlice = createSlice({
       state.error = null;
       state.errorCode = null;
     },
+
+    // Set auth flow (login or register)
+    setAuthFlow: (state, action: PayloadAction<AuthFlow>) => {
+      state.authFlow = action.payload;
+    },
+
+    // Hydrate auth state from storage
+    hydrateAuth: (state, action: PayloadAction<Partial<AuthState>>) => {
+      return {
+        ...state,
+        ...action.payload,
+        isHydrated: true,
+      };
+    },
+
+    // Mark as hydrated (even if no data to restore)
+    setHydrated: (state) => {
+      state.isHydrated = true;
+    },
   },
   extraReducers: (builder) => {
     // Register cooker
@@ -254,6 +283,7 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
         state.errorCode = null;
+        state.authFlow = "register";
       })
       .addMatcher(authApi.endpoints.registerCooker.matchFulfilled, (state, action) => {
         state.isLoading = false;
@@ -261,6 +291,7 @@ const authSlice = createSlice({
         state.registrationStep = "otp";
         state.otpPhone = action.payload.data.phone;
         state.status = "otp_pending";
+        state.authFlow = "register";
       })
       .addMatcher(authApi.endpoints.registerCooker.matchRejected, (state, action) => {
         state.isLoading = false;
@@ -276,11 +307,13 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
         state.errorCode = null;
+        state.authFlow = "login";
       })
       .addMatcher(authApi.endpoints.sendAuthOtp.matchFulfilled, (state, action) => {
         state.isLoading = false;
         state.status = "otp_pending";
         state.otpPhone = action.meta.arg.originalArgs.phone;
+        state.authFlow = "login";
       })
       .addMatcher(authApi.endpoints.sendAuthOtp.matchRejected, (state, action) => {
         state.isLoading = false;
@@ -313,14 +346,14 @@ const authSlice = createSlice({
         state.errorCode = code;
       });
 
-    // Get token (final login step)
+    // Verify auth OTP and get tokens (final login step)
     builder
-      .addMatcher(authApi.endpoints.getToken.matchPending, (state) => {
+      .addMatcher(authApi.endpoints.verifyAuthOtp.matchPending, (state) => {
         state.isLoading = true;
         state.error = null;
         state.errorCode = null;
       })
-      .addMatcher(authApi.endpoints.getToken.matchFulfilled, (state, action) => {
+      .addMatcher(authApi.endpoints.verifyAuthOtp.matchFulfilled, (state, action) => {
         state.isLoading = false;
         state.accessToken = action.payload.data.token.access;
         state.refreshToken = action.payload.data.token.refresh;
@@ -330,7 +363,7 @@ const authSlice = createSlice({
         state.lastLoginAt = Date.now();
         state.registrationStep = "complete";
       })
-      .addMatcher(authApi.endpoints.getToken.matchRejected, (state, action) => {
+      .addMatcher(authApi.endpoints.verifyAuthOtp.matchRejected, (state, action) => {
         state.isLoading = false;
         const { message, code } = extractApiError(action.payload);
         state.error = message;
@@ -396,6 +429,9 @@ export const {
   updateCooker,
   setFirstLaunchComplete,
   clearError,
+  setAuthFlow,
+  hydrateAuth,
+  setHydrated,
 } = authSlice.actions;
 
 export default authSlice.reducer;
