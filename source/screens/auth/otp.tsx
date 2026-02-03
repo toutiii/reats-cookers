@@ -12,6 +12,10 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Keyboard, Pressable, SafeAreaView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import Animated, { FadeIn, SlideInRight, useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
+import { useVerifyOtpMutation, useResendOtpMutation, useGetTokenMutation, useSendAuthOtpMutation } from "@/store/api/authApi";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/store";
+import { clearError } from "@/store/slices/auth";
 
 // Types
 type VerificationStatus = null | "success" | "error";
@@ -22,10 +26,22 @@ const RESEND_TIMEOUT: number = 60; // 60 seconds for resend timeout
 const OTPScreen = () => {
   const { t } = useTranslation("auth");
   const navigation = useNavigation<StackNavigation>();
+  const dispatch = useDispatch();
+
+  // Redux state
+  const { otpPhone, authFlow } = useSelector((state: RootState) => state.auth);
+
+  // RTK Query mutations - use different endpoints based on flow
+  const [verifyOtp, { isLoading: isVerifyingRegister }] = useVerifyOtpMutation();
+  const [getToken, { isLoading: isVerifyingLogin }] = useGetTokenMutation();
+  const [resendOtp, { isLoading: isResendingRegisterOtp }] = useResendOtpMutation();
+  const [sendAuthOtp, { isLoading: isResendingLoginOtp }] = useSendAuthOtpMutation();
+
+  const isVerifying = authFlow === "login" ? isVerifyingLogin : isVerifyingRegister;
+  const isResendingOtp = authFlow === "login" ? isResendingLoginOtp : isResendingRegisterOtp;
+
   const [otp, setOtp] = useState<string>("");
   const [timeLeft, setTimeLeft] = useState<number>(RESEND_TIMEOUT);
-  const [isVerifying, setIsVerifying] = useState<boolean>(false);
-  const [isResending, setIsResending] = useState<boolean>(false);
   const [verificationStatus, setVerificationStatus] = useState<VerificationStatus>(null);
   const [resendStatus, setResendStatus] = useState<ResendStatus>("idle");
 
@@ -87,15 +103,19 @@ const OTPScreen = () => {
   }, []);
 
   const handleResendOtp = async (): Promise<void> => {
-    if (timeLeft > 0 || isResending || verificationStatus === "success") return;
+    if (timeLeft > 0 || isResendingOtp || verificationStatus === "success" || !otpPhone) return;
 
     Keyboard.dismiss();
-    setIsResending(true);
+    dispatch(clearError());
     setResendStatus("sending");
 
     try {
-      // Simulate API call
-      await new Promise<void>((resolve) => setTimeout(resolve, 1500));
+      // Use different endpoint based on flow
+      if (authFlow === "login") {
+        await sendAuthOtp({ phone: otpPhone }).unwrap();
+      } else {
+        await resendOtp({ phone: otpPhone }).unwrap();
+      }
 
       // Start the timer again
       startTimer();
@@ -103,7 +123,7 @@ const OTPScreen = () => {
       // Clear the current OTP
       setOtp("");
 
-      // Show success toast or feedback here
+      // Show success feedback
       setResendStatus("sent");
 
       // Reset status after a delay
@@ -118,16 +138,14 @@ const OTPScreen = () => {
       setTimeout(() => {
         setResendStatus("idle");
       }, 3000);
-    } finally {
-      setIsResending(false);
     }
   };
 
   const handleVerify = async (): Promise<void> => {
-    if (otp.length !== 6 || isVerifying) return;
+    if (otp.length !== 6 || isVerifying || !otpPhone) return;
 
     Keyboard.dismiss();
-    setIsVerifying(true);
+    dispatch(clearError());
 
     // Button press animation
     buttonScale.value = withSpring(0.95, {}, () => {
@@ -135,24 +153,25 @@ const OTPScreen = () => {
     });
 
     try {
-      // Simulate API verification
-      await new Promise<void>((resolve) => setTimeout(resolve, 1500));
-
-      // For demo, we'll simulate success if OTP is "123456"
-      if (otp === "123456") {
+      if (authFlow === "login") {
+        // Login flow: verify OTP and get tokens
+        // RootNavigator will automatically switch to AppStack when isAuthenticated becomes true
+        await getToken({ phone: otpPhone, otp }).unwrap();
         setVerificationStatus("success");
-        // Navigate to next screen after successful verification
-        setTimeout(() => {
-          navigation.navigate("DocumentsScreen"); // Replace with your actual route name
-        }, 1000);
+        // No manual navigation needed - RootNavigator handles it
       } else {
-        setVerificationStatus("error");
+        // Register flow: verify OTP to activate account, then go to documents
+        await verifyOtp({ phone: otpPhone, otp }).unwrap();
+        setVerificationStatus("success");
+
+        // Navigate to sworn statement screen after successful registration OTP
+        setTimeout(() => {
+          navigation.navigate("SwornStatementScreen");
+        }, 1000);
       }
     } catch (error) {
       console.error("OTP verification failed:", error);
       setVerificationStatus("error");
-    } finally {
-      setIsVerifying(false);
     }
   };
 
@@ -172,14 +191,16 @@ const OTPScreen = () => {
               </Animated.Text>
             </Center>
 
-            {/* Progress indicator */}
-            <HStack className="justify-center gap-2 mb-4">
-              {[1, 2, 3].map((step) => (
-                <View key={`step-${step}`} className={`h-1 rounded-full ${step === 2
+            {/* Progress indicator - only show for register flow */}
+            {authFlow === "register" && (
+              <HStack className="justify-center gap-2 mb-4">
+                {[1, 2, 3].map((step) => (
+                  <View key={`step-${step}`} className={`h-1 rounded-full ${step === 2
 ? "bg-primary-500 w-16"
 : "bg-gray-200 w-8"}`} />
-              ))}
-            </HStack>
+                ))}
+              </HStack>
+            )}
 
             {/* Header Text */}
             <View>
@@ -261,10 +282,10 @@ const OTPScreen = () => {
             <Text style={styles.subText}>{t("otp.codeSent")}</Text>
 
             {/* Resend Timer */}
-            <Pressable onPress={handleResendOtp} disabled={timeLeft > 0 || isResending || verificationStatus === "success"} className={`items-center py-2 ${timeLeft === 0
+            <Pressable onPress={handleResendOtp} disabled={timeLeft > 0 || isResendingOtp || verificationStatus === "success"} className={`items-center py-2 ${timeLeft === 0
 ? "opacity-100"
 : "opacity-70"}`}>
-              {isResending
+              {isResendingOtp
 ? (
                 <HStack space="sm" className="items-center">
                   <ActivityIndicator size="small" color="#FF6347" />
