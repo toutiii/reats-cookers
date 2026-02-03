@@ -165,8 +165,12 @@ const OTPScreen = () => {
         setVerificationStatus("success");
 
         // Navigate to sworn statement screen after successful registration OTP
+        // Use reset to prevent going back to OTP screen
         setTimeout(() => {
-          navigation.navigate("SwornStatementScreen");
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "SwornStatementScreen" }],
+          });
         }, 1000);
       }
     } catch (error) {

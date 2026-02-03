@@ -83,7 +83,14 @@ const AuthStack = () => (
     <Stack.Screen name="LoginScreen" component={LoginScreen} options={createScreenOptions("Connexion", { headerBackTitle: " " })} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={createScreenOptions("Créer un compte")} />
     <Stack.Screen name="OTPScreen" component={OTPScreen} options={createScreenOptions("Code de vérification")} />
-    <Stack.Screen name="SwornStatementScreen" component={SwornStatementScreen} />
+    <Stack.Screen
+      name="SwornStatementScreen"
+      component={SwornStatementScreen}
+      options={{
+        headerShown: false,
+        gestureEnabled: false,
+      }}
+    />
     <Stack.Screen name="DocumentsScreen" component={DocumentsScreen} />
     <Stack.Screen name="PersonalDocumentsScreen" component={PersonalDocumentsScreen} options={createScreenOptions("Documents")} />
     <Stack.Screen name="UploadDocumentsScreen" component={UploadDocumentsScreen} options={createScreenOptions("Upload documents")} />
