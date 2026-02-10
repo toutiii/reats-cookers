@@ -141,6 +141,7 @@ const AttestationHonneurScreen = () => {
   );
 
   const handleSubmit = useCallback(async () => {
+    navigation.push("DashboardScreen");
     if (!canSubmit || !cooker?.id || !businessDocImage || !rcInsuranceImage) return;
 
     try {
