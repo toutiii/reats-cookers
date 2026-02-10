@@ -140,3 +140,29 @@ export interface AttestationSubmitResponse {
   submitted_at: string;
   status: DocumentStatus;
 }
+
+// Cooker profile types
+export interface CookerPersonalInfos {
+  photo: string | null;
+  siret: string;
+  firstname: string;
+  lastname: string;
+  phone: string;
+  max_order_number: string;
+  is_online: boolean;
+  acceptance_rate: number;
+  email: string;
+}
+
+export interface CookerAddress {
+  street_number: string;
+  street_name: string;
+  address_complement: string | null;
+  postal_code: string;
+  town: string;
+}
+
+export interface CookerProfileResponse {
+  personal_infos_section: CookerPersonalInfos;
+  address_section: CookerAddress;
+}
