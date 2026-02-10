@@ -14,19 +14,22 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert as RNAlert, TouchableOpacity, View } from "react-native";
 import { FormInputControlPhone } from "../../common/form-input-control-phone";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useRegisterCookerMutation, useResendOtpMutation } from "@/store/api/authApi";
+import { useRegisterCookerMutation } from "@/store/api/authApi";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store";
-import { otpSent, setAuthFlow } from "@/store/slices/auth";
+import { clearError } from "@/store/slices/auth";
 import type { ApiErrorResponse } from "@/store/api/types";
+import { useToast, Toast, ToastTitle } from "@/components/ui/toast";
+import { getAuthErrorKey, getErrorKeyFromCode } from "@/utils/getAuthErrorMessage";
 
 const RegisterForm = () => {
-  const { t } = useTranslation("auth");
+  const { t } = useTranslation(["auth", "validation"]);
   const navigation = useNavigation<StackNavigation>();
   const dispatch = useDispatch();
+  const toast = useToast();
   const [country, setCountry] = useState<ICountry>({
     calling_codes: [33],
     key: "FR",
@@ -35,35 +38,43 @@ const RegisterForm = () => {
   });
 
   const [registerCooker, { isLoading }] = useRegisterCookerMutation();
-  const [resendOtp, { isLoading: isResendingOtp }] = useResendOtpMutation();
-  const { error: authError, status } = useSelector((state: RootState) => state.auth);
+  const { error: authError, errorCode, status, authFlow } = useSelector((state: RootState) => state.auth);
+
+  const [currentStep, setCurrentStep] = useState<1 | 2>(1);
 
   const {
     control,
     watch,
     handleSubmit,
+    trigger,
     formState: { errors },
   } = useForm<RegisterFormData>({
     resolver: yupResolver(registerValidationSchema) as any,
     defaultValues: {
-      firstname: "Jean",
-      lastname: "Dupont",
-      siret: "12345678901234",
-      phone: "753790506",
-      postal_code: "75001",
-      street_name: "Rue de Rivoli",
-      street_number: "10",
-      town: "Paris",
-      address_complement: "Bâtiment A",
+      email: "",
+      firstname: "",
+      lastname: "",
+      siret: "",
+      phone: "",
+      postal_code: "",
+      street_name: "",
+      street_number: "",
+      town: "",
+      address_complement: "",
     },
   });
 
+  // Clear any stale errors on mount
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
+
   // Navigate to OTP screen when registration is successful
   useEffect(() => {
-    if (status === "otp_pending") {
+    if (status === "otp_pending" && authFlow === "register") {
       navigation.navigate("OTPScreen");
     }
-  }, [status, navigation]);
+  }, [status, authFlow, navigation]);
 
   const onSubmit = async (data: RegisterFormData) => {
     // Clean phone: remove spaces and check if already has country code
@@ -72,15 +83,33 @@ const RegisterForm = () => {
       ? cleanPhone
       : `+${country.calling_codes[0]}${cleanPhone.replace(/^0/, "")}`;
     try {
+      const { address_complement, ...rest } = data;
       await registerCooker({
-        ...data,
-        email: "test@example.com",
+        ...rest,
+        ...(address_complement ? { address_complement } : {}),
         phone: fullPhone,
       }).unwrap();
     } catch (error) {
       const apiError = error as { data?: ApiErrorResponse };
 
-      // Check if phone already exists
+      // Check if user already exists — redirect to login
+      if (apiError?.data?.error?.code === "USER_ALREADY_EXISTS") {
+        dispatch(clearError());
+        RNAlert.alert(
+          t("auth:register.phoneExistsTitle"),
+          t("auth:register.phoneExistsMessage"),
+          [
+            { text: t("auth:register.phoneExistsCancel"), style: "cancel" },
+            {
+              text: t("auth:register.phoneExistsLogin"),
+              onPress: () => navigation.navigate("LoginScreen"),
+            },
+          ]
+        );
+        return;
+      }
+
+      // Check if phone already exists — redirect to login
       if (apiError?.data?.error?.details?.phone) {
         const phoneErrors = apiError.data.error.details.phone as string[];
         const phoneAlreadyExists = phoneErrors.some(
@@ -88,128 +117,342 @@ const RegisterForm = () => {
         );
 
         if (phoneAlreadyExists) {
-          try {
-            // Resend OTP for existing account
-            await resendOtp({ phone: fullPhone }).unwrap();
-            // Update Redux state and navigate to OTP screen
-            dispatch(setAuthFlow("register"));
-            dispatch(otpSent({ phone: fullPhone }));
-            navigation.navigate("OTPScreen");
-          } catch (resendError) {
-            console.error("Failed to resend OTP:", resendError);
-          }
+          dispatch(clearError());
+          RNAlert.alert(
+            t("auth:register.phoneExistsTitle"),
+            t("auth:register.phoneExistsMessage"),
+            [
+              { text: t("auth:register.phoneExistsCancel"), style: "cancel" },
+              {
+                text: t("auth:register.phoneExistsLogin"),
+                onPress: () => navigation.navigate("LoginScreen"),
+              },
+            ]
+          );
           return;
         }
       }
 
-      console.error("Register error:", error);
+      // Show user-friendly error toast
+      const errorKey = getAuthErrorKey(error);
+      toast.show({
+        placement: "top",
+        render: ({ id }) => (
+          <Toast nativeID={`toast-${id}`} action="error" variant="solid">
+            <ToastTitle>{t(errorKey)}</ToastTitle>
+          </Toast>
+        ),
+      });
     }
+  };
+
+  const handleNextStep = async () => {
+    const isValid = await trigger(["firstname", "lastname", "email", "siret", "phone"]);
+    if (isValid) setCurrentStep(2);
   };
 
   return (
     <VStack className="px-6 flex-1" space="lg">
-      {/* First Name Input */}
-      <View>
-        <Controller
-          control={control}
-          name="firstname"
-          render={({ field: { onChange, onBlur, value } }) => (
-            <FormControl isInvalid={!!errors.firstname} size="md" isDisabled={isLoading} isReadOnly={false} isRequired={true}>
-              <FormControlLabel>
-                <FormControlLabelText>{t("register.firstNameLabel")}</FormControlLabelText>
-              </FormControlLabel>
-              <Input className="my-1" size={"lg"} variant="rounded">
-                <InputField type="text" placeholder={t("register.firstNamePlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} />
-              </Input>
-              {errors.firstname && (
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircleIcon} />
-                  <FormControlErrorText>{errors.firstname.message}</FormControlErrorText>
-                </FormControlError>
-              )}
-            </FormControl>
-          )}
-        />
+      {/* Progress indicator */}
+      <View className="flex-row items-center justify-center mb-4">
+        {/* Step 1 circle */}
+        <View className="items-center">
+          <View className={`w-9 h-9 rounded-full items-center justify-center ${
+            currentStep >= 1 ? "bg-primary-500" : "bg-white border-2 border-gray-300"
+          }`}>
+            <Text className={`text-sm font-bold ${currentStep >= 1 ? "text-white" : "text-gray-400"}`}>1</Text>
+          </View>
+          <Text className={`text-xs mt-1 ${currentStep >= 1 ? "text-primary-500 font-semibold" : "text-gray-400"}`}>
+            {t("auth:register.step1Title")}
+          </Text>
+        </View>
+
+        {/* Connecting line */}
+        <View className={`h-0.5 w-20 mx-1 mb-4 ${currentStep >= 2 ? "bg-primary-500" : "bg-gray-300"}`} />
+
+        {/* Step 2 circle */}
+        <View className="items-center">
+          <View className={`w-9 h-9 rounded-full items-center justify-center ${
+            currentStep >= 2 ? "bg-primary-500" : "bg-white border-2 border-gray-300"
+          }`}>
+            <Text className={`text-sm font-bold ${currentStep >= 2 ? "text-white" : "text-gray-400"}`}>2</Text>
+          </View>
+          <Text className={`text-xs mt-1 ${currentStep >= 2 ? "text-primary-500 font-semibold" : "text-gray-400"}`}>
+            {t("auth:register.step2Title")}
+          </Text>
+        </View>
       </View>
 
-      {/* Last Name Input */}
-      <View>
-        <Controller
-          control={control}
-          name="lastname"
-          render={({ field: { onChange, onBlur, value } }) => (
-            <FormControl isInvalid={!!errors.lastname} size="md" isDisabled={isLoading} isReadOnly={false} isRequired={true}>
-              <FormControlLabel>
-                <FormControlLabelText>{t("register.lastNameLabel")}</FormControlLabelText>
-              </FormControlLabel>
-              <Input className="my-1" size={"lg"} variant="rounded">
-                <InputField type="text" placeholder={t("register.lastNamePlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} />
-              </Input>
-              {errors.lastname && (
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircleIcon} />
-                  <FormControlErrorText>{errors.lastname.message}</FormControlErrorText>
-                </FormControlError>
+      {/* Step subtitle */}
+      <Text className="text-sm text-gray-500 mb-2">
+        {t(currentStep === 1 ? "auth:register.step1Subtitle" : "auth:register.step2Subtitle")}
+      </Text>
+
+      {currentStep === 1 && (
+        <>
+          {/* First Name Input */}
+          <View>
+            <Controller
+              control={control}
+              name="firstname"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <FormControl isInvalid={!!errors.firstname} size="md" isDisabled={isLoading} isReadOnly={false} isRequired={true}>
+                  <FormControlLabel>
+                    <FormControlLabelText>{t("auth:register.firstNameLabel")}</FormControlLabelText>
+                  </FormControlLabel>
+                  <Input className="my-1" size={"lg"} variant="rounded">
+                    <InputField type="text" placeholder={t("auth:register.firstNamePlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} />
+                  </Input>
+                  {errors.firstname && (
+                    <FormControlError>
+                      <FormControlErrorIcon as={AlertCircleIcon} />
+                      <FormControlErrorText>{t(errors.firstname.message ?? "")}</FormControlErrorText>
+                    </FormControlError>
+                  )}
+                </FormControl>
               )}
-            </FormControl>
-          )}
-        />
-      </View>
+            />
+          </View>
 
-      {/* SIRET Input */}
-      <View>
-        <Controller
-          control={control}
-          name="siret"
-          render={({ field: { onChange, onBlur, value } }) => (
-            <FormControl isInvalid={!!errors.siret} size="md" isDisabled={isLoading} isReadOnly={false} isRequired={true}>
-              <FormControlLabel>
-                <FormControlLabelText>{t("register.siretLabel")}</FormControlLabelText>
-              </FormControlLabel>
-              <Input className="my-1" size={"lg"} variant="rounded">
-                <InputField type="text" placeholder={t("register.siretPlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} keyboardType="numeric" maxLength={14} />
-              </Input>
-              {errors.siret && (
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircleIcon} />
-                  <FormControlErrorText>{errors.siret.message}</FormControlErrorText>
-                </FormControlError>
+          {/* Last Name Input */}
+          <View>
+            <Controller
+              control={control}
+              name="lastname"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <FormControl isInvalid={!!errors.lastname} size="md" isDisabled={isLoading} isReadOnly={false} isRequired={true}>
+                  <FormControlLabel>
+                    <FormControlLabelText>{t("auth:register.lastNameLabel")}</FormControlLabelText>
+                  </FormControlLabel>
+                  <Input className="my-1" size={"lg"} variant="rounded">
+                    <InputField type="text" placeholder={t("auth:register.lastNamePlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} />
+                  </Input>
+                  {errors.lastname && (
+                    <FormControlError>
+                      <FormControlErrorIcon as={AlertCircleIcon} />
+                      <FormControlErrorText>{t(errors.lastname.message ?? "")}</FormControlErrorText>
+                    </FormControlError>
+                  )}
+                </FormControl>
               )}
-            </FormControl>
-          )}
-        />
-      </View>
+            />
+          </View>
 
-      {/* City/Area Input */}
-      <InputMultiSelectCity label={t("register.cityLabel")} placeholder={t("register.cityPlaceholder")} helperText={t("register.cityHelper")} />
+          {/* Email Input */}
+          <View>
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <FormControl isInvalid={!!errors.email} size="md" isDisabled={isLoading} isReadOnly={false} isRequired={true}>
+                  <FormControlLabel>
+                    <FormControlLabelText>{t("auth:register.emailLabel")}</FormControlLabelText>
+                  </FormControlLabel>
+                  <Input className="my-1" size={"lg"} variant="rounded">
+                    <InputField type="text" placeholder={t("auth:register.emailPlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} keyboardType="email-address" autoCapitalize="none" />
+                  </Input>
+                  {errors.email && (
+                    <FormControlError>
+                      <FormControlErrorIcon as={AlertCircleIcon} />
+                      <FormControlErrorText>{t(errors.email.message ?? "")}</FormControlErrorText>
+                    </FormControlError>
+                  )}
+                </FormControl>
+              )}
+            />
+          </View>
 
-      <FormInputControlPhone
-        control={control}
-        name="phone"
-        error={errors.phone?.message}
-        defaultValue={watch("phone")}
-        label={t("register.phoneLabel")}
-        placeholder={t("register.phonePlaceholder")}
-        country={country}
-        setCountry={setCountry}
-        textInfo={t("register.phoneFormat")}
-        isRequired={true}
-        isDisabled={isLoading}
-      />
+          {/* SIRET Input */}
+          <View>
+            <Controller
+              control={control}
+              name="siret"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <FormControl isInvalid={!!errors.siret} size="md" isDisabled={isLoading} isReadOnly={false} isRequired={true}>
+                  <FormControlLabel>
+                    <FormControlLabelText>{t("auth:register.siretLabel")}</FormControlLabelText>
+                  </FormControlLabel>
+                  <Input className="my-1" size={"lg"} variant="rounded">
+                    <InputField type="text" placeholder={t("auth:register.siretPlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} keyboardType="numeric" maxLength={14} />
+                  </Input>
+                  {errors.siret && (
+                    <FormControlError>
+                      <FormControlErrorIcon as={AlertCircleIcon} />
+                      <FormControlErrorText>{t(errors.siret.message ?? "")}</FormControlErrorText>
+                    </FormControlError>
+                  )}
+                </FormControl>
+              )}
+            />
+          </View>
+
+          {/* Phone Input */}
+          <FormInputControlPhone
+            control={control}
+            name="phone"
+            error={errors.phone?.message ? t(errors.phone.message) : undefined}
+            defaultValue={watch("phone")}
+            label={t("auth:register.phoneLabel")}
+            placeholder={t("auth:register.phonePlaceholder")}
+            country={country}
+            setCountry={setCountry}
+            textInfo={t("auth:register.phoneFormat")}
+            isRequired={true}
+            isDisabled={isLoading}
+          />
+
+          {/* Continue Button */}
+          <Button size="xl" className="my-2" onPress={handleNextStep}>
+            <ButtonText size="lg">{t("auth:register.nextButton")}</ButtonText>
+          </Button>
+        </>
+      )}
+
+      {currentStep === 2 && (
+        <>
+          {/* Back Button */}
+          <TouchableOpacity onPress={() => setCurrentStep(1)}>
+            <Text className="text-base text-primary-500 font-semibold">{t("auth:register.backButton")}</Text>
+          </TouchableOpacity>
+
+          {/* Street Number + Street Name */}
+          <View className="flex-row gap-2">
+            <View className="w-24">
+              <Controller
+                control={control}
+                name="street_number"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <FormControl isInvalid={!!errors.street_number} size="md" isDisabled={isLoading} isRequired={true}>
+                    <FormControlLabel>
+                      <FormControlLabelText>{t("auth:register.streetNumberLabel")}</FormControlLabelText>
+                    </FormControlLabel>
+                    <Input className="my-1" size={"lg"} variant="rounded">
+                      <InputField type="text" placeholder={t("auth:register.streetNumberPlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} keyboardType="number-pad" />
+                    </Input>
+                    {errors.street_number && (
+                      <FormControlError>
+                        <FormControlErrorIcon as={AlertCircleIcon} />
+                        <FormControlErrorText>{t(errors.street_number.message ?? "")}</FormControlErrorText>
+                      </FormControlError>
+                    )}
+                  </FormControl>
+                )}
+              />
+            </View>
+            <View className="flex-1">
+              <Controller
+                control={control}
+                name="street_name"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <FormControl isInvalid={!!errors.street_name} size="md" isDisabled={isLoading} isRequired={true}>
+                    <FormControlLabel>
+                      <FormControlLabelText>{t("auth:register.streetNameLabel")}</FormControlLabelText>
+                    </FormControlLabel>
+                    <Input className="my-1" size={"lg"} variant="rounded">
+                      <InputField type="text" placeholder={t("auth:register.streetNamePlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} />
+                    </Input>
+                    {errors.street_name && (
+                      <FormControlError>
+                        <FormControlErrorIcon as={AlertCircleIcon} />
+                        <FormControlErrorText>{t(errors.street_name.message ?? "")}</FormControlErrorText>
+                      </FormControlError>
+                    )}
+                  </FormControl>
+                )}
+              />
+            </View>
+          </View>
+
+          {/* Address Complement */}
+          <View>
+            <Controller
+              control={control}
+              name="address_complement"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <FormControl isInvalid={!!errors.address_complement} size="md" isDisabled={isLoading}>
+                  <FormControlLabel>
+                    <FormControlLabelText>{t("auth:register.addressComplementLabel")}</FormControlLabelText>
+                  </FormControlLabel>
+                  <Input className="my-1" size={"lg"} variant="rounded">
+                    <InputField type="text" placeholder={t("auth:register.addressComplementPlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} />
+                  </Input>
+                  {errors.address_complement && (
+                    <FormControlError>
+                      <FormControlErrorIcon as={AlertCircleIcon} />
+                      <FormControlErrorText>{t(errors.address_complement.message ?? "")}</FormControlErrorText>
+                    </FormControlError>
+                  )}
+                </FormControl>
+              )}
+            />
+          </View>
+
+          {/* Postal Code + Town */}
+          <View className="flex-row gap-2">
+            <View className="w-28">
+              <Controller
+                control={control}
+                name="postal_code"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <FormControl isInvalid={!!errors.postal_code} size="md" isDisabled={isLoading} isRequired={true}>
+                    <FormControlLabel>
+                      <FormControlLabelText>{t("auth:register.postalCodeLabel")}</FormControlLabelText>
+                    </FormControlLabel>
+                    <Input className="my-1" size={"lg"} variant="rounded">
+                      <InputField type="text" placeholder={t("auth:register.postalCodePlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} keyboardType="number-pad" maxLength={5} />
+                    </Input>
+                    {errors.postal_code && (
+                      <FormControlError>
+                        <FormControlErrorIcon as={AlertCircleIcon} />
+                        <FormControlErrorText>{t(errors.postal_code.message ?? "")}</FormControlErrorText>
+                      </FormControlError>
+                    )}
+                  </FormControl>
+                )}
+              />
+            </View>
+            <View className="flex-1">
+              <Controller
+                control={control}
+                name="town"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <FormControl isInvalid={!!errors.town} size="md" isDisabled={isLoading} isRequired={true}>
+                    <FormControlLabel>
+                      <FormControlLabelText>{t("auth:register.townLabel")}</FormControlLabelText>
+                    </FormControlLabel>
+                    <Input className="my-1" size={"lg"} variant="rounded">
+                      <InputField type="text" placeholder={t("auth:register.townPlaceholder")} value={value} onChangeText={onChange} onBlur={onBlur} />
+                    </Input>
+                    {errors.town && (
+                      <FormControlError>
+                        <FormControlErrorIcon as={AlertCircleIcon} />
+                        <FormControlErrorText>{t(errors.town.message ?? "")}</FormControlErrorText>
+                      </FormControlError>
+                    )}
+                  </FormControl>
+                )}
+              />
+            </View>
+          </View>
+
+          {/* City/Area Input */}
+          <InputMultiSelectCity label={t("auth:register.cityLabel")} placeholder={t("auth:register.cityPlaceholder")} helperText={t("auth:register.cityHelper")} />
+
+          {/* Register Button */}
+          <Button size="xl" className="my-2" onPress={handleSubmit(onSubmit)} isDisabled={isLoading}>
+            {isLoading
+              ? <ActivityIndicator size="small" color="white" />
+              : <ButtonText size="lg">{t("auth:register.submitButton")}</ButtonText>}
+          </Button>
+        </>
+      )}
 
       {authError && (
         <Alert action="error" variant="solid">
           <AlertIcon as={InfoIcon} />
-          <AlertText>{authError}</AlertText>
+          <AlertText>{t(getErrorKeyFromCode(errorCode))}</AlertText>
         </Alert>
       )}
-
-      {/* Register Button */}
-      <Button size="xl" className="my-2" onPress={handleSubmit(onSubmit)} isDisabled={isLoading || isResendingOtp}>
-        {isLoading || isResendingOtp
-          ? <ActivityIndicator size="small" color="white" />
-          : <ButtonText size="lg">{t("register.submitButton")}</ButtonText>}
-      </Button>
 
       {/* Divider */}
       <View className="flex-row items-center my-2">
@@ -220,18 +463,11 @@ const RegisterForm = () => {
 
       {/* Login Link */}
       <View className="flex-row justify-center mb-4">
-        <Text className="text-base text-gray-500">{t("register.hasAccount")} </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")} disabled={isLoading || isResendingOtp}>
-          <Text className="text-base text-primary-500 font-semibold">{t("register.loginLink")}</Text>
+        <Text className="text-base text-gray-500">{t("auth:register.hasAccount")} </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")} disabled={isLoading}>
+          <Text className="text-base text-primary-500 font-semibold">{t("auth:register.loginLink")}</Text>
         </TouchableOpacity>
       </View>
-
-      {/* DEV: Attestation Link */}
-      <TouchableOpacity onPress={() => navigation.navigate("SwornStatementScreen")} className="mb-4">
-        <Text className="text-base text-center text-blue-500 underline">
-          [DEV] Voir Attestation sur l'honneur
-        </Text>
-      </TouchableOpacity>
     </VStack>
   );
 };
