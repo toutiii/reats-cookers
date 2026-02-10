@@ -24,7 +24,9 @@
   },
   "stats": {
     "totalOrders": "Total Orders",
-    "rating": "Rating"
+    "rating": "Rating",
+    "acceptanceRate": "Acceptance Rate",
+    "maxOrders": "Max Orders"
   },
   "personalInfo": {
     "title": "Personal information",
