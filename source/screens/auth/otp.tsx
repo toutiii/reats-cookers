@@ -15,7 +15,9 @@ import Animated, { FadeIn, SlideInRight, useAnimatedStyle, useSharedValue, withS
 import { useVerifyOtpMutation, useResendOtpMutation, useGetTokenMutation, useSendAuthOtpMutation } from "@/store/api/authApi";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store";
-import { clearError } from "@/store/slices/auth";
+import { clearError, setAuthFlow } from "@/store/slices/auth";
+import { useToast, Toast, ToastTitle, ToastDescription } from "@/components/ui/toast";
+import { getAuthErrorKey } from "@/utils/getAuthErrorMessage";
 
 // Types
 type VerificationStatus = null | "success" | "error";
@@ -27,6 +29,7 @@ const OTPScreen = () => {
   const { t } = useTranslation("auth");
   const navigation = useNavigation<StackNavigation>();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   // Redux state
   const { otpPhone, authFlow } = useSelector((state: RootState) => state.auth);
@@ -90,8 +93,7 @@ const OTPScreen = () => {
     [verificationStatus]
   );
 
-  const handleOtpFilled = useCallback((text: string): void => {
-    console.log(`OTP is ${text}`);
+  const handleOtpFilled = useCallback((_text: string): void => {
     // Auto-verify when all digits are filled (optional)
     // handleVerify();
   }, []);
@@ -131,8 +133,16 @@ const OTPScreen = () => {
         setResendStatus("idle");
       }, 3000);
     } catch (error) {
-      console.error("Failed to resend OTP:", error);
       setResendStatus("failed");
+      const errorKey = getAuthErrorKey(error);
+      toast.show({
+        placement: "top",
+        render: ({ id }) => (
+          <Toast nativeID={`toast-${id}`} action="error" variant="solid">
+            <ToastTitle>{t(errorKey)}</ToastTitle>
+          </Toast>
+        ),
+      });
 
       // Reset status after a delay
       setTimeout(() => {
@@ -160,22 +170,56 @@ const OTPScreen = () => {
         setVerificationStatus("success");
         // No manual navigation needed - RootNavigator handles it
       } else {
-        // Register flow: verify OTP to activate account, then go to documents
+        // Register flow: verify OTP (activates account) then get tokens
         await verifyOtp({ phone: otpPhone, otp }).unwrap();
-        setVerificationStatus("success");
 
-        // Navigate to sworn statement screen after successful registration OTP
-        // Use reset to prevent going back to OTP screen
-        setTimeout(() => {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "SwornStatementScreen" }],
-          });
-        }, 1000);
+        try {
+          await getToken({ phone: otpPhone, otp }).unwrap();
+          setVerificationStatus("success");
+          // isAuthenticated is now true — RootNavigator switches to AppStack
+          // The AppStack initial route will be SwornStatementScreen if registrationStep is "documents"
+        } catch (getTokenError) {
+          // OTP was invalidated after verifyOtp — send a fresh one and switch to login flow
+          try {
+            await sendAuthOtp({ phone: otpPhone }).unwrap();
+            dispatch(setAuthFlow("login"));
+            setOtp("");
+            setVerificationStatus(null);
+            startTimer();
+            toast.show({
+              placement: "top",
+              render: ({ id }) => (
+                <Toast nativeID={`toast-${id}`} action="info" variant="solid">
+                  <ToastTitle>{t("otp.fallbackNewCode")}</ToastTitle>
+                  <ToastDescription>{t("otp.fallbackNewCodeDesc")}</ToastDescription>
+                </Toast>
+              ),
+            });
+          } catch {
+            // Both getToken and sendAuthOtp failed
+            setVerificationStatus("error");
+            toast.show({
+              placement: "top",
+              render: ({ id }) => (
+                <Toast nativeID={`toast-${id}`} action="error" variant="solid">
+                  <ToastTitle>{t("otp.resendFallbackFailed")}</ToastTitle>
+                </Toast>
+              ),
+            });
+          }
+        }
       }
     } catch (error) {
-      console.error("OTP verification failed:", error);
       setVerificationStatus("error");
+      const errorKey = getAuthErrorKey(error);
+      toast.show({
+        placement: "top",
+        render: ({ id }) => (
+          <Toast nativeID={`toast-${id}`} action="error" variant="solid">
+            <ToastTitle>{t(errorKey)}</ToastTitle>
+          </Toast>
+        ),
+      });
     }
   };
 
