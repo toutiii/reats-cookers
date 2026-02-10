@@ -41,6 +41,7 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>({
+    mode: "onTouched",
     resolver: yupResolver(loginValidationSchema),
     defaultValues: {
       phone: "",

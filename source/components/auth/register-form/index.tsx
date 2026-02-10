@@ -49,6 +49,7 @@ const RegisterForm = () => {
     trigger,
     formState: { errors },
   } = useForm<RegisterFormData>({
+    mode: "onTouched",
     resolver: yupResolver(registerValidationSchema) as any,
     defaultValues: {
       email: "",
