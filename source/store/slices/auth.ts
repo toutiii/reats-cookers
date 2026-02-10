@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { authApi } from "../api/authApi";
-import type { CookerCreateResponse, ApiErrorResponse } from "../api/types";
+import { cookerApi } from "../api/cookerApi";
+import type { CookerCreateResponse, ApiErrorResponse, CookerProfileResponse } from "../api/types";
 
 // Cooker user types (based on API response)
 export interface Cooker {
@@ -8,6 +9,8 @@ export interface Cooker {
   firstname: string;
   lastname: string;
   phone: string;
+  email: string;
+  photo: string | null;
   postalCode: string;
   siret: string;
   streetName: string;
@@ -26,12 +29,14 @@ export interface AuthTokens {
   refreshToken: string;
 }
 
-// Helper to map API response to Cooker
+// Helper to map API response to Cooker (registration)
 const mapCookerResponse = (data: CookerCreateResponse): Cooker => ({
   id: data.id,
   firstname: data.firstname,
   lastname: data.lastname,
   phone: data.phone,
+  email: data.email,
+  photo: null,
   postalCode: data.postal_code,
   siret: data.siret,
   streetName: data.street_name,
@@ -42,6 +47,26 @@ const mapCookerResponse = (data: CookerCreateResponse): Cooker => ({
   isOnline: data.is_online,
   isActivated: data.is_activated,
   acceptanceRate: data.acceptance_rate,
+});
+
+// Helper to map profile API response to Cooker
+const mapProfileResponse = (data: CookerProfileResponse, existingCooker: Cooker | null): Cooker => ({
+  id: existingCooker?.id ?? 0,
+  firstname: data.personal_infos_section.firstname,
+  lastname: data.personal_infos_section.lastname,
+  phone: data.personal_infos_section.phone,
+  email: data.personal_infos_section.email,
+  photo: data.personal_infos_section.photo,
+  postalCode: data.address_section.postal_code,
+  siret: data.personal_infos_section.siret,
+  streetName: data.address_section.street_name,
+  streetNumber: data.address_section.street_number,
+  town: data.address_section.town,
+  addressComplement: data.address_section.address_complement,
+  maxOrderNumber: parseInt(data.personal_infos_section.max_order_number, 10) || 0,
+  isOnline: data.personal_infos_section.is_online,
+  isActivated: existingCooker?.isActivated ?? true,
+  acceptanceRate: data.personal_infos_section.acceptance_rate,
 });
 
 // Possible authentication flow states
@@ -182,6 +207,8 @@ const authSlice = createSlice({
       return {
         ...initialState,
         isFirstLaunch: state.isFirstLaunch,
+        isHydrated: true,
+        status: "unauthenticated",
       };
     },
 
@@ -407,6 +434,12 @@ const authSlice = createSlice({
         const { message, code } = extractApiError(action.payload);
         state.error = message;
         state.errorCode = code;
+      });
+
+    // Get cooker profile - store in auth state
+    builder
+      .addMatcher(cookerApi.endpoints.getCookerProfile.matchFulfilled, (state, action) => {
+        state.cooker = mapProfileResponse(action.payload.data, state.cooker);
       });
   },
 });
