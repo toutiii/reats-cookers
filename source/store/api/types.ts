@@ -34,7 +34,8 @@ export type ApiErrorCode =
   | "INVALID_ORDER_STATUS"
   | "TRANSITION_ERROR"
   | "VALIDATION_ERROR"
-  | "TOKEN_NOT_VALID";
+  | "TOKEN_NOT_VALID"
+  | "USER_ALREADY_EXISTS";
 
 // Token endpoints
 export interface TokenRequest {
@@ -166,3 +167,62 @@ export interface CookerProfileResponse {
   personal_infos_section: CookerPersonalInfos;
   address_section: CookerAddress;
 }
+
+// Dashboard types
+export type DashboardPeriod = "today" | "week" | "month" | "year";
+
+export interface StatItem {
+  icon: string;
+  value: string;
+  label: string;
+  trend?: string;
+  bg_color: string;
+  icon_color: string;
+}
+
+export interface RevenueChart {
+  labels: string[];
+  data: number[];
+  total_revenue: string;
+  trend: string;
+}
+
+export interface DashboardStatsResponse {
+  stats: StatItem[];
+  revenue_chart: RevenueChart;
+}
+
+export interface PopularItem {
+  id: number;
+  name: string;
+  price: string;
+  rating: string;
+  image_url: string;
+  colors: [string, string];
+}
+
+export interface Pagination {
+  page: number;
+  page_size: number;
+  total_count: number;
+  total_pages: number;
+}
+
+export interface PopularItemsResponse {
+  results: PopularItem[];
+  pagination: Pagination;
+}
+
+export interface Review {
+  id: number;
+  stars: number;
+  percent: number;
+}
+
+export interface RecentReviewsResponse {
+  results: Review[];
+  average_rating: number;
+  total_reviews: number;
+  pagination: Pagination;
+}
+
