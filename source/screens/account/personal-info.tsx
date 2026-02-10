@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -21,21 +21,49 @@ import { Input, InputField, InputSlot } from "@/components/ui/input";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigation } from "@/types/navigation";
 import * as ImagePicker from "expo-image-picker";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const PersonalInfoScreen: React.FC = () => {
   const navigation = useNavigation<StackNavigation>();
+  const { t } = useTranslation("account");
+
+  // Get cooker from auth state (already fetched in App.tsx)
+  const cooker = useSelector((state: RootState) => state.auth.cooker);
 
   const [formData, setFormData] = useState({
-    firstName: "Ronald",
-    lastName: "Richards",
-    email: "ronaldrichards@example.com",
-    phone: "+111 1234 56 89",
-    address: "123 Restaurant Street",
-    city: "Paris",
-    country: "France",
-    avatar:
-      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    siret: "",
+    streetNumber: "",
+    streetName: "",
+    addressComplement: "",
+    postalCode: "",
+    city: "",
+    avatar: "",
   });
+
+  // Update form data when cooker data is available
+  useEffect(() => {
+    if (cooker) {
+      setFormData({
+        firstName: cooker.firstname || "",
+        lastName: cooker.lastname || "",
+        email: cooker.email || "",
+        phone: cooker.phone || "",
+        siret: cooker.siret || "",
+        streetNumber: cooker.streetNumber || "",
+        streetName: cooker.streetName || "",
+        addressComplement: cooker.addressComplement || "",
+        postalCode: cooker.postalCode || "",
+        city: cooker.town || "",
+        avatar: cooker.photo || "",
+      });
+    }
+  }, [cooker]);
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -84,8 +112,8 @@ const PersonalInfoScreen: React.FC = () => {
             <Ionicons name="arrow-back" size={24} color="#1F2937" />
           </TouchableOpacity>
           <View className="flex-1">
-            <Text className="text-2xl font-bold text-gray-900">Personal Info</Text>
-            <Text className="text-sm text-gray-500">Gérez vos informations</Text>
+            <Text className="text-2xl font-bold text-gray-900">{t("personalInfo.title")}</Text>
+            <Text className="text-sm text-gray-500">{t("menu.personalInfoDesc")}</Text>
           </View>
         </View>
 
@@ -110,9 +138,9 @@ const PersonalInfoScreen: React.FC = () => {
               <View className="relative mb-3">
                 <Avatar size="2xl" className="border-4 border-primary-100">
                   <AvatarFallbackText>
-                    {formData.firstName[0] + formData.lastName[0]}
+                    {(formData.firstName?.[0] || "") + (formData.lastName?.[0] || "")}
                   </AvatarFallbackText>
-                  <AvatarImage source={{ uri: formData.avatar }} />
+                  {formData.avatar && <AvatarImage source={{ uri: formData.avatar }} />}
                 </Avatar>
                 <TouchableOpacity
                   onPress={pickImage}
@@ -139,7 +167,7 @@ const PersonalInfoScreen: React.FC = () => {
             <View className="mb-5">
               <View className="px-1 mb-3">
                 <Text className="text-xs text-gray-500 font-bold uppercase tracking-wider">
-                  Informations personnelles
+                  {t("personalInfo.title")}
                 </Text>
               </View>
               <View
@@ -156,7 +184,7 @@ const PersonalInfoScreen: React.FC = () => {
                 <FormControl className="mb-4">
                   <FormControlLabel>
                     <FormControlLabelText className="text-sm text-gray-700 font-semibold">
-                      Prénom
+                      {t("personalInfo.firstName")}
                     </FormControlLabelText>
                   </FormControlLabel>
                   <Input variant="outline" size="lg" className="rounded-2xl">
@@ -166,7 +194,7 @@ const PersonalInfoScreen: React.FC = () => {
                     <InputField
                       value={formData.firstName}
                       onChangeText={(text) => setFormData({ ...formData, firstName: text })}
-                      placeholder="Entrez votre prénom"
+                      placeholder={t("personalInfo.firstName")}
                       className="text-base"
                     />
                   </Input>
@@ -176,7 +204,7 @@ const PersonalInfoScreen: React.FC = () => {
                 <FormControl className="mb-4">
                   <FormControlLabel>
                     <FormControlLabelText className="text-sm text-gray-700 font-semibold">
-                      Nom
+                      {t("personalInfo.lastName")}
                     </FormControlLabelText>
                   </FormControlLabel>
                   <Input variant="outline" size="lg" className="rounded-2xl">
@@ -186,7 +214,7 @@ const PersonalInfoScreen: React.FC = () => {
                     <InputField
                       value={formData.lastName}
                       onChangeText={(text) => setFormData({ ...formData, lastName: text })}
-                      placeholder="Entrez votre nom"
+                      placeholder={t("personalInfo.lastName")}
                       className="text-base"
                     />
                   </Input>
@@ -196,7 +224,7 @@ const PersonalInfoScreen: React.FC = () => {
                 <FormControl className="mb-4">
                   <FormControlLabel>
                     <FormControlLabelText className="text-sm text-gray-700 font-semibold">
-                      Email
+                      {t("personalInfo.email")}
                     </FormControlLabelText>
                   </FormControlLabel>
                   <Input variant="outline" size="lg" className="rounded-2xl">
@@ -215,10 +243,10 @@ const PersonalInfoScreen: React.FC = () => {
                 </FormControl>
 
                 {/* Phone */}
-                <FormControl>
+                <FormControl className="mb-4">
                   <FormControlLabel>
                     <FormControlLabelText className="text-sm text-gray-700 font-semibold">
-                      Téléphone
+                      {t("personalInfo.phone")}
                     </FormControlLabelText>
                   </FormControlLabel>
                   <Input variant="outline" size="lg" className="rounded-2xl">
@@ -234,6 +262,27 @@ const PersonalInfoScreen: React.FC = () => {
                     />
                   </Input>
                 </FormControl>
+
+                {/* SIRET */}
+                <FormControl>
+                  <FormControlLabel>
+                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
+                      {t("personalInfo.siret")}
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Input variant="outline" size="lg" className="rounded-2xl">
+                    <InputSlot className="pl-4">
+                      <Ionicons name="business-outline" size={18} color="#F59E0B" />
+                    </InputSlot>
+                    <InputField
+                      value={formData.siret}
+                      onChangeText={(text) => setFormData({ ...formData, siret: text })}
+                      placeholder="123 456 789 00012"
+                      keyboardType="number-pad"
+                      className="text-base"
+                    />
+                  </Input>
+                </FormControl>
               </View>
             </View>
 
@@ -241,7 +290,7 @@ const PersonalInfoScreen: React.FC = () => {
             <View className="mb-5">
               <View className="px-1 mb-3">
                 <Text className="text-xs text-gray-500 font-bold uppercase tracking-wider">
-                  Adresse
+                  {t("personalInfo.address")}
                 </Text>
               </View>
               <View
@@ -254,65 +303,101 @@ const PersonalInfoScreen: React.FC = () => {
                   elevation: 2,
                 }}
               >
-                {/* Address */}
+                {/* Street Number & Name */}
+                <View className="flex-row gap-3 mb-4">
+                  <FormControl className="w-24">
+                    <FormControlLabel>
+                      <FormControlLabelText className="text-sm text-gray-700 font-semibold">
+                        N°
+                      </FormControlLabelText>
+                    </FormControlLabel>
+                    <Input variant="outline" size="lg" className="rounded-2xl">
+                      <InputField
+                        value={formData.streetNumber}
+                        onChangeText={(text) => setFormData({ ...formData, streetNumber: text })}
+                        placeholder="10"
+                        keyboardType="number-pad"
+                        className="text-base text-center"
+                      />
+                    </Input>
+                  </FormControl>
+                  <FormControl className="flex-1">
+                    <FormControlLabel>
+                      <FormControlLabelText className="text-sm text-gray-700 font-semibold">
+                        {t("personalInfo.address")}
+                      </FormControlLabelText>
+                    </FormControlLabel>
+                    <Input variant="outline" size="lg" className="rounded-2xl">
+                      <InputSlot className="pl-4">
+                        <Ionicons name="home-outline" size={18} color="#FF6347" />
+                      </InputSlot>
+                      <InputField
+                        value={formData.streetName}
+                        onChangeText={(text) => setFormData({ ...formData, streetName: text })}
+                        placeholder="Rue de la Paix"
+                        className="text-base"
+                      />
+                    </Input>
+                  </FormControl>
+                </View>
+
+                {/* Address Complement */}
                 <FormControl className="mb-4">
                   <FormControlLabel>
                     <FormControlLabelText className="text-sm text-gray-700 font-semibold">
-                      Adresse
+                      Complément d'adresse
                     </FormControlLabelText>
                   </FormControlLabel>
                   <Input variant="outline" size="lg" className="rounded-2xl">
                     <InputSlot className="pl-4">
-                      <Ionicons name="home-outline" size={18} color="#FF6347" />
+                      <Ionicons name="business-outline" size={18} color="#6366F1" />
                     </InputSlot>
                     <InputField
-                      value={formData.address}
-                      onChangeText={(text) => setFormData({ ...formData, address: text })}
-                      placeholder="123 Rue de la Paix"
+                      value={formData.addressComplement}
+                      onChangeText={(text) => setFormData({ ...formData, addressComplement: text })}
+                      placeholder="Bâtiment, étage, etc."
                       className="text-base"
                     />
                   </Input>
                 </FormControl>
 
-                {/* City */}
-                <FormControl className="mb-4">
-                  <FormControlLabel>
-                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
-                      Ville
-                    </FormControlLabelText>
-                  </FormControlLabel>
-                  <Input variant="outline" size="lg" className="rounded-2xl">
-                    <InputSlot className="pl-4">
-                      <Ionicons name="location-outline" size={18} color="#F59E0B" />
-                    </InputSlot>
-                    <InputField
-                      value={formData.city}
-                      onChangeText={(text) => setFormData({ ...formData, city: text })}
-                      placeholder="Paris"
-                      className="text-base"
-                    />
-                  </Input>
-                </FormControl>
-
-                {/* Country */}
-                <FormControl>
-                  <FormControlLabel>
-                    <FormControlLabelText className="text-sm text-gray-700 font-semibold">
-                      Pays
-                    </FormControlLabelText>
-                  </FormControlLabel>
-                  <Input variant="outline" size="lg" className="rounded-2xl">
-                    <InputSlot className="pl-4">
-                      <Ionicons name="globe-outline" size={18} color="#14B8A6" />
-                    </InputSlot>
-                    <InputField
-                      value={formData.country}
-                      onChangeText={(text) => setFormData({ ...formData, country: text })}
-                      placeholder="France"
-                      className="text-base"
-                    />
-                  </Input>
-                </FormControl>
+                {/* Postal Code & City */}
+                <View className="flex-row gap-3">
+                  <FormControl className="w-28">
+                    <FormControlLabel>
+                      <FormControlLabelText className="text-sm text-gray-700 font-semibold">
+                        {t("personalInfo.postalCode")}
+                      </FormControlLabelText>
+                    </FormControlLabel>
+                    <Input variant="outline" size="lg" className="rounded-2xl">
+                      <InputField
+                        value={formData.postalCode}
+                        onChangeText={(text) => setFormData({ ...formData, postalCode: text })}
+                        placeholder="75001"
+                        keyboardType="number-pad"
+                        className="text-base text-center"
+                      />
+                    </Input>
+                  </FormControl>
+                  <FormControl className="flex-1">
+                    <FormControlLabel>
+                      <FormControlLabelText className="text-sm text-gray-700 font-semibold">
+                        {t("personalInfo.city")}
+                      </FormControlLabelText>
+                    </FormControlLabel>
+                    <Input variant="outline" size="lg" className="rounded-2xl">
+                      <InputSlot className="pl-4">
+                        <Ionicons name="location-outline" size={18} color="#F59E0B" />
+                      </InputSlot>
+                      <InputField
+                        value={formData.city}
+                        onChangeText={(text) => setFormData({ ...formData, city: text })}
+                        placeholder="Paris"
+                        className="text-base"
+                      />
+                    </Input>
+                  </FormControl>
+                </View>
               </View>
             </View>
 
@@ -369,7 +454,7 @@ const PersonalInfoScreen: React.FC = () => {
             >
               <Ionicons name="checkmark-circle" size={22} color="#FFFFFF" />
               <Text className="text-white font-bold text-base ml-2">
-                Enregistrer les modifications
+                {t("personalInfo.save")}
               </Text>
             </TouchableOpacity>
           </View>
