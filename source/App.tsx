@@ -84,14 +84,6 @@ const AuthStack = () => (
     <Stack.Screen name="LoginScreen" component={LoginScreen} options={createScreenOptions("Connexion", { headerBackTitle: " " })} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={createScreenOptions("Créer un compte")} />
     <Stack.Screen name="OTPScreen" component={OTPScreen} options={createScreenOptions("Code de vérification")} />
-    <Stack.Screen
-      name="SwornStatementScreen"
-      component={SwornStatementScreen}
-      options={{
-        headerShown: false,
-        gestureEnabled: false,
-      }}
-    />
     <Stack.Screen name="DocumentsScreen" component={DocumentsScreen} />
     <Stack.Screen name="PersonalDocumentsScreen" component={PersonalDocumentsScreen} options={createScreenOptions("Documents")} />
     <Stack.Screen name="UploadDocumentsScreen" component={UploadDocumentsScreen} options={createScreenOptions("Upload documents")} />
@@ -100,19 +92,32 @@ const AuthStack = () => (
 );
 
 // App Stack - screens for authenticated users
-const AppStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="MainNavigator" component={MainNavigator} />
-    <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen} />
-    <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
-    <Stack.Screen name="LanguageSettingsScreen" component={LanguageSettingsScreen} />
-    <Stack.Screen name="WithdrawalHistoryScreen" component={WithdrawalHistoryScreen} />
-    <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
-    <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
-    <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
-    <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
-  </Stack.Navigator>
-);
+const AppStack = () => {
+  const { registrationStep } = useSelector((state: RootState) => state.auth);
+  const needsAttestation = registrationStep === "documents";
+
+  return (
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName={needsAttestation ? "SwornStatementScreen" : "MainNavigator"}
+    >
+      <Stack.Screen name="MainNavigator" component={MainNavigator} />
+      <Stack.Screen
+        name="SwornStatementScreen"
+        component={SwornStatementScreen}
+        options={{ gestureEnabled: false }}
+      />
+      <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen} />
+      <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+      <Stack.Screen name="LanguageSettingsScreen" component={LanguageSettingsScreen} />
+      <Stack.Screen name="WithdrawalHistoryScreen" component={WithdrawalHistoryScreen} />
+      <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
+      <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
+      <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
+      <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
+    </Stack.Navigator>
+  );
+};
 
 // Root Navigator - handles auth state
 const RootNavigator = () => {
