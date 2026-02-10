@@ -49,8 +49,9 @@ import AddMenuItemScreen from "./screens/menu/add";
 import FoodDetailsScreen from "./screens/menu/food-details";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { store, RootState } from "./store";
-import { hydrateAuth, setHydrated, logout } from "./store/slices/auth";
+import { hydrateAuth, setHydrated } from "./store/slices/auth";
 import { loadPersistedAuth, persistAuth, clearPersistedAuth } from "./store/authPersistence";
+import { useLazyGetCookerProfileQuery } from "./store/api/cookerApi";
 
 
 const Stack = createStackNavigator();
@@ -116,13 +117,9 @@ const AppStack = () => (
 // Root Navigator - handles auth state
 const RootNavigator = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated, isHydrated, status } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, isHydrated, status, userId, cooker } = useSelector((state: RootState) => state.auth);
   const authState = useSelector((state: RootState) => state.auth);
-
-  console.log("isAuthenticated", isAuthenticated);
-  console.log("isHydrated", isHydrated);
-  console.log("status", status);
-  console.log("authState", authState);
+  const [fetchProfile] = useLazyGetCookerProfileQuery();
 
   // Load persisted auth state on mount
   useEffect(() => {
@@ -142,6 +139,13 @@ const RootNavigator = () => {
 
     loadAuth();
   }, [dispatch]);
+
+  // Fetch cooker profile once when authenticated
+  useEffect(() => {
+    if (isAuthenticated && userId && !cooker) {
+      fetchProfile(userId);
+    }
+  }, [isAuthenticated, userId, cooker, fetchProfile]);
 
   // Persist auth state when it changes
   useEffect(() => {
