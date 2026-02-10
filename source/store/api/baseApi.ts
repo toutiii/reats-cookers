@@ -57,6 +57,6 @@ const baseQueryWithErrorHandling: BaseQueryFn<string | FetchArgs, unknown, Fetch
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithErrorHandling,
-  tagTypes: ["Auth", "Cooker"],
+  tagTypes: ["Auth", "Cooker", "Dashboard"],
   endpoints: () => ({}),
 });

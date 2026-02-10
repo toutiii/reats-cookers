@@ -47,5 +47,12 @@
     "required": "Un fichier est requis",
     "invalidType": "Type de fichier invalide",
     "tooLarge": "Le fichier est trop volumineux (max: {{max}})"
+  },
+  "address": {
+    "streetRequired": "La rue est requise",
+    "streetNumberRequired": "Le numéro de rue est requis",
+    "postalCodeRequired": "Le code postal est requis",
+    "postalCodeFormat": "Le code postal doit contenir 5 chiffres",
+    "townRequired": "La ville est requise"
   }
 }

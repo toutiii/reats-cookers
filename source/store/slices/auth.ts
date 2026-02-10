@@ -388,7 +388,12 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
         state.status = "authenticated";
         state.lastLoginAt = Date.now();
-        state.registrationStep = "complete";
+        // Keep registrationStep as "documents" for register flow so AppStack shows SwornStatement first
+        if (state.authFlow !== "register") {
+          state.registrationStep = "complete";
+        } else {
+          state.registrationStep = "documents";
+        }
       })
       .addMatcher(authApi.endpoints.getToken.matchRejected, (state, action) => {
         state.isLoading = false;

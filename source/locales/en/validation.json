@@ -47,5 +47,12 @@
     "required": "A file is required",
     "invalidType": "Invalid file type",
     "tooLarge": "File is too large (max: {{max}})"
+  },
+  "address": {
+    "streetRequired": "Street name is required",
+    "streetNumberRequired": "Street number is required",
+    "postalCodeRequired": "Postal code is required",
+    "postalCodeFormat": "Postal code must contain 5 digits",
+    "townRequired": "Town is required"
   }
 }
