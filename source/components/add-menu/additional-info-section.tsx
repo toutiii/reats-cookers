@@ -1,45 +1,32 @@
 import React from "react";
 import { View, TextInput, TouchableOpacity } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import Animated, { FadeIn, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { Text } from "@/components/ui/text";
-
-interface Allergen {
-  id: string;
-  name: string;
-  icon: string;
-}
 
 interface AdditionalInfoSectionProps {
   preparationTime: string;
   description: string;
   maxConcurrentOrders: string;
-  allergens: Allergen[];
-  selectedAllergens: string[];
   featured: boolean;
   errors: {
     preparationTime?: string;
     maxConcurrentOrders?: string;
   };
-  onPreparationTimeChange: (text: string) => void;
-  onDescriptionChange: (text: string) => void;
-  onMaxConcurrentOrdersChange: (text: string) => void;
-  onToggleAllergen: (allergenId: string) => void;
-  onFeaturedChange: (value: boolean) => void;
+  onPreparationTimeChange: (_text: string) => void;
+  onDescriptionChange: (_text: string) => void;
+  onMaxConcurrentOrdersChange: (_text: string) => void;
+  onFeaturedChange: (_value: boolean) => void;
 }
 
 export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
   preparationTime,
   description,
   maxConcurrentOrders,
-  allergens,
-  selectedAllergens,
   featured,
   errors,
   onPreparationTimeChange,
   onDescriptionChange,
   onMaxConcurrentOrdersChange,
-  onToggleAllergen,
   onFeaturedChange,
 }) => {
   return (
@@ -92,50 +79,6 @@ export const AdditionalInfoSection: React.FC<AdditionalInfoSectionProps> = ({
             {errors.maxConcurrentOrders && (
               <Text className="text-red-500 text-xs mt-1">{errors.maxConcurrentOrders}</Text>
             )}
-          </View>
-        </View>
-
-        {/* Allergens */}
-        <View>
-          <Text className="text-xs font-semibold mb-2 uppercase tracking-wide">
-            Allergènes
-          </Text>
-          <View className="flex-row flex-wrap -mx-1">
-            {allergens.map((allergen) => {
-              const isSelected = selectedAllergens.includes(allergen.id);
-              return (
-                <TouchableOpacity
-                  key={allergen.id}
-                  onPress={() => onToggleAllergen(allergen.id)}
-                  className="px-1 mb-2"
-                >
-                  <View
-                    className={`px-4 py-2 rounded-xl flex-row items-center ${
-                      isSelected
-? "bg-red-100 border border-red-300"
-: "bg-gray-50 border border-gray-200"
-                    }`}
-                  >
-                    <MaterialIcons
-                      name={allergen.icon as any}
-                      size={16}
-                      color={isSelected
-? "#DC2626"
-: "#6B7280"}
-                    />
-                    <Text
-                      className={`ml-2 text-sm ${
-                        isSelected
-? "text-red-700 font-semibold"
-: "text-gray-600"
-                      }`}
-                    >
-                      {allergen.name}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
           </View>
         </View>
 

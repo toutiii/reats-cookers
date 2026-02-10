@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import {
   ScrollView,
   View,
@@ -18,6 +18,7 @@ import {
   BasicInfoSection,
   PricingSection,
   IngredientsSection,
+  AllergensSection,
   AdditionalInfoSection,
   AddMenuHeader,
   SaveButton,
@@ -27,6 +28,11 @@ import {
   getIngredientCategories,
   type Ingredient,
 } from "@/api/ingredients";
+import {
+  detectAllergensFromIngredients,
+  getAllergenSuggestions,
+  autoApplyHighConfidenceAllergens,
+} from "@/api/ingredients/allergen-detector";
 
 interface FormData {
   name: string;
@@ -56,13 +62,22 @@ const CATEGORIES = [
 // Ingredients are now loaded from API
 // See @/api/ingredients.js for the implementation
 
+// Liste exhaustive des 14 allergènes majeurs selon la réglementation européenne (INCO)
 const ALLERGENS = [
-  { id: "gluten", name: "Gluten", icon: "grain" },
-  { id: "lactose", name: "Lactose", icon: "water-drop" },
+  { id: "gluten", name: "Gluten (céréales)", icon: "grain" },
+  { id: "crustaceans", name: "Crustacés", icon: "set-meal" },
   { id: "eggs", name: "Œufs", icon: "egg" },
-  { id: "nuts", name: "Fruits à coque", icon: "nutrition" },
+  { id: "fish", name: "Poissons", icon: "sailing" },
+  { id: "peanuts", name: "Arachides", icon: "eco" },
   { id: "soy", name: "Soja", icon: "grass" },
-  { id: "fish", name: "Poisson", icon: "sailing" },
+  { id: "milk", name: "Lait", icon: "water-drop" },
+  { id: "nuts", name: "Fruits à coque", icon: "nutrition" },
+  { id: "celery", name: "Céleri", icon: "local-florist" },
+  { id: "mustard", name: "Moutarde", icon: "circle" },
+  { id: "sesame", name: "Graines de sésame", icon: "blur-circular" },
+  { id: "sulfites", name: "Sulfites", icon: "science" },
+  { id: "lupin", name: "Lupin", icon: "local-florist" },
+  { id: "molluscs", name: "Mollusques", icon: "waves" },
 ];
 
 const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
@@ -89,6 +104,47 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [isLoadingIngredients, setIsLoadingIngredients] = useState(true);
   const scrollY = useSharedValue(0);
+
+  // AI-powered allergen detection based on selected ingredients
+  const detectedAllergens = useMemo(() => {
+    if (formData.ingredients.length === 0 || ingredients.length === 0) {
+      return [];
+    }
+    return detectAllergensFromIngredients(formData.ingredients, ingredients);
+  }, [formData.ingredients, ingredients]);
+
+  // Get allergen suggestions (detected but not yet selected)
+  const allergenSuggestions = useMemo(() => {
+    return getAllergenSuggestions(detectedAllergens, formData.allergens);
+  }, [detectedAllergens, formData.allergens]);
+
+  // Auto-sync allergens: Remove auto-detected allergens when ingredients are deselected
+  // Keep track of which allergens were auto-applied vs manually selected
+  const [manuallyAddedAllergens, setManuallyAddedAllergens] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (detectedAllergens.length === 0 && formData.allergens.length > 0) {
+      // No ingredients selected, keep only manually added allergens
+      const manualOnly = formData.allergens.filter((a) => manuallyAddedAllergens.has(a));
+      if (manualOnly.length !== formData.allergens.length) {
+        setFormData((prev) => ({ ...prev, allergens: manualOnly }));
+      }
+      return;
+    }
+
+    // Get list of currently detected allergen IDs
+    const detectedIds = new Set(detectedAllergens.map((d) => d.allergenId));
+
+    // Keep allergens that are either detected OR manually added
+    const stillValid = formData.allergens.filter((allergenId) => {
+      return detectedIds.has(allergenId) || manuallyAddedAllergens.has(allergenId);
+    });
+
+    // Only update if something changed
+    if (stillValid.length !== formData.allergens.length) {
+      setFormData((prev) => ({ ...prev, allergens: stillValid }));
+    }
+  }, [detectedAllergens, formData.allergens, manuallyAddedAllergens]);
 
   // Load ingredients from API on component mount
   useEffect(() => {
@@ -127,13 +183,42 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   }, []);
 
   const toggleAllergen = useCallback((allergenId: string) => {
+    setFormData((prev) => {
+      const isCurrentlySelected = prev.allergens.includes(allergenId);
+
+      if (isCurrentlySelected) {
+        // Removing allergen - also remove from manual tracking
+        setManuallyAddedAllergens((manual) => {
+          const newManual = new Set(manual);
+          newManual.delete(allergenId);
+          return newManual;
+        });
+        return {
+          ...prev,
+          allergens: prev.allergens.filter((a) => a !== allergenId),
+        };
+      } else {
+        // Adding allergen - check if it's manual (not detected)
+        const isDetected = detectedAllergens.some((d) => d.allergenId === allergenId);
+        if (!isDetected) {
+          // Mark as manually added
+          setManuallyAddedAllergens((manual) => new Set(manual).add(allergenId));
+        }
+        return {
+          ...prev,
+          allergens: [...prev.allergens, allergenId],
+        };
+      }
+    });
+  }, [detectedAllergens]);
+
+  // Auto-apply all high-confidence allergen suggestions
+  const applyAllAllergenSuggestions = useCallback(() => {
     setFormData((prev) => ({
       ...prev,
-      allergens: prev.allergens.includes(allergenId)
-        ? prev.allergens.filter((a) => a !== allergenId)
-        : [...prev.allergens, allergenId],
+      allergens: autoApplyHighConfidenceAllergens(detectedAllergens, prev.allergens),
     }));
-  }, []);
+  }, [detectedAllergens]);
 
   const validateForm = useCallback(() => {
     const newErrors: Partial<FormData> = {};
@@ -326,13 +411,20 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 />
               )}
 
+              {/* Allergens - AI-powered detection */}
+              <AllergensSection
+                allergens={ALLERGENS}
+                selectedAllergens={formData.allergens}
+                suggestedAllergens={allergenSuggestions}
+                onToggleAllergen={toggleAllergen}
+                onApplyAllSuggestions={applyAllAllergenSuggestions}
+              />
+
               {/* Additional Info */}
               <AdditionalInfoSection
                 preparationTime={formData.preparationTime}
                 maxConcurrentOrders={formData.maxConcurrentOrders}
                 description={formData.description}
-                allergens={ALLERGENS}
-                selectedAllergens={formData.allergens}
                 featured={formData.featured}
                 errors={{
                   preparationTime: errors.preparationTime,
@@ -341,7 +433,6 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 onPreparationTimeChange={(text) => updateField("preparationTime", text)}
                 onMaxConcurrentOrdersChange={(text) => updateField("maxConcurrentOrders", text)}
                 onDescriptionChange={(text) => updateField("description", text)}
-                onToggleAllergen={toggleAllergen}
                 onFeaturedChange={(value) => updateField("featured", value)}
               />
             </View>
