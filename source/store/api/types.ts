@@ -142,6 +142,23 @@ export interface AttestationSubmitResponse {
   status: DocumentStatus;
 }
 
+// Cooker profile update request
+export interface CookerUpdateRequest {
+  cookerId: number;
+  firstname?: string;
+  lastname?: string;
+  phone?: string;
+  email?: string;
+  siret?: string;
+  street_number?: string;
+  street_name?: string;
+  address_complement?: string | null;
+  postal_code?: string;
+  town?: string;
+  max_order_number?: number;
+  is_online?: boolean;
+}
+
 // Cooker profile types
 export interface CookerPersonalInfos {
   photo: string | null;
@@ -225,4 +242,3 @@ export interface RecentReviewsResponse {
   total_reviews: number;
   pagination: Pagination;
 }
-

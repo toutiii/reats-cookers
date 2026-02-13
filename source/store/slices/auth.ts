@@ -446,6 +446,12 @@ const authSlice = createSlice({
       .addMatcher(cookerApi.endpoints.getCookerProfile.matchFulfilled, (state, action) => {
         state.cooker = mapProfileResponse(action.payload.data, state.cooker);
       });
+
+    // Update cooker profile - sync auth state with API response
+    builder
+      .addMatcher(cookerApi.endpoints.updateCookerProfile.matchFulfilled, (state, action) => {
+        state.cooker = mapProfileResponse(action.payload.data, state.cooker);
+      });
   },
 });
 
