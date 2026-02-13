@@ -28,6 +28,7 @@ export type RootStackParamList = {
   HelpSupportScreen: undefined;
   LanguageScreen: undefined;
   DashboardScreen: undefined;
+  AddDrinksScreen: undefined;
 };
 
 // Type pour la navigation avec Stack

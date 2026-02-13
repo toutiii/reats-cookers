@@ -10,12 +10,16 @@ interface AddMenuHeaderProps {
   onBack: () => void;
   onReset: () => void;
   scrollY?: any;
+  title?: string;
+  subtitle?: string;
 }
 
 export const AddMenuHeader: React.FC<AddMenuHeaderProps> = ({
   onBack,
   onReset,
   scrollY,
+  title,
+  subtitle,
 }) => {
   const { t } = useTranslation("menu");
 
@@ -39,8 +43,8 @@ export const AddMenuHeader: React.FC<AddMenuHeaderProps> = ({
             <Ionicons name="arrow-back" size={20} color="#374151" />
           </TouchableOpacity>
           <View>
-            <Heading className="text-xl font-bold">{t("header.addNew")}</Heading>
-            <Text className="text-xs mt-0.5">{t("header.addToMenu")}</Text>
+            <Heading className="text-xl font-bold">{title ?? t("header.addNew")}</Heading>
+            <Text className="text-xs mt-0.5">{subtitle ?? t("header.addToMenu")}</Text>
           </View>
         </View>
         <TouchableOpacity

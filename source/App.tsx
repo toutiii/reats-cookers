@@ -46,6 +46,7 @@ import SwornStatementScreen from "./screens/user-infos-collection/sworn-statemen
 import Onboarding from "./screens/onboarding";
 import OrderDetailsScreen from "./screens/order-details";
 import AddMenuItemScreen from "./screens/menu/add";
+import AddDrinksScreen from "./screens/menu/add-drinks";
 import FoodDetailsScreen from "./screens/menu/food-details";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { store, RootState } from "./store";
@@ -114,6 +115,7 @@ const AppStack = () => {
       <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
       <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
       <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
+      <Stack.Screen name="AddDrinksScreen" component={AddDrinksScreen} />
       <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
     </Stack.Navigator>
   );
