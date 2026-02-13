@@ -87,7 +87,7 @@ const formControlHelperStyle = tva({
 });
 
 const formControlHelperTextStyle = tva({
-  base: 'text-typography-500',
+  base: 'text-typography-500 font-body',
   variants: {
     isTruncated: {
       true: 'web:truncate',
