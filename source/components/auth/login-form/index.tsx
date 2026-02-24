@@ -12,14 +12,19 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginValidationSchema, LoginFormData } from "@/utils/validation";
 import { useSendAuthOtpMutation } from "@/store/api/authApi";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store";
+import { clearError } from "@/store/slices/auth";
 import { Alert, AlertIcon, AlertText } from "@/components/ui/alert";
 import { InfoIcon } from "@/components/ui/icon";
+import { useToast, Toast, ToastTitle } from "@/components/ui/toast";
+import { getAuthErrorKey, getErrorKeyFromCode } from "@/utils/getAuthErrorMessage";
 
 const LoginForm = () => {
   const { t } = useTranslation("auth");
   const navigation = useNavigation<StackNavigation>();
+  const dispatch = useDispatch();
+  const toast = useToast();
   const [country, setCountry] = useState<ICountry>({
     calling_codes: [33],
     key: "FR",
@@ -28,7 +33,7 @@ const LoginForm = () => {
   });
 
   const [sendAuthOtp, { isLoading }] = useSendAuthOtpMutation();
-  const { error: authError, status } = useSelector((state: RootState) => state.auth);
+  const { error: authError, errorCode, status, authFlow } = useSelector((state: RootState) => state.auth);
 
   const {
     control,
@@ -36,18 +41,24 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>({
+    mode: "onTouched",
     resolver: yupResolver(loginValidationSchema),
     defaultValues: {
       phone: "",
     },
   });
 
-  // Navigate to OTP screen when OTP is sent successfully
+  // Clear any stale errors on mount
   useEffect(() => {
-    if (status === "otp_pending") {
+    dispatch(clearError());
+  }, [dispatch]);
+
+  // Navigate to OTP screen when OTP is sent successfully (only for login flow)
+  useEffect(() => {
+    if (status === "otp_pending" && authFlow === "login") {
       navigation.navigate("OTPScreen");
     }
-  }, [status, navigation]);
+  }, [status, authFlow, navigation]);
 
   const onSubmit = async (data: LoginFormData) => {
     // Clean phone: remove spaces and check if already has country code
@@ -58,7 +69,15 @@ const LoginForm = () => {
     try {
       await sendAuthOtp({ phone: fullPhone }).unwrap();
     } catch (error) {
-      console.error("Login error:", error);
+      const errorKey = getAuthErrorKey(error);
+      toast.show({
+        placement: "top",
+        render: ({ id }) => (
+          <Toast nativeID={`toast-${id}`} action="error" variant="solid">
+            <ToastTitle>{t(errorKey)}</ToastTitle>
+          </Toast>
+        ),
+      });
     }
   };
 
@@ -81,7 +100,7 @@ const LoginForm = () => {
       {authError && (
         <Alert action="error" variant="solid">
           <AlertIcon as={InfoIcon} />
-          <AlertText>{authError}</AlertText>
+          <AlertText>{t(getErrorKeyFromCode(errorCode))}</AlertText>
         </Alert>
       )}
 

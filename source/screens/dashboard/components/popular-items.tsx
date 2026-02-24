@@ -1,16 +1,9 @@
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Text } from "@/components/ui/text";
 import { Heading } from "@/components/ui/heading";
-
-interface PopularItem {
-  name: string;
-  price: string;
-  rating: string;
-  emoji: string;
-  colors: [string, string];
-}
+import type { PopularItem } from "@/store/api/types";
 
 interface PopularItemCardProps {
   item: PopularItem;
@@ -23,18 +16,36 @@ const PopularItemCard: React.FC<PopularItemCardProps> = ({ item }) => (
       className="rounded-2xl h-32 mb-3 items-center justify-center"
       style={{ backgroundColor: item.colors[0] }}
     >
-      <View
-        className="bg-white rounded-full w-16 h-16 items-center justify-center"
-        style={{
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-          elevation: 3,
-        }}
-      >
-        <Text className="text-3xl">{item.emoji}</Text>
-      </View>
+      {item.image_url ? (
+        <View
+          className="rounded-full"
+          style={{
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 8,
+            elevation: 3,
+          }}
+        >
+          <Image
+            source={{ uri: item.image_url }}
+            className="w-16 h-16 rounded-full"
+          />
+        </View>
+      ) : (
+        <View
+          className="bg-white rounded-full w-16 h-16 items-center justify-center"
+          style={{
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 8,
+            elevation: 3,
+          }}
+        >
+          <Feather name="image" size={24} color="#9ca3af" />
+        </View>
+      )}
     </View>
 
     {/* Item Info */}
@@ -49,23 +60,11 @@ const PopularItemCard: React.FC<PopularItemCardProps> = ({ item }) => (
   </View>
 );
 
-export const PopularItems: React.FC = () => {
-  const popularItems: PopularItem[] = [
-    {
-      name: "Pizza Margherita",
-      price: "€12.90",
-      rating: "4.8",
-      emoji: "🍕",
-      colors: ["#fed7aa", "#ffedd5"],
-    },
-    {
-      name: "Burger Classic",
-      price: "€15.90",
-      rating: "4.9",
-      emoji: "🍔",
-      colors: ["#bbf7d0", "#dcfce7"],
-    },
-  ];
+interface PopularItemsProps {
+  items?: PopularItem[];
+}
+
+export const PopularItems: React.FC<PopularItemsProps> = ({ items = [] }) => {
 
   return (
     <View
@@ -91,8 +90,8 @@ export const PopularItems: React.FC = () => {
 
       {/* Items Grid */}
       <View className="flex-row gap-3">
-        {popularItems.map((item, index) => (
-          <PopularItemCard key={index} item={item} />
+        {items.map((item) => (
+          <PopularItemCard key={item.id} item={item} />
         ))}
       </View>
     </View>

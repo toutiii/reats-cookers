@@ -4,9 +4,9 @@ import * as yup from "yup";
 export const loginValidationSchema = yup.object().shape({
   phone: yup
     .string()
-    .required("Phone number is required")
-    .matches(/^[+0-9\s]{6,}$/, "Invalid phone format")
-    .test("min-digits", "Phone must have at least 9 digits", (value) => {
+    .required("validation:phone.required")
+    .matches(/^[+0-9\s]{6,}$/, "validation:phone.format")
+    .test("min-digits", "validation:phone.format", (value) => {
       if (!value) return false;
       const digitsOnly = value.replace(/[\s+]/g, "");
       return digitsOnly.length >= 9;
@@ -15,46 +15,50 @@ export const loginValidationSchema = yup.object().shape({
 
 // Register validation schema (matches API CookerCreateRequest)
 export const registerValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .required("validation:email.required")
+    .email("validation:email.invalid"),
   firstname: yup
     .string()
-    .required("First name is required")
-    .max(100, "First name must be at most 100 characters"),
+    .required("validation:name.required")
+    .max(100, "validation:name.maxLength"),
   lastname: yup
     .string()
-    .required("Last name is required")
-    .max(100, "Last name must be at most 100 characters"),
+    .required("validation:name.required")
+    .max(100, "validation:name.maxLength"),
   siret: yup
     .string()
-    .required("SIRET is required")
-    .matches(/^[0-9]{14}$/, "SIRET must contain exactly 14 digits"),
+    .required("validation:siret.required")
+    .matches(/^[0-9]{14}$/, "validation:siret.length"),
   phone: yup
     .string()
-    .required("Phone number is required")
-    .matches(/^[+0-9\s]{6,}$/, "Invalid phone format")
-    .test("min-digits", "Phone must have at least 9 digits", (value) => {
+    .required("validation:phone.required")
+    .matches(/^[+0-9\s]{6,}$/, "validation:phone.format")
+    .test("min-digits", "validation:phone.format", (value) => {
       if (!value) return false;
       const digitsOnly = value.replace(/[\s+]/g, "");
       return digitsOnly.length >= 9;
     }),
   postal_code: yup
     .string()
-    .required("Postal code is required")
-    .matches(/^[0-9]{5}$/, "Postal code must contain 5 digits"),
+    .required("validation:address.postalCodeRequired")
+    .matches(/^[0-9]{5}$/, "validation:address.postalCodeFormat"),
   street_name: yup
     .string()
-    .required("Street name is required")
-    .max(100, "Street name must be at most 100 characters"),
+    .required("validation:address.streetRequired")
+    .max(100, "validation:name.maxLength"),
   street_number: yup
     .string()
-    .required("Street number is required")
-    .max(10, "Street number must be at most 10 characters"),
+    .required("validation:address.streetNumberRequired")
+    .max(10, "validation:text.maxLength"),
   town: yup
     .string()
-    .required("Town is required")
-    .max(100, "Town must be at most 100 characters"),
+    .required("validation:address.townRequired")
+    .max(100, "validation:name.maxLength"),
   address_complement: yup
     .string()
-    .max(512, "Address complement must be at most 512 characters")
+    .max(512, "validation:text.maxLength")
     .notRequired(),
 });
 
@@ -62,11 +66,11 @@ export const registerValidationSchema = yup.object().shape({
 export const otpValidationSchema = yup.object().shape({
   otp: yup
     .string()
-    .required("OTP code is required")
-    .matches(/^[0-9]{6}$/, "OTP must be 6 digits"),
+    .required("validation:required")
+    .matches(/^[0-9]{6}$/, "validation:required"),
   phone: yup
     .string()
-    .required("Phone number is required"),
+    .required("validation:phone.required"),
 });
 
 // Type exports for form data
@@ -75,6 +79,7 @@ export type LoginFormData = {
 };
 
 export type RegisterFormData = {
+  email: string;
   firstname: string;
   lastname: string;
   siret: string;

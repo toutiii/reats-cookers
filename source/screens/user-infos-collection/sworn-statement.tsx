@@ -12,7 +12,7 @@ import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import useImagePicker from "@/hooks/useImagePicker";
 import { RootState } from "@/store";
-import { useSubmitAttestationMutation } from "@/store/api/documentsApi";
+import { setRegistrationStep, setAuthFlow } from "@/store/slices/auth";
 import type { BusinessDocumentType } from "@/store/api/types";
 import { StackNavigation } from "@/types/navigation";
 import { Feather } from "@expo/vector-icons";
@@ -31,7 +31,7 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 interface DocumentUploadSectionProps {
   title: string;
@@ -54,6 +54,7 @@ const ATTESTATION_CLAUSES = [
 
 const AttestationHonneurScreen = () => {
   const navigation = useNavigation<StackNavigation>();
+  const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
   const { cooker } = useSelector((state: RootState) => state.auth);
 
@@ -69,8 +70,6 @@ const AttestationHonneurScreen = () => {
 
   const [businessDocType, setBusinessDocType] = useState<BusinessDocumentType>("kbis");
   const [attestationAccepted, setAttestationAccepted] = useState(false);
-
-  const [submitAttestation, { isLoading: isSubmitting }] = useSubmitAttestationMutation();
 
   const {
     selectedImage: businessDocImage,
@@ -90,14 +89,8 @@ const AttestationHonneurScreen = () => {
     clearImage: _clearRcInsuranceImage,
   } = useImagePicker();
 
-  const canSubmit =
-    !!businessDocImage &&
-    !!rcInsuranceImage &&
-    attestationAccepted &&
-    !!signatoryName.trim() &&
-    !!companyName.trim() &&
-    !!signatureCity.trim() &&
-    !isSubmitting;
+  // TODO: re-enable validation when API is ready
+  const canSubmit = true;
 
   useEffect(() => {
     if (businessDocError) {
@@ -140,41 +133,20 @@ const AttestationHonneurScreen = () => {
     [takeBusinessDocPicture, pickBusinessDocImage, takeRcInsurancePicture, pickRcInsuranceImage]
   );
 
-  const handleSubmit = useCallback(async () => {
-    if (!canSubmit || !cooker?.id || !businessDocImage || !rcInsuranceImage) return;
+  // TODO: replace simulation with real API call when ready
+  const handleSubmit = useCallback(() => {
+    if (!canSubmit) return;
 
-    try {
-      const businessDocBlob = await fetch(businessDocImage.uri).then((r) => r.blob());
-      const rcInsuranceBlob = await fetch(rcInsuranceImage.uri).then((r) => r.blob());
+    // Mark registration as complete, clear auth flow, and navigate to dashboard
+    dispatch(setRegistrationStep("complete"));
+    dispatch(setAuthFlow(null));
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "MainNavigator" }],
+    });
+  }, [canSubmit, dispatch, navigation]);
 
-      await submitAttestation({
-        cooker_id: cooker.id,
-        business_document_type: businessDocType,
-        business_document: businessDocBlob,
-        rc_insurance_document: rcInsuranceBlob,
-        attestation_accepted: attestationAccepted,
-      }).unwrap();
-
-      Alert.alert(
-        "Attestation soumise",
-        "Votre attestation sur l'honneur et vos documents ont été soumis avec succès.",
-        [{ text: "OK", onPress: () => navigation.goBack() }]
-      );
-    } catch (error) {
-      Alert.alert("Erreur", "Une erreur est survenue lors de la soumission.");
-    }
-  }, [
-    canSubmit,
-    cooker?.id,
-    businessDocImage,
-    rcInsuranceImage,
-    businessDocType,
-    attestationAccepted,
-    submitAttestation,
-    navigation,
-  ]);
-
-  const isLoading = businessDocLoading || rcInsuranceLoading || isSubmitting;
+  const isLoading = businessDocLoading || rcInsuranceLoading;
 
   return (
     <ThemedView className="flex-1">

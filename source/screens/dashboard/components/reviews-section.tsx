@@ -28,16 +28,28 @@ const RatingBar: React.FC<RatingBarProps> = ({ stars, percent }) => (
   </View>
 );
 
+interface ReviewsSectionProps {
+  reviews?: { stars: number; percent: number }[];
+  averageRating?: number;
+  totalReviews?: number;
+}
+
+const DEFAULT_REVIEWS = [
+  { stars: 5, percent: 85 },
+  { stars: 4, percent: 12 },
+  { stars: 3, percent: 3 },
+];
+
 /**
  * Reviews Section Component
  * Displays customer reviews with rating breakdown
  */
-export const ReviewsSection: React.FC = () => {
-  const ratingData = [
-    { stars: 5, percent: 85 },
-    { stars: 4, percent: 12 },
-    { stars: 3, percent: 3 },
-  ];
+export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
+  reviews = DEFAULT_REVIEWS,
+  averageRating = 0,
+  totalReviews = 0,
+}) => {
+  const ratingData = reviews;
 
   return (
     <View
@@ -69,10 +81,10 @@ export const ReviewsSection: React.FC = () => {
         </View>
         <View>
           <View className="flex-row items-baseline">
-            <Text className="text-white font-bold text-5xl">4.9</Text>
+            <Text className="text-white font-bold text-5xl">{averageRating.toFixed(1)}</Text>
             <Text className="text-orange-100 text-lg ml-2">/5</Text>
           </View>
-          <Text className="text-orange-100 text-sm mt-1">Based on 247 reviews</Text>
+          <Text className="text-orange-100 text-sm mt-1">Based on {totalReviews} reviews</Text>
         </View>
       </View>
 

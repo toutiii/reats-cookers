@@ -46,11 +46,13 @@ import SwornStatementScreen from "./screens/user-infos-collection/sworn-statemen
 import Onboarding from "./screens/onboarding";
 import OrderDetailsScreen from "./screens/order-details";
 import AddMenuItemScreen from "./screens/menu/add";
+import AddDrinksScreen from "./screens/menu/add-drinks";
 import FoodDetailsScreen from "./screens/menu/food-details";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import { store, RootState } from "./store";
-import { hydrateAuth, setHydrated, logout } from "./store/slices/auth";
+import { hydrateAuth, setHydrated } from "./store/slices/auth";
 import { loadPersistedAuth, persistAuth, clearPersistedAuth } from "./store/authPersistence";
+import { useLazyGetCookerProfileQuery } from "./store/api/cookerApi";
 
 
 const Stack = createStackNavigator();
@@ -83,7 +85,6 @@ const AuthStack = () => (
     <Stack.Screen name="LoginScreen" component={LoginScreen} options={createScreenOptions("Connexion", { headerBackTitle: " " })} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={createScreenOptions("Créer un compte")} />
     <Stack.Screen name="OTPScreen" component={OTPScreen} options={createScreenOptions("Code de vérification")} />
-    <Stack.Screen name="SwornStatementScreen" component={SwornStatementScreen} />
     <Stack.Screen name="DocumentsScreen" component={DocumentsScreen} />
     <Stack.Screen name="PersonalDocumentsScreen" component={PersonalDocumentsScreen} options={createScreenOptions("Documents")} />
     <Stack.Screen name="UploadDocumentsScreen" component={UploadDocumentsScreen} options={createScreenOptions("Upload documents")} />
@@ -92,30 +93,40 @@ const AuthStack = () => (
 );
 
 // App Stack - screens for authenticated users
-const AppStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="MainNavigator" component={MainNavigator} />
-    <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen} />
-    <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
-    <Stack.Screen name="LanguageSettingsScreen" component={LanguageSettingsScreen} />
-    <Stack.Screen name="WithdrawalHistoryScreen" component={WithdrawalHistoryScreen} />
-    <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
-    <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
-    <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
-    <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
-  </Stack.Navigator>
-);
+const AppStack = () => {
+  const { registrationStep } = useSelector((state: RootState) => state.auth);
+  const needsAttestation = registrationStep === "documents";
+
+  return (
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName={needsAttestation ? "SwornStatementScreen" : "MainNavigator"}
+    >
+      <Stack.Screen name="MainNavigator" component={MainNavigator} />
+      <Stack.Screen
+        name="SwornStatementScreen"
+        component={SwornStatementScreen}
+        options={{ gestureEnabled: false }}
+      />
+      <Stack.Screen name="PersonalInfoScreen" component={PersonalInfoScreen} />
+      <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+      <Stack.Screen name="LanguageSettingsScreen" component={LanguageSettingsScreen} />
+      <Stack.Screen name="WithdrawalHistoryScreen" component={WithdrawalHistoryScreen} />
+      <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
+      <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
+      <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
+      <Stack.Screen name="AddDrinksScreen" component={AddDrinksScreen} />
+      <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />
+    </Stack.Navigator>
+  );
+};
 
 // Root Navigator - handles auth state
 const RootNavigator = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated, isHydrated, status } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, isHydrated, status, userId, cooker } = useSelector((state: RootState) => state.auth);
   const authState = useSelector((state: RootState) => state.auth);
-
-  console.log("isAuthenticated", isAuthenticated);
-  console.log("isHydrated", isHydrated);
-  console.log("status", status);
-  console.log("authState", authState);
+  const [fetchProfile] = useLazyGetCookerProfileQuery();
 
   // Load persisted auth state on mount
   useEffect(() => {
@@ -135,6 +146,13 @@ const RootNavigator = () => {
 
     loadAuth();
   }, [dispatch]);
+
+  // Fetch cooker profile once when authenticated
+  useEffect(() => {
+    if (isAuthenticated && userId && !cooker) {
+      fetchProfile(userId);
+    }
+  }, [isAuthenticated, userId, cooker, fetchProfile]);
 
   // Persist auth state when it changes
   useEffect(() => {

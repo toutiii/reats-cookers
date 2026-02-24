@@ -10,6 +10,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "@/components/common/header";
 import { Heading } from "@/components/ui/heading";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "@/store/slices/auth";
+import type { RootState } from "@/store";
 
 type MenuItem = {
   icon: keyof typeof Ionicons.glyphMap;
@@ -109,12 +112,20 @@ const MenuSectionComponent: React.FC<{ section: MenuSection }> = ({ section }) =
 const AccountScreen = () => {
   const { t } = useTranslation("account");
   const navigation = useNavigation<StackNavigation>();
+  const dispatch = useDispatch();
 
+  // Get cooker from auth state (already fetched in App.tsx)
+  const cooker = useSelector((state: RootState) => state.auth.cooker);
+
+  // Build user object from store data
   const user = {
-    name: "Ronald Richards",
-    phone: "+111 1234 56 89",
-    email: "ronaldrichards@example.com",
-    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+    name: cooker ? `${cooker.firstname} ${cooker.lastname}` : "",
+    phone: cooker?.phone || "",
+    email: cooker?.email || "",
+    avatar: cooker?.photo || "",
+    acceptanceRate: cooker?.acceptanceRate || 0,
+    isOnline: cooker?.isOnline || false,
+    maxOrderNumber: cooker?.maxOrderNumber || 0,
   };
 
   const menuSections: MenuSection[] = [
@@ -178,7 +189,7 @@ const AccountScreen = () => {
       },
       {
         text: t("logout.confirm"),
-        onPress: () => console.log("User logged out"),
+        onPress: () => dispatch(logout()),
         style: "destructive",
       },
     ]);
@@ -217,12 +228,17 @@ const AccountScreen = () => {
                     .map((n) => n[0])
                     .join("")}
                 </AvatarFallbackText>
-                <AvatarImage source={{ uri: user.avatar }} />
+                {user.avatar && <AvatarImage source={{ uri: user.avatar }} />}
               </Avatar>
               <View className="ml-4 flex-1">
-                <Heading className="text-xl font-bold text-gray-900 mb-1">
-                  {user.name}
-                </Heading>
+                <View className="flex-row items-center mb-1">
+                  <Heading className="text-xl font-bold text-gray-900">
+                    {user.name}
+                  </Heading>
+                  {user.isOnline && (
+                    <View className="ml-2 w-3 h-3 bg-green-500 rounded-full" />
+                  )}
+                </View>
                 <View className="flex-row items-center mb-1">
                   <Ionicons name="call-outline" size={14} color="#9CA3AF" />
                   <Text className="text-sm text-gray-600 ml-1.5">
@@ -251,10 +267,10 @@ const AccountScreen = () => {
                 }}
               >
                 <View className="flex-row items-center justify-between mb-2">
-                  <Ionicons name="receipt-outline" size={20} color="#FF6347" />
-                  <Text className="text-2xl font-bold text-primary-500">248</Text>
+                  <Ionicons name="checkmark-circle-outline" size={20} color="#10B981" />
+                  <Text className="text-2xl font-bold text-green-500">{user.acceptanceRate}%</Text>
                 </View>
-                <Text className="text-xs text-gray-600">{t("stats.totalOrders")}</Text>
+                <Text className="text-xs text-gray-600">{t("stats.acceptanceRate")}</Text>
               </View>
               <View
                 className="flex-1 bg-white rounded-2xl p-4"
@@ -267,10 +283,10 @@ const AccountScreen = () => {
                 }}
               >
                 <View className="flex-row items-center justify-between mb-2">
-                  <Ionicons name="star" size={20} color="#F59E0B" />
-                  <Text className="text-2xl font-bold text-amber-500">4.8</Text>
+                  <Ionicons name="restaurant-outline" size={20} color="#FF6347" />
+                  <Text className="text-2xl font-bold text-primary-500">{user.maxOrderNumber}</Text>
                 </View>
-                <Text className="text-xs text-gray-600">{t("stats.rating")}</Text>
+                <Text className="text-xs text-gray-600">{t("stats.maxOrders")}</Text>
               </View>
             </View>
 

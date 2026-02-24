@@ -8,18 +8,32 @@ import { Heading } from "@/components/ui/heading";
 interface RevenueChartProps {
   selectedPeriod: string;
   onPeriodPress?: () => void;
+  labels?: string[];
+  data?: number[];
+  totalRevenue?: string;
+  trend?: string;
 }
+
+const DEFAULT_LABELS = ["10h", "11h", "12h", "13h", "14h", "15h", "16h"];
+const DEFAULT_DATA = [250, 320, 500, 420, 380, 450, 520];
 
 /**
  * Revenue Chart Component
  * Displays total revenue with line chart and period selector
  */
-export const RevenueChart: React.FC<RevenueChartProps> = ({ selectedPeriod, onPeriodPress }) => {
+export const RevenueChart: React.FC<RevenueChartProps> = ({
+  selectedPeriod,
+  onPeriodPress,
+  labels = DEFAULT_LABELS,
+  data = DEFAULT_DATA,
+  totalRevenue = "€0",
+  trend = "+0%",
+}) => {
   const revenueData = {
-    labels: ["10h", "11h", "12h", "13h", "14h", "15h", "16h"],
+    labels,
     datasets: [
       {
-        data: [250, 320, 500, 420, 380, 450, 520],
+        data: data.length > 0 ? data : [0],
       },
     ],
   };
@@ -59,10 +73,10 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({ selectedPeriod, onPe
       <View className="flex-row justify-between items-center mb-5">
         <View>
           <Heading className="text-sm mb-2">Total Revenue</Heading>
-          <Heading className="text-3xl font-bold">€2,241</Heading>
+          <Heading className="text-3xl font-bold">{totalRevenue}</Heading>
           <View className="flex-row items-center mt-2">
             <Feather name="trending-up" size={14} color="#10b981" />
-            <Text className="text-green-600 text-sm font-semibold ml-1">+18% vs yesterday</Text>
+            <Text className="text-green-600 text-sm font-semibold ml-1">{trend}</Text>
           </View>
         </View>
 

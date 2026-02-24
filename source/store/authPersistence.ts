@@ -14,6 +14,8 @@ type PersistedAuthState = Pick<
   | "isFirstLaunch"
   | "lastLoginAt"
   | "status"
+  | "registrationStep"
+  | "authFlow"
 >;
 
 export const persistAuth = async (state: AuthState): Promise<void> => {
@@ -27,6 +29,8 @@ export const persistAuth = async (state: AuthState): Promise<void> => {
       isFirstLaunch: state.isFirstLaunch,
       lastLoginAt: state.lastLoginAt,
       status: state.isAuthenticated ? "authenticated" : "idle",
+      registrationStep: state.registrationStep,
+      authFlow: state.authFlow,
     };
     await AsyncStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(stateToPersist));
   } catch (error) {

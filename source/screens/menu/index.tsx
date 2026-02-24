@@ -4,7 +4,8 @@ import {
   View,
   FlatList,
   StatusBar,
-  Alert
+  Alert,
+  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -16,7 +17,9 @@ import {
   MenuItemCard,
   type MenuItem
 } from "../../components/menu";
+import { Ionicons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/themed-view";
+import { Text as UIText } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 
 interface DashboardStats {
@@ -219,6 +222,10 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     navigation.navigate("AddMenuItemScreen");
   }, [navigation]);
 
+  const handleAddDrinksPress = useCallback(() => {
+    navigation.navigate("AddDrinksScreen");
+  }, [navigation]);
+
   return (
     <ThemedView>
       <StatusBar barStyle="dark-content" />
@@ -232,6 +239,17 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             onAddPress={handleAddPress}
           />
           <SearchBar value={searchQuery} onChangeText={setSearchQuery} />
+
+          {/* Add Drinks Button */}
+          <TouchableOpacity
+            onPress={handleAddDrinksPress}
+            className="mt-3 flex-row items-center bg-purple-50 border border-purple-200 rounded-xl px-4 py-2.5 self-start"
+          >
+            <Ionicons name="cafe-outline" size={18} color="#9333EA" />
+            <UIText className="ml-2 text-sm font-semibold text-purple-700">
+              Ajouter une boisson
+            </UIText>
+          </TouchableOpacity>
         </View>
 
         <ScrollView showsVerticalScrollIndicator={false}>

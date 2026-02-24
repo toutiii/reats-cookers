@@ -24,7 +24,9 @@
   },
   "stats": {
     "totalOrders": "Total Commandes",
-    "rating": "Note"
+    "rating": "Note",
+    "acceptanceRate": "Taux d'acceptation",
+    "maxOrders": "Commandes max"
   },
   "personalInfo": {
     "title": "Informations personnelles",
