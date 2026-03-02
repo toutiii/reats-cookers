@@ -4,6 +4,7 @@ export { PricingSection } from "./pricing-section";
 export { IngredientsSection } from "./ingredients-section";
 export { AllergensSection } from "./allergens-section";
 export { AdditionalInfoSection } from "./additional-info-section";
+export { NutritionSection } from "./nutrition-section";
 export { AddMenuHeader } from "./add-menu-header";
 export { SaveButton } from "./save-button";
 

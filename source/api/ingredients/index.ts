@@ -16,6 +16,11 @@ export type {
   AllergenId,
   PaginationResult,
   PaginationOptions,
+  NutritionPer100g,
+  RecipeNutrition,
+  NutriScoreGrade,
+  IngredientNutritionBreakdown,
+  IngredientQuantities,
 } from "./types";
 
 // Re-export utility functions
@@ -28,6 +33,14 @@ export {
 export { paginateIngredients, getPaginatedIngredients } from "./pagination";
 
 export { clearCache as clearIngredientsCache } from "./cache";
+
+// Re-export nutrition functions
+export {
+  getNutritionForIngredient,
+  hasNutritionData,
+} from "./nutrition-database";
+
+export { calculateRecipeNutrition } from "./nutrition-calculator";
 
 /**
  * Main function to fetch all ingredients
