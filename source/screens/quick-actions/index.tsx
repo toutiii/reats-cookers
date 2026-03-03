@@ -5,7 +5,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { ThemedView } from "@/components/themed-view";
 import { Header } from "@/components/common/header";
-import { Text } from "@/components/ui/text";
 import { Heading } from "@/components/ui/heading";
 import { useTranslation } from "@/hooks/useTranslation";
 import { StackNavigation } from "@/types/navigation";

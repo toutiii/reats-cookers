@@ -14,8 +14,7 @@ interface ActionCardProps {
   onPress: () => void;
 }
 
-export const ActionCard = React.memo<ActionCardProps>(
-  ({ icon, iconColor, iconBgColor, label, description, index, onPress }) => (
+const ActionCardComponent: React.FC<ActionCardProps> = ({ icon, iconColor, iconBgColor, label, description, index, onPress }) => (
     <Animated.View
       entering={FadeIn.delay(index * 80).duration(500)}
       className="w-[48%]"
@@ -42,5 +41,8 @@ export const ActionCard = React.memo<ActionCardProps>(
         <Text className="text-xs text-gray-500 mt-1">{description}</Text>
       </TouchableOpacity>
     </Animated.View>
-  ),
 );
+
+ActionCardComponent.displayName = "ActionCard";
+
+export const ActionCard = React.memo(ActionCardComponent);
