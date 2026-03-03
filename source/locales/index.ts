@@ -11,6 +11,7 @@ import frDashboard from "./fr/dashboard.json";
 import frAccount from "./fr/account.json";
 import frValidation from "./fr/validation.json";
 import frOnboarding from "./fr/onboarding.json";
+import frQuickActions from "./fr/quickActions.json";
 
 // Import English translations
 import enCommon from "./en/common.json";
@@ -21,6 +22,7 @@ import enDashboard from "./en/dashboard.json";
 import enAccount from "./en/account.json";
 import enValidation from "./en/validation.json";
 import enOnboarding from "./en/onboarding.json";
+import enQuickActions from "./en/quickActions.json";
 
 // Define translation resources
 const resources = {
@@ -33,6 +35,7 @@ const resources = {
     account: frAccount,
     validation: frValidation,
     onboarding: frOnboarding,
+    quickActions: frQuickActions,
   },
   en: {
     common: enCommon,
@@ -43,6 +46,7 @@ const resources = {
     account: enAccount,
     validation: enValidation,
     onboarding: enOnboarding,
+    quickActions: enQuickActions,
   },
 };
 
@@ -57,7 +61,7 @@ i18n
     lng: deviceLocale,
     fallbackLng: "fr",
     defaultNS: "common",
-    ns: ["common", "auth", "menu", "orders", "dashboard", "account", "validation", "onboarding"],
+    ns: ["common", "auth", "menu", "orders", "dashboard", "account", "validation", "onboarding", "quickActions"],
     interpolation: {
       escapeValue: false, // React already escapes values
     },
