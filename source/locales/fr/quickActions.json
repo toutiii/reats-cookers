@@ -1,0 +1,45 @@
+{
+  "header": {
+    "title": "Actions rapides",
+    "subtitle": "Centre de commande"
+  },
+  "sections": {
+    "menuManagement": "Gestion du menu",
+    "operations": "Opérations",
+    "account": "Compte"
+  },
+  "actions": {
+    "addDish": {
+      "label": "Ajouter un plat",
+      "description": "Créer un nouveau plat au menu"
+    },
+    "addDrink": {
+      "label": "Ajouter une boisson",
+      "description": "Ajouter une boisson à la carte"
+    },
+    "viewMenu": {
+      "label": "Voir le menu",
+      "description": "Consulter et gérer votre menu"
+    },
+    "orders": {
+      "label": "Commandes",
+      "description": "Gérer les commandes en cours"
+    },
+    "analytics": {
+      "label": "Statistiques",
+      "description": "Voir les performances"
+    },
+    "reviews": {
+      "label": "Avis clients",
+      "description": "Consulter les avis reçus"
+    },
+    "settings": {
+      "label": "Paramètres",
+      "description": "Configurer votre compte"
+    },
+    "profile": {
+      "label": "Mon profil",
+      "description": "Modifier vos informations"
+    }
+  }
+}

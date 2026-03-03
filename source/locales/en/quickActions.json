@@ -1,0 +1,45 @@
+{
+  "header": {
+    "title": "Quick Actions",
+    "subtitle": "Command center"
+  },
+  "sections": {
+    "menuManagement": "Menu Management",
+    "operations": "Operations",
+    "account": "Account"
+  },
+  "actions": {
+    "addDish": {
+      "label": "Add a Dish",
+      "description": "Create a new menu item"
+    },
+    "addDrink": {
+      "label": "Add a Drink",
+      "description": "Add a drink to the menu"
+    },
+    "viewMenu": {
+      "label": "View Menu",
+      "description": "Browse and manage your menu"
+    },
+    "orders": {
+      "label": "Orders",
+      "description": "Manage current orders"
+    },
+    "analytics": {
+      "label": "Analytics",
+      "description": "View performance stats"
+    },
+    "reviews": {
+      "label": "Customer Reviews",
+      "description": "Check received reviews"
+    },
+    "settings": {
+      "label": "Settings",
+      "description": "Configure your account"
+    },
+    "profile": {
+      "label": "My Profile",
+      "description": "Edit your information"
+    }
+  }
+}
