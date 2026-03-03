@@ -19,6 +19,7 @@ import {
   PricingSection,
   IngredientsSection,
   AllergensSection,
+  NutritionSection,
   AdditionalInfoSection,
   AddMenuHeader,
   SaveButton,
@@ -28,6 +29,8 @@ import {
   getIngredientCategories,
   type Ingredient,
 } from "@/api/ingredients";
+import { calculateRecipeNutrition } from "@/api/ingredients/nutrition-calculator";
+import type { IngredientQuantities } from "@/api/ingredients/types";
 import {
   detectAllergensFromIngredients,
   getAllergenSuggestions,
@@ -42,6 +45,7 @@ interface FormData {
   cost: string;
   deliveryType: "pickup" | "delivery";
   ingredients: string[];
+  ingredientQuantities: IngredientQuantities;
   allergens: string[];
   preparationTime: string;
   maxConcurrentOrders: string;
@@ -49,6 +53,7 @@ interface FormData {
   photos: string[];
   featured: boolean;
   available: boolean;
+  portions: number;
 }
 
 const CATEGORIES = [
@@ -90,6 +95,7 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     cost: "",
     deliveryType: "pickup",
     ingredients: [],
+    ingredientQuantities: {},
     allergens: [],
     preparationTime: "",
     maxConcurrentOrders: "",
@@ -97,6 +103,7 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     photos: [],
     featured: false,
     available: true,
+    portions: 1,
   });
 
   const [selectedIngredientCategory, setSelectedIngredientCategory] = useState<string>("basic");
@@ -174,12 +181,25 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   }, []);
 
   const toggleIngredient = useCallback((ingredientId: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      ingredients: prev.ingredients.includes(ingredientId)
+    setFormData((prev) => {
+      const isRemoving = prev.ingredients.includes(ingredientId);
+      const newIngredients = isRemoving
         ? prev.ingredients.filter((i) => i !== ingredientId)
-        : [...prev.ingredients, ingredientId],
-    }));
+        : [...prev.ingredients, ingredientId];
+
+      // Clean up quantity when deselecting
+      let newQuantities = prev.ingredientQuantities;
+      if (isRemoving) {
+        const { [ingredientId]: _, ...rest } = prev.ingredientQuantities;
+        newQuantities = rest;
+      }
+
+      return {
+        ...prev,
+        ingredients: newIngredients,
+        ingredientQuantities: newQuantities,
+      };
+    });
   }, []);
 
   const toggleAllergen = useCallback((allergenId: string) => {
@@ -219,6 +239,44 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       allergens: autoApplyHighConfidenceAllergens(detectedAllergens, prev.allergens),
     }));
   }, [detectedAllergens]);
+
+  // --- Nutrition ---
+  const updateIngredientQuantity = useCallback(
+    (ingredientId: string, grams: number) => {
+      setFormData((prev) => ({
+        ...prev,
+        ingredientQuantities: {
+          ...prev.ingredientQuantities,
+          [ingredientId]: grams,
+        },
+      }));
+    },
+    []
+  );
+
+  const updatePortions = useCallback((value: number) => {
+    setFormData((prev) => ({ ...prev, portions: Math.max(1, value) }));
+  }, []);
+
+  const recipeNutrition = useMemo(() => {
+    return calculateRecipeNutrition(
+      formData.ingredients,
+      formData.ingredientQuantities,
+      formData.portions,
+      ingredients
+    );
+  }, [
+    formData.ingredients,
+    formData.ingredientQuantities,
+    formData.portions,
+    ingredients,
+  ]);
+
+  const quantifiedCount = useMemo(() => {
+    return formData.ingredients.filter(
+      (id) => (formData.ingredientQuantities[id] ?? 0) > 0
+    ).length;
+  }, [formData.ingredients, formData.ingredientQuantities]);
 
   const validateForm = useCallback(() => {
     const newErrors: Partial<FormData> = {};
@@ -279,6 +337,7 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
               cost: "",
               deliveryType: "pickup",
               ingredients: [],
+              ingredientQuantities: {},
               allergens: [],
               preparationTime: "",
               maxConcurrentOrders: "",
@@ -286,6 +345,7 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
               photos: [],
               featured: false,
               available: true,
+              portions: 1,
             });
             setErrors({});
           },
@@ -408,6 +468,8 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                   categories={ingredientCategories}
                   onCategoryChange={setSelectedIngredientCategory}
                   onToggleIngredient={toggleIngredient}
+                  ingredientQuantities={formData.ingredientQuantities}
+                  onQuantityChange={updateIngredientQuantity}
                 />
               )}
 
@@ -418,6 +480,15 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 suggestedAllergens={allergenSuggestions}
                 onToggleAllergen={toggleAllergen}
                 onApplyAllSuggestions={applyAllAllergenSuggestions}
+              />
+
+              {/* Nutrition */}
+              <NutritionSection
+                nutrition={recipeNutrition}
+                portions={formData.portions}
+                onPortionsChange={updatePortions}
+                ingredientCount={formData.ingredients.length}
+                quantifiedCount={quantifiedCount}
               />
 
               {/* Additional Info */}

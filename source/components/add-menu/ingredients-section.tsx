@@ -23,7 +23,11 @@ interface IngredientsSectionProps {
   categories: IngredientCategory[];
   onCategoryChange: (categoryId: string) => void;
   onToggleIngredient: (ingredientId: string) => void;
+  ingredientQuantities?: Record<string, number>;
+  onQuantityChange?: (ingredientId: string, grams: number) => void;
 }
+
+const QUANTITY_PRESETS = [50, 100, 200] as const;
 
 export const IngredientsSection: React.FC<IngredientsSectionProps> = ({
   ingredients,
@@ -32,6 +36,8 @@ export const IngredientsSection: React.FC<IngredientsSectionProps> = ({
   categories,
   onCategoryChange,
   onToggleIngredient,
+  ingredientQuantities = {},
+  onQuantityChange,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -220,6 +226,64 @@ export const IngredientsSection: React.FC<IngredientsSectionProps> = ({
             contentContainerStyle={{ paddingBottom: 16 }}
           />
         </View>
+
+        {/* Quantity inputs for selected ingredients */}
+        {selectedIngredients.length > 0 && onQuantityChange && (
+          <View className="mt-4 pt-4 border-t border-gray-100">
+            <Text className="text-xs uppercase tracking-wide text-gray-500 mb-3">
+              Quantites (grammes)
+            </Text>
+            {selectedIngredients.map((id) => {
+              const ingredient = ingredients.find((i) => i.id === id);
+              if (!ingredient) return null;
+              const currentQty = ingredientQuantities[id] ?? 0;
+
+              return (
+                <View key={id} className="flex-row items-center mb-3">
+                  <Text className="text-lg mr-2">{ingredient.icon}</Text>
+                  <Text className="text-sm text-gray-700 flex-1" numberOfLines={1}>
+                    {ingredient.name}
+                  </Text>
+
+                  {/* Preset buttons */}
+                  {QUANTITY_PRESETS.map((preset) => (
+                    <TouchableOpacity
+                      key={preset}
+                      onPress={() => onQuantityChange(id, preset)}
+                      className={`px-2 py-1 rounded-lg mr-1 ${
+                        currentQty === preset
+                          ? "bg-primary-500"
+                          : "bg-gray-100"
+                      }`}
+                    >
+                      <Text
+                        className={`text-xs font-semibold ${
+                          currentQty === preset ? "text-white" : "text-gray-600"
+                        }`}
+                      >
+                        {preset}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+
+                  {/* Numeric input */}
+                  <TextInput
+                    value={currentQty > 0 ? String(currentQty) : ""}
+                    onChangeText={(text) => {
+                      const parsed = parseInt(text, 10);
+                      onQuantityChange(id, isNaN(parsed) ? 0 : Math.max(0, parsed));
+                    }}
+                    placeholder="0"
+                    placeholderTextColor="#9CA3AF"
+                    keyboardType="numeric"
+                    className="w-14 text-center text-sm border border-gray-200 rounded-lg py-1 mx-1"
+                  />
+                  <Text className="text-xs text-gray-500">g</Text>
+                </View>
+              );
+            })}
+          </View>
+        )}
       </View>
     </Animated.View>
   );

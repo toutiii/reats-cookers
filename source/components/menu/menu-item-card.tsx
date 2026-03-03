@@ -12,6 +12,7 @@ export interface MenuItem {
   price: number;
   cost: number;
   category: string;
+  type: "dish" | "drink";
   image: string;
   sku: string;
   maxConcurrentOrders: number;
