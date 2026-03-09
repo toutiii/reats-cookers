@@ -1,10 +1,10 @@
 import React from "react";
 import { View, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import { Text } from "@/components/ui/text";
 import { Heading } from "../ui/heading";
 import { useTranslation } from "@/hooks/useTranslation";
+import { BackButton } from "@/components/common/back-button";
 
 interface AddMenuHeaderProps {
   onBack: () => void;
@@ -36,12 +36,7 @@ export const AddMenuHeader: React.FC<AddMenuHeaderProps> = ({
     >
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center flex-1">
-          <TouchableOpacity
-            onPress={onBack}
-            className="mr-4 p-2 -ml-2 bg-gray-100 rounded-xl"
-          >
-            <Ionicons name="arrow-back" size={20} color="#374151" />
-          </TouchableOpacity>
+          <BackButton onPress={onBack} />
           <View>
             <Heading className="text-xl font-bold">{title ?? t("header.addNew")}</Heading>
             <Text className="text-xs mt-0.5">{subtitle ?? t("header.addToMenu")}</Text>

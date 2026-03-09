@@ -334,6 +334,7 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         {/* Header */}
         <View className="bg-white px-5 pt-4 pb-3 border-b border-gray-100">
           <PageHeader
+            onBack={() => navigation.goBack()}
             viewMode={viewMode}
             onToggleViewMode={handleToggleViewMode}
             onAddPress={handleAddPress}

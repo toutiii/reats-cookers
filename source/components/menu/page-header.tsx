@@ -3,19 +3,26 @@ import { View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Text } from "@/components/ui/text";
 import { Heading } from "../ui/heading";
+import { BackButton } from "@/components/common/back-button";
 
 interface PageHeaderProps {
   viewMode: "grid" | "list";
   onToggleViewMode: () => void;
   onAddPress: () => void;
+  onBack?: () => void;
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = React.memo(
-  ({ viewMode, onToggleViewMode, onAddPress }) => (
+  ({ viewMode, onToggleViewMode, onAddPress, onBack }) => (
     <View className="flex-row justify-between items-center mb-4">
-      <View>
-        <Heading className="text-2xl font-bold text-gray-900">Gestion du Menu</Heading>
-        <Text className="text-sm text-gray-500">Restaurant Central Paris</Text>
+      <View className="flex-row items-center flex-1">
+        {onBack && (
+          <BackButton onPress={onBack} />
+        )}
+        <View className="flex-1">
+          <Heading className="text-2xl font-bold text-gray-900">Gestion du Menu</Heading>
+          <Text className="text-sm text-gray-500">Restaurant Central Paris</Text>
+        </View>
       </View>
 
       <View className="flex-row items-center">

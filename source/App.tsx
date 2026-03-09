@@ -45,6 +45,7 @@ import UploadDocumentsScreen from "./screens/user-infos-collection/upload-docume
 import SwornStatementScreen from "./screens/user-infos-collection/sworn-statement";
 import Onboarding from "./screens/onboarding";
 import OrderDetailsScreen from "./screens/order-details";
+import MenuScreen from "./screens/menu";
 import AddMenuItemScreen from "./screens/menu/add";
 import AddDrinksScreen from "./screens/menu/add-drinks";
 import QuickActionsScreen from "./screens/quick-actions";
@@ -115,6 +116,7 @@ const AppStack = () => {
       <Stack.Screen name="WithdrawalHistoryScreen" component={WithdrawalHistoryScreen} />
       <Stack.Screen name="UserReviewsScreen" component={UserReviewsScreen} />
       <Stack.Screen name="OrderDetailsScreen" component={OrderDetailsScreen} />
+      <Stack.Screen name="MenuScreen" component={MenuScreen} />
       <Stack.Screen name="AddMenuItemScreen" component={AddMenuItemScreen} />
       <Stack.Screen name="AddDrinksScreen" component={AddDrinksScreen} />
       <Stack.Screen name="FoodDetails" component={FoodDetailsScreen} />

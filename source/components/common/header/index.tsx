@@ -3,6 +3,7 @@ import { TouchableOpacity, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
+import { BackButton } from "@/components/common/back-button";
 
 interface HeaderProps {
   title: string;
@@ -45,13 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Left Side - Back Button or Title */}
         <View className="flex-row items-center flex-1">
           {showBackButton && (
-            <TouchableOpacity
-              onPress={onBackPress}
-              className="w-10 h-10 bg-gray-50 rounded-xl items-center justify-center mr-3"
-              activeOpacity={0.7}
-            >
-              <Feather name="arrow-left" size={20} color="#374151" />
-            </TouchableOpacity>
+            <BackButton onPress={onBackPress} />
           )}
           <View className="flex-1">
             <Heading className="text-2xl font-bold text-gray-900">{title}</Heading>

@@ -55,7 +55,7 @@ const QuickActionsScreen: React.FC = () => {
       iconBgColor: "#EFF6FF",
       labelKey: "actions.viewMenu.label",
       descriptionKey: "actions.viewMenu.description",
-      onPress: () => navigateToTab("Menu"),
+      onPress: () => navigateToStack("MenuScreen"),
     },
   ];
 
