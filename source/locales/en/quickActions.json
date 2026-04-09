@@ -25,6 +25,10 @@
       "label": "Orders",
       "description": "Manage current orders"
     },
+    "planning": {
+      "label": "Planning",
+      "description": "Manage scheduled orders"
+    },
     "analytics": {
       "label": "Analytics",
       "description": "View performance stats"

@@ -69,12 +69,20 @@ const QuickActionsScreen: React.FC = () => {
       onPress: () => navigateToTab("Orders"),
     },
     {
+      icon: "calendar-outline",
+      iconColor: "#3B82F6",
+      iconBgColor: "#EFF6FF",
+      labelKey: "actions.planning.label",
+      descriptionKey: "actions.planning.description",
+      onPress: () => navigateToTab("Planning"),
+    },
+    {
       icon: "stats-chart-outline",
       iconColor: "#10B981",
       iconBgColor: "#ECFDF5",
       labelKey: "actions.analytics.label",
       descriptionKey: "actions.analytics.description",
-      onPress: () => navigateToTab("Analytics"),
+      onPress: () => navigateToStack("AnalyticsScreen"),
     },
     {
       icon: "star-outline",

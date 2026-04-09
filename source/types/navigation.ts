@@ -37,6 +37,7 @@ export type RootStackParamList = {
   UserReviewsScreen: undefined;
   FoodDetails: undefined;
   QuickActionsScreen: undefined;
+  AnalyticsScreen: undefined;
 };
 
 // Type pour la navigation avec Stack

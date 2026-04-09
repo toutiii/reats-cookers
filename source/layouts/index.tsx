@@ -2,7 +2,7 @@ import { Avatar, AvatarBadge, AvatarFallbackText, AvatarImage } from "@/componen
 import AccountScreen from "@/screens/account";
 import DashboardScreen from "@/screens/dashboard";
 import OrdersScreen from "@/screens/orders";
-import AnalyticsScreen from "@/screens/analytics";
+import PlanningScreen from "@/screens/planning";
 import QuickActionsScreen from "@/screens/quick-actions";
 import Feather from "@expo/vector-icons/Feather";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,7 +13,7 @@ type TabParamList = {
   Dashboard: undefined;
   Orders: undefined;
   QuickActions: undefined;
-  Analytics: undefined;
+  Planning: undefined;
   Profile: undefined;
 };
 
@@ -51,8 +51,8 @@ export const MainNavigator = () => {
             return <Feather name="shopping-bag" size={20} color={color} />;
           } else if (route.name === "QuickActions") {
             return <Ionicons name="flash-outline" size={22} color={color} />;
-          } else if (route.name === "Analytics") {
-            return <Feather name="bar-chart-2" size={20} color={color} />;
+          } else if (route.name === "Planning") {
+            return <Ionicons name="calendar-outline" size={20} color={color} />;
           } else if (route.name === "Profile") {
             return (
               <Avatar size="xs">
@@ -83,9 +83,9 @@ export const MainNavigator = () => {
         options={{ tabBarLabel: "Actions" }}
       />
       <Tab.Screen
-        name="Analytics"
-        component={AnalyticsScreen}
-        options={{ tabBarLabel: "Analytics" }}
+        name="Planning"
+        component={PlanningScreen}
+        options={{ tabBarLabel: "Planning" }}
       />
       <Tab.Screen name="Profile" component={AccountScreen} options={{ tabBarLabel: "Profile" }} />
     </Tab.Navigator>

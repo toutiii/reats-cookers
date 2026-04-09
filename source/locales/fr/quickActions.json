@@ -25,6 +25,10 @@
       "label": "Commandes",
       "description": "Gérer les commandes en cours"
     },
+    "planning": {
+      "label": "Planning",
+      "description": "Gérer les commandes anticipées"
+    },
     "analytics": {
       "label": "Statistiques",
       "description": "Voir les performances"
