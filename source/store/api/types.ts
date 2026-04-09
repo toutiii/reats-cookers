@@ -185,6 +185,40 @@ export interface CookerProfileResponse {
   address_section: CookerAddress;
 }
 
+// Menu item types
+export interface MenuItemCreateRequest {
+  name: string;
+  description: string;
+  price: number;
+  cost: number;
+  category: string;
+  preparationTime: number;
+  maxConcurrentOrders: number;
+  available: boolean;
+  deliveryType: "pickup" | "delivery" | "both";
+  ingredients: string[];
+  allergens: string[];
+  photos: string[]; // URI strings from image picker
+}
+
+export interface MenuItemResponse {
+  id: number;
+  name: string;
+  description: string;
+  price: string;
+  cost: string;
+  category: string;
+  preparation_time: number;
+  max_concurrent_orders: number;
+  available: boolean;
+  delivery_type: "pickup" | "delivery" | "both";
+  ingredients: string[];
+  allergens: string[];
+  photos: string[];
+  created_at: string;
+  updated_at: string;
+}
+
 // Dashboard types
 export type DashboardPeriod = "today" | "week" | "month" | "year";
 

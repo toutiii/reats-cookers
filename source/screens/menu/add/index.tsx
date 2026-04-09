@@ -36,14 +36,14 @@ import {
   getAllergenSuggestions,
   autoApplyHighConfidenceAllergens,
 } from "@/api/ingredients/allergen-detector";
+import { useCreateMenuItemMutation } from "@/store/api/menuApi";
 
 interface FormData {
   name: string;
   category: string;
-  sku: string;
   price: string;
   cost: string;
-  deliveryType: "pickup" | "delivery";
+  deliveryType: "pickup" | "delivery" | "both";
   ingredients: string[];
   ingredientQuantities: IngredientQuantities;
   allergens: string[];
@@ -51,7 +51,6 @@ interface FormData {
   maxConcurrentOrders: string;
   description: string;
   photos: string[];
-  featured: boolean;
   available: boolean;
   portions: number;
 }
@@ -87,10 +86,10 @@ const ALLERGENS = [
 
 const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const { t } = useTranslation("menu");
+  const [createMenuItem, { isLoading: isSubmitting }] = useCreateMenuItemMutation();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     category: "",
-    sku: "",
     price: "",
     cost: "",
     deliveryType: "pickup",
@@ -101,7 +100,6 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     maxConcurrentOrders: "",
     description: "",
     photos: [],
-    featured: false,
     available: true,
     portions: 1,
   });
@@ -285,7 +283,7 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     if (!formData.category) newErrors.category = t("validation.categoryRequired");
     if (!formData.price.trim()) newErrors.price = t("validation.priceRequired");
     if (!formData.cost.trim()) newErrors.cost = t("validation.costRequired");
-    if (!formData.sku.trim()) newErrors.sku = t("validation.skuRequired");
+
     if (!formData.preparationTime.trim()) newErrors.preparationTime = t("validation.preparationTimeRequired");
     if (!formData.maxConcurrentOrders.trim()) newErrors.maxConcurrentOrders = t("validation.maxOrdersRequired");
     if (formData.photos.length === 0) newErrors.photos = [t("validation.photoRequired")];
@@ -303,9 +301,35 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           { text: t("common:buttons.cancel"), style: "cancel" },
           {
             text: t("alerts.add"),
-            onPress: () => {
-              console.log("Save:", formData);
-              navigation.goBack();
+            onPress: async () => {
+              try {
+                await createMenuItem({
+                  name: formData.name,
+                  description: formData.description,
+                  price: parseFloat(formData.price),
+                  cost: parseFloat(formData.cost),
+                  category: formData.category,
+                  preparationTime: parseInt(formData.preparationTime, 10),
+                  maxConcurrentOrders: parseInt(formData.maxConcurrentOrders, 10),
+                  available: formData.available,
+                  deliveryType: formData.deliveryType,
+                  ingredients: formData.ingredients,
+                  allergens: formData.allergens,
+                  photos: formData.photos,
+                }).unwrap();
+
+                Alert.alert(
+                  t("alerts.successTitle"),
+                  t("alerts.successMessage"),
+                  [{ text: t("common:buttons.ok"), onPress: () => navigation.goBack() }]
+                );
+              } catch {
+                Alert.alert(
+                  t("alerts.errorTitle"),
+                  t("alerts.errorMessage"),
+                  [{ text: t("common:buttons.ok") }]
+                );
+              }
             },
           },
         ]
@@ -317,7 +341,7 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         [{ text: t("common:buttons.ok") }]
       );
     }
-  }, [formData, navigation, validateForm]);
+  }, [formData, navigation, validateForm, createMenuItem]);
 
   const handleReset = useCallback(() => {
     Alert.alert(
@@ -332,7 +356,6 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             setFormData({
               name: "",
               category: "",
-              sku: "",
               price: "",
               cost: "",
               deliveryType: "pickup",
@@ -343,7 +366,6 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
               maxConcurrentOrders: "",
               description: "",
               photos: [],
-              featured: false,
               available: true,
               portions: 1,
             });
@@ -431,17 +453,14 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
               <BasicInfoSection
                 name={formData.name}
                 category={formData.category}
-                sku={formData.sku}
                 available={formData.available}
                 categories={CATEGORIES}
                 errors={{
                   name: errors.name,
                   category: errors.category,
-                  sku: errors.sku,
                 }}
                 onNameChange={(text) => updateField("name", text)}
                 onCategoryChange={(id) => updateField("category", id)}
-                onSkuChange={(text) => updateField("sku", text)}
                 onAvailableChange={(value) => updateField("available", value)}
               />
 
@@ -496,7 +515,6 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 preparationTime={formData.preparationTime}
                 maxConcurrentOrders={formData.maxConcurrentOrders}
                 description={formData.description}
-                featured={formData.featured}
                 errors={{
                   preparationTime: errors.preparationTime,
                   maxConcurrentOrders: errors.maxConcurrentOrders,
@@ -504,14 +522,13 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                 onPreparationTimeChange={(text) => updateField("preparationTime", text)}
                 onMaxConcurrentOrdersChange={(text) => updateField("maxConcurrentOrders", text)}
                 onDescriptionChange={(text) => updateField("description", text)}
-                onFeaturedChange={(value) => updateField("featured", value)}
               />
             </View>
           </ScrollView>
 
           {/* Save Button - Always at bottom in normal flow */}
           <View className="px-5 pt-4 bg-white border-t border-gray-100">
-            <SaveButton onSave={handleSave} />
+            <SaveButton onSave={handleSave} isLoading={isSubmitting} />
           </View>
         </SafeAreaView>
       </KeyboardAvoidingView>

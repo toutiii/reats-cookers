@@ -46,7 +46,8 @@
     "viewMenu": "Voir le menu",
     "viewAnalytics": "Voir les statistiques",
     "manageMenu": "Gérer le menu",
-    "viewReports": "Voir les rapports"
+    "viewReports": "Voir les rapports",
+    "viewAll": "Tout voir"
   },
   "periods": {
     "today": "Aujourd'hui",

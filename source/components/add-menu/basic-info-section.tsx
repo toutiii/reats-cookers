@@ -15,30 +15,25 @@ interface Category {
 interface BasicInfoSectionProps {
   name: string;
   category: string;
-  sku: string;
   available: boolean;
   categories: Category[];
   errors: {
     name?: string;
     category?: string;
-    sku?: string;
   };
   onNameChange: (text: string) => void;
   onCategoryChange: (categoryId: string) => void;
-  onSkuChange: (text: string) => void;
   onAvailableChange: (value: boolean) => void;
 }
 
 export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
   name,
   category,
-  sku,
   available,
   categories,
   errors,
   onNameChange,
   onCategoryChange,
-  onSkuChange,
   onAvailableChange,
 }) => {
   return (
@@ -59,7 +54,7 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
             onChangeText={onNameChange}
             placeholder="Ex: Burger Signature"
             placeholderTextColor="#9CA3AF"
-            className={`bg-gray-50 rounded-xl px-4 py-3 text-gray-900 ${
+            className={`bg-gray-50 rounded-xl px-4 py-3 text-gray-900 font-body ${
               errors.name
 ? "border border-red-300"
 : ""
@@ -107,28 +102,6 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({
           </ScrollView>
           {errors.category && (
             <Text className="text-red-500 text-xs mt-1">{errors.category}</Text>
-          )}
-        </View>
-
-        {/* SKU */}
-        <View>
-          <Text className="text-xs font-semibold mb-2 uppercase tracking-wide">
-            Code SKU *
-          </Text>
-          <TextInput
-            value={sku}
-            onChangeText={(text) => onSkuChange(text.toUpperCase())}
-            placeholder="Ex: BRG-001"
-            placeholderTextColor="#9CA3AF"
-            autoCapitalize="characters"
-            className={`bg-gray-50 rounded-xl px-4 py-3 text-gray-900 ${
-              errors.sku
-? "border border-red-300"
-: ""
-            }`}
-          />
-          {errors.sku && (
-            <Text className="text-red-500 text-xs mt-1">{errors.sku}</Text>
           )}
         </View>
 

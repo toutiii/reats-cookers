@@ -154,7 +154,7 @@ export const IngredientsSection: React.FC<IngredientsSectionProps> = ({
             onChangeText={setSearchQuery}
             placeholder="Rechercher un ingrédient..."
             placeholderTextColor="#9CA3AF"
-            className="flex-1 ml-2 text-gray-900"
+            className="flex-1 ml-2 text-gray-900 font-body"
             autoCapitalize="none"
             autoCorrect={false}
           />
@@ -276,7 +276,7 @@ export const IngredientsSection: React.FC<IngredientsSectionProps> = ({
                     placeholder="0"
                     placeholderTextColor="#9CA3AF"
                     keyboardType="numeric"
-                    className="w-14 text-center text-sm border border-gray-200 rounded-lg py-1 mx-1"
+                    className="w-14 text-center text-sm border border-gray-200 rounded-lg py-1 mx-1 font-body"
                   />
                   <Text className="text-xs text-gray-500">g</Text>
                 </View>

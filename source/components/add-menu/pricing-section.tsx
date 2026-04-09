@@ -4,17 +4,19 @@ import { Ionicons } from "@expo/vector-icons";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { Text } from "@/components/ui/text";
 
+export type DeliveryType = "pickup" | "delivery" | "both";
+
 interface PricingSectionProps {
   price: string;
   cost: string;
-  deliveryType: "pickup" | "delivery";
+  deliveryType: DeliveryType;
   errors: {
     price?: string;
     cost?: string;
   };
   onPriceChange: (text: string) => void;
   onCostChange: (text: string) => void;
-  onDeliveryTypeChange: (type: "pickup" | "delivery") => void;
+  onDeliveryTypeChange: (type: DeliveryType) => void;
 }
 
 export const PricingSection: React.FC<PricingSectionProps> = ({
@@ -26,6 +28,22 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
   onCostChange,
   onDeliveryTypeChange,
 }) => {
+  const isPickup = deliveryType === "pickup" || deliveryType === "both";
+  const isDelivery = deliveryType === "delivery" || deliveryType === "both";
+
+  const toggleOption = (option: "pickup" | "delivery") => {
+    if (option === "pickup") {
+      if (isPickup && isDelivery) onDeliveryTypeChange("delivery");
+      else if (isPickup) return; // au moins une option requise
+      else if (isDelivery) onDeliveryTypeChange("both");
+      else onDeliveryTypeChange("pickup");
+    } else {
+      if (isDelivery && isPickup) onDeliveryTypeChange("pickup");
+      else if (isDelivery) return; // au moins une option requise
+      else if (isPickup) onDeliveryTypeChange("both");
+      else onDeliveryTypeChange("delivery");
+    }
+  };
   const calculateMargin = () => {
     const priceNum = parseFloat(price);
     const costNum = parseFloat(cost);
@@ -56,11 +74,12 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               placeholder="0.00"
               placeholderTextColor="#9CA3AF"
               keyboardType="decimal-pad"
-              className={`bg-gray-50 rounded-xl px-4 py-3 text-center font-semibold text-lg ${
+              className={`bg-gray-50 rounded-xl px-4 text-center font-semibold text-lg font-body ${
                 errors.price
 ? "border border-red-300"
 : ""
               }`}
+              style={{ height: 48, lineHeight: 20 }}
             />
           </View>
 
@@ -74,11 +93,12 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               placeholder="0.00"
               placeholderTextColor="#9CA3AF"
               keyboardType="decimal-pad"
-              className={`bg-gray-50 rounded-xl px-4 py-3 text-center font-semibold text-lg ${
+              className={`bg-gray-50 rounded-xl px-4 text-center font-semibold text-lg font-body ${
                 errors.cost
 ? "border border-red-300"
 : ""
               }`}
+              style={{ height: 48, lineHeight: 20 }}
             />
           </View>
         </View>
@@ -102,9 +122,9 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
           </Text>
           <View className="flex-row gap-3">
             <TouchableOpacity
-              onPress={() => onDeliveryTypeChange("pickup")}
+              onPress={() => toggleOption("pickup")}
               className={`flex-1 py-3 rounded-xl flex-row items-center justify-center ${
-                deliveryType === "pickup"
+                isPickup
                   ? "bg-primary-500"
                   : "bg-gray-50 border border-gray-200"
               }`}
@@ -112,15 +132,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               <Ionicons
                 name="storefront-outline"
                 size={18}
-                color={deliveryType === "pickup"
-? "#fff"
-: "#6B7280"}
+                color={isPickup ? "#fff" : "#6B7280"}
               />
               <Text
                 className={`ml-2 font-semibold text-sm ${
-                  deliveryType === "pickup"
-? "text-white"
-: "text-gray-700"
+                  isPickup ? "text-white" : "text-gray-700"
                 }`}
               >
                 Sur place
@@ -128,9 +144,9 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => onDeliveryTypeChange("delivery")}
+              onPress={() => toggleOption("delivery")}
               className={`flex-1 py-3 rounded-xl flex-row items-center justify-center ${
-                deliveryType === "delivery"
+                isDelivery
                   ? "bg-primary-500"
                   : "bg-gray-50 border border-gray-200"
               }`}
@@ -138,15 +154,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               <Ionicons
                 name="bicycle-outline"
                 size={18}
-                color={deliveryType === "delivery"
-? "#fff"
-: "#6B7280"}
+                color={isDelivery ? "#fff" : "#6B7280"}
               />
               <Text
                 className={`ml-2 font-semibold text-sm ${
-                  deliveryType === "delivery"
-? "text-white"
-: "text-gray-700"
+                  isDelivery ? "text-white" : "text-gray-700"
                 }`}
               >
                 Livraison

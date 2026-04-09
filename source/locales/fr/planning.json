@@ -1,0 +1,61 @@
+{
+  "header": {
+    "title": "Planning",
+    "subtitle": "Commandes anticipées"
+  },
+  "tabs": {
+    "today": "Aujourd'hui",
+    "upcoming": "À venir",
+    "past": "Passées"
+  },
+  "status": {
+    "pending_approval": "En attente",
+    "confirmed": "Confirmée",
+    "rejected": "Refusée",
+    "preparing": "En préparation",
+    "ready": "Prête",
+    "completed": "Terminée",
+    "cancelled": "Annulée"
+  },
+  "card": {
+    "pickup": "Sur place",
+    "delivery": "Livraison",
+    "items": "{{count}} plat",
+    "items_plural": "{{count}} plats",
+    "startPrepIn": "Lancer prépa dans {{time}}",
+    "startPrepNow": "Lancer la prépa !",
+    "scheduledFor": "Prévu pour"
+  },
+  "actions": {
+    "accept": "Accepter",
+    "reject": "Refuser",
+    "startPrep": "Lancer",
+    "details": "Détails"
+  },
+  "empty": {
+    "title": "Aucune commande anticipée",
+    "subtitle": "Les commandes planifiées apparaîtront ici"
+  },
+  "countdown": {
+    "days": "{{count}}j",
+    "hours": "{{count}}h",
+    "minutes": "{{count}}min",
+    "now": "Maintenant"
+  },
+  "capacity": {
+    "available": "{{current}}/{{max}} places",
+    "full": "Créneau complet"
+  },
+  "reject": {
+    "title": "Refuser la commande",
+    "message": "Êtes-vous sûr de vouloir refuser cette commande ? Le client sera notifié.",
+    "confirm": "Refuser",
+    "cancel": "Annuler"
+  },
+  "accept": {
+    "title": "Accepter la commande",
+    "message": "Confirmez-vous l'acceptation de cette commande pour le {{date}} à {{time}} ?",
+    "confirm": "Accepter",
+    "cancel": "Annuler"
+  }
+}

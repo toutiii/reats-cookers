@@ -1,0 +1,61 @@
+{
+  "header": {
+    "title": "Planning",
+    "subtitle": "Scheduled orders"
+  },
+  "tabs": {
+    "today": "Today",
+    "upcoming": "Upcoming",
+    "past": "Past"
+  },
+  "status": {
+    "pending_approval": "Pending",
+    "confirmed": "Confirmed",
+    "rejected": "Rejected",
+    "preparing": "Preparing",
+    "ready": "Ready",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "card": {
+    "pickup": "Pickup",
+    "delivery": "Delivery",
+    "items": "{{count}} item",
+    "items_plural": "{{count}} items",
+    "startPrepIn": "Start prep in {{time}}",
+    "startPrepNow": "Start prep now!",
+    "scheduledFor": "Scheduled for"
+  },
+  "actions": {
+    "accept": "Accept",
+    "reject": "Reject",
+    "startPrep": "Start",
+    "details": "Details"
+  },
+  "empty": {
+    "title": "No scheduled orders",
+    "subtitle": "Planned orders will appear here"
+  },
+  "countdown": {
+    "days": "{{count}}d",
+    "hours": "{{count}}h",
+    "minutes": "{{count}}min",
+    "now": "Now"
+  },
+  "capacity": {
+    "available": "{{current}}/{{max}} slots",
+    "full": "Slot full"
+  },
+  "reject": {
+    "title": "Reject order",
+    "message": "Are you sure you want to reject this order? The customer will be notified.",
+    "confirm": "Reject",
+    "cancel": "Cancel"
+  },
+  "accept": {
+    "title": "Accept order",
+    "message": "Do you confirm accepting this order for {{date}} at {{time}}?",
+    "confirm": "Accept",
+    "cancel": "Cancel"
+  }
+}

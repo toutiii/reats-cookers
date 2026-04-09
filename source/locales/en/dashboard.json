@@ -46,7 +46,8 @@
     "viewMenu": "View Menu",
     "viewAnalytics": "View Analytics",
     "manageMenu": "Manage Menu",
-    "viewReports": "View Reports"
+    "viewReports": "View Reports",
+    "viewAll": "View All"
   },
   "periods": {
     "today": "Today",

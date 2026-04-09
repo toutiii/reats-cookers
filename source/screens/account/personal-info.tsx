@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import { BackButton } from "@/components/common/back-button";
 import { ThemedView } from "@/components/themed-view";
 import { Text } from "@/components/ui/text";
 import { Avatar, AvatarFallbackText, AvatarImage } from "@/components/ui/avatar";
@@ -149,12 +150,7 @@ const PersonalInfoScreen: React.FC = () => {
       <SafeAreaView className="flex-1" edges={["top"]}>
         {/* Header */}
         <View className="px-5 pt-4 pb-4 flex-row items-center">
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            className="w-10 h-10 items-center justify-center mr-3"
-          >
-            <Ionicons name="arrow-back" size={24} color="#1F2937" />
-          </TouchableOpacity>
+          <BackButton />
           <View className="flex-1">
             <Text className="text-2xl font-bold text-gray-900">{t("personalInfo.title")}</Text>
             <Text className="text-sm text-gray-500">{t("menu.personalInfoDesc")}</Text>
