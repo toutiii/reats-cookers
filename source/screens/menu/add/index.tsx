@@ -36,7 +36,9 @@ import {
   getAllergenSuggestions,
   autoApplyHighConfidenceAllergens,
 } from "@/api/ingredients/allergen-detector";
-import { useCreateMenuItemMutation } from "@/store/api/menuApi";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
+import { useCreateDishMutation } from "@/store/api/dishApi";
 
 interface FormData {
   name: string;
@@ -55,12 +57,11 @@ interface FormData {
   portions: number;
 }
 
+// Categories must match API values: "dish", "starter", "dessert"
 const CATEGORIES = [
-  { id: "burgers", name: "Burgers", icon: "fast-food", color: "#FF6B6B" },
-  { id: "pizza", name: "Pizzas", icon: "pizza", color: "#4ECDC4" },
-  { id: "salads", name: "Salades", icon: "leaf", color: "#95E1D3" },
-  { id: "desserts", name: "Desserts", icon: "ice-cream", color: "#FFD93D" },
-  { id: "drinks", name: "Boissons", icon: "cafe", color: "#9B59B6" },
+  { id: "dish", name: "Plat", icon: "restaurant", color: "#FF6B6B" },
+  { id: "starter", name: "Entrée", icon: "leaf", color: "#4ECDC4" },
+  { id: "dessert", name: "Dessert", icon: "ice-cream", color: "#FFD93D" },
 ];
 
 // Ingredients are now loaded from API
@@ -86,7 +87,8 @@ const ALLERGENS = [
 
 const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const { t } = useTranslation("menu");
-  const [createMenuItem, { isLoading: isSubmitting }] = useCreateMenuItemMutation();
+  const cookerId = useSelector((state: RootState) => state.auth.userId);
+  const [createDish, { isLoading: isSubmitting }] = useCreateDishMutation();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     category: "",
@@ -303,19 +305,37 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             text: t("alerts.add"),
             onPress: async () => {
               try {
-                await createMenuItem({
+                // Map selected ingredient IDs to {name, quantity} objects
+                const ingredientPayload = formData.ingredients.map((id) => {
+                  const ing = ingredients.find((i) => i.id === id);
+                  const qty = formData.ingredientQuantities[id] ?? 0;
+                  return {
+                    name: ing?.name ?? id,
+                    quantity: qty > 0 ? `${qty}g` : "",
+                  };
+                });
+
+                await createDish({
+                  cooker: cookerId!,
                   name: formData.name,
                   description: formData.description,
                   price: parseFloat(formData.price),
                   cost: parseFloat(formData.cost),
-                  category: formData.category,
-                  preparationTime: parseInt(formData.preparationTime, 10),
-                  maxConcurrentOrders: parseInt(formData.maxConcurrentOrders, 10),
-                  available: formData.available,
-                  deliveryType: formData.deliveryType,
-                  ingredients: formData.ingredients,
-                  allergens: formData.allergens,
+                  category: formData.category as "dish" | "starter" | "dessert",
+                  preparation_time: parseInt(formData.preparationTime, 10),
+                  max_concurrent_orders: parseInt(formData.maxConcurrentOrders, 10),
+                  country: "FR",
                   photos: formData.photos,
+                  ingredients: ingredientPayload,
+                  nutritional_info: recipeNutrition
+                    ? {
+                        calories: recipeNutrition.perPortion.calories,
+                        proteins: recipeNutrition.perPortion.proteins,
+                        carbs: recipeNutrition.perPortion.carbs,
+                        fats: recipeNutrition.perPortion.fats,
+                        fiber: recipeNutrition.perPortion.fiber,
+                      }
+                    : undefined,
                 }).unwrap();
 
                 Alert.alert(
@@ -341,7 +361,7 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         [{ text: t("common:buttons.ok") }]
       );
     }
-  }, [formData, navigation, validateForm, createMenuItem]);
+  }, [formData, navigation, validateForm, createDish, ingredients, recipeNutrition]);
 
   const handleReset = useCallback(() => {
     Alert.alert(

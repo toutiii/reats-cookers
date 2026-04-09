@@ -35,7 +35,7 @@ export type RootStackParamList = {
   LanguageSettingsScreen: undefined;
   WithdrawalHistoryScreen: undefined;
   UserReviewsScreen: undefined;
-  FoodDetails: undefined;
+  FoodDetails: { dishId: number } | undefined;
   QuickActionsScreen: undefined;
   AnalyticsScreen: undefined;
 };

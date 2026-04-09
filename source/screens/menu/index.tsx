@@ -6,274 +6,128 @@ import {
   StatusBar,
   Alert,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTranslation } from "@/hooks/useTranslation";
 import {
-  StatCard,
   CategoryItem,
   SearchBar,
   PageHeader,
   MenuItemCard,
-  type MenuItem
+  type MenuItem,
 } from "../../components/menu";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemedView } from "@/components/themed-view";
 import { Text as UIText } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
+import {
+  useListDishesQuery,
+  useToggleDishAvailabilityMutation,
+  useDeleteDishMutation,
+} from "@/store/api/dishApi";
+import type { Dish } from "@/types/dish";
 
-interface DashboardStats {
-  totalItems: number;
-  availableItems: number;
-  lowStock: number;
-  revenue: number;
-  ordersToday: number;
-}
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "";
+
+// Resolve image path: return as-is if already absolute, otherwise prefix with API base
+const resolveImageUrl = (path: string): string => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return `${API_BASE_URL}/${path}`;
+};
 
 type MenuTab = "dishes" | "drinks";
+
+// Map API dish to the existing MenuItem shape used by components
+const mapDishToMenuItem = (dish: Dish): MenuItem => {
+  const firstImage = Array.isArray(dish.images) && dish.images.length > 0
+    ? dish.images[0].image
+    : "";
+
+  return {
+    id: String(dish.id),
+    name: dish.name ?? "",
+    price: parseFloat(dish.price) || 0,
+    cost: parseFloat(dish.cost) || 0,
+    category: dish.category ?? "dish",
+    type: "dish",
+    image: resolveImageUrl(firstImage),
+    sku: `DSH-${String(dish.id).padStart(3, "0")}`,
+    maxConcurrentOrders: dish.max_concurrent_orders ?? 0,
+    currentOrders: 0,
+    available: dish.is_enabled ?? false,
+    description: dish.description ?? "",
+    allergens: Array.isArray(dish.allergens) ? [...dish.allergens] : [],
+    preparationTime: dish.preparation_time ?? 0,
+    lastModified: dish.updated_at ?? "",
+    soldToday: 0,
+    revenue: 0,
+  };
+};
+
+const DISH_CATEGORIES: readonly { id: string; name: string }[] = [
+  { id: "all", name: "all" },
+  { id: "dish", name: "mains" },
+  { id: "starter", name: "appetizers" },
+  { id: "dessert", name: "desserts" },
+] as const;
 
 const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const { t } = useTranslation("menu");
   const [activeTab, setActiveTab] = useState<MenuTab>("dishes");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [showAddModal, setShowAddModal] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [viewMode, setViewMode] = useState<"grid" | "list">("list");
+  const [page] = useState(1);
 
-  const dishCategories = [
-    { id: "all", name: t("categories.all"), count: 24 },
-    { id: "burgers", name: t("categories.burgers"), count: 8 },
-    { id: "pizza", name: t("categories.pizza"), count: 6 },
-    { id: "salads", name: t("categories.salads"), count: 5 },
-    { id: "desserts", name: t("categories.desserts"), count: 5 },
-  ];
+  // RTK Query hooks for dishes
+  const {
+    data: dishesData,
+    isLoading: isDishesLoading,
+  } = useListDishesQuery({
+    page,
+    page_size: 20,
+    search: searchQuery.length > 0 ? searchQuery : undefined,
+    is_enabled: selectedCategory === "all" ? undefined : undefined,
+  });
+
+  console.log("Fetched dishes:", dishesData);
+
+  const [toggleAvailability] = useToggleDishAvailabilityMutation();
+  const [deleteDish] = useDeleteDishMutation();
+
+  // Map API dishes to MenuItem format
+  const dishMenuItems: MenuItem[] = useMemo(() => {
+    if (!dishesData?.results) return [];
+    return dishesData.results.map(mapDishToMenuItem);
+  }, [dishesData]);
+
+  // Category counts from API data
+  const dishCategories = useMemo(() => {
+    const items = dishesData?.results ?? [];
+    return DISH_CATEGORIES.map((cat) => ({
+      id: cat.id,
+      name: t(`categories.${cat.name}`),
+      count: cat.id === "all"
+        ? items.length
+        : items.filter((d) => d.category === cat.id).length,
+    }));
+  }, [dishesData, t]);
 
   const drinkCategories = [
-    { id: "all", name: t("categories.all"), count: 4 },
-    { id: "jus", name: "Jus", count: 1 },
-    { id: "limonades", name: "Limonades", count: 1 },
-    { id: "smoothies", name: "Smoothies", count: 1 },
-    { id: "thés", name: "Thés", count: 1 },
+    { id: "all", name: t("categories.all"), count: 0 },
   ];
 
   const categories = activeTab === "dishes" ? dishCategories : drinkCategories;
 
-  const menuItems: MenuItem[] = [
-    {
-      id: "1",
-      name: "Burger Signature",
-      price: 18.90,
-      cost: 6.30,
-      category: "burgers",
-      type: "dish",
-      image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=300&fit=crop",
-      sku: "BRG-001",
-      maxConcurrentOrders: 10,
-      currentOrders: 3,
-      available: true,
-      description: "Bœuf premium, sauce maison",
-      allergens: ["gluten", "lactose", "œufs"],
-      preparationTime: 15,
-      lastModified: "2025-01-15T10:30:00",
-      soldToday: 23,
-      revenue: 434.70
-    },
-    {
-      id: "2",
-      name: "Pizza Margherita",
-      price: 24.50,
-      cost: 7.80,
-      category: "pizza",
-      type: "dish",
-      image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=300&h=300&fit=crop",
-      sku: "PZA-001",
-      maxConcurrentOrders: 5,
-      currentOrders: 5,
-      available: true,
-      description: "Tomate, mozzarella, basilic",
-      allergens: ["gluten", "lactose"],
-      preparationTime: 20,
-      lastModified: "2025-01-14T15:45:00",
-      soldToday: 18,
-      revenue: 441.00
-    },
-    {
-      id: "3",
-      name: "Salade César",
-      price: 14.90,
-      cost: 4.50,
-      category: "salads",
-      type: "dish",
-      image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&h=300&fit=crop",
-      sku: "SLD-001",
-      maxConcurrentOrders: 8,
-      currentOrders: 2,
-      available: true,
-      description: "Romaine, parmesan, croûtons",
-      allergens: ["gluten", "lactose", "poisson"],
-      preparationTime: 10,
-      lastModified: "2025-01-15T09:00:00",
-      soldToday: 8,
-      revenue: 119.20
-    },
-    {
-      id: "4",
-      name: "Fondant Chocolat",
-      price: 12.50,
-      cost: 3.20,
-      category: "desserts",
-      type: "dish",
-      image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=300&h=300&fit=crop",
-      sku: "DST-001",
-      maxConcurrentOrders: 6,
-      currentOrders: 0,
-      available: false,
-      description: "Chocolat noir 70%, glace vanille",
-      allergens: ["gluten", "lactose", "œufs"],
-      preparationTime: 8,
-      lastModified: "2025-01-13T14:20:00",
-      soldToday: 0,
-      revenue: 0
-    },
-    {
-      id: "5",
-      name: "Pizza Quattro Formaggi",
-      price: 26.90,
-      cost: 8.40,
-      category: "pizza",
-      type: "dish",
-      image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=300&fit=crop",
-      sku: "PZA-002",
-      maxConcurrentOrders: 8,
-      currentOrders: 4,
-      available: true,
-      description: "4 fromages italiens, crème fraîche",
-      allergens: ["gluten", "lactose"],
-      preparationTime: 22,
-      lastModified: "2025-01-15T11:00:00",
-      soldToday: 12,
-      revenue: 322.80
-    },
-    {
-      id: "6",
-      name: "Burger Végétarien",
-      price: 16.50,
-      cost: 5.20,
-      category: "burgers",
-      type: "dish",
-      image: "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=300&h=300&fit=crop",
-      sku: "BRG-002",
-      maxConcurrentOrders: 12,
-      currentOrders: 1,
-      available: true,
-      description: "Galette de légumes, avocat, fromage",
-      allergens: ["gluten", "lactose", "soja"],
-      preparationTime: 12,
-      lastModified: "2025-01-14T16:30:00",
-      soldToday: 9,
-      revenue: 148.50
-    },
-    {
-      id: "7",
-      name: "Jus d'Orange Frais",
-      price: 5.50,
-      cost: 1.80,
-      category: "jus",
-      type: "drink",
-      image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=300&h=300&fit=crop",
-      sku: "DRK-001",
-      maxConcurrentOrders: 20,
-      currentOrders: 5,
-      available: true,
-      description: "Orange pressée, sans sucre ajouté",
-      allergens: [],
-      preparationTime: 3,
-      lastModified: "2025-01-15T08:00:00",
-      soldToday: 31,
-      revenue: 170.50
-    },
-    {
-      id: "8",
-      name: "Limonade Maison",
-      price: 4.90,
-      cost: 1.20,
-      category: "limonades",
-      type: "drink",
-      image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=300&h=300&fit=crop",
-      sku: "DRK-002",
-      maxConcurrentOrders: 25,
-      currentOrders: 8,
-      available: true,
-      description: "Citron, menthe, sucre de canne",
-      allergens: [],
-      preparationTime: 2,
-      lastModified: "2025-01-15T09:30:00",
-      soldToday: 22,
-      revenue: 107.80
-    },
-    {
-      id: "9",
-      name: "Smoothie Mangue-Passion",
-      price: 7.50,
-      cost: 2.80,
-      category: "smoothies",
-      type: "drink",
-      image: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=300&h=300&fit=crop",
-      sku: "DRK-003",
-      maxConcurrentOrders: 15,
-      currentOrders: 3,
-      available: true,
-      description: "Mangue, fruit de la passion, banane",
-      allergens: [],
-      preparationTime: 5,
-      lastModified: "2025-01-14T14:00:00",
-      soldToday: 14,
-      revenue: 105.00
-    },
-    {
-      id: "10",
-      name: "Thé Glacé Pêche",
-      price: 4.50,
-      cost: 1.00,
-      category: "thés",
-      type: "drink",
-      image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&h=300&fit=crop",
-      sku: "DRK-004",
-      maxConcurrentOrders: 30,
-      currentOrders: 0,
-      available: false,
-      description: "Thé noir, pêche, miel",
-      allergens: [],
-      preparationTime: 2,
-      lastModified: "2025-01-13T11:00:00",
-      soldToday: 0,
-      revenue: 0
-    },
-  ];
-
-  const itemsByTab = useMemo(() => {
-    const tabType = activeTab === "dishes" ? "dish" : "drink";
-    return menuItems.filter(item => item.type === tabType);
-  }, [activeTab, menuItems]);
-
-  // Calcul des statistiques
-  const stats: DashboardStats = useMemo(() => ({
-    totalItems: itemsByTab.length,
-    availableItems: itemsByTab.filter(item => item.available).length,
-    lowStock: itemsByTab.filter(item => item.currentOrders >= item.maxConcurrentOrders).length,
-    revenue: itemsByTab.reduce((sum, item) => sum + item.revenue, 0),
-    ordersToday: itemsByTab.reduce((sum, item) => sum + item.soldToday, 0)
-  }), [itemsByTab]);
-
   const filteredItems = useMemo(() => {
-    return itemsByTab.filter(item => {
+    const items = activeTab === "dishes" ? dishMenuItems : [];
+    return items.filter((item) => {
       const matchesCategory = selectedCategory === "all" || item.category === selectedCategory;
-      const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           item.sku.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
+      return matchesCategory;
     });
-  }, [itemsByTab, selectedCategory, searchQuery]);
+  }, [activeTab, dishMenuItems, selectedCategory]);
 
   const handleToggleAvailability = useCallback((itemId: string) => {
     Alert.alert(
@@ -281,13 +135,22 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       t("deleteConfirm.message"),
       [
         { text: t("common:buttons.cancel"), style: "cancel" },
-        { text: t("common:buttons.confirm"), onPress: () => console.log("Toggle availability for", itemId) }
+        {
+          text: t("common:buttons.confirm"),
+          onPress: async () => {
+            try {
+              await toggleAvailability(Number(itemId)).unwrap();
+            } catch {
+              Alert.alert(t("alerts.errorTitle"), t("alerts.errorMessage"));
+            }
+          },
+        },
       ]
     );
-  }, [t]);
+  }, [t, toggleAvailability]);
 
   const handleEditItem = useCallback((item: MenuItem) => {
-    navigation.navigate("FoodDetails", { item });
+    navigation.navigate("FoodDetails", { dishId: Number(item.id) });
   }, [navigation]);
 
   const handleDeleteItem = useCallback((itemId: string) => {
@@ -296,13 +159,22 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       t("deleteConfirm.message"),
       [
         { text: t("deleteConfirm.cancel"), style: "cancel" },
-        { text: t("deleteConfirm.confirm"), style: "destructive", onPress: () => console.log("Delete", itemId) }
+        {
+          text: t("deleteConfirm.confirm"),
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await deleteDish(Number(itemId)).unwrap();
+            } catch {
+              Alert.alert(t("alerts.errorTitle"), t("alerts.errorMessage"));
+            }
+          },
+        },
       ]
     );
-  }, [t]);
+  }, [t, deleteDish]);
 
-
-  const renderMenuItem = useCallback(({ item, index }: any) => (
+  const renderMenuItem = useCallback(({ item, index }: { item: MenuItem; index: number }) => (
     <MenuItemCard
       item={item}
       index={index}
@@ -313,9 +185,7 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   ), [handleToggleAvailability, handleEditItem, handleDeleteItem]);
 
   const handleToggleViewMode = useCallback(() => {
-    setViewMode(prev => (prev === "grid"
-? "list"
-: "grid"));
+    setViewMode((prev) => (prev === "grid" ? "list" : "grid"));
   }, []);
 
   const handleAddPress = useCallback(() => {
@@ -434,14 +304,28 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             </ScrollView>
           </View>
 
+          {/* Loading state */}
+          {isDishesLoading && activeTab === "dishes" && (
+            <View className="py-12 items-center">
+              <ActivityIndicator size="large" color="#FF6347" />
+            </View>
+          )}
+
           {/* Menu Items */}
-          <FlatList
-            data={filteredItems}
-            renderItem={renderMenuItem}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={{ paddingHorizontal: 20 }}
-            scrollEnabled={false}
-          />
+          {!isDishesLoading && (
+            <FlatList
+              data={filteredItems}
+              renderItem={renderMenuItem}
+              keyExtractor={(item) => item.id}
+              contentContainerStyle={{ paddingHorizontal: 20 }}
+              scrollEnabled={false}
+              ListEmptyComponent={
+                <View className="py-12 items-center">
+                  <UIText className="text-gray-400">{t("search.noResults")}</UIText>
+                </View>
+              }
+            />
+          )}
 
           <View className="h-10" />
           </VStack>

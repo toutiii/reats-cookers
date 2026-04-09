@@ -5,6 +5,7 @@ import {
   StatusBar,
   Dimensions,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -23,12 +24,23 @@ import { BlurView } from "expo-blur";
 import { ThemedView } from "@/components/themed-view";
 import { Text } from "@/components/ui/text";
 import { Heading } from "@/components/ui/heading";
+import { useGetDishQuery } from "@/store/api/dishApi";
+
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "";
+
+const resolveImageUrl = (path: string): string => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return `${API_BASE_URL}/${path}`;
+};
 
 const { width } = Dimensions.get("window");
 const HEADER_HEIGHT = 400;
 
 const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
-  const { item } = route.params || {};
+  const { dishId } = route.params || {};
+  const { data: dish, isLoading, isError } = useGetDishQuery(dishId, { skip: !dishId });
+
   const scrollY = useSharedValue(0);
   const [selectedTab, setSelectedTab] = useState<"info" | "ingredients" | "allergens">("info");
 
@@ -52,7 +64,6 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
   });
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
-    // Zoom in effect when pulling down (only)
     const scale = interpolate(
       scrollY.value,
       [-150, 0],
@@ -60,7 +71,6 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
       Extrapolate.CLAMP
     );
 
-    // Parallax effect - image moves slower than scroll
     const translateY = interpolate(
       scrollY.value,
       [0, HEADER_HEIGHT],
@@ -73,9 +83,36 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
     };
   });
 
-  const profit = ((item.price - item.cost) / item.price * 100).toFixed(0);
-  const isAtCapacity = item.currentOrders >= item.maxConcurrentOrders;
-  const capacityPercentage = Math.round((item.currentOrders / item.maxConcurrentOrders) * 100);
+  if (isLoading) {
+    return (
+      <ThemedView>
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator size="large" color="#FF6347" />
+        </View>
+      </ThemedView>
+    );
+  }
+
+  if (isError || !dish) {
+    return (
+      <ThemedView>
+        <SafeAreaView className="flex-1 items-center justify-center px-5">
+          <Ionicons name="alert-circle-outline" size={48} color="#EF4444" />
+          <Text className="text-gray-600 mt-3 text-center">Failed to load dish details.</Text>
+          <TouchableOpacity onPress={() => navigation.goBack()} className="mt-4 bg-primary-500 px-6 py-3 rounded-xl">
+            <Text className="text-white font-bold">Go back</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </ThemedView>
+    );
+  }
+
+  const price = parseFloat(dish.price) || 0;
+  const cost = parseFloat(dish.cost) || 0;
+  const profit = price > 0 ? (((price - cost) / price) * 100).toFixed(0) : "0";
+  const imageUrl = Array.isArray(dish.images) && dish.images.length > 0
+    ? resolveImageUrl(dish.images[0].image)
+    : "";
 
   return (
     <ThemedView>
@@ -104,7 +141,7 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                 <Ionicons name="arrow-back" size={24} color="#1F2937" />
               </TouchableOpacity>
               <Text className="text-gray-900 text-base font-bold flex-1 text-center" numberOfLines={1}>
-                {item?.name}
+                {dish.name}
               </Text>
               <TouchableOpacity className="w-10 h-10 items-center justify-center">
                 <Ionicons name="heart-outline" size={24} color="#EF4444" />
@@ -123,7 +160,7 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
         <View style={{ height: HEADER_HEIGHT }}>
           <Animated.View style={[imageAnimatedStyle, { height: HEADER_HEIGHT }]}>
             <Image
-              source={{ uri: item?.image }}
+              source={{ uri: imageUrl }}
               style={{ width, height: HEADER_HEIGHT }}
               resizeMode="cover"
             />
@@ -198,11 +235,11 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
             className="absolute bottom-12 left-5"
           >
             <View
-              className={`px-4 py-2.5 rounded-full flex-row items-center ${item?.available
+              className={`px-4 py-2.5 rounded-full flex-row items-center ${dish.is_enabled
 ? "bg-green-500"
 : "bg-red-500"}`}
               style={{
-                shadowColor: item?.available
+                shadowColor: dish.is_enabled
 ? "#10B981"
 : "#EF4444",
                 shadowOffset: { width: 0, height: 4 },
@@ -211,11 +248,9 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                 elevation: 5,
               }}
             >
-              <View className={`w-2 h-2 rounded-full mr-2 ${item?.available
-? "bg-white"
-: "bg-white"}`} />
+              <View className="w-2 h-2 rounded-full mr-2 bg-white" />
               <Text className="text-white font-bold text-xs tracking-wide">
-                {item?.available
+                {dish.is_enabled
 ? "DISPONIBLE"
 : "INDISPONIBLE"}
               </Text>
@@ -228,15 +263,15 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
           {/* Header Info */}
           <Animated.View entering={FadeInDown.delay(100)} className="px-5 mb-5">
             <View className="mb-4">
-              <Heading className="text-3xl font-bold mb-2 text-gray-900">{item?.name}</Heading>
-              <Text className="text-base text-gray-600 leading-6 mb-3">{item?.description}</Text>
+              <Heading className="text-3xl font-bold mb-2 text-gray-900">{dish.name}</Heading>
+              <Text className="text-base text-gray-600 leading-6 mb-3">{dish.description}</Text>
               <View className="flex-row items-center gap-2">
                 <View className="bg-gray-200 px-3 py-1.5 rounded-lg">
-                  <Text className="text-xs font-semibold text-gray-700">SKU: {item?.sku}</Text>
+                  <Text className="text-xs font-semibold text-gray-700">{dish.category}</Text>
                 </View>
                 <View className="bg-orange-50 px-3 py-1.5 rounded-lg flex-row items-center">
                   <Ionicons name="time-outline" size={14} color="#FF6347" />
-                  <Text className="text-xs font-semibold text-orange-600 ml-1">{item?.preparationTime} min</Text>
+                  <Text className="text-xs font-semibold text-orange-600 ml-1">{dish.preparation_time} min</Text>
                 </View>
               </View>
             </View>
@@ -256,14 +291,14 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                 <View className="flex-1">
                   <Text className="text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Prix de vente</Text>
                   <Heading className="text-3xl font-bold text-primary-500">
-                    €{item?.price.toFixed(2)}
+                    €{price.toFixed(2)}
                   </Heading>
                 </View>
                 <View className="h-14 w-px bg-gray-100 mx-4" />
                 <View className="flex-1">
                   <Text className="text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Coût</Text>
                   <Text className="text-2xl font-bold text-gray-900">
-                    €{item?.cost.toFixed(2)}
+                    €{cost.toFixed(2)}
                   </Text>
                 </View>
                 <View className="h-14 w-px bg-gray-100 mx-4" />
@@ -290,12 +325,12 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                 }}
               >
                 <View className="flex-row items-center justify-between mb-2">
-                  <Ionicons name="flame-outline" size={20} color="#FF6347" />
+                  <Ionicons name="restaurant-outline" size={20} color="#FF6347" />
                   <Text className="text-2xl font-bold text-primary-500">
-                    {item?.soldToday}
+                    {dish.max_concurrent_orders}
                   </Text>
                 </View>
-                <Text className="text-xs text-gray-600">Vendus aujourd'hui</Text>
+                <Text className="text-xs text-gray-600">Commandes max</Text>
               </Animated.View>
 
               <Animated.View
@@ -310,29 +345,12 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                 }}
               >
                 <View className="flex-row items-center justify-between mb-2">
-                  <Ionicons
-                    name="restaurant-outline"
-                    size={20}
-                    color={isAtCapacity
-? "#EF4444"
-: capacityPercentage > 70
-? "#F59E0B"
-: "#6B7280"}
-                  />
-                  <Text
-                    className="text-2xl font-bold"
-                    style={{
-                      color: isAtCapacity
-? "#EF4444"
-: capacityPercentage > 70
-? "#F59E0B"
-: "#6B7280"
-                    }}
-                  >
-                    {item?.currentOrders}/{item?.maxConcurrentOrders}
+                  <Ionicons name="time-outline" size={20} color="#3B82F6" />
+                  <Text className="text-2xl font-bold text-blue-600">
+                    {dish.preparation_time}
                   </Text>
                 </View>
-                <Text className="text-xs text-gray-600">Commandes en cours</Text>
+                <Text className="text-xs text-gray-600">Temps de préparation (min)</Text>
               </Animated.View>
             </View>
           </Animated.View>
@@ -397,7 +415,7 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                     Description complète
                   </Text>
                   <Text className="text-sm leading-6">
-                    {item?.description || "Aucune description disponible pour ce plat."}
+                    {dish.description || "Aucune description disponible pour ce plat."}
                   </Text>
                 </View>
 
@@ -415,7 +433,7 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                         </View>
                         <Text className="text-sm">Temps de préparation</Text>
                       </View>
-                      <Text className="font-semibold">{item?.preparationTime} min</Text>
+                      <Text className="font-semibold">{dish.preparation_time} min</Text>
                     </View>
 
                     <View className="flex-row items-center justify-between">
@@ -425,17 +443,17 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                         </View>
                         <Text className="text-sm">Capacité max</Text>
                       </View>
-                      <Text className="font-semibold">{item?.maxConcurrentOrders} commandes</Text>
+                      <Text className="font-semibold">{dish.max_concurrent_orders} commandes</Text>
                     </View>
 
                     <View className="flex-row items-center justify-between">
                       <View className="flex-row items-center">
-                        <View className="w-8 h-8 bg-green-100 rounded-lg items-center justify-center mr-3">
-                          <Ionicons name="cash-outline" size={18} color="#10B981" />
+                        <View className="w-8 h-8 bg-purple-100 rounded-lg items-center justify-center mr-3">
+                          <Ionicons name="pricetag-outline" size={18} color="#9333EA" />
                         </View>
-                        <Text className="text-sm">Revenu aujourd'hui</Text>
+                        <Text className="text-sm">Catégorie</Text>
                       </View>
-                      <Text className="font-semibold">€{item?.revenue.toFixed(2)}</Text>
+                      <Text className="font-semibold capitalize">{dish.category}</Text>
                     </View>
                   </View>
                 </View>
@@ -447,14 +465,16 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                     Dernière modification
                   </Text>
                   <Text className="text-sm">
-                    {new Date(item?.lastModified).toLocaleDateString("fr-FR", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    {dish.updated_at
+                      ? new Date(dish.updated_at).toLocaleDateString("fr-FR", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
+                      : "—"}
                   </Text>
                 </View>
               </Animated.View>
@@ -466,11 +486,18 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                   Liste des ingrédients
                 </Text>
                 <View className="flex-row flex-wrap gap-2">
-                  {["Tomate", "Mozzarella", "Basilic", "Huile d'olive", "Sel", "Poivre"].map((ingredient, index) => (
-                    <View key={index} className="bg-gray-100 px-4 py-2 rounded-full">
-                      <Text className="text-sm">{ingredient}</Text>
-                    </View>
-                  ))}
+                  {Array.isArray(dish.ingredients) && dish.ingredients.length > 0
+                    ? dish.ingredients.map((ingredient, index) => (
+                        <View key={index} className="bg-gray-100 px-4 py-2 rounded-full">
+                          <Text className="text-sm">
+                            {ingredient.name}
+                            {ingredient.quantity ? ` (${ingredient.quantity})` : ""}
+                          </Text>
+                        </View>
+                      ))
+                    : (
+                        <Text className="text-sm text-gray-400">Aucun ingrédient renseigné.</Text>
+                      )}
                 </View>
               </Animated.View>
             )}
@@ -481,14 +508,18 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                   Allergènes présents
                 </Text>
                 <View className="gap-3">
-                  {item?.allergens?.map((allergen: string, index: number) => (
-                    <View key={index} className="flex-row items-center bg-red-50 p-3 rounded-xl">
-                      <View className="w-8 h-8 bg-red-100 rounded-full items-center justify-center mr-3">
-                        <MaterialIcons name="warning" size={18} color="#EF4444" />
-                      </View>
-                      <Text className="text-sm font-medium capitalize">{allergen}</Text>
-                    </View>
-                  ))}
+                  {Array.isArray(dish.allergens) && dish.allergens.length > 0
+                    ? dish.allergens.map((allergen: string, index: number) => (
+                        <View key={index} className="flex-row items-center bg-red-50 p-3 rounded-xl">
+                          <View className="w-8 h-8 bg-red-100 rounded-full items-center justify-center mr-3">
+                            <MaterialIcons name="warning" size={18} color="#EF4444" />
+                          </View>
+                          <Text className="text-sm font-medium capitalize">{allergen}</Text>
+                        </View>
+                      ))
+                    : (
+                        <Text className="text-sm text-gray-400">Aucun allergène renseigné.</Text>
+                      )}
                 </View>
               </Animated.View>
             )}
