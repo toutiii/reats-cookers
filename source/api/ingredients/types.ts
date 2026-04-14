@@ -129,7 +129,7 @@ export interface RecipeNutrition {
   portions: number;
   nutriScore: NutriScoreGrade;
   nutriScorePoints: number;
-  ingredientBreakdown: IngredientNutritionBreakdown[];
+  ingredients: IngredientNutritionBreakdown[];
 }
 
 /** Mapping of ingredient IDs to their quantity in grams */

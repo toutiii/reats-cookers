@@ -29,6 +29,15 @@ export type RootStackParamList = {
   LanguageScreen: undefined;
   DashboardScreen: undefined;
   AddDrinksScreen: undefined;
+  MenuScreen: undefined;
+  AddMenuItemScreen: undefined;
+  SettingsScreen: undefined;
+  LanguageSettingsScreen: undefined;
+  WithdrawalHistoryScreen: undefined;
+  UserReviewsScreen: undefined;
+  FoodDetails: { dishId: number } | undefined;
+  QuickActionsScreen: undefined;
+  AnalyticsScreen: undefined;
 };
 
 // Type pour la navigation avec Stack

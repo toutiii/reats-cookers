@@ -175,7 +175,7 @@ export const NutritionSection: React.FC<NutritionSectionProps> = ({
             </View>
 
             {/* Ingredient breakdown accordion */}
-            {nutrition.ingredientBreakdown.length > 0 && (
+            {nutrition.ingredients.length > 0 && (
               <View>
                 <TouchableOpacity
                   onPress={() => setShowBreakdown(!showBreakdown)}
@@ -193,7 +193,7 @@ export const NutritionSection: React.FC<NutritionSectionProps> = ({
 
                 {showBreakdown && (
                   <View className="mt-2">
-                    {nutrition.ingredientBreakdown.map((item) => (
+                    {nutrition.ingredients.map((item) => (
                       <View
                         key={item.ingredientId}
                         className="flex-row items-center py-2 border-b border-gray-50"

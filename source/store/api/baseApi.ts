@@ -21,7 +21,7 @@ const refreshMutex = new Mutex();
 // Base fetch query with headers
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: `${API_BASE_URL}/api/v1`,
-  prepareHeaders: (headers, { getState }) => {
+  prepareHeaders: (headers, { getState, endpoint }) => {
     const token = (getState() as RootState).auth?.accessToken;
 
     // JWT token for authenticated requests
@@ -56,7 +56,15 @@ const isTokenError = (result: { error?: FetchBaseQueryError; data?: unknown }): 
 };
 
 // Custom base query with automatic token refresh and error handling
-const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
+const baseQueryWithReauth = async (rawArgs: string | FetchArgs, api: any, extraOptions: any) => {
+  // Strip Content-Type for FormData requests so RN sets multipart/form-data with boundary
+  let args = rawArgs;
+  if (typeof args !== "string" && args.body instanceof FormData) {
+    const headers = { ...((args.headers as Record<string, string>) || {}) };
+    delete headers["Content-Type"];
+    args = { ...args, headers };
+  }
+
   // Wait if a refresh is already in progress
   await refreshMutex.waitForUnlock();
 
@@ -132,6 +140,6 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Auth", "Cooker", "Dashboard"],
+  tagTypes: ["Auth", "Cooker", "Dashboard", "Menu", "Dish"],
   endpoints: () => ({}),
 });
