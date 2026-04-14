@@ -305,17 +305,18 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             text: t("alerts.add"),
             onPress: async () => {
               try {
-                // Map selected ingredient IDs to {name, quantity} objects
+                // Map selected ingredient IDs to {code, name, category, is_allergen}
                 const ingredientPayload = formData.ingredients.map((id) => {
                   const ing = ingredients.find((i) => i.id === id);
-                  const qty = formData.ingredientQuantities[id] ?? 0;
                   return {
+                    code: ing?.id ?? id,
                     name: ing?.name ?? id,
-                    quantity: qty > 0 ? `${qty}g` : "",
+                    category: ing?.category ?? "basic",
+                    is_allergen: (ing?.allergens?.length ?? 0) > 0,
                   };
                 });
 
-                await createDish({
+                const payload = {
                   cooker: cookerId!,
                   name: formData.name,
                   description: formData.description,
@@ -331,19 +332,23 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                     ? {
                         calories: recipeNutrition.perPortion.calories,
                         proteins: recipeNutrition.perPortion.proteins,
-                        carbs: recipeNutrition.perPortion.carbs,
+                        carbohydrates: recipeNutrition.perPortion.carbs,
                         fats: recipeNutrition.perPortion.fats,
-                        fiber: recipeNutrition.perPortion.fiber,
                       }
                     : undefined,
-                }).unwrap();
+                };
+
+                console.log("[CreateDish] payload:", JSON.stringify(payload, null, 2));
+
+                await createDish(payload).unwrap();
 
                 Alert.alert(
                   t("alerts.successTitle"),
                   t("alerts.successMessage"),
                   [{ text: t("common:buttons.ok"), onPress: () => navigation.goBack() }]
                 );
-              } catch {
+              } catch (error: any) {
+                console.error("[CreateDish] error:", JSON.stringify(error?.data ?? error, null, 2));
                 Alert.alert(
                   t("alerts.errorTitle"),
                   t("alerts.errorMessage"),

@@ -10,36 +10,41 @@ export interface DishIngredient {
 
 export interface DishImage {
   readonly id: number;
-  readonly image: string;
-  readonly order: number;
+  readonly url: string;
+  readonly is_primary: boolean;
+  readonly position: number;
 }
 
 export interface NutritionalInfo {
   readonly calories: number;
   readonly proteins: number;
-  readonly carbs: number;
+  readonly carbohydrates: number;
   readonly fats: number;
-  readonly fiber: number;
 }
 
-// GET /dishes/{id}/ response
+// GET /dishes/ list item & GET /dishes/{id}/ detail response
 export interface Dish {
   readonly id: number;
   readonly name: string;
   readonly description: string;
-  readonly price: string;
-  readonly cost: string;
+  readonly price: number;
+  readonly cost: number | null;
+  readonly margin: number | null;
   readonly category: DishCategory;
-  readonly preparation_time: number;
-  readonly max_concurrent_orders: number;
+  readonly available: boolean;
   readonly is_enabled: boolean;
-  readonly is_deleted: boolean;
-  readonly images: readonly DishImage[];
-  readonly ingredients: readonly DishIngredient[];
-  readonly allergens: readonly string[];
-  readonly nutritional_info: NutritionalInfo | null;
+  readonly preparation_time: number | null;
+  readonly max_concurrent_orders: number;
+  readonly current_orders: number;
   readonly created_at: string;
   readonly updated_at: string;
+  readonly nutritional_info: NutritionalInfo | null;
+  readonly allergens: readonly string[];
+  readonly ingredients: readonly string[];
+  // List endpoint returns a single image URL
+  readonly image?: string;
+  // Detail endpoint returns full image objects
+  readonly images?: readonly DishImage[];
 }
 
 // POST /dishes/ request fields (sent as multipart/form-data)
@@ -59,8 +64,10 @@ export interface DishCreatePayload {
 }
 
 export interface DishIngredientInput {
+  readonly code: string;
   readonly name: string;
-  readonly quantity: string;
+  readonly category: string;
+  readonly is_allergen: boolean;
 }
 
 // PATCH /dishes/{id}/ request (all fields optional)

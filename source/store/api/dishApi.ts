@@ -19,6 +19,9 @@ const buildDishFormData = (
   if ("cooker" in data && (data as DishCreatePayload).cooker !== undefined) {
     formData.append("cooker", String((data as DishCreatePayload).cooker));
   }
+  if ("country" in data && (data as DishCreatePayload).country !== undefined) {
+    formData.append("country", (data as DishCreatePayload).country);
+  }
 
   if (data.name !== undefined) {
     formData.append("name", data.name);
@@ -40,11 +43,6 @@ const buildDishFormData = (
   }
   if (data.max_concurrent_orders !== undefined) {
     formData.append("max_concurrent_orders", String(data.max_concurrent_orders));
-  }
-
-  // Country field (required by API)
-  if ("country" in data && (data as DishCreatePayload).country !== undefined) {
-    formData.append("country", (data as DishCreatePayload).country);
   }
 
   // Ingredients as JSON-stringified array

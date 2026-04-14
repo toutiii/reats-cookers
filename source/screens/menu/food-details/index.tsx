@@ -107,12 +107,12 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
     );
   }
 
-  const price = parseFloat(dish.price) || 0;
-  const cost = parseFloat(dish.cost) || 0;
+  const price = dish.price ?? 0;
+  const cost = dish.cost ?? 0;
   const profit = price > 0 ? (((price - cost) / price) * 100).toFixed(0) : "0";
   const imageUrl = Array.isArray(dish.images) && dish.images.length > 0
-    ? resolveImageUrl(dish.images[0].image)
-    : "";
+    ? resolveImageUrl(dish.images[0].url)
+    : resolveImageUrl(dish.image ?? "");
 
   return (
     <ThemedView>

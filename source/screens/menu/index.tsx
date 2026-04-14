@@ -41,21 +41,17 @@ type MenuTab = "dishes" | "drinks";
 
 // Map API dish to the existing MenuItem shape used by components
 const mapDishToMenuItem = (dish: Dish): MenuItem => {
-  const firstImage = Array.isArray(dish.images) && dish.images.length > 0
-    ? dish.images[0].image
-    : "";
-
   return {
     id: String(dish.id),
     name: dish.name ?? "",
-    price: parseFloat(dish.price) || 0,
-    cost: parseFloat(dish.cost) || 0,
+    price: dish.price ?? 0,
+    cost: dish.cost ?? 0,
     category: dish.category ?? "dish",
     type: "dish",
-    image: resolveImageUrl(firstImage),
+    image: resolveImageUrl(dish.image ?? ""),
     sku: `DSH-${String(dish.id).padStart(3, "0")}`,
     maxConcurrentOrders: dish.max_concurrent_orders ?? 0,
-    currentOrders: 0,
+    currentOrders: dish.current_orders ?? 0,
     available: dish.is_enabled ?? false,
     description: dish.description ?? "",
     allergens: Array.isArray(dish.allergens) ? [...dish.allergens] : [],
