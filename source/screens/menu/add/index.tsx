@@ -38,7 +38,11 @@ import {
 } from "@/api/ingredients/allergen-detector";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/store";
-import { useCreateDishMutation } from "@/store/api/dishApi";
+import {
+  useCreateDishMutation,
+  useGetDishQuery,
+  useUpdateDishMutation,
+} from "@/store/api/dishApi";
 
 interface FormData {
   name: string;
@@ -56,6 +60,17 @@ interface FormData {
   available: boolean;
   portions: number;
 }
+
+// Parse a numeric form field (string) into a finite number, or null if invalid
+const parseFiniteNumber = (value: string): number | null => {
+  const n = Number((value ?? "").replace(",", "."));
+  return Number.isFinite(n) ? n : null;
+};
+
+const parseFiniteInt = (value: string): number | null => {
+  const n = Number.parseInt((value ?? "").trim(), 10);
+  return Number.isFinite(n) ? n : null;
+};
 
 // Categories must match API values: "dish", "starter", "dessert"
 const CATEGORIES = [
@@ -85,10 +100,22 @@ const ALLERGENS = [
   { id: "molluscs", name: "Mollusques", icon: "waves" },
 ];
 
-const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+const AddMenuItemScreen: React.FC<{ navigation: any; route?: any }> = ({ navigation, route }) => {
   const { t } = useTranslation("menu");
   const cookerId = useSelector((state: RootState) => state.auth.userId);
-  const [createDish, { isLoading: isSubmitting }] = useCreateDishMutation();
+  const editingDishId: number | undefined = route?.params?.dishId;
+  const isEditing = typeof editingDishId === "number";
+
+  const [createDish, { isLoading: isCreating }] = useCreateDishMutation();
+  const [updateDish, { isLoading: isUpdating }] = useUpdateDishMutation();
+  const isSubmitting = isCreating || isUpdating;
+
+  const { data: editingDish, isLoading: isLoadingDish } = useGetDishQuery(
+    editingDishId as number,
+    { skip: !isEditing },
+  );
+  const [hasPrefilled, setHasPrefilled] = useState(false);
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     category: "",
@@ -174,6 +201,99 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
     loadIngredients();
   }, []);
+
+  // Pre-fill form when editing an existing dish.
+  // Wait until the local ingredients catalog is loaded so we can name-match
+  // the API-returned ingredients/allergens.
+  useEffect(() => {
+    if (!isEditing || !editingDish || hasPrefilled) return;
+    if (isLoadingIngredients || ingredients.length === 0) return;
+
+    const norm = (s: string) =>
+      s
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "")
+        .toLowerCase()
+        .trim();
+
+    // Index local catalog for fast lookup by id and by normalized name
+    const byId = new Map(ingredients.map((i) => [i.id, i]));
+    const byName = new Map(ingredients.map((i) => [norm(i.name), i]));
+
+    // Resolve API-saved ingredients (could be string[] of names or object[] with code/name)
+    const rawIngredients: any[] = Array.isArray(editingDish.ingredients)
+      ? [...editingDish.ingredients]
+      : [];
+    const matchedIngredientIds: string[] = [];
+    rawIngredients.forEach((raw) => {
+      if (raw == null) return;
+      if (typeof raw === "string") {
+        const local = byId.get(raw) ?? byName.get(norm(raw));
+        if (local) matchedIngredientIds.push(local.id);
+        return;
+      }
+      const code: string | undefined = raw.code ?? raw.id;
+      const name: string | undefined = raw.name;
+      const local =
+        (code ? byId.get(code) : undefined) ??
+        (name ? byName.get(norm(name)) : undefined);
+      if (local) matchedIngredientIds.push(local.id);
+    });
+    const ingredientIds = Array.from(new Set(matchedIngredientIds));
+
+    // Resolve allergens against local ALLERGENS catalog (by id or by name)
+    const allergenById = new Map(ALLERGENS.map((a) => [a.id, a]));
+    const allergenByName = new Map(ALLERGENS.map((a) => [norm(a.name), a]));
+    const rawAllergens: any[] = Array.isArray(editingDish.allergens)
+      ? [...editingDish.allergens]
+      : [];
+    const matchedAllergenIds: string[] = [];
+    rawAllergens.forEach((raw) => {
+      if (raw == null) return;
+      const candidate =
+        typeof raw === "string"
+          ? raw
+          : (raw.code ?? raw.id ?? raw.name ?? "");
+      if (!candidate) return;
+      const lower = norm(String(candidate));
+      const hit = allergenById.get(lower) ?? allergenByName.get(lower);
+      if (hit) matchedAllergenIds.push(hit.id);
+    });
+    const allergenIds = Array.from(new Set(matchedAllergenIds));
+
+    // Mark API-resolved allergens as manual so they aren't auto-removed by the
+    // ingredient-driven sync effect when there are no auto-detected allergens yet.
+    setManuallyAddedAllergens(new Set(allergenIds));
+
+    const photoUrls =
+      Array.isArray(editingDish.images) && editingDish.images.length > 0
+        ? editingDish.images.map((img) => img.url).filter(Boolean)
+        : editingDish.image
+          ? [editingDish.image]
+          : [];
+
+    setFormData((prev) => ({
+      ...prev,
+      name: editingDish.name ?? "",
+      category: editingDish.category ?? "",
+      price: editingDish.price != null ? String(editingDish.price) : "",
+      cost: editingDish.cost != null ? String(editingDish.cost) : "",
+      ingredients: ingredientIds,
+      allergens: allergenIds,
+      preparationTime:
+        editingDish.preparation_time != null
+          ? String(editingDish.preparation_time)
+          : "",
+      maxConcurrentOrders:
+        editingDish.max_concurrent_orders != null
+          ? String(editingDish.max_concurrent_orders)
+          : "",
+      description: editingDish.description ?? "",
+      photos: photoUrls as string[],
+      available: editingDish.is_enabled ?? true,
+    }));
+    setHasPrefilled(true);
+  }, [isEditing, editingDish, hasPrefilled, isLoadingIngredients, ingredients]);
 
   const updateField = useCallback((field: keyof FormData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -281,30 +401,95 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const validateForm = useCallback(() => {
     const newErrors: Partial<FormData> = {};
 
-    if (!formData.name.trim()) newErrors.name = t("validation.nameRequired");
-    if (!formData.category) newErrors.category = t("validation.categoryRequired");
-    if (!formData.price.trim()) newErrors.price = t("validation.priceRequired");
-    if (!formData.cost.trim()) newErrors.cost = t("validation.costRequired");
+    if (!formData.name.trim()) {
+      newErrors.name = t("validation.nameRequired");
+    } else if (formData.name.length > 128) {
+      newErrors.name = "Maximum 128 caractères";
+    }
 
-    if (!formData.preparationTime.trim()) newErrors.preparationTime = t("validation.preparationTimeRequired");
-    if (!formData.maxConcurrentOrders.trim()) newErrors.maxConcurrentOrders = t("validation.maxOrdersRequired");
+    if (formData.description.length > 1024) {
+      newErrors.description = "Maximum 1024 caractères";
+    }
+
+    if (!formData.category) newErrors.category = t("validation.categoryRequired");
+
+    if (!formData.price.trim()) {
+      newErrors.price = t("validation.priceRequired");
+    } else if (parseFiniteNumber(formData.price) === null) {
+      newErrors.price = "Prix invalide";
+    }
+
+    if (!formData.cost.trim()) {
+      newErrors.cost = t("validation.costRequired");
+    } else if (parseFiniteNumber(formData.cost) === null) {
+      newErrors.cost = "Coût invalide";
+    }
+
+    if (!formData.preparationTime.trim()) {
+      newErrors.preparationTime = t("validation.preparationTimeRequired");
+    } else if (parseFiniteInt(formData.preparationTime) === null) {
+      newErrors.preparationTime = "Temps invalide";
+    }
+
+    if (!formData.maxConcurrentOrders.trim()) {
+      newErrors.maxConcurrentOrders = t("validation.maxOrdersRequired");
+    } else if (parseFiniteInt(formData.maxConcurrentOrders) === null) {
+      newErrors.maxConcurrentOrders = "Nombre invalide";
+    }
+
     if (formData.photos.length === 0) newErrors.photos = [t("validation.photoRequired")];
 
+    if (Object.keys(newErrors).length > 0) {
+      console.log("[validateForm] missing/invalid fields:", newErrors);
+      console.log("[validateForm] current formData:", {
+        name: formData.name,
+        category: formData.category,
+        price: formData.price,
+        cost: formData.cost,
+        preparationTime: formData.preparationTime,
+        maxConcurrentOrders: formData.maxConcurrentOrders,
+        photosCount: formData.photos.length,
+      });
+    }
+
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return newErrors;
   }, [formData]);
 
+  // Map FormData keys to user-readable labels for the validation alert
+  const FIELD_LABELS: Record<string, string> = {
+    name: "Nom",
+    description: "Description",
+    category: "Catégorie",
+    price: "Prix",
+    cost: "Coût",
+    preparationTime: "Temps de préparation",
+    maxConcurrentOrders: "Commandes simultanées",
+    photos: "Photo",
+  };
+
   const handleSave = useCallback(() => {
-    if (validateForm()) {
+    const validationErrors = validateForm();
+    const isValid = Object.keys(validationErrors).length === 0;
+    if (isValid) {
       Alert.alert(
-        t("alerts.saveConfirmTitle"),
-        t("alerts.saveConfirmMessage"),
+        isEditing ? "Confirmer la modification" : t("alerts.saveConfirmTitle"),
+        isEditing
+          ? "Voulez-vous enregistrer les modifications ?"
+          : t("alerts.saveConfirmMessage"),
         [
           { text: t("common:buttons.cancel"), style: "cancel" },
           {
-            text: t("alerts.add"),
+            text: isEditing ? "Enregistrer" : t("alerts.add"),
             onPress: async () => {
               try {
+                // Numeric coercion (validateForm already guarantees finite values)
+                const price = parseFiniteNumber(formData.price) ?? 0;
+                const cost = parseFiniteNumber(formData.cost) ?? 0;
+                const preparationTime = parseFiniteInt(formData.preparationTime) ?? 0;
+                const maxConcurrentOrders =
+                  parseFiniteInt(formData.maxConcurrentOrders) ?? 0;
+
                 // Map selected ingredient IDs to {code, name, category, is_allergen}
                 const ingredientPayload = formData.ingredients.map((id) => {
                   const ing = ingredients.find((i) => i.id === id);
@@ -316,43 +501,95 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
                   };
                 });
 
-                const payload = {
-                  cooker: cookerId!,
-                  name: formData.name,
-                  description: formData.description,
-                  price: parseFloat(formData.price),
-                  cost: parseFloat(formData.cost),
-                  category: formData.category as "dish" | "starter" | "dessert",
-                  preparation_time: parseInt(formData.preparationTime, 10),
-                  max_concurrent_orders: parseInt(formData.maxConcurrentOrders, 10),
-                  country: "FR",
-                  photos: formData.photos,
-                  ingredients: ingredientPayload,
-                  nutritional_info: recipeNutrition
-                    ? {
-                        calories: recipeNutrition.perPortion.calories,
-                        proteins: recipeNutrition.perPortion.proteins,
-                        carbohydrates: recipeNutrition.perPortion.carbs,
-                        fats: recipeNutrition.perPortion.fats,
-                      }
-                    : undefined,
-                };
+                // Fix 4: persist manually-selected allergens as synthetic ingredients
+                // so the backend can store them (no separate allergens field exists).
+                const coveredAllergens = new Set<string>();
+                ingredientPayload.forEach((ing) => {
+                  if (!ing.is_allergen) return;
+                  const local = ingredients.find((i) => i.id === ing.code);
+                  (local?.allergens ?? []).forEach((a) => coveredAllergens.add(a));
+                });
+                const missingAllergens = formData.allergens.filter(
+                  (a) => !coveredAllergens.has(a),
+                );
+                missingAllergens.forEach((allergenId) => {
+                  const meta = ALLERGENS.find((a) => a.id === allergenId);
+                  ingredientPayload.push({
+                    code: `allergen-${allergenId}`,
+                    name: meta?.name ?? allergenId,
+                    category: "allergen",
+                    is_allergen: true,
+                  });
+                });
 
-                console.log("[CreateDish] payload:", JSON.stringify(payload, null, 2));
+                const nutritionalInfo = recipeNutrition
+                  ? {
+                      calories: recipeNutrition.perPortion.calories,
+                      proteins: recipeNutrition.perPortion.proteins,
+                      carbohydrates: recipeNutrition.perPortion.carbs,
+                      fats: recipeNutrition.perPortion.fats,
+                    }
+                  : undefined;
 
-                await createDish(payload).unwrap();
+                if (isEditing && editingDishId !== undefined) {
+                  // Atomic PATCH: include is_enabled if it diverges from server
+                  const serverEnabled = editingDish?.is_enabled ?? true;
+                  const updatePayload = {
+                    name: formData.name,
+                    description: formData.description,
+                    price,
+                    cost,
+                    category: formData.category as "dish" | "starter" | "dessert",
+                    preparation_time: preparationTime,
+                    max_concurrent_orders: maxConcurrentOrders,
+                    ingredients: ingredientPayload,
+                    nutritional_info: nutritionalInfo,
+                    photos: formData.photos,
+                    ...(formData.available !== serverEnabled
+                      ? { is_enabled: formData.available }
+                      : {}),
+                  };
+
+                  console.log("[UpdateDish] payload:", JSON.stringify(updatePayload, null, 2));
+
+                  await updateDish({ id: editingDishId, data: updatePayload }).unwrap();
+                } else {
+                  const payload = {
+                    cooker: cookerId!,
+                    name: formData.name,
+                    description: formData.description,
+                    price,
+                    cost,
+                    category: formData.category as "dish" | "starter" | "dessert",
+                    preparation_time: preparationTime,
+                    max_concurrent_orders: maxConcurrentOrders,
+                    country: "FR",
+                    photos: formData.photos,
+                    ingredients: ingredientPayload,
+                    nutritional_info: nutritionalInfo,
+                  };
+
+                  console.log("[CreateDish] payload:", JSON.stringify(payload, null, 2));
+
+                  await createDish(payload).unwrap();
+                }
 
                 Alert.alert(
                   t("alerts.successTitle"),
-                  t("alerts.successMessage"),
-                  [{ text: t("common:buttons.ok"), onPress: () => navigation.goBack() }]
+                  isEditing
+                    ? "Le plat a été mis à jour."
+                    : t("alerts.successMessage"),
+                  [{ text: t("common:buttons.ok"), onPress: () => navigation.goBack() }],
                 );
               } catch (error: any) {
-                console.error("[CreateDish] error:", JSON.stringify(error?.data ?? error, null, 2));
+                console.error(
+                  isEditing ? "[UpdateDish] error:" : "[CreateDish] error:",
+                  JSON.stringify(error?.data ?? error, null, 2),
+                );
                 Alert.alert(
                   t("alerts.errorTitle"),
                   t("alerts.errorMessage"),
-                  [{ text: t("common:buttons.ok") }]
+                  [{ text: t("common:buttons.ok") }],
                 );
               }
             },
@@ -360,13 +597,31 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         ]
       );
     } else {
+      const missingLabels = Object.keys(validationErrors)
+        .filter((k) => (validationErrors as Record<string, unknown>)[k])
+        .map((k) => FIELD_LABELS[k] ?? k);
       Alert.alert(
         t("validation.formIncomplete"),
-        t("validation.fillAllFields"),
+        missingLabels.length > 0
+          ? `Champs en cause : ${missingLabels.join(", ")}`
+          : t("validation.fillAllFields"),
         [{ text: t("common:buttons.ok") }]
       );
     }
-  }, [formData, navigation, validateForm, createDish, ingredients, recipeNutrition]);
+  }, [
+    isEditing,
+    editingDishId,
+    editingDish,
+    formData,
+    navigation,
+    validateForm,
+    createDish,
+    updateDish,
+    cookerId,
+    ingredients,
+    recipeNutrition,
+    t,
+  ]);
 
   const handleReset = useCallback(() => {
     Alert.alert(
@@ -448,6 +703,8 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             onBack={() => navigation.goBack()}
             onReset={handleReset}
             scrollY={scrollY}
+            title={isEditing ? "Modifier le plat" : undefined}
+            subtitle={isEditing ? "Mettre à jour les informations" : undefined}
           />
 
           <ScrollView
@@ -460,10 +717,14 @@ const AddMenuItemScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           >
             <View className="px-5 py-6">
               {/* Loading Indicator */}
-              {isLoadingIngredients && (
+              {(isLoadingIngredients || (isEditing && isLoadingDish)) && (
                 <View className="bg-white rounded-2xl p-6 mb-6 items-center">
                   <ActivityIndicator size="large" color="#FF6B35" />
-                  <Text className="mt-3 text-gray-600">Chargement des ingrédients...</Text>
+                  <Text className="mt-3 text-gray-600">
+                    {isEditing && isLoadingDish
+                      ? "Chargement du plat..."
+                      : "Chargement des ingrédients..."}
+                  </Text>
                 </View>
               )}
 

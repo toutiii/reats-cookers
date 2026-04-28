@@ -28,14 +28,17 @@ export type RootStackParamList = {
   HelpSupportScreen: undefined;
   LanguageScreen: undefined;
   DashboardScreen: undefined;
-  AddDrinksScreen: undefined;
+  AddDrinksScreen: { drinkId?: number } | undefined;
   MenuScreen: undefined;
-  AddMenuItemScreen: undefined;
+  AddMenuItemScreen: { dishId?: number } | undefined;
   SettingsScreen: undefined;
   LanguageSettingsScreen: undefined;
   WithdrawalHistoryScreen: undefined;
   UserReviewsScreen: undefined;
-  FoodDetails: { dishId: number } | undefined;
+  FoodDetails:
+    | { dishId: number }
+    | { itemId: number; itemType: "dish" | "drink" }
+    | undefined;
   QuickActionsScreen: undefined;
   AnalyticsScreen: undefined;
 };

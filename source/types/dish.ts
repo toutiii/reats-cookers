@@ -47,19 +47,22 @@ export interface Dish {
   readonly images?: readonly DishImage[];
 }
 
-// POST /dishes/ request fields (sent as multipart/form-data)
+// POST /dishes/ request (multipart/form-data) — aligned with Swagger DishPOSTRequest
+// Required by API: cooker, name, price, category, country
 export interface DishCreatePayload {
   readonly cooker: number;
   readonly name: string;
-  readonly description: string;
+  readonly description?: string;
   readonly price: number;
-  readonly cost: number;
+  readonly cost?: number;
   readonly category: DishCategory;
-  readonly preparation_time: number;
-  readonly max_concurrent_orders: number;
+  readonly preparation_time?: number;
+  readonly max_concurrent_orders?: number;
   readonly country: string;
+  readonly is_suitable_for_quick_delivery?: boolean;
+  readonly is_suitable_for_scheduled_delivery?: boolean;
   readonly photos: readonly string[]; // URI strings from image picker
-  readonly ingredients: readonly DishIngredientInput[];
+  readonly ingredients?: readonly DishIngredientInput[];
   readonly nutritional_info?: NutritionalInfo;
 }
 
@@ -70,8 +73,10 @@ export interface DishIngredientInput {
   readonly is_allergen: boolean;
 }
 
-// PATCH /dishes/{id}/ request (all fields optional)
+// PATCH /dishes/{id}/ — aligned with Swagger PatchedDishPATCHRequest
+// Notable: cooker, country are immutable; is_enabled IS mutable.
 export interface DishUpdatePayload {
+  readonly is_enabled?: boolean;
   readonly name?: string;
   readonly description?: string;
   readonly price?: number;
