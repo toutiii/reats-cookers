@@ -26,7 +26,12 @@ import {
   useToggleDishAvailabilityMutation,
   useDeleteDishMutation,
 } from "@/store/api/dishApi";
+import {
+  useListDrinksQuery,
+  useDeleteDrinkMutation,
+} from "@/store/api/drinkApi";
 import type { Dish } from "@/types/dish";
+import type { Drink } from "@/types/drink";
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "";
 
@@ -62,6 +67,32 @@ const mapDishToMenuItem = (dish: Dish): MenuItem => {
   };
 };
 
+// Map API drink to the existing MenuItem shape used by components
+const mapDrinkToMenuItem = (drink: Drink): MenuItem => {
+  const allergens = Array.isArray(drink.ingredients)
+    ? drink.ingredients.filter((i) => i.is_allergen).map((i) => i.name)
+    : [];
+  return {
+    id: String(drink.id),
+    name: drink.name ?? "",
+    price: drink.price ?? 0,
+    cost: 0,
+    category: "drink",
+    type: "drink",
+    image: resolveImageUrl(drink.image ?? ""),
+    sku: `DRK-${String(drink.id).padStart(3, "0")}`,
+    maxConcurrentOrders: 0,
+    currentOrders: 0,
+    available: drink.is_enabled ?? true,
+    description: drink.description ?? "",
+    allergens,
+    preparationTime: 0,
+    lastModified: drink.updated_at ?? "",
+    soldToday: 0,
+    revenue: 0,
+  };
+};
+
 const DISH_CATEGORIES: readonly { id: string; name: string }[] = [
   { id: "all", name: "all" },
   { id: "dish", name: "mains" },
@@ -88,16 +119,31 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     is_enabled: selectedCategory === "all" ? undefined : undefined,
   });
 
-  console.log("Fetched dishes:", dishesData);
+  // RTK Query hooks for drinks
+  const {
+    data: drinksData,
+    isLoading: isDrinksLoading,
+  } = useListDrinksQuery({
+    page,
+    page_size: 20,
+    search: searchQuery.length > 0 ? searchQuery : undefined,
+  });
 
   const [toggleAvailability] = useToggleDishAvailabilityMutation();
   const [deleteDish] = useDeleteDishMutation();
+  const [deleteDrink] = useDeleteDrinkMutation();
 
   // Map API dishes to MenuItem format
   const dishMenuItems: MenuItem[] = useMemo(() => {
     if (!dishesData?.results) return [];
     return dishesData.results.map(mapDishToMenuItem);
   }, [dishesData]);
+
+  // Map API drinks to MenuItem format
+  const drinkMenuItems: MenuItem[] = useMemo(() => {
+    if (!drinksData?.results) return [];
+    return drinksData.results.map(mapDrinkToMenuItem);
+  }, [drinksData]);
 
   // Category counts from API data
   const dishCategories = useMemo(() => {
@@ -111,21 +157,30 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     }));
   }, [dishesData, t]);
 
-  const drinkCategories = [
-    { id: "all", name: t("categories.all"), count: 0 },
-  ];
+  const drinkCategories = useMemo(
+    () => [{ id: "all", name: t("categories.all"), count: drinkMenuItems.length }],
+    [drinkMenuItems, t],
+  );
 
   const categories = activeTab === "dishes" ? dishCategories : drinkCategories;
 
   const filteredItems = useMemo(() => {
-    const items = activeTab === "dishes" ? dishMenuItems : [];
+    const items = activeTab === "dishes" ? dishMenuItems : drinkMenuItems;
     return items.filter((item) => {
       const matchesCategory = selectedCategory === "all" || item.category === selectedCategory;
       return matchesCategory;
     });
-  }, [activeTab, dishMenuItems, selectedCategory]);
+  }, [activeTab, dishMenuItems, drinkMenuItems, selectedCategory]);
 
   const handleToggleAvailability = useCallback((itemId: string) => {
+    if (activeTab === "drinks") {
+      // Drinks API has no availability toggle endpoint per current API spec
+      Alert.alert(
+        t("actions.toggleAvailability"),
+        "La disponibilité des boissons n'est pas encore supportée.",
+      );
+      return;
+    }
     Alert.alert(
       t("actions.toggleAvailability"),
       t("deleteConfirm.message"),
@@ -143,10 +198,18 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         },
       ]
     );
-  }, [t, toggleAvailability]);
+  }, [activeTab, t, toggleAvailability]);
+
+  const handleViewItem = useCallback((item: MenuItem) => {
+    navigation.navigate("FoodDetails", { itemId: Number(item.id), itemType: item.type });
+  }, [navigation]);
 
   const handleEditItem = useCallback((item: MenuItem) => {
-    navigation.navigate("FoodDetails", { dishId: Number(item.id) });
+    if (item.type === "drink") {
+      navigation.navigate("AddDrinksScreen", { drinkId: Number(item.id) });
+      return;
+    }
+    navigation.navigate("AddMenuItemScreen", { dishId: Number(item.id) });
   }, [navigation]);
 
   const handleDeleteItem = useCallback((itemId: string) => {
@@ -160,7 +223,11 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           style: "destructive",
           onPress: async () => {
             try {
-              await deleteDish(Number(itemId)).unwrap();
+              if (activeTab === "drinks") {
+                await deleteDrink(Number(itemId)).unwrap();
+              } else {
+                await deleteDish(Number(itemId)).unwrap();
+              }
             } catch {
               Alert.alert(t("alerts.errorTitle"), t("alerts.errorMessage"));
             }
@@ -168,17 +235,18 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         },
       ]
     );
-  }, [t, deleteDish]);
+  }, [activeTab, t, deleteDish, deleteDrink]);
 
   const renderMenuItem = useCallback(({ item, index }: { item: MenuItem; index: number }) => (
     <MenuItemCard
       item={item}
       index={index}
       onToggleAvailability={handleToggleAvailability}
+      onView={handleViewItem}
       onEdit={handleEditItem}
       onDelete={handleDeleteItem}
     />
-  ), [handleToggleAvailability, handleEditItem, handleDeleteItem]);
+  ), [handleToggleAvailability, handleViewItem, handleEditItem, handleDeleteItem]);
 
   const handleToggleViewMode = useCallback(() => {
     setViewMode((prev) => (prev === "grid" ? "list" : "grid"));
@@ -301,14 +369,15 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           </View>
 
           {/* Loading state */}
-          {isDishesLoading && activeTab === "dishes" && (
+          {((isDishesLoading && activeTab === "dishes") ||
+            (isDrinksLoading && activeTab === "drinks")) && (
             <View className="py-12 items-center">
               <ActivityIndicator size="large" color="#FF6347" />
             </View>
           )}
 
           {/* Menu Items */}
-          {!isDishesLoading && (
+          {!(activeTab === "dishes" ? isDishesLoading : isDrinksLoading) && (
             <FlatList
               data={filteredItems}
               renderItem={renderMenuItem}
