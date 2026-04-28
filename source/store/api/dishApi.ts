@@ -1,259 +1,145 @@
-import { Platform } from "react-native";
-import { baseApi } from "./baseApi";
-import type { ApiResponse } from "./types";
-import type {
-  Dish,
-  DishCreatePayload,
-  DishUpdatePayload,
-  DishListParams,
-  DishListResponse,
-  DishIngredientsListResponse,
-} from "@/types/dish";
+import { createApi, fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
+import type { RootState } from "../index";
+import type { ApiErrorResponse, ApiResponse, RefreshTokenResponse } from "./types";
+import { updateTokens, logout } from "../slices/auth";
+import { Mutex } from "./mutex";
 
-// Build multipart/form-data for dish create/update
-const buildDishFormData = (
-  data: DishCreatePayload | DishUpdatePayload,
-): globalThis.FormData => {
-  const formData = new globalThis.FormData();
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL;
+const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
-  if ("cooker" in data && (data as DishCreatePayload).cooker !== undefined) {
-    formData.append("cooker", String((data as DishCreatePayload).cooker));
-  }
-  if ("country" in data && (data as DishCreatePayload).country !== undefined) {
-    formData.append("country", (data as DishCreatePayload).country);
-  }
+if (!API_BASE_URL) {
+  throw new Error("EXPO_PUBLIC_API_URL environment variable is not set");
+}
 
-  if (data.name !== undefined) {
-    formData.append("name", data.name);
-  }
-  if (data.description !== undefined) {
-    formData.append("description", data.description);
-  }
-  if (data.price !== undefined) {
-    formData.append("price", String(data.price));
-  }
-  if (data.cost !== undefined) {
-    formData.append("cost", String(data.cost));
-  }
-  if (data.category !== undefined) {
-    formData.append("category", data.category);
-  }
-  if (data.preparation_time !== undefined) {
-    formData.append("preparation_time", String(data.preparation_time));
-  }
-  if (data.max_concurrent_orders !== undefined) {
-    formData.append("max_concurrent_orders", String(data.max_concurrent_orders));
-  }
+if (!API_KEY) {
+  throw new Error("EXPO_PUBLIC_API_KEY environment variable is not set");
+}
 
-  // Optional flags supported by both POST and PATCH (PATCH only for is_enabled)
-  if ((data as DishCreatePayload).is_suitable_for_quick_delivery !== undefined) {
-    formData.append(
-      "is_suitable_for_quick_delivery",
-      String((data as DishCreatePayload).is_suitable_for_quick_delivery),
-    );
-  }
-  if ((data as DishCreatePayload).is_suitable_for_scheduled_delivery !== undefined) {
-    formData.append(
-      "is_suitable_for_scheduled_delivery",
-      String((data as DishCreatePayload).is_suitable_for_scheduled_delivery),
-    );
-  }
-  if ((data as DishUpdatePayload).is_enabled !== undefined) {
-    formData.append("is_enabled", String((data as DishUpdatePayload).is_enabled));
-  }
+// Mutex to prevent multiple simultaneous refresh requests
+const refreshMutex = new Mutex();
 
-  // Ingredients as JSON-stringified array
-  if (data.ingredients !== undefined) {
-    formData.append("ingredients", JSON.stringify(data.ingredients));
-  }
+// Base fetch query with headers
+const rawBaseQuery = fetchBaseQuery({
+  baseUrl: `${API_BASE_URL}/api/v1`,
+  prepareHeaders: (headers, { getState, endpoint }) => {
+    const token = (getState() as RootState).auth?.accessToken;
 
-  // Nutritional info as JSON-stringified object
-  if (data.nutritional_info !== undefined) {
-    formData.append("nutritional_info", JSON.stringify(data.nutritional_info));
-  }
+    // JWT token for authenticated requests
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
 
-  // Photo files: only send local URIs. Already-uploaded URLs (http/https) are
-  // skipped so they aren't re-sent as files (the backend keeps them as-is).
-  if (data.photos !== undefined) {
-    data.photos.forEach((uri, index) => {
-      if (uri.startsWith("http://") || uri.startsWith("https://")) return;
+    // API key for public endpoints
+    headers.set("X-API-Key", API_KEY as string);
 
-      const filename = uri.split("/").pop() || `photo_${index}.jpg`;
-      const match = /\.(\w+)$/.exec(filename);
-      const type = match ? `image/${match[1]}` : "image/jpeg";
+    // App origin header (required by API)
+    headers.set("App-Origin", "cooker");
 
-      formData.append("photos", {
-        uri: Platform.OS === "ios" ? uri.replace("file://", "") : uri,
-        name: filename,
-        type,
-      } as unknown as Blob);
-    });
-  }
-
-  return formData;
-};
-
-// Build query string from params, filtering out undefined values
-const buildDishQueryString = (params: DishListParams): string => {
-  const searchParams = new URLSearchParams();
-
-  if (params.page !== undefined) {
-    searchParams.set("page", String(params.page));
-  }
-  if (params.page_size !== undefined) {
-    searchParams.set("page_size", String(params.page_size));
-  }
-  if (params.search !== undefined && params.search.length > 0) {
-    searchParams.set("search", params.search);
-  }
-  if (params.is_enabled !== undefined) {
-    searchParams.set("is_enabled", String(params.is_enabled));
-  }
-
-  const qs = searchParams.toString();
-  return qs.length > 0 ? `?${qs}` : "";
-};
-
-export const dishApi = baseApi.injectEndpoints({
-  endpoints: (builder) => ({
-    // GET /dishes/ — List dishes (paginated)
-    listDishes: builder.query<DishListResponse, DishListParams>({
-      query: (params) => ({
-        url: `/dishes/${buildDishQueryString(params)}`,
-        method: "GET",
-      }),
-      transformResponse: (response: ApiResponse<DishListResponse>) => {
-        const data = response.data ?? response;
-        return {
-          results: Array.isArray(data.results) ? data.results : [],
-          pagination: data.pagination ?? {
-            current_page: 1,
-            total_pages: 1,
-            total_items: 0,
-            items_per_page: 10,
-          },
-        };
-      },
-      providesTags: (result) =>
-        result?.results
-          ? [
-              ...result.results.map(({ id }) => ({ type: "Dish" as const, id })),
-              { type: "Dish", id: "LIST" },
-            ]
-          : [{ type: "Dish", id: "LIST" }],
-    }),
-
-    // GET /dishes/{id}/ — Get single dish
-    getDish: builder.query<Dish, number>({
-      query: (id) => ({
-        url: `/dishes/${id}/`,
-        method: "GET",
-      }),
-      transformResponse: (response: ApiResponse<Dish>) => response.data,
-      providesTags: (_result, _error, id) => [{ type: "Dish", id }],
-    }),
-
-    // POST /dishes/ — Create a dish
-    createDish: builder.mutation<Dish, DishCreatePayload>({
-      query: (data) => ({
-        url: "/dishes/",
-        method: "POST",
-        body: buildDishFormData(data),
-        formData: true,
-      }),
-      transformResponse: (response: ApiResponse<Dish>) => response.data,
-      invalidatesTags: [{ type: "Dish", id: "LIST" }],
-    }),
-
-    // PATCH /dishes/{id}/ — Partial update
-    updateDish: builder.mutation<Dish, { id: number; data: DishUpdatePayload }>({
-      query: ({ id, data }) => {
-        // Multipart only if there are NEW local photo URIs to upload.
-        // Already-uploaded URLs (http/https) are kept by the backend and skipped.
-        const hasNewPhotos =
-          data.photos !== undefined &&
-          data.photos.some(
-            (uri) => !uri.startsWith("http://") && !uri.startsWith("https://"),
-          );
-
-        if (hasNewPhotos) {
-          return {
-            url: `/dishes/${id}/`,
-            method: "PATCH",
-            body: buildDishFormData(data),
-            formData: true,
-          };
-        }
-
-        // JSON body when no photos are being uploaded
-        const jsonBody: Record<string, unknown> = {};
-        if (data.is_enabled !== undefined) jsonBody.is_enabled = data.is_enabled;
-        if (data.name !== undefined) jsonBody.name = data.name;
-        if (data.description !== undefined) jsonBody.description = data.description;
-        if (data.price !== undefined) jsonBody.price = data.price;
-        if (data.cost !== undefined) jsonBody.cost = data.cost;
-        if (data.category !== undefined) jsonBody.category = data.category;
-        if (data.preparation_time !== undefined) jsonBody.preparation_time = data.preparation_time;
-        if (data.max_concurrent_orders !== undefined) jsonBody.max_concurrent_orders = data.max_concurrent_orders;
-        if (data.ingredients !== undefined) jsonBody.ingredients = data.ingredients;
-        if (data.nutritional_info !== undefined) jsonBody.nutritional_info = data.nutritional_info;
-
-        return {
-          url: `/dishes/${id}/`,
-          method: "PATCH",
-          body: jsonBody,
-        };
-      },
-      transformResponse: (response: ApiResponse<Dish>) => response.data,
-      invalidatesTags: (_result, _error, { id }) => [
-        { type: "Dish", id },
-        { type: "Dish", id: "LIST" },
-      ],
-    }),
-
-    // DELETE /dishes/{id}/ — Soft delete
-    deleteDish: builder.mutation<void, number>({
-      query: (id) => ({
-        url: `/dishes/${id}/`,
-        method: "DELETE",
-      }),
-      invalidatesTags: (_result, _error, id) => [
-        { type: "Dish", id },
-        { type: "Dish", id: "LIST" },
-      ],
-    }),
-
-    // PATCH /dishes/{id}/availability/ — Toggle availability
-    toggleDishAvailability: builder.mutation<Dish, number>({
-      query: (id) => ({
-        url: `/dishes/${id}/availability/`,
-        method: "PATCH",
-      }),
-      transformResponse: (response: ApiResponse<Dish>) => response.data,
-      invalidatesTags: (_result, _error, id) => [
-        { type: "Dish", id },
-        { type: "Dish", id: "LIST" },
-      ],
-    }),
-
-    // GET /dishes/ingredients/ — List available ingredients
-    listDishIngredients: builder.query<DishIngredientsListResponse, string | void>({
-      query: (search) => ({
-        url: `/dishes/ingredients/${search ? `?search=${encodeURIComponent(search)}` : ""}`,
-        method: "GET",
-      }),
-      transformResponse: (response: ApiResponse<DishIngredientsListResponse>) => response.data,
-    }),
-  }),
-  overrideExisting: process.env.NODE_ENV === "development",
+    return headers;
+  },
 });
 
-export const {
-  useListDishesQuery,
-  useGetDishQuery,
-  useCreateDishMutation,
-  useUpdateDishMutation,
-  useDeleteDishMutation,
-  useToggleDishAvailabilityMutation,
-  useListDishIngredientsQuery,
-} = dishApi;
+// Check if the error is a token expiration error
+const isTokenError = (result: { error?: FetchBaseQueryError; data?: unknown }): boolean => {
+  // HTTP 401
+  if (result.error && "status" in result.error && result.error.status === 401) {
+    return true;
+  }
+  // API returns 200 with success: false and token_not_valid code
+  if (result.data) {
+    const data = result.data as { success?: boolean; error?: { code?: string } };
+    if (data.success === false && data.error?.code === "token_not_valid") {
+      return true;
+    }
+  }
+  return false;
+};
+
+// Custom base query with automatic token refresh and error handling
+const baseQueryWithReauth = async (rawArgs: string | FetchArgs, api: any, extraOptions: any) => {
+  // Strip Content-Type for FormData requests so RN sets multipart/form-data with boundary
+  let args = rawArgs;
+  if (typeof args !== "string" && args.body instanceof FormData) {
+    const headers = { ...((args.headers as Record<string, string>) || {}) };
+    delete headers["Content-Type"];
+    args = { ...args, headers };
+  }
+
+  // Wait if a refresh is already in progress
+  await refreshMutex.waitForUnlock();
+
+  let result = await rawBaseQuery(args, api, extraOptions);
+
+  if (isTokenError(result)) {
+    // Try to refresh the token
+    if (!refreshMutex.isLocked()) {
+      const release = await refreshMutex.acquire();
+
+      try {
+        const state = api.getState() as RootState;
+        const refreshToken = state.auth.refreshToken;
+
+        if (refreshToken) {
+          const refreshResult = await rawBaseQuery(
+            { url: "/token/refresh/", method: "POST", body: { refresh: refreshToken } },
+            api,
+            extraOptions,
+          );
+
+          if (refreshResult.data) {
+            const data = refreshResult.data as ApiResponse<RefreshTokenResponse>;
+            if (data.success) {
+              // Store new tokens
+              api.dispatch(updateTokens({
+                accessToken: data.data.access,
+                refreshToken: data.data.refresh,
+              }));
+            } else {
+              api.dispatch(logout());
+              return result;
+            }
+          } else {
+            // Refresh failed, logout
+            api.dispatch(logout());
+            return result;
+          }
+        } else {
+          // No refresh token available, logout
+          api.dispatch(logout());
+          return result;
+        }
+      } finally {
+        release();
+      }
+
+      // Retry the original request with the new token
+      result = await rawBaseQuery(args, api, extraOptions);
+    } else {
+      // Another refresh is in progress, wait and retry
+      await refreshMutex.waitForUnlock();
+      result = await rawBaseQuery(args, api, extraOptions);
+    }
+  }
+
+  // Transform API responses with success: false into RTK Query errors
+  if (result.data) {
+    const data = result.data as { success?: boolean; error?: ApiErrorResponse["error"] };
+    if (data.success === false && data.error) {
+      return {
+        error: {
+          status: "CUSTOM_ERROR" as const,
+          data: { success: false, error: data.error } as ApiErrorResponse,
+        },
+      };
+    }
+  }
+
+  return result;
+};
+
+export const baseApi = createApi({
+  reducerPath: "api",
+  baseQuery: baseQueryWithReauth,
+  tagTypes: ["Auth", "Cooker", "Dashboard", "Menu", "Dish", "Drink"],
+  endpoints: () => ({}),
+});
