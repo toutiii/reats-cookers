@@ -142,12 +142,13 @@ export interface AttestationSubmitResponse {
   status: DocumentStatus;
 }
 
-// Cooker profile update request
+// Cooker profile update request — aligned with Swagger PatchedCookerPATCHRequest.
+// Notable: `phone` is NOT mutable via this endpoint (use a dedicated flow if ever needed).
+// `photo` is uploaded via /cookers/{id}/photo/ (separate endpoint).
 export interface CookerUpdateRequest {
   cookerId: number;
   firstname?: string;
   lastname?: string;
-  phone?: string;
   email?: string;
   siret?: string;
   street_number?: string;
@@ -157,6 +158,12 @@ export interface CookerUpdateRequest {
   town?: string;
   max_order_number?: number;
   is_online?: boolean;
+}
+
+// Cooker photo upload request — multipart/form-data, single `photo` file
+export interface CookerPhotoUpdateRequest {
+  cookerId: number;
+  photo: string; // local URI from image picker
 }
 
 // Cooker profile types
