@@ -218,6 +218,19 @@ export const drinkApi = baseApi.injectEndpoints({
       ],
     }),
 
+    // PATCH /drinks/{id}/availability/ — Toggle availability
+    toggleDrinkAvailability: builder.mutation<Drink, number>({
+      query: (id) => ({
+        url: `/drinks/${id}/availability/`,
+        method: "PATCH",
+      }),
+      transformResponse: (response: ApiResponse<Drink>) => response.data,
+      invalidatesTags: (_result, _error, id) => [
+        { type: "Drink", id },
+        { type: "Drink", id: "LIST" },
+      ],
+    }),
+
     // GET /drinks/ingredients/ — List available drink ingredients
     listDrinkIngredients: builder.query<DrinkIngredientsListResponse, string | void>({
       query: (search) => ({
@@ -236,5 +249,6 @@ export const {
   useCreateDrinkMutation,
   useUpdateDrinkMutation,
   useDeleteDrinkMutation,
+  useToggleDrinkAvailabilityMutation,
   useListDrinkIngredientsQuery,
 } = drinkApi;

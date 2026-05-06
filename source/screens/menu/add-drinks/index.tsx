@@ -29,6 +29,7 @@ import {
   useCreateDrinkMutation,
   useGetDrinkQuery,
   useUpdateDrinkMutation,
+  useToggleDrinkAvailabilityMutation,
 } from "@/store/api/drinkApi";
 import type { DrinkIngredientInput, DrinkUnit } from "@/types/drink";
 
@@ -93,6 +94,8 @@ const AddDrinksScreen: React.FC<{ navigation: any; route?: any }> = ({ navigatio
 
   const [createDrink, { isLoading: isCreating }] = useCreateDrinkMutation();
   const [updateDrink, { isLoading: isUpdating }] = useUpdateDrinkMutation();
+  const [toggleDrinkAvailability, { isLoading: isTogglingAvailability }] =
+    useToggleDrinkAvailabilityMutation();
   const isSubmitting = isCreating || isUpdating;
 
   const { data: editingDrink, isLoading: isLoadingDrink } = useGetDrinkQuery(
@@ -173,6 +176,35 @@ const AddDrinksScreen: React.FC<{ navigation: any; route?: any }> = ({ navigatio
     setErrors((prev) => ({ ...prev, [field]: undefined }));
   }, []);
 
+  // Availability is managed server-side via the dedicated /availability/ toggle
+  // endpoint when editing. POST /drinks/ doesn't accept is_enabled, so in
+  // create mode the toggle is informational (backend creates drinks enabled).
+  const handleAvailableChange = useCallback(
+    async (next: boolean) => {
+      if (!isEditing || editingDrinkId === undefined) {
+        setFormData((prev) => ({ ...prev, available: next }));
+        return;
+      }
+      if (isTogglingAvailability) return;
+
+      const previous = formData.available;
+      setFormData((prev) => ({ ...prev, available: next }));
+      try {
+        await toggleDrinkAvailability(editingDrinkId).unwrap();
+      } catch {
+        setFormData((prev) => ({ ...prev, available: previous }));
+        Alert.alert("Erreur", "Impossible de modifier la disponibilité.");
+      }
+    },
+    [
+      isEditing,
+      editingDrinkId,
+      isTogglingAvailability,
+      formData.available,
+      toggleDrinkAvailability,
+    ],
+  );
+
   const toggleAllergen = useCallback((allergenId: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -239,8 +271,9 @@ const AddDrinksScreen: React.FC<{ navigation: any; route?: any }> = ({ navigatio
                 const capacity = parseFinitePositiveInt(formData.volume) ?? 0;
 
                 if (isEditing && editingDrinkId !== undefined) {
-                  // PATCH: only mutable fields per Swagger PatchedDrinkPATCHRequest
-                  const serverEnabled = editingDrink?.is_enabled ?? true;
+                  // PATCH: only mutable fields per Swagger PatchedDrinkPATCHRequest.
+                  // is_enabled is intentionally NOT sent here — availability is
+                  // handled by PATCH /drinks/{id}/availability/ via handleAvailableChange.
                   const updatePayload = {
                     name: formData.name,
                     description: formData.description || undefined,
@@ -250,9 +283,6 @@ const AddDrinksScreen: React.FC<{ navigation: any; route?: any }> = ({ navigatio
                     is_suitable_for_scheduled_delivery: formData.isSuitableForScheduledDelivery,
                     photos: formData.photos,
                     ingredients: ingredientPayload,
-                    ...(formData.available !== serverEnabled
-                      ? { is_enabled: formData.available }
-                      : {}),
                   };
 
                   console.log("[UpdateDrink] payload:", JSON.stringify(updatePayload, null, 2));
@@ -312,7 +342,6 @@ const AddDrinksScreen: React.FC<{ navigation: any; route?: any }> = ({ navigatio
   }, [
     isEditing,
     editingDrinkId,
-    editingDrink,
     formData,
     navigation,
     validateForm,
@@ -432,10 +461,11 @@ const AddDrinksScreen: React.FC<{ navigation: any; route?: any }> = ({ navigatio
                       <Text className="text-xs mt-0.5">La boisson sera visible dans le menu</Text>
                     </View>
                     <TouchableOpacity
-                      onPress={() => updateField("available", !formData.available)}
+                      onPress={() => handleAvailableChange(!formData.available)}
+                      disabled={isTogglingAvailability}
                       className={`w-14 h-8 rounded-full p-1 ${
                         formData.available ? "bg-green-500" : "bg-gray-300"
-                      }`}
+                      } ${isTogglingAvailability ? "opacity-60" : ""}`}
                     >
                       <Animated.View
                         className="w-6 h-6 bg-white rounded-full shadow-sm"

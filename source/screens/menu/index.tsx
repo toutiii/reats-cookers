@@ -29,6 +29,7 @@ import {
 import {
   useListDrinksQuery,
   useDeleteDrinkMutation,
+  useToggleDrinkAvailabilityMutation,
 } from "@/store/api/drinkApi";
 import type { Dish } from "@/types/dish";
 import type { Drink } from "@/types/drink";
@@ -130,6 +131,7 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   });
 
   const [toggleAvailability] = useToggleDishAvailabilityMutation();
+  const [toggleDrinkAvailability] = useToggleDrinkAvailabilityMutation();
   const [deleteDish] = useDeleteDishMutation();
   const [deleteDrink] = useDeleteDrinkMutation();
 
@@ -173,14 +175,6 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   }, [activeTab, dishMenuItems, drinkMenuItems, selectedCategory]);
 
   const handleToggleAvailability = useCallback((itemId: string) => {
-    if (activeTab === "drinks") {
-      // Drinks API has no availability toggle endpoint per current API spec
-      Alert.alert(
-        t("actions.toggleAvailability"),
-        "La disponibilité des boissons n'est pas encore supportée.",
-      );
-      return;
-    }
     Alert.alert(
       t("actions.toggleAvailability"),
       t("deleteConfirm.message"),
@@ -190,7 +184,11 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           text: t("common:buttons.confirm"),
           onPress: async () => {
             try {
-              await toggleAvailability(Number(itemId)).unwrap();
+              if (activeTab === "drinks") {
+                await toggleDrinkAvailability(Number(itemId)).unwrap();
+              } else {
+                await toggleAvailability(Number(itemId)).unwrap();
+              }
             } catch {
               Alert.alert(t("alerts.errorTitle"), t("alerts.errorMessage"));
             }
@@ -198,7 +196,7 @@ const MenuScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         },
       ]
     );
-  }, [activeTab, t, toggleAvailability]);
+  }, [activeTab, t, toggleAvailability, toggleDrinkAvailability]);
 
   const handleViewItem = useCallback((item: MenuItem) => {
     navigation.navigate("FoodDetails", { itemId: Number(item.id), itemType: item.type });

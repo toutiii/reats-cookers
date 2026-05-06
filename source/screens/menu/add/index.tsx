@@ -42,6 +42,7 @@ import {
   useCreateDishMutation,
   useGetDishQuery,
   useUpdateDishMutation,
+  useToggleDishAvailabilityMutation,
 } from "@/store/api/dishApi";
 
 interface FormData {
@@ -108,6 +109,8 @@ const AddMenuItemScreen: React.FC<{ navigation: any; route?: any }> = ({ navigat
 
   const [createDish, { isLoading: isCreating }] = useCreateDishMutation();
   const [updateDish, { isLoading: isUpdating }] = useUpdateDishMutation();
+  const [toggleDishAvailability, { isLoading: isTogglingAvailability }] =
+    useToggleDishAvailabilityMutation();
   const isSubmitting = isCreating || isUpdating;
 
   const { data: editingDish, isLoading: isLoadingDish } = useGetDishQuery(
@@ -299,6 +302,32 @@ const AddMenuItemScreen: React.FC<{ navigation: any; route?: any }> = ({ navigat
     setFormData((prev) => ({ ...prev, [field]: value }));
     setErrors((prev) => ({ ...prev, [field]: undefined }));
   }, []);
+
+  // Availability is managed server-side via the dedicated /availability/ toggle
+  // endpoint when editing. In create mode, the toggle is informational only:
+  // POST /dishes/ doesn't accept is_enabled, the backend creates dishes enabled.
+  const handleAvailableChange = useCallback(
+    async (next: boolean) => {
+      if (!isEditing || editingDishId === undefined) {
+        setFormData((prev) => ({ ...prev, available: next }));
+        return;
+      }
+      if (isTogglingAvailability) return;
+
+      const previous = formData.available;
+      setFormData((prev) => ({ ...prev, available: next }));
+      try {
+        await toggleDishAvailability(editingDishId).unwrap();
+      } catch {
+        setFormData((prev) => ({ ...prev, available: previous }));
+        Alert.alert(
+          t("alerts.errorTitle"),
+          "Impossible de modifier la disponibilité.",
+        );
+      }
+    },
+    [isEditing, editingDishId, isTogglingAvailability, formData.available, toggleDishAvailability, t],
+  );
 
   const toggleIngredient = useCallback((ingredientId: string) => {
     setFormData((prev) => {
@@ -532,8 +561,9 @@ const AddMenuItemScreen: React.FC<{ navigation: any; route?: any }> = ({ navigat
                   : undefined;
 
                 if (isEditing && editingDishId !== undefined) {
-                  // Atomic PATCH: include is_enabled if it diverges from server
-                  const serverEnabled = editingDish?.is_enabled ?? true;
+                  // Note: is_enabled is intentionally NOT sent here — availability
+                  // is handled by the dedicated PATCH /dishes/{id}/availability/
+                  // endpoint via handleAvailableChange.
                   const updatePayload = {
                     name: formData.name,
                     description: formData.description,
@@ -545,9 +575,6 @@ const AddMenuItemScreen: React.FC<{ navigation: any; route?: any }> = ({ navigat
                     ingredients: ingredientPayload,
                     nutritional_info: nutritionalInfo,
                     photos: formData.photos,
-                    ...(formData.available !== serverEnabled
-                      ? { is_enabled: formData.available }
-                      : {}),
                   };
 
                   console.log("[UpdateDish] payload:", JSON.stringify(updatePayload, null, 2));
@@ -611,7 +638,6 @@ const AddMenuItemScreen: React.FC<{ navigation: any; route?: any }> = ({ navigat
   }, [
     isEditing,
     editingDishId,
-    editingDish,
     formData,
     navigation,
     validateForm,
@@ -747,7 +773,7 @@ const AddMenuItemScreen: React.FC<{ navigation: any; route?: any }> = ({ navigat
                 }}
                 onNameChange={(text) => updateField("name", text)}
                 onCategoryChange={(id) => updateField("category", id)}
-                onAvailableChange={(value) => updateField("available", value)}
+                onAvailableChange={handleAvailableChange}
               />
 
               {/* Pricing */}
