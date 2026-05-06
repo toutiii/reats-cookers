@@ -26,8 +26,16 @@ import * as ImagePicker from "expo-image-picker";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "@/store";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useUpdateCookerProfileMutation } from "@/store/api/cookerApi";
+import {
+  useUpdateCookerProfileMutation,
+  useUpdateCookerPhotoMutation,
+} from "@/store/api/cookerApi";
 import { updateCooker } from "@/store/slices/auth";
+
+// Validation helpers (Swagger-aligned)
+const SIRET_RE = /^[0-9]{14}$/;
+const POSTAL_CODE_RE = /^[0-9]{5}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const PersonalInfoScreen: React.FC = () => {
   const navigation = useNavigation<StackNavigation>();
@@ -37,7 +45,15 @@ const PersonalInfoScreen: React.FC = () => {
   // Get cooker and userId from auth state (already fetched in App.tsx)
   const cooker = useSelector((state: RootState) => state.auth.cooker);
   const userId = useSelector((state: RootState) => state.auth.userId);
-  const [updateProfile, { isLoading: isSaving }] = useUpdateCookerProfileMutation();
+  const [updateProfile, { isLoading: isSavingProfile }] = useUpdateCookerProfileMutation();
+  const [updatePhoto, { isLoading: isSavingPhoto }] = useUpdateCookerPhotoMutation();
+  const isSaving = isSavingProfile || isSavingPhoto;
+
+  type FormErrors = Partial<Record<
+    "firstName" | "lastName" | "email" | "siret" | "streetNumber" | "streetName" | "addressComplement" | "postalCode" | "city",
+    string
+  >>;
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -88,17 +104,66 @@ const PersonalInfoScreen: React.FC = () => {
     }
   };
 
+  const validateForm = (): FormErrors => {
+    const next: FormErrors = {};
+
+    // Required fields per Swagger CookerPATCHRequest
+    if (!formData.firstName.trim()) next.firstName = "Le prénom est requis";
+    else if (formData.firstName.length > 100) next.firstName = "Maximum 100 caractères";
+
+    if (!formData.lastName.trim()) next.lastName = "Le nom est requis";
+    else if (formData.lastName.length > 100) next.lastName = "Maximum 100 caractères";
+
+    if (!formData.email.trim()) next.email = "L'email est requis";
+    else if (!EMAIL_RE.test(formData.email)) next.email = "Format d'email invalide";
+    else if (formData.email.length > 254) next.email = "Maximum 254 caractères";
+
+    if (!formData.siret.trim()) next.siret = "Le SIRET est requis";
+    else if (!SIRET_RE.test(formData.siret.replace(/\s/g, "")))
+      next.siret = "14 chiffres requis";
+
+    if (!formData.streetNumber.trim()) next.streetNumber = "Le numéro est requis";
+    else if (formData.streetNumber.length > 10) next.streetNumber = "Maximum 10 caractères";
+
+    if (!formData.streetName.trim()) next.streetName = "L'adresse est requise";
+    else if (formData.streetName.length > 100) next.streetName = "Maximum 100 caractères";
+
+    if (formData.addressComplement.length > 512)
+      next.addressComplement = "Maximum 512 caractères";
+
+    if (!formData.postalCode.trim()) next.postalCode = "Le code postal est requis";
+    else if (!POSTAL_CODE_RE.test(formData.postalCode))
+      next.postalCode = "5 chiffres requis";
+
+    if (!formData.city.trim()) next.city = "La ville est requise";
+    else if (formData.city.length > 100) next.city = "Maximum 100 caractères";
+
+    return next;
+  };
+
   const handleSave = async () => {
     if (!userId) return;
 
+    const validation = validateForm();
+    setErrors(validation);
+    if (Object.keys(validation).length > 0) {
+      Alert.alert(
+        "Formulaire invalide",
+        "Vérifie les champs en rouge avant d'enregistrer.",
+        [{ text: "OK" }],
+      );
+      return;
+    }
+
     try {
-      const response = await updateProfile({
+      // PATCH /cookers/{id}/ — phone is NOT mutable per Swagger, so we don't send it.
+      // The auth slice's matchFulfilled reducer syncs state.cooker automatically.
+      await updateProfile({
         cookerId: userId,
         firstname: formData.firstName,
         lastname: formData.lastName,
         email: formData.email,
-        phone: formData.phone,
-        siret: formData.siret,
+        siret: formData.siret.replace(/\s/g, ""),
         street_number: formData.streetNumber,
         street_name: formData.streetName,
         address_complement: formData.addressComplement || null,
@@ -106,30 +171,85 @@ const PersonalInfoScreen: React.FC = () => {
         town: formData.city,
       }).unwrap();
 
-      // Update local store with returned data
-      dispatch(updateCooker({
-        firstname: response.data.personal_infos_section.firstname,
-        lastname: response.data.personal_infos_section.lastname,
-        email: response.data.personal_infos_section.email,
-        phone: response.data.personal_infos_section.phone,
-        siret: response.data.personal_infos_section.siret,
-        streetNumber: response.data.address_section.street_number,
-        streetName: response.data.address_section.street_name,
-        addressComplement: response.data.address_section.address_complement,
-        postalCode: response.data.address_section.postal_code,
-        town: response.data.address_section.town,
-      }));
+      // PATCH /cookers/{id}/photo/ — only if a NEW local image was picked
+      let uploadedPhotoUrl: string | undefined;
+      const isLocalPhoto =
+        !!formData.avatar &&
+        !formData.avatar.startsWith("http://") &&
+        !formData.avatar.startsWith("https://");
+      if (isLocalPhoto) {
+        try {
+          const photoResponse = await updatePhoto({
+            cookerId: userId,
+            photo: formData.avatar,
+          }).unwrap();
+          uploadedPhotoUrl =
+            (photoResponse?.data as any)?.personal_infos_section?.photo ??
+            (photoResponse?.data as any)?.photo;
+        } catch (e) {
+          console.warn("[UpdateCookerPhoto] failed:", e);
+          Alert.alert(
+            "Photo",
+            "Le profil a été mis à jour, mais l'envoi de la photo a échoué.",
+          );
+        }
+      }
+
+      // The auth slice's `updateCookerProfile.matchFulfilled` extra reducer
+      // already sync'd state.cooker via mapProfileResponse. We only need to
+      // dispatch a manual update for the freshly uploaded photo URL (since
+      // the photo PATCH response goes through the same matcher anyway, but we
+      // surface it here defensively in case backend doesn't return it).
+      if (uploadedPhotoUrl) {
+        dispatch(updateCooker({ photo: uploadedPhotoUrl }));
+      }
+
+      // Reflect uploaded URL in local form state (so subsequent saves don't re-upload)
+      if (uploadedPhotoUrl) {
+        setFormData((prev) => ({ ...prev, avatar: uploadedPhotoUrl! }));
+      }
 
       Alert.alert(
         "Modifications enregistrées",
         "Vos informations ont été mises à jour avec succès.",
         [{ text: "OK" }]
       );
-    } catch {
+    } catch (error: any) {
+      // RTK Query errors can be class-like objects with non-enumerable props,
+      // which JSON.stringify renders as `{}`. Extract fields explicitly.
+      const status = error?.status;
+      const data = error?.data;
+      const message =
+        error?.error ??
+        error?.message ??
+        (typeof error === "string" ? error : undefined);
+      const stack = error instanceof Error ? error.stack : undefined;
+
+      // Print the raw error too — gives access to non-enumerable props in the dev console
+      console.error("[UpdateCookerProfile] raw error:", error);
+      console.error("[UpdateCookerProfile] error:", {
+        status,
+        data,
+        message,
+        stack,
+        keys: error && typeof error === "object" ? Object.keys(error) : undefined,
+      });
+
+      // Surface backend validation messages when available
+      let backendDetail: string | undefined;
+      if (data && typeof data === "object") {
+        const apiError = (data as any)?.error;
+        if (apiError?.message) backendDetail = String(apiError.message);
+        else if (apiError?.details) backendDetail = JSON.stringify(apiError.details);
+        else if (typeof (data as any)?.detail === "string") backendDetail = (data as any).detail;
+      }
+
       Alert.alert(
         "Erreur",
-        "Une erreur est survenue lors de la mise à jour de vos informations.",
-        [{ text: "OK" }]
+        backendDetail ??
+          message ??
+          "Une erreur est survenue lors de la mise à jour de vos informations.",
+        [{ text: "OK" }],
       );
     }
   };
@@ -233,11 +353,17 @@ const PersonalInfoScreen: React.FC = () => {
                     </InputSlot>
                     <InputField
                       value={formData.firstName}
-                      onChangeText={(text) => setFormData({ ...formData, firstName: text })}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, firstName: text });
+                        if (errors.firstName) setErrors((p) => ({ ...p, firstName: undefined }));
+                      }}
                       placeholder={t("personalInfo.firstName")}
                       className="text-base"
                     />
                   </Input>
+                  {errors.firstName && (
+                    <Text className="text-red-500 text-xs mt-1 ml-2">{errors.firstName}</Text>
+                  )}
                 </FormControl>
 
                 {/* Last Name */}
@@ -253,11 +379,17 @@ const PersonalInfoScreen: React.FC = () => {
                     </InputSlot>
                     <InputField
                       value={formData.lastName}
-                      onChangeText={(text) => setFormData({ ...formData, lastName: text })}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, lastName: text });
+                        if (errors.lastName) setErrors((p) => ({ ...p, lastName: undefined }));
+                      }}
                       placeholder={t("personalInfo.lastName")}
                       className="text-base"
                     />
                   </Input>
+                  {errors.lastName && (
+                    <Text className="text-red-500 text-xs mt-1 ml-2">{errors.lastName}</Text>
+                  )}
                 </FormControl>
 
                 {/* Email */}
@@ -273,34 +405,50 @@ const PersonalInfoScreen: React.FC = () => {
                     </InputSlot>
                     <InputField
                       value={formData.email}
-                      onChangeText={(text) => setFormData({ ...formData, email: text })}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, email: text });
+                        if (errors.email) setErrors((p) => ({ ...p, email: undefined }));
+                      }}
                       placeholder="exemple@email.com"
                       keyboardType="email-address"
                       autoCapitalize="none"
                       className="text-base"
                     />
                   </Input>
+                  {errors.email && (
+                    <Text className="text-red-500 text-xs mt-1 ml-2">{errors.email}</Text>
+                  )}
                 </FormControl>
 
-                {/* Phone */}
+                {/* Phone — read-only (immuable au PATCH per Swagger) */}
                 <FormControl className="mb-4">
                   <FormControlLabel>
                     <FormControlLabelText className="text-sm text-gray-700 font-semibold">
                       {t("personalInfo.phone")}
                     </FormControlLabelText>
                   </FormControlLabel>
-                  <Input variant="outline" size="lg" className="rounded-2xl">
+                  <Input
+                    variant="outline"
+                    size="lg"
+                    className="rounded-2xl bg-gray-50"
+                    isDisabled
+                  >
                     <InputSlot className="pl-4">
-                      <Ionicons name="call-outline" size={18} color="#10B981" />
+                      <Ionicons name="call-outline" size={18} color="#9CA3AF" />
                     </InputSlot>
                     <InputField
                       value={formData.phone}
-                      onChangeText={(text) => setFormData({ ...formData, phone: text })}
+                      editable={false}
                       placeholder="+33 6 12 34 56 78"
-                      keyboardType="phone-pad"
-                      className="text-base"
+                      className="text-base text-gray-500"
                     />
+                    <InputSlot className="pr-4">
+                      <Ionicons name="lock-closed-outline" size={16} color="#9CA3AF" />
+                    </InputSlot>
                   </Input>
+                  <Text className="text-xs text-gray-400 mt-1 ml-2">
+                    Le téléphone n'est pas modifiable depuis cet écran.
+                  </Text>
                 </FormControl>
 
                 {/* SIRET */}
@@ -316,12 +464,19 @@ const PersonalInfoScreen: React.FC = () => {
                     </InputSlot>
                     <InputField
                       value={formData.siret}
-                      onChangeText={(text) => setFormData({ ...formData, siret: text })}
-                      placeholder="123 456 789 00012"
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, siret: text });
+                        if (errors.siret) setErrors((p) => ({ ...p, siret: undefined }));
+                      }}
+                      placeholder="12345678900012"
                       keyboardType="number-pad"
+                      maxLength={14}
                       className="text-base"
                     />
                   </Input>
+                  {errors.siret && (
+                    <Text className="text-red-500 text-xs mt-1 ml-2">{errors.siret}</Text>
+                  )}
                 </FormControl>
               </View>
             </View>
@@ -354,12 +509,19 @@ const PersonalInfoScreen: React.FC = () => {
                     <Input variant="outline" size="lg" className="rounded-2xl">
                       <InputField
                         value={formData.streetNumber}
-                        onChangeText={(text) => setFormData({ ...formData, streetNumber: text })}
+                        onChangeText={(text) => {
+                          setFormData({ ...formData, streetNumber: text });
+                          if (errors.streetNumber) setErrors((p) => ({ ...p, streetNumber: undefined }));
+                        }}
                         placeholder="10"
                         keyboardType="number-pad"
+                        maxLength={10}
                         className="text-base text-center"
                       />
                     </Input>
+                    {errors.streetNumber && (
+                      <Text className="text-red-500 text-xs mt-1 ml-2">{errors.streetNumber}</Text>
+                    )}
                   </FormControl>
                   <FormControl className="flex-1">
                     <FormControlLabel>
@@ -373,11 +535,17 @@ const PersonalInfoScreen: React.FC = () => {
                       </InputSlot>
                       <InputField
                         value={formData.streetName}
-                        onChangeText={(text) => setFormData({ ...formData, streetName: text })}
+                        onChangeText={(text) => {
+                          setFormData({ ...formData, streetName: text });
+                          if (errors.streetName) setErrors((p) => ({ ...p, streetName: undefined }));
+                        }}
                         placeholder="Rue de la Paix"
                         className="text-base"
                       />
                     </Input>
+                    {errors.streetName && (
+                      <Text className="text-red-500 text-xs mt-1 ml-2">{errors.streetName}</Text>
+                    )}
                   </FormControl>
                 </View>
 
@@ -394,11 +562,18 @@ const PersonalInfoScreen: React.FC = () => {
                     </InputSlot>
                     <InputField
                       value={formData.addressComplement}
-                      onChangeText={(text) => setFormData({ ...formData, addressComplement: text })}
+                      onChangeText={(text) => {
+                        setFormData({ ...formData, addressComplement: text });
+                        if (errors.addressComplement) setErrors((p) => ({ ...p, addressComplement: undefined }));
+                      }}
                       placeholder="Bâtiment, étage, etc."
+                      maxLength={512}
                       className="text-base"
                     />
                   </Input>
+                  {errors.addressComplement && (
+                    <Text className="text-red-500 text-xs mt-1 ml-2">{errors.addressComplement}</Text>
+                  )}
                 </FormControl>
 
                 {/* Postal Code & City */}
@@ -412,12 +587,19 @@ const PersonalInfoScreen: React.FC = () => {
                     <Input variant="outline" size="lg" className="rounded-2xl">
                       <InputField
                         value={formData.postalCode}
-                        onChangeText={(text) => setFormData({ ...formData, postalCode: text })}
+                        onChangeText={(text) => {
+                          setFormData({ ...formData, postalCode: text.replace(/[^0-9]/g, "") });
+                          if (errors.postalCode) setErrors((p) => ({ ...p, postalCode: undefined }));
+                        }}
                         placeholder="75001"
                         keyboardType="number-pad"
+                        maxLength={5}
                         className="text-base text-center"
                       />
                     </Input>
+                    {errors.postalCode && (
+                      <Text className="text-red-500 text-xs mt-1 ml-2">{errors.postalCode}</Text>
+                    )}
                   </FormControl>
                   <FormControl className="flex-1">
                     <FormControlLabel>
@@ -431,11 +613,17 @@ const PersonalInfoScreen: React.FC = () => {
                       </InputSlot>
                       <InputField
                         value={formData.city}
-                        onChangeText={(text) => setFormData({ ...formData, city: text })}
+                        onChangeText={(text) => {
+                          setFormData({ ...formData, city: text });
+                          if (errors.city) setErrors((p) => ({ ...p, city: undefined }));
+                        }}
                         placeholder="Paris"
                         className="text-base"
                       />
                     </Input>
+                    {errors.city && (
+                      <Text className="text-red-500 text-xs mt-1 ml-2">{errors.city}</Text>
+                    )}
                   </FormControl>
                 </View>
               </View>

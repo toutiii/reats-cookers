@@ -45,6 +45,23 @@ const buildDishFormData = (
     formData.append("max_concurrent_orders", String(data.max_concurrent_orders));
   }
 
+  // Optional flags supported by both POST and PATCH (PATCH only for is_enabled)
+  if ((data as DishCreatePayload).is_suitable_for_quick_delivery !== undefined) {
+    formData.append(
+      "is_suitable_for_quick_delivery",
+      String((data as DishCreatePayload).is_suitable_for_quick_delivery),
+    );
+  }
+  if ((data as DishCreatePayload).is_suitable_for_scheduled_delivery !== undefined) {
+    formData.append(
+      "is_suitable_for_scheduled_delivery",
+      String((data as DishCreatePayload).is_suitable_for_scheduled_delivery),
+    );
+  }
+  if ((data as DishUpdatePayload).is_enabled !== undefined) {
+    formData.append("is_enabled", String((data as DishUpdatePayload).is_enabled));
+  }
+
   // Ingredients as JSON-stringified array
   if (data.ingredients !== undefined) {
     formData.append("ingredients", JSON.stringify(data.ingredients));
@@ -55,9 +72,12 @@ const buildDishFormData = (
     formData.append("nutritional_info", JSON.stringify(data.nutritional_info));
   }
 
-  // Photo files
+  // Photo files: only send local URIs. Already-uploaded URLs (http/https) are
+  // skipped so they aren't re-sent as files (the backend keeps them as-is).
   if (data.photos !== undefined) {
     data.photos.forEach((uri, index) => {
+      if (uri.startsWith("http://") || uri.startsWith("https://")) return;
+
       const filename = uri.split("/").pop() || `photo_${index}.jpg`;
       const match = /\.(\w+)$/.exec(filename);
       const type = match ? `image/${match[1]}` : "image/jpeg";
@@ -148,9 +168,15 @@ export const dishApi = baseApi.injectEndpoints({
     // PATCH /dishes/{id}/ — Partial update
     updateDish: builder.mutation<Dish, { id: number; data: DishUpdatePayload }>({
       query: ({ id, data }) => {
-        const hasPhotos = data.photos !== undefined && data.photos.length > 0;
+        // Multipart only if there are NEW local photo URIs to upload.
+        // Already-uploaded URLs (http/https) are kept by the backend and skipped.
+        const hasNewPhotos =
+          data.photos !== undefined &&
+          data.photos.some(
+            (uri) => !uri.startsWith("http://") && !uri.startsWith("https://"),
+          );
 
-        if (hasPhotos) {
+        if (hasNewPhotos) {
           return {
             url: `/dishes/${id}/`,
             method: "PATCH",
@@ -161,6 +187,7 @@ export const dishApi = baseApi.injectEndpoints({
 
         // JSON body when no photos are being uploaded
         const jsonBody: Record<string, unknown> = {};
+        if (data.is_enabled !== undefined) jsonBody.is_enabled = data.is_enabled;
         if (data.name !== undefined) jsonBody.name = data.name;
         if (data.description !== undefined) jsonBody.description = data.description;
         if (data.price !== undefined) jsonBody.price = data.price;

@@ -133,7 +133,11 @@
     "resetConfirmTitle": "Réinitialiser le formulaire",
     "resetConfirmMessage": "Toutes les données seront perdues. Continuer ?",
     "add": "Ajouter",
-    "reset": "Réinitialiser"
+    "reset": "Réinitialiser",
+    "successTitle": "Succès",
+    "successMessage": "Le plat a été ajouté au menu.",
+    "errorTitle": "Erreur",
+    "errorMessage": "Une erreur est survenue. Veuillez réessayer."
   },
   "ingredientsList": {
     "salt": "Sel",
