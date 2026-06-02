@@ -11,7 +11,7 @@ interface CustomerInfoProps {
 
 export const CustomerInfo: React.FC<CustomerInfoProps> = ({ customer, address }) => {
   const fullName = `${customer.firstname} ${customer.lastname}`.trim();
-  const formattedAddress = `${address.postal_code} ${address.city}`.trim();
+  const formattedAddress = `${address.postal_code} ${address.town}`.trim();
 
   return (
     <View className="px-5 mb-4">

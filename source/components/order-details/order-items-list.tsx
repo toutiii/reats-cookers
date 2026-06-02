@@ -27,10 +27,10 @@ export const OrderItemsList: React.FC<OrderItemsListProps> = ({ items }) => {
           <View key={`${item.kind}-${item.id}`}>
             <View className="flex-row items-center py-3">
               <View className="w-14 h-14 bg-orange-50 rounded-xl items-center justify-center mr-3 overflow-hidden">
-                {item.image_url
+                {item.image
 ? (
                   <Image
-                    source={{ uri: item.image_url }}
+                    source={{ uri: item.image }}
                     className="w-full h-full"
                     resizeMode="cover"
                   />

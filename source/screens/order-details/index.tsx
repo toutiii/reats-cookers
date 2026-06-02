@@ -56,12 +56,12 @@ const OrderDetailsScreen: React.FC = () => {
   const lastTransitionAt = useMemo(() => {
     if (!order) return null;
     const timeline = [
-      order.timestamps.cancelled_date,
-      order.timestamps.completed_date,
-      order.timestamps.delivering_date,
-      order.timestamps.ready_date,
-      order.timestamps.preparing_date,
-      order.timestamps.accepted_date,
+      order.cancelled_date,
+      order.completed_date,
+      order.delivering_date,
+      order.ready_date,
+      order.preparing_date,
+      order.accepted_date,
     ];
     return timeline.find((value) => value !== null) ?? null;
   }, [order]);
@@ -90,7 +90,7 @@ const OrderDetailsScreen: React.FC = () => {
           await markReady(order.id).unwrap();
           break;
         case "cancel":
-          await cancelOrder({ id: order.id }).unwrap();
+          await cancelOrder(order.id).unwrap();
           break;
       }
       setPendingAction(null);
@@ -152,7 +152,7 @@ const OrderDetailsScreen: React.FC = () => {
         <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
           <StatusCard
             status={order.status}
-            createdAt={order.timestamps.created}
+            createdAt={order.created}
             lastTransitionAt={lastTransitionAt}
           />
 

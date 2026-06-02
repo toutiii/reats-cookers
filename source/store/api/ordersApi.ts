@@ -2,7 +2,6 @@ import { baseApi } from "./baseApi";
 import type { ApiResponse } from "./types";
 import type {
   Order,
-  OrderCancelPayload,
   OrderHistoryParams,
   OrderHistoryResponse,
   OrderListParams,
@@ -94,14 +93,13 @@ export const ordersApi = baseApi.injectEndpoints({
       ],
     }),
 
-    cancelOrder: builder.mutation<Order, { id: number; payload?: OrderCancelPayload }>({
-      query: ({ id, payload }) => ({
+    cancelOrder: builder.mutation<Order, number>({
+      query: (id) => ({
         url: `/cookers-orders/${id}/cancel/`,
         method: "POST",
-        body: payload ?? {},
       }),
       transformResponse: (response: ApiResponse<Order>) => response.data,
-      invalidatesTags: (_result, _error, { id }) => [
+      invalidatesTags: (_result, _error, id) => [
         { type: "Order" as const, id },
         { type: "Order" as const, id: "LIST" },
         { type: "OrderHistory" as const, id: "LIST" },
@@ -115,6 +113,7 @@ export const ordersApi = baseApi.injectEndpoints({
           page: params?.page,
           page_size: params?.page_size,
           status: params?.status,
+          cancelled_by: params?.cancelled_by,
           start_date: params?.start_date,
           end_date: params?.end_date,
         })}`,

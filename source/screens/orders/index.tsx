@@ -21,7 +21,6 @@ import {
 } from "@/store/api/ordersApi";
 import {
   ORDER_STATUS_DISPLAY,
-  countOrderItems,
   formatCurrency,
   formatTime,
 } from "@/utils/orders";
@@ -36,7 +35,6 @@ interface OrderCardProps {
 const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => {
   const { t } = useTranslation("orders");
   const display = ORDER_STATUS_DISPLAY[order.status];
-  const itemsCount = countOrderItems(order);
   const customerName = `${order.customer.firstname} ${order.customer.lastname}`.trim();
 
   return (
@@ -82,7 +80,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => {
               <Ionicons name="fast-food-outline" size={16} color="#FF6347" />
             </View>
             <Text className="text-sm font-semibold text-gray-700">
-              {t("card.items", { count: itemsCount })}
+              {t("card.items", { count: order.items_count })}
             </Text>
           </View>
           <View className="flex-row items-center">
@@ -90,7 +88,7 @@ const OrderCard: React.FC<OrderCardProps> = ({ order, onPress }) => {
               <Ionicons name="time-outline" size={16} color="#3B82F6" />
             </View>
             <Text className="text-sm font-semibold text-gray-700">
-              {formatTime(order.timestamps.created)}
+              {formatTime(order.created)}
             </Text>
           </View>
         </View>
