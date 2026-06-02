@@ -117,7 +117,7 @@ export function calculateRecipeNutrition(
     portions: safePortion,
     nutriScore: grade,
     nutriScorePoints: points,
-    ingredientBreakdown: breakdown,
+    ingredients: breakdown,
   };
 }
 

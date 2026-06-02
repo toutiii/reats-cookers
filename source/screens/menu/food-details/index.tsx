@@ -5,6 +5,8 @@ import {
   StatusBar,
   Dimensions,
   Image,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -23,12 +25,79 @@ import { BlurView } from "expo-blur";
 import { ThemedView } from "@/components/themed-view";
 import { Text } from "@/components/ui/text";
 import { Heading } from "@/components/ui/heading";
+import { useGetDishQuery, useDeleteDishMutation } from "@/store/api/dishApi";
+import { useGetDrinkQuery, useDeleteDrinkMutation } from "@/store/api/drinkApi";
+
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? "";
+
+const resolveImageUrl = (path: string): string => {
+  if (!path) return "";
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return `${API_BASE_URL}/${path}`;
+};
 
 const { width } = Dimensions.get("window");
 const HEADER_HEIGHT = 400;
 
 const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
-  const { item } = route.params || {};
+  // Accept new params (itemId/itemType) and fall back to legacy dishId
+  const { itemId, itemType, dishId } = route.params || {};
+  const resolvedId = itemId ?? dishId;
+  const isDrink = itemType === "drink";
+
+  const dishQuery = useGetDishQuery(resolvedId, { skip: !resolvedId || isDrink });
+  const drinkQuery = useGetDrinkQuery(resolvedId, { skip: !resolvedId || !isDrink });
+
+  const [deleteDish, { isLoading: isDeletingDish }] = useDeleteDishMutation();
+  const [deleteDrink, { isLoading: isDeletingDrink }] = useDeleteDrinkMutation();
+  const isDeleting = isDeletingDish || isDeletingDrink;
+
+  const handleEdit = () => {
+    if (!resolvedId) return;
+    if (isDrink) {
+      navigation.navigate("AddDrinksScreen", { drinkId: resolvedId });
+      return;
+    }
+    navigation.navigate("AddMenuItemScreen", { dishId: resolvedId });
+  };
+
+  const handleDelete = () => {
+    if (!resolvedId) return;
+    Alert.alert(
+      "Supprimer",
+      isDrink
+        ? "Voulez-vous vraiment supprimer cette boisson ?"
+        : "Voulez-vous vraiment supprimer ce plat ?",
+      [
+        { text: "Annuler", style: "cancel" },
+        {
+          text: "Supprimer",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              if (isDrink) {
+                await deleteDrink(resolvedId).unwrap();
+              } else {
+                await deleteDish(resolvedId).unwrap();
+              }
+              navigation.goBack();
+            } catch {
+              Alert.alert("Erreur", "Suppression impossible. Réessayez.");
+            }
+          },
+        },
+      ],
+    );
+  };
+
+  const isLoading = isDrink ? drinkQuery.isLoading : dishQuery.isLoading;
+  const isError = isDrink ? drinkQuery.isError : dishQuery.isError;
+  const dish = isDrink ? undefined : dishQuery.data;
+  const drink = isDrink ? drinkQuery.data : undefined;
+  const item = (dish ?? drink) as
+    | (typeof dish & typeof drink)
+    | undefined;
+
   const scrollY = useSharedValue(0);
   const [selectedTab, setSelectedTab] = useState<"info" | "ingredients" | "allergens">("info");
 
@@ -52,7 +121,6 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
   });
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
-    // Zoom in effect when pulling down (only)
     const scale = interpolate(
       scrollY.value,
       [-150, 0],
@@ -60,7 +128,6 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
       Extrapolate.CLAMP
     );
 
-    // Parallax effect - image moves slower than scroll
     const translateY = interpolate(
       scrollY.value,
       [0, HEADER_HEIGHT],
@@ -73,9 +140,45 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
     };
   });
 
-  const profit = ((item.price - item.cost) / item.price * 100).toFixed(0);
-  const isAtCapacity = item.currentOrders >= item.maxConcurrentOrders;
-  const capacityPercentage = Math.round((item.currentOrders / item.maxConcurrentOrders) * 100);
+  if (isLoading) {
+    return (
+      <ThemedView>
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator size="large" color="#FF6347" />
+        </View>
+      </ThemedView>
+    );
+  }
+
+  if (isError || !item) {
+    return (
+      <ThemedView>
+        <SafeAreaView className="flex-1 items-center justify-center px-5">
+          <Ionicons name="alert-circle-outline" size={48} color="#EF4444" />
+          <Text className="text-gray-600 mt-3 text-center">
+            {isDrink ? "Failed to load drink details." : "Failed to load dish details."}
+          </Text>
+          <TouchableOpacity onPress={() => navigation.goBack()} className="mt-4 bg-primary-500 px-6 py-3 rounded-xl">
+            <Text className="text-white font-bold">Go back</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </ThemedView>
+    );
+  }
+
+  const price = item.price ?? 0;
+  const cost = isDrink ? 0 : (dish?.cost ?? 0);
+  const profit = !isDrink && price > 0 ? (((price - cost) / price) * 100).toFixed(0) : "0";
+  const imageUrl = Array.isArray(item.images) && item.images.length > 0
+    ? resolveImageUrl(item.images[0].url)
+    : resolveImageUrl(item.image ?? "");
+  // For drinks we derive allergens from ingredients (filter is_allergen)
+  const drinkAllergens = isDrink && Array.isArray(drink?.ingredients)
+    ? drink!.ingredients.filter((i) => i.is_allergen).map((i) => i.name)
+    : [];
+  const allergensList: readonly string[] = isDrink
+    ? drinkAllergens
+    : (Array.isArray(dish?.allergens) ? dish!.allergens : []);
 
   return (
     <ThemedView>
@@ -104,7 +207,7 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                 <Ionicons name="arrow-back" size={24} color="#1F2937" />
               </TouchableOpacity>
               <Text className="text-gray-900 text-base font-bold flex-1 text-center" numberOfLines={1}>
-                {item?.name}
+                {item.name}
               </Text>
               <TouchableOpacity className="w-10 h-10 items-center justify-center">
                 <Ionicons name="heart-outline" size={24} color="#EF4444" />
@@ -123,7 +226,7 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
         <View style={{ height: HEADER_HEIGHT }}>
           <Animated.View style={[imageAnimatedStyle, { height: HEADER_HEIGHT }]}>
             <Image
-              source={{ uri: item?.image }}
+              source={{ uri: imageUrl }}
               style={{ width, height: HEADER_HEIGHT }}
               resizeMode="cover"
             />
@@ -198,11 +301,11 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
             className="absolute bottom-12 left-5"
           >
             <View
-              className={`px-4 py-2.5 rounded-full flex-row items-center ${item?.available
+              className={`px-4 py-2.5 rounded-full flex-row items-center ${item.is_enabled
 ? "bg-green-500"
 : "bg-red-500"}`}
               style={{
-                shadowColor: item?.available
+                shadowColor: item.is_enabled
 ? "#10B981"
 : "#EF4444",
                 shadowOffset: { width: 0, height: 4 },
@@ -211,11 +314,9 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                 elevation: 5,
               }}
             >
-              <View className={`w-2 h-2 rounded-full mr-2 ${item?.available
-? "bg-white"
-: "bg-white"}`} />
+              <View className="w-2 h-2 rounded-full mr-2 bg-white" />
               <Text className="text-white font-bold text-xs tracking-wide">
-                {item?.available
+                {item.is_enabled
 ? "DISPONIBLE"
 : "INDISPONIBLE"}
               </Text>
@@ -228,16 +329,25 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
           {/* Header Info */}
           <Animated.View entering={FadeInDown.delay(100)} className="px-5 mb-5">
             <View className="mb-4">
-              <Heading className="text-3xl font-bold mb-2 text-gray-900">{item?.name}</Heading>
-              <Text className="text-base text-gray-600 leading-6 mb-3">{item?.description}</Text>
+              <Heading className="text-3xl font-bold mb-2 text-gray-900">{item.name}</Heading>
+              <Text className="text-base text-gray-600 leading-6 mb-3">{item.description}</Text>
               <View className="flex-row items-center gap-2">
                 <View className="bg-gray-200 px-3 py-1.5 rounded-lg">
-                  <Text className="text-xs font-semibold text-gray-700">SKU: {item?.sku}</Text>
+                  <Text className="text-xs font-semibold text-gray-700">
+                    {isDrink ? "Boisson" : dish?.category}
+                  </Text>
                 </View>
-                <View className="bg-orange-50 px-3 py-1.5 rounded-lg flex-row items-center">
-                  <Ionicons name="time-outline" size={14} color="#FF6347" />
-                  <Text className="text-xs font-semibold text-orange-600 ml-1">{item?.preparationTime} min</Text>
-                </View>
+                {isDrink ? (
+                  <View className="bg-purple-50 px-3 py-1.5 rounded-lg flex-row items-center">
+                    <Ionicons name="cafe-outline" size={14} color="#9333EA" />
+                    <Text className="text-xs font-semibold text-purple-600 ml-1">{drink?.capacity} cl</Text>
+                  </View>
+                ) : (
+                  <View className="bg-orange-50 px-3 py-1.5 rounded-lg flex-row items-center">
+                    <Ionicons name="time-outline" size={14} color="#FF6347" />
+                    <Text className="text-xs font-semibold text-orange-600 ml-1">{dish?.preparation_time} min</Text>
+                  </View>
+                )}
               </View>
             </View>
 
@@ -256,84 +366,117 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                 <View className="flex-1">
                   <Text className="text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Prix de vente</Text>
                   <Heading className="text-3xl font-bold text-primary-500">
-                    €{item?.price.toFixed(2)}
+                    €{price.toFixed(2)}
                   </Heading>
                 </View>
-                <View className="h-14 w-px bg-gray-100 mx-4" />
-                <View className="flex-1">
-                  <Text className="text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Coût</Text>
-                  <Text className="text-2xl font-bold text-gray-900">
-                    €{item?.cost.toFixed(2)}
-                  </Text>
-                </View>
-                <View className="h-14 w-px bg-gray-100 mx-4" />
-                <View className="flex-1">
-                  <Text className="text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Marge</Text>
-                  <Text className="text-2xl font-bold text-green-600">
-                    {profit}%
-                  </Text>
-                </View>
+                {!isDrink && (
+                  <>
+                    <View className="h-14 w-px bg-gray-100 mx-4" />
+                    <View className="flex-1">
+                      <Text className="text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Coût</Text>
+                      <Text className="text-2xl font-bold text-gray-900">
+                        €{cost.toFixed(2)}
+                      </Text>
+                    </View>
+                    <View className="h-14 w-px bg-gray-100 mx-4" />
+                    <View className="flex-1">
+                      <Text className="text-xs text-gray-500 mb-1.5 uppercase tracking-wider">Marge</Text>
+                      <Text className="text-2xl font-bold text-green-600">
+                        {profit}%
+                      </Text>
+                    </View>
+                  </>
+                )}
               </View>
             </View>
 
             {/* Metrics Grid */}
             <View className="flex-row gap-3 mb-5">
-              <Animated.View
-                entering={SlideInRight.delay(200)}
-                className="flex-1 bg-white rounded-2xl p-4"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.05,
-                  shadowRadius: 8,
-                  elevation: 2,
-                }}
-              >
-                <View className="flex-row items-center justify-between mb-2">
-                  <Ionicons name="flame-outline" size={20} color="#FF6347" />
-                  <Text className="text-2xl font-bold text-primary-500">
-                    {item?.soldToday}
-                  </Text>
-                </View>
-                <Text className="text-xs text-gray-600">Vendus aujourd'hui</Text>
-              </Animated.View>
-
-              <Animated.View
-                entering={SlideInRight.delay(300)}
-                className="flex-1 bg-white rounded-2xl p-4"
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.05,
-                  shadowRadius: 8,
-                  elevation: 2,
-                }}
-              >
-                <View className="flex-row items-center justify-between mb-2">
-                  <Ionicons
-                    name="restaurant-outline"
-                    size={20}
-                    color={isAtCapacity
-? "#EF4444"
-: capacityPercentage > 70
-? "#F59E0B"
-: "#6B7280"}
-                  />
-                  <Text
-                    className="text-2xl font-bold"
+              {isDrink ? (
+                <>
+                  <Animated.View
+                    entering={SlideInRight.delay(200)}
+                    className="flex-1 bg-white rounded-2xl p-4"
                     style={{
-                      color: isAtCapacity
-? "#EF4444"
-: capacityPercentage > 70
-? "#F59E0B"
-: "#6B7280"
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.05,
+                      shadowRadius: 8,
+                      elevation: 2,
                     }}
                   >
-                    {item?.currentOrders}/{item?.maxConcurrentOrders}
-                  </Text>
-                </View>
-                <Text className="text-xs text-gray-600">Commandes en cours</Text>
-              </Animated.View>
+                    <View className="flex-row items-center justify-between mb-2">
+                      <Ionicons name="flash-outline" size={20} color="#10B981" />
+                      <Text className="text-base font-bold text-green-600">
+                        {drink?.is_suitable_for_quick_delivery ? "Oui" : "Non"}
+                      </Text>
+                    </View>
+                    <Text className="text-xs text-gray-600">Livraison rapide</Text>
+                  </Animated.View>
+
+                  <Animated.View
+                    entering={SlideInRight.delay(300)}
+                    className="flex-1 bg-white rounded-2xl p-4"
+                    style={{
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.05,
+                      shadowRadius: 8,
+                      elevation: 2,
+                    }}
+                  >
+                    <View className="flex-row items-center justify-between mb-2">
+                      <Ionicons name="calendar-outline" size={20} color="#3B82F6" />
+                      <Text className="text-base font-bold text-blue-600">
+                        {drink?.is_suitable_for_scheduled_delivery ? "Oui" : "Non"}
+                      </Text>
+                    </View>
+                    <Text className="text-xs text-gray-600">Livraison programmée</Text>
+                  </Animated.View>
+                </>
+              ) : (
+                <>
+                  <Animated.View
+                    entering={SlideInRight.delay(200)}
+                    className="flex-1 bg-white rounded-2xl p-4"
+                    style={{
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.05,
+                      shadowRadius: 8,
+                      elevation: 2,
+                    }}
+                  >
+                    <View className="flex-row items-center justify-between mb-2">
+                      <Ionicons name="restaurant-outline" size={20} color="#FF6347" />
+                      <Text className="text-2xl font-bold text-primary-500">
+                        {dish?.max_concurrent_orders}
+                      </Text>
+                    </View>
+                    <Text className="text-xs text-gray-600">Commandes max</Text>
+                  </Animated.View>
+
+                  <Animated.View
+                    entering={SlideInRight.delay(300)}
+                    className="flex-1 bg-white rounded-2xl p-4"
+                    style={{
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.05,
+                      shadowRadius: 8,
+                      elevation: 2,
+                    }}
+                  >
+                    <View className="flex-row items-center justify-between mb-2">
+                      <Ionicons name="time-outline" size={20} color="#3B82F6" />
+                      <Text className="text-2xl font-bold text-blue-600">
+                        {dish?.preparation_time}
+                      </Text>
+                    </View>
+                    <Text className="text-xs text-gray-600">Temps de préparation (min)</Text>
+                  </Animated.View>
+                </>
+              )}
             </View>
           </Animated.View>
 
@@ -397,7 +540,9 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                     Description complète
                   </Text>
                   <Text className="text-sm leading-6">
-                    {item?.description || "Aucune description disponible pour ce plat."}
+                    {item.description || (isDrink
+                      ? "Aucune description disponible pour cette boisson."
+                      : "Aucune description disponible pour ce plat.")}
                   </Text>
                 </View>
 
@@ -408,35 +553,75 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                     Détails techniques
                   </Text>
                   <View className="gap-3">
-                    <View className="flex-row items-center justify-between">
-                      <View className="flex-row items-center">
-                        <View className="w-8 h-8 bg-orange-100 rounded-lg items-center justify-center mr-3">
-                          <Ionicons name="time-outline" size={18} color="#FF6347" />
+                    {isDrink ? (
+                      <>
+                        <View className="flex-row items-center justify-between">
+                          <View className="flex-row items-center">
+                            <View className="w-8 h-8 bg-purple-100 rounded-lg items-center justify-center mr-3">
+                              <Ionicons name="cafe-outline" size={18} color="#9333EA" />
+                            </View>
+                            <Text className="text-sm">Volume</Text>
+                          </View>
+                          <Text className="font-semibold">{drink?.capacity} cl</Text>
                         </View>
-                        <Text className="text-sm">Temps de préparation</Text>
-                      </View>
-                      <Text className="font-semibold">{item?.preparationTime} min</Text>
-                    </View>
 
-                    <View className="flex-row items-center justify-between">
-                      <View className="flex-row items-center">
-                        <View className="w-8 h-8 bg-blue-100 rounded-lg items-center justify-center mr-3">
-                          <Ionicons name="restaurant-outline" size={18} color="#3B82F6" />
+                        <View className="flex-row items-center justify-between">
+                          <View className="flex-row items-center">
+                            <View className="w-8 h-8 bg-green-100 rounded-lg items-center justify-center mr-3">
+                              <Ionicons name="flash-outline" size={18} color="#10B981" />
+                            </View>
+                            <Text className="text-sm">Livraison rapide</Text>
+                          </View>
+                          <Text className="font-semibold">
+                            {drink?.is_suitable_for_quick_delivery ? "Oui" : "Non"}
+                          </Text>
                         </View>
-                        <Text className="text-sm">Capacité max</Text>
-                      </View>
-                      <Text className="font-semibold">{item?.maxConcurrentOrders} commandes</Text>
-                    </View>
 
-                    <View className="flex-row items-center justify-between">
-                      <View className="flex-row items-center">
-                        <View className="w-8 h-8 bg-green-100 rounded-lg items-center justify-center mr-3">
-                          <Ionicons name="cash-outline" size={18} color="#10B981" />
+                        <View className="flex-row items-center justify-between">
+                          <View className="flex-row items-center">
+                            <View className="w-8 h-8 bg-blue-100 rounded-lg items-center justify-center mr-3">
+                              <Ionicons name="calendar-outline" size={18} color="#3B82F6" />
+                            </View>
+                            <Text className="text-sm">Livraison programmée</Text>
+                          </View>
+                          <Text className="font-semibold">
+                            {drink?.is_suitable_for_scheduled_delivery ? "Oui" : "Non"}
+                          </Text>
                         </View>
-                        <Text className="text-sm">Revenu aujourd'hui</Text>
-                      </View>
-                      <Text className="font-semibold">€{item?.revenue.toFixed(2)}</Text>
-                    </View>
+                      </>
+                    ) : (
+                      <>
+                        <View className="flex-row items-center justify-between">
+                          <View className="flex-row items-center">
+                            <View className="w-8 h-8 bg-orange-100 rounded-lg items-center justify-center mr-3">
+                              <Ionicons name="time-outline" size={18} color="#FF6347" />
+                            </View>
+                            <Text className="text-sm">Temps de préparation</Text>
+                          </View>
+                          <Text className="font-semibold">{dish?.preparation_time} min</Text>
+                        </View>
+
+                        <View className="flex-row items-center justify-between">
+                          <View className="flex-row items-center">
+                            <View className="w-8 h-8 bg-blue-100 rounded-lg items-center justify-center mr-3">
+                              <Ionicons name="restaurant-outline" size={18} color="#3B82F6" />
+                            </View>
+                            <Text className="text-sm">Capacité max</Text>
+                          </View>
+                          <Text className="font-semibold">{dish?.max_concurrent_orders} commandes</Text>
+                        </View>
+
+                        <View className="flex-row items-center justify-between">
+                          <View className="flex-row items-center">
+                            <View className="w-8 h-8 bg-purple-100 rounded-lg items-center justify-center mr-3">
+                              <Ionicons name="pricetag-outline" size={18} color="#9333EA" />
+                            </View>
+                            <Text className="text-sm">Catégorie</Text>
+                          </View>
+                          <Text className="font-semibold capitalize">{dish?.category}</Text>
+                        </View>
+                      </>
+                    )}
                   </View>
                 </View>
 
@@ -447,14 +632,16 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                     Dernière modification
                   </Text>
                   <Text className="text-sm">
-                    {new Date(item?.lastModified).toLocaleDateString("fr-FR", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    {item.updated_at
+                      ? new Date(item.updated_at).toLocaleDateString("fr-FR", {
+                          weekday: "long",
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
+                      : "—"}
                   </Text>
                 </View>
               </Animated.View>
@@ -466,11 +653,18 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                   Liste des ingrédients
                 </Text>
                 <View className="flex-row flex-wrap gap-2">
-                  {["Tomate", "Mozzarella", "Basilic", "Huile d'olive", "Sel", "Poivre"].map((ingredient, index) => (
-                    <View key={index} className="bg-gray-100 px-4 py-2 rounded-full">
-                      <Text className="text-sm">{ingredient}</Text>
-                    </View>
-                  ))}
+                  {Array.isArray(item.ingredients) && item.ingredients.length > 0
+                    ? item.ingredients.map((ingredient: any, index: number) => (
+                        <View key={index} className="bg-gray-100 px-4 py-2 rounded-full">
+                          <Text className="text-sm">
+                            {typeof ingredient === "string" ? ingredient : ingredient.name}
+                            {!isDrink && ingredient?.quantity ? ` (${ingredient.quantity})` : ""}
+                          </Text>
+                        </View>
+                      ))
+                    : (
+                        <Text className="text-sm text-gray-400">Aucun ingrédient renseigné.</Text>
+                      )}
                 </View>
               </Animated.View>
             )}
@@ -481,14 +675,18 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                   Allergènes présents
                 </Text>
                 <View className="gap-3">
-                  {item?.allergens?.map((allergen: string, index: number) => (
-                    <View key={index} className="flex-row items-center bg-red-50 p-3 rounded-xl">
-                      <View className="w-8 h-8 bg-red-100 rounded-full items-center justify-center mr-3">
-                        <MaterialIcons name="warning" size={18} color="#EF4444" />
-                      </View>
-                      <Text className="text-sm font-medium capitalize">{allergen}</Text>
-                    </View>
-                  ))}
+                  {allergensList.length > 0
+                    ? allergensList.map((allergen: string, index: number) => (
+                        <View key={index} className="flex-row items-center bg-red-50 p-3 rounded-xl">
+                          <View className="w-8 h-8 bg-red-100 rounded-full items-center justify-center mr-3">
+                            <MaterialIcons name="warning" size={18} color="#EF4444" />
+                          </View>
+                          <Text className="text-sm font-medium capitalize">{allergen}</Text>
+                        </View>
+                      ))
+                    : (
+                        <Text className="text-sm text-gray-400">Aucun allergène renseigné.</Text>
+                      )}
                 </View>
               </Animated.View>
             )}
@@ -505,19 +703,27 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
           <SafeAreaView edges={["bottom"]}>
             <View className="px-5 py-4 flex-row gap-3">
               <TouchableOpacity
-                className="bg-white border border-gray-300 rounded-2xl px-6 py-4 flex-row items-center justify-center"
+                onPress={handleDelete}
+                disabled={isDeleting}
+                className="bg-white border border-red-200 rounded-2xl px-6 py-4 flex-row items-center justify-center"
                 style={{
                   shadowColor: "#000",
                   shadowOffset: { width: 0, height: 2 },
                   shadowOpacity: 0.1,
                   shadowRadius: 8,
+                  opacity: isDeleting ? 0.6 : 1,
                 }}
               >
-                <Ionicons name="create-outline" size={20} color="#374151" />
-                <Text className="font-bold ml-2">Modifier</Text>
+                {isDeleting ? (
+                  <ActivityIndicator size="small" color="#EF4444" />
+                ) : (
+                  <Ionicons name="trash-outline" size={20} color="#EF4444" />
+                )}
+                <Text className="font-bold ml-2 text-red-500">Supprimer</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
+                onPress={handleEdit}
                 className="flex-1 bg-primary-500 rounded-2xl py-4 flex-row items-center justify-center"
                 style={{
                   shadowColor: "#FF6347",
@@ -526,8 +732,8 @@ const FoodDetailsScreen: React.FC<any> = ({ navigation, route }) => {
                   shadowRadius: 8,
                 }}
               >
-                <Ionicons name="analytics-outline" size={20} color="white" />
-                <Text className="text-white font-bold text-base ml-2">Voir Analytics</Text>
+                <Ionicons name="create-outline" size={20} color="white" />
+                <Text className="text-white font-bold text-base ml-2">Modifier</Text>
               </TouchableOpacity>
             </View>
           </SafeAreaView>

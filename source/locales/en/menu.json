@@ -133,7 +133,11 @@
     "resetConfirmTitle": "Reset Form",
     "resetConfirmMessage": "All data will be lost. Continue?",
     "add": "Add",
-    "reset": "Reset"
+    "reset": "Reset",
+    "successTitle": "Success",
+    "successMessage": "The dish was added to the menu.",
+    "errorTitle": "Error",
+    "errorMessage": "Something went wrong. Please try again."
   },
   "ingredientsList": {
     "salt": "Salt",

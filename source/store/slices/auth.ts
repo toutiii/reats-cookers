@@ -49,25 +49,45 @@ const mapCookerResponse = (data: CookerCreateResponse): Cooker => ({
   acceptanceRate: data.acceptance_rate,
 });
 
-// Helper to map profile API response to Cooker
-const mapProfileResponse = (data: CookerProfileResponse, existingCooker: Cooker | null): Cooker => ({
-  id: existingCooker?.id ?? 0,
-  firstname: data.personal_infos_section.firstname,
-  lastname: data.personal_infos_section.lastname,
-  phone: data.personal_infos_section.phone,
-  email: data.personal_infos_section.email,
-  photo: data.personal_infos_section.photo,
-  postalCode: data.address_section.postal_code,
-  siret: data.personal_infos_section.siret,
-  streetName: data.address_section.street_name,
-  streetNumber: data.address_section.street_number,
-  town: data.address_section.town,
-  addressComplement: data.address_section.address_complement,
-  maxOrderNumber: parseInt(data.personal_infos_section.max_order_number, 10) || 0,
-  isOnline: data.personal_infos_section.is_online,
-  isActivated: existingCooker?.isActivated ?? true,
-  acceptanceRate: data.personal_infos_section.acceptance_rate,
-});
+// Helper to map profile API response to Cooker.
+// Handles BOTH backend response shapes:
+//   - Wrapped: { personal_infos_section: {...}, address_section: {...} }   (legacy)
+//   - Flat:    { firstname, lastname, ..., street_number, ... }            (Swagger CookerGET)
+const mapProfileResponse = (
+  data: CookerProfileResponse | Record<string, any>,
+  existingCooker: Cooker | null,
+): Cooker => {
+  const raw: any = data ?? {};
+  const personal: any = raw.personal_infos_section ?? raw;
+  const address: any = raw.address_section ?? raw;
+
+  const rawMaxOrders = personal?.max_order_number;
+  const maxOrderNumber =
+    typeof rawMaxOrders === "number"
+      ? rawMaxOrders
+      : parseInt(String(rawMaxOrders ?? ""), 10) || 0;
+
+  return {
+    id: raw.id ?? existingCooker?.id ?? 0,
+    firstname: personal?.firstname ?? existingCooker?.firstname ?? "",
+    lastname: personal?.lastname ?? existingCooker?.lastname ?? "",
+    phone: personal?.phone ?? existingCooker?.phone ?? "",
+    email: personal?.email ?? existingCooker?.email ?? "",
+    photo: personal?.photo ?? existingCooker?.photo ?? null,
+    siret: personal?.siret ?? existingCooker?.siret ?? "",
+    postalCode: address?.postal_code ?? existingCooker?.postalCode ?? "",
+    streetName: address?.street_name ?? existingCooker?.streetName ?? "",
+    streetNumber: address?.street_number ?? existingCooker?.streetNumber ?? "",
+    town: address?.town ?? existingCooker?.town ?? "",
+    addressComplement:
+      address?.address_complement ?? existingCooker?.addressComplement ?? null,
+    maxOrderNumber: maxOrderNumber || existingCooker?.maxOrderNumber || 0,
+    isOnline: personal?.is_online ?? existingCooker?.isOnline ?? true,
+    isActivated: raw.is_activated ?? existingCooker?.isActivated ?? true,
+    acceptanceRate:
+      personal?.acceptance_rate ?? existingCooker?.acceptanceRate ?? 0,
+  };
+};
 
 // Possible authentication flow states
 export type AuthStatus =
@@ -444,13 +464,48 @@ const authSlice = createSlice({
     // Get cooker profile - store in auth state
     builder
       .addMatcher(cookerApi.endpoints.getCookerProfile.matchFulfilled, (state, action) => {
-        state.cooker = mapProfileResponse(action.payload.data, state.cooker);
+        try {
+          console.log("[GetCookerProfile.fulfilled] payload:", action.payload);
+          state.cooker = mapProfileResponse(action.payload?.data as any, state.cooker);
+        } catch (e: any) {
+          console.error("[GetCookerProfile.fulfilled] mapping error:", {
+            message: e?.message,
+            stack: e?.stack,
+            payload: action.payload,
+          });
+        }
       });
 
     // Update cooker profile - sync auth state with API response
     builder
       .addMatcher(cookerApi.endpoints.updateCookerProfile.matchFulfilled, (state, action) => {
-        state.cooker = mapProfileResponse(action.payload.data, state.cooker);
+        try {
+          console.log("[UpdateCookerProfile.fulfilled] payload:", action.payload);
+          state.cooker = mapProfileResponse(action.payload?.data as any, state.cooker);
+        } catch (e: any) {
+          console.error("[UpdateCookerProfile.fulfilled] mapping error:", {
+            message: e?.message,
+            stack: e?.stack,
+            payload: action.payload,
+          });
+        }
+      });
+
+    // Update cooker photo - sync auth state with returned photo URL
+    builder
+      .addMatcher(cookerApi.endpoints.updateCookerPhoto.matchFulfilled, (state, action) => {
+        try {
+          console.log("[UpdateCookerPhoto.fulfilled] payload:", action.payload);
+          if (state.cooker) {
+            state.cooker = mapProfileResponse(action.payload?.data as any, state.cooker);
+          }
+        } catch (e: any) {
+          console.error("[UpdateCookerPhoto.fulfilled] mapping error:", {
+            message: e?.message,
+            stack: e?.stack,
+            payload: action.payload,
+          });
+        }
       });
   },
 });

@@ -11,7 +11,7 @@ export const dashboardApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getDashboardStats: builder.query<ApiResponse<DashboardStatsResponse>, { period?: DashboardPeriod } | void>({
       query: (params) => ({
-        url: "/dashboard/stats/",
+        url: "/cookers-dashboard/stats/",
         method: "GET",
         params: params ? { period: params.period } : undefined,
       }),
@@ -20,7 +20,7 @@ export const dashboardApi = baseApi.injectEndpoints({
 
     getPopularItems: builder.query<ApiResponse<PopularItemsResponse>, void>({
       query: () => ({
-        url: "/dashboard/popular-items/",
+        url: "/cookers-dashboard/popular-items/",
         method: "GET",
       }),
       providesTags: ["Dashboard"],
@@ -28,7 +28,7 @@ export const dashboardApi = baseApi.injectEndpoints({
 
     getRecentReviews: builder.query<ApiResponse<RecentReviewsResponse>, void>({
       query: () => ({
-        url: "/dashboard/recent-reviews/",
+        url: "/cookers-dashboard/recent-reviews/",
         method: "GET",
       }),
       providesTags: ["Dashboard"],

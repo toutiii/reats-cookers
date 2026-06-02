@@ -30,12 +30,13 @@ interface MenuItemCardProps {
   item: MenuItem;
   index: number;
   onToggleAvailability: (id: string) => void;
+  onView: (item: MenuItem) => void;
   onEdit: (item: MenuItem) => void;
   onDelete: (id: string) => void;
 }
 
 export const MenuItemCard: React.FC<MenuItemCardProps> = React.memo(
-  ({ item, index, onToggleAvailability, onEdit, onDelete }) => {
+  ({ item, index, onToggleAvailability, onView, onEdit, onDelete }) => {
     const profit = ((item.price - item.cost) / item.price * 100).toFixed(0);
     const isAtCapacity = item.currentOrders >= item.maxConcurrentOrders;
     const capacityPercentage = Math.round((item.currentOrders / item.maxConcurrentOrders) * 100);
@@ -43,6 +44,10 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = React.memo(
     const handleAnalytics = useCallback((_id: string) => {
       console.log("Analytics", _id);
     }, []);
+
+    const handleViewPress = useCallback(() => {
+      onView(item);
+    }, [item, onView]);
 
     const handleEditPress = useCallback(() => {
       onEdit(item);
@@ -66,7 +71,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = React.memo(
             shadowRadius: 4,
             elevation: 2,
           }}
-          onPress={handleEditPress}
+          onPress={handleViewPress}
         >
           <View className="flex-row">
             <ProductImage uri={item.image} available={item.available} isLowStock={isAtCapacity} />
