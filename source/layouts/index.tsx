@@ -8,6 +8,8 @@ import Feather from "@expo/vector-icons/Feather";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
 
 type TabParamList = {
   Dashboard: undefined;
@@ -23,6 +25,11 @@ export const MainNavigator = () => {
   const activeColor = "#f97316";
   const inactiveColor = "#9CA3AF";
   const bgColor = "#FFFFFF";
+
+  const cooker = useSelector((state: RootState) => state.auth.cooker);
+  const initials = cooker
+    ? `${cooker.firstname?.[0] ?? ""}${cooker.lastname?.[0] ?? ""}`.toUpperCase()
+    : "";
 
   return (
     <Tab.Navigator
@@ -56,13 +63,9 @@ export const MainNavigator = () => {
           } else if (route.name === "Profile") {
             return (
               <Avatar size="xs">
-                <AvatarFallbackText>Jane Doe</AvatarFallbackText>
-                <AvatarImage
-                  source={{
-                    uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-                  }}
-                />
-                <AvatarBadge />
+                <AvatarFallbackText>{initials}</AvatarFallbackText>
+                {cooker?.photo && <AvatarImage source={{ uri: cooker.photo }} />}
+                {cooker?.isOnline && <AvatarBadge />}
               </Avatar>
             );
           }
