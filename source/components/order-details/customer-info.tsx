@@ -2,20 +2,17 @@ import React from "react";
 import { View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Text } from "@/components/ui/text";
+import type { OrderAddress, OrderCustomer } from "@/types/orders";
 
 interface CustomerInfoProps {
-  customerName: string;
-  customerPhone: string;
-  customerAddress: string;
-  notes?: string;
+  customer: OrderCustomer;
+  address: OrderAddress;
 }
 
-export const CustomerInfo: React.FC<CustomerInfoProps> = ({
-  customerName,
-  customerPhone,
-  customerAddress,
-  notes,
-}) => {
+export const CustomerInfo: React.FC<CustomerInfoProps> = ({ customer, address }) => {
+  const fullName = `${customer.firstname} ${customer.lastname}`.trim();
+  const formattedAddress = `${address.postal_code} ${address.city}`.trim();
+
   return (
     <View className="px-5 mb-4">
       <View
@@ -33,38 +30,16 @@ export const CustomerInfo: React.FC<CustomerInfoProps> = ({
             <Feather name="user" size={20} color="#f97316" />
           </View>
           <View className="flex-1">
-            <Text className="text-base font-bold">
-              {customerName}
-            </Text>
+            <Text className="text-base font-bold">{fullName}</Text>
             <Text className="text-sm text-gray-500 mt-1">Customer</Text>
           </View>
         </View>
 
-        <View className="space-y-3">
-          <View className="flex-row items-center">
-            <View className="w-8 h-8 bg-gray-50 rounded-lg items-center justify-center mr-3">
-              <Feather name="phone" size={16} color="#6b7280" />
-            </View>
-            <Text className="text-sm text-gray-700">{customerPhone}</Text>
+        <View className="flex-row items-start">
+          <View className="w-8 h-8 bg-gray-50 rounded-lg items-center justify-center mr-3">
+            <Feather name="map-pin" size={16} color="#6b7280" />
           </View>
-
-          <View className="flex-row items-start">
-            <View className="w-8 h-8 bg-gray-50 rounded-lg items-center justify-center mr-3">
-              <Feather name="map-pin" size={16} color="#6b7280" />
-            </View>
-            <Text className="text-sm text-gray-700 flex-1">
-              {customerAddress}
-            </Text>
-          </View>
-
-          {notes && (
-            <View className="flex-row items-start">
-              <View className="w-8 h-8 bg-gray-50 rounded-lg items-center justify-center mr-3">
-                <Feather name="message-circle" size={16} color="#6b7280" />
-              </View>
-              <Text className="text-sm text-gray-700 flex-1">{notes}</Text>
-            </View>
-          )}
+          <Text className="text-sm text-gray-700 flex-1">{formattedAddress}</Text>
         </View>
       </View>
     </View>

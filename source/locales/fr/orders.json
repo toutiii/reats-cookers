@@ -51,7 +51,8 @@
     "pending": "En attente",
     "preparing": "En préparation",
     "ready": "Prêtes",
-    "completed": "Terminées"
+    "completed": "Terminées",
+    "activeCount": "En cours ({{count}})"
   },
   "empty": {
     "title": "Aucune commande",

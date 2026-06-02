@@ -1,85 +1,113 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { ThemedView } from "@/components/themed-view";
 import { Header } from "@/components/common/header";
 import { Text } from "@/components/ui/text";
-import { Button, ButtonText, ButtonSpinner } from "@/components/ui/button";
+import { Button, ButtonSpinner, ButtonText } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogBackdrop,
-  AlertDialogContent,
-  AlertDialogHeader,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
+  AlertDialogHeader,
 } from "@/components/ui/alert-dialog";
 import { Heading } from "@/components/ui/heading";
 import { OrderDetailsSkeleton } from "@/components/skeletons";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import type { ScreenRouteProp } from "@/types/navigation";
 import {
-  StatusCard,
+  ActionButtons,
   CustomerInfo,
   OrderItemsList,
   PaymentSummary,
-  ActionButtons,
+  StatusCard,
 } from "@/components/order-details";
 import {
-  STATUS_CONFIG,
-  STATUS_CHANGE_MESSAGES,
-  getOrderById,
-  type OrderDetails as OrderDetailsType,
-} from "../../mocks/orders/order-details";
+  useAcceptOrderMutation,
+  useCancelOrderMutation,
+  useGetOrderQuery,
+  useMarkOrderReadyMutation,
+  useStartOrderPreparationMutation,
+} from "@/store/api/ordersApi";
+import { mergeOrderLineItems, type OrderActionDescriptor } from "@/utils/orders";
 
 const OrderDetailsScreen: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute<ScreenRouteProp<"OrderDetailsScreen">>();
   const { orderId } = route.params;
 
-  // Load order from mock data based on orderId
-  const [order, setOrder] = useState<OrderDetailsType | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showStatusDialog, setShowStatusDialog] = useState(false);
-  const [pendingStatus, setPendingStatus] = useState<OrderDetailsType["status"] | null>(null);
-  const [isConfirming, setIsConfirming] = useState(false);
+  const { data: order, isLoading, isError, refetch } = useGetOrderQuery(orderId);
 
-  // Load order data
-  useEffect(() => {
-    setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      const foundOrder = getOrderById(orderId);
-      if (foundOrder) {
-        setOrder(foundOrder);
-      }
-      setIsLoading(false);
-    }, 500);
-  }, [orderId]);
+  const [acceptOrder, acceptState] = useAcceptOrderMutation();
+  const [startPreparation, startState] = useStartOrderPreparationMutation();
+  const [markReady, markReadyState] = useMarkOrderReadyMutation();
+  const [cancelOrder, cancelState] = useCancelOrderMutation();
 
-  // Simulate real-time updates
-  useEffect(() => {
-    if (!order) return;
+  const [pendingAction, setPendingAction] = useState<OrderActionDescriptor | null>(null);
 
-    const interval = setInterval(() => {
-      // Simulate status updates (for demo purposes)
-      console.log("Order status:", order.status);
-    }, 30000); // Check every 30 seconds
+  const isBusy =
+    acceptState.isLoading ||
+    startState.isLoading ||
+    markReadyState.isLoading ||
+    cancelState.isLoading;
 
-    return () => clearInterval(interval);
+  const lastTransitionAt = useMemo(() => {
+    if (!order) return null;
+    const timeline = [
+      order.timestamps.cancelled_date,
+      order.timestamps.completed_date,
+      order.timestamps.delivering_date,
+      order.timestamps.ready_date,
+      order.timestamps.preparing_date,
+      order.timestamps.accepted_date,
+    ];
+    return timeline.find((value) => value !== null) ?? null;
   }, [order]);
 
-  // Loading state with centralized skeleton
+  const lineItems = useMemo(() => (order
+? mergeOrderLineItems(order)
+: []), [order]);
+
+  const closeDialog = useCallback(() => {
+    if (isBusy) return;
+    setPendingAction(null);
+  }, [isBusy]);
+
+  const handleConfirm = useCallback(async () => {
+    if (!pendingAction || !order) return;
+
+    try {
+      switch (pendingAction.action) {
+        case "accept":
+          await acceptOrder(order.id).unwrap();
+          break;
+        case "start-preparation":
+          await startPreparation(order.id).unwrap();
+          break;
+        case "mark-ready":
+          await markReady(order.id).unwrap();
+          break;
+        case "cancel":
+          await cancelOrder({ id: order.id }).unwrap();
+          break;
+      }
+      setPendingAction(null);
+    } catch {
+      setPendingAction(null);
+    }
+  }, [acceptOrder, cancelOrder, markReady, order, pendingAction, startPreparation]);
+
   if (isLoading) {
     return (
       <ThemedView>
         <SafeAreaView className="flex-1">
           <Header
-            title="Order Details"
+            title="Order details"
             subtitle="Loading..."
-            showBackButton={true}
+            showBackButton
             onBackPress={() => navigation.goBack()}
-            notificationCount={5}
-            onNotificationPress={() => console.log("Notifications")}
           />
           <OrderDetailsSkeleton />
         </SafeAreaView>
@@ -87,171 +115,98 @@ const OrderDetailsScreen: React.FC = () => {
     );
   }
 
-  // Order not found
-  if (!order) {
+  if (isError || !order) {
     return (
       <ThemedView>
         <SafeAreaView className="flex-1">
           <Header
-            title="Order Details"
-            subtitle="Not Found"
-            showBackButton={true}
+            title="Order details"
+            subtitle="Not found"
+            showBackButton
             onBackPress={() => navigation.goBack()}
-            notificationCount={5}
-            onNotificationPress={() => console.log("Notifications")}
           />
           <View className="flex-1 items-center justify-center px-5">
-            <Text className="text-xl font-bold text-gray-900 mb-2">Order Not Found</Text>
-            <Text className="text-gray-500 text-center">
-              The order you're looking for doesn't exist or has been removed.
+            <Text className="text-xl font-bold text-gray-900 mb-2">Order not found</Text>
+            <Text className="text-gray-500 text-center mb-6">
+              The order you are looking for does not exist or could not be loaded.
             </Text>
+            <Button onPress={() => refetch()} size="sm">
+              <ButtonText>Retry</ButtonText>
+            </Button>
           </View>
         </SafeAreaView>
       </ThemedView>
     );
   }
 
-  const statusConfig = STATUS_CONFIG[order.status];
-
-  // Handle status change with confirmation
-  const handleStatusChange = (newStatus: OrderDetailsType["status"]) => {
-    setPendingStatus(newStatus);
-    setShowStatusDialog(true);
-  };
-
-  // Confirm status change
-  const confirmStatusChange = () => {
-    if (!pendingStatus || isConfirming) return;
-
-    setIsConfirming(true);
-
-    // Simulate API call
-    setTimeout(() => {
-      setOrder({
-        ...order!,
-        status: pendingStatus,
-        updatedAt: new Date(),
-      });
-      setIsConfirming(false);
-      setShowStatusDialog(false);
-      setPendingStatus(null);
-    }, 1500);
-  };
-
-  // Cancel status change
-  const cancelStatusChange = () => {
-    setShowStatusDialog(false);
-    setPendingStatus(null);
-  };
-
-  // Get status change message
-  const getStatusChangeMessage = () => {
-    if (!order || !pendingStatus) return "";
-    const messageKey = `${order.status}_to_${pendingStatus}` as keyof typeof STATUS_CHANGE_MESSAGES;
-    return STATUS_CHANGE_MESSAGES[messageKey] || `Are you sure you want to change the order status to "${pendingStatus}"? The customer will be notified of this change.`;
-  };
-
-  // Get dialog title based on action
-  const getDialogTitle = () => {
-    if (!pendingStatus) return "Confirm Action";
-    if (pendingStatus === "cancelled") return "Cancel Order";
-    if (pendingStatus === "completed") return "Complete Order";
-    if (pendingStatus === "ready") return "Mark as Ready";
-    if (pendingStatus === "preparing") return "Start Preparation";
-    return "Confirm Status Change";
-  };
-
-
   return (
     <ThemedView>
       <SafeAreaView className="flex-1">
         <Header
-          title="Order Details"
-          subtitle={order.orderNumber}
-          showBackButton={true}
+          title="Order details"
+          subtitle={`#${order.id}`}
+          showBackButton
           onBackPress={() => navigation.goBack()}
-          notificationCount={5}
-          onNotificationPress={() => console.log("Notifications")}
         />
 
         <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-          {/* Status Card */}
           <StatusCard
-            statusConfig={statusConfig}
-            orderTime={order.orderTime}
-            estimatedTime={order.estimatedTime}
-            currentStatus={order.status}
+            status={order.status}
+            createdAt={order.timestamps.created}
+            lastTransitionAt={lastTransitionAt}
           />
 
-          {/* Customer Info */}
-          <CustomerInfo
-            customerName={order.customerName}
-            customerPhone={order.customerPhone}
-            customerAddress={order.customerAddress}
-            notes={order.notes}
-          />
+          <CustomerInfo customer={order.customer} address={order.address} />
 
-          {/* Order Items */}
-          <OrderItemsList items={order.items} />
+          <OrderItemsList items={lineItems} />
 
-          {/* Payment Summary */}
           <PaymentSummary
-            subtotal={order.subtotal}
-            tax={order.tax}
-            deliveryFee={order.deliveryFee}
-            total={order.total}
-            paymentMethod={order.paymentMethod}
+            subTotal={order.sub_total}
+            serviceFees={order.service_fees}
+            deliveryFees={order.delivery_fees}
+            totalAmount={order.total_amount}
           />
 
-          {/* Action Buttons */}
           <ActionButtons
             status={order.status}
-            onStatusChange={handleStatusChange}
+            onAction={(action) => setPendingAction(action)}
+            isBusy={isBusy}
           />
         </ScrollView>
 
-        {/* Status Change Confirmation Dialog */}
-        <AlertDialog isOpen={showStatusDialog} onClose={cancelStatusChange} size="md">
+        <AlertDialog isOpen={pendingAction !== null} onClose={closeDialog} size="md">
           <AlertDialogBackdrop />
           <AlertDialogContent>
             <AlertDialogHeader>
               <Heading className="text-typography-950 font-semibold" size="md">
-                {getDialogTitle()}
+                {pendingAction?.confirmTitle ?? ""}
               </Heading>
             </AlertDialogHeader>
             <AlertDialogBody className="mt-3 mb-4">
               <Text size="sm" className="text-typography-700 leading-5">
-                {getStatusChangeMessage()}
+                {pendingAction?.confirmMessage ?? ""}
               </Text>
             </AlertDialogBody>
             <AlertDialogFooter>
               <Button
                 variant="outline"
                 action="secondary"
-                onPress={cancelStatusChange}
+                onPress={closeDialog}
                 size="sm"
-                isDisabled={isConfirming}
+                isDisabled={isBusy}
               >
                 <ButtonText>Cancel</ButtonText>
               </Button>
               <Button
                 size="sm"
-                action={
-                  pendingStatus === "cancelled"
-                    ? "negative"
-                    : "positive"
-                }
-                onPress={confirmStatusChange}
-                isDisabled={isConfirming}
+                action={pendingAction?.action === "cancel"
+? "negative"
+: "positive"}
+                onPress={handleConfirm}
+                isDisabled={isBusy}
               >
-                {isConfirming && <ButtonSpinner color="#ffffff" />}
-                <ButtonText>
-                  {isConfirming
-                    ? "Processing..."
-                    : pendingStatus === "cancelled"
-                    ? "Cancel Order"
-                    : "Confirm"}
-                </ButtonText>
+                {isBusy && <ButtonSpinner color="#ffffff" />}
+                <ButtonText>{pendingAction?.confirmCta ?? "Confirm"}</ButtonText>
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
